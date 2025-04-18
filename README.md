@@ -45,7 +45,7 @@ L'application est construite selon une architecture **microservices**, avec sép
 - Apollo Server (GraphQL)
 - TypeORM
 - PostgreSQL ou MariaDB
-- JWT / Bcrypt
+- JWT / Argon2 / Crypto
 - Docker & Docker Compose
 
 ---
@@ -87,7 +87,7 @@ care-plan/
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/<votre-organisation>/care-plan.git
+git clone https://github.com/WildCodeSchool-CDA-FT-2025-03/CDA-Projet-2-Team-1.git
 cd care-plan
 ```
 
@@ -122,11 +122,11 @@ docker-compose up --build
 
 | Nom                  | Rôle                       |
 |---------------------|----------------------------|
-| Ryan Decian          | Développeur Fullstack      |
-| Membre 2            | ...                        |
-| Membre 3            | ...                        |
-| Membre 4            | ...                        |
-| Membre 5            | ...                        |
+| Ryan DECIAN          | Développeur Fullstack      |
+| Romaric              | ...                        |
+| Rodolphe             | ...                        |
+| Maximilien           | ...                        |
+| Florian SEBAL        | ...                        |
 
 ---
 
