@@ -1,16 +1,20 @@
-# CDA-Projet-2-Team-1
+# 🏥 Care Plan - Gestion Médicale Intelligente
 
-# 🏥 Care Plan - Application Web de Gestion Hospitalière
+## 📋 À propos du projet
 
-Bienvenue sur le dépôt officiel de **Care Plan**, une application web conçue pour faciliter la gestion des services d’un établissement hospitalier.
+**Care Plan** est une application web moderne conçue pour optimiser la gestion des rendez-vous et des utilisateurs dans un environnement hospitalier. Développée pour répondre aux besoins spécifiques des établissements de santé, cette solution permet une coordination fluide entre les agents d'accueil, secrétaires, professionnels de santé et administrateurs grâce à des fonctionnalités clés :
+
+- 👨⚕️ Gestion des plannings médicaux
+- 📅 Prise de rendez-vous intelligente
+- 🔐 Contrôle granulaire des accès utilisateurs
+- 📤 Notifications automatisées par email
+- 🗂 Archivage sécurisé des dossiers patients
 
 ---
 
-## 🔥 Objectif du projet
+## 🔥 Objectif pédagogique
 
-L’objectif est de digitaliser les interactions internes d’un hôpital en fournissant une application web intuitive destinée aux **agents d'accueil**, **secrétaires**, **professionnels de santé** et **administrateurs**.
-
-Ce projet est développé par une équipe de 5 étudiants dans le cadre de la formation **CDA - Concepteur Développeur d’Applications**.
+Ce projet est réalisé dans le cadre de la formation **CDA - Concepteur Développeur d’Applications** par une équipe de 5 étudiants.
 
 ---
 
@@ -23,47 +27,68 @@ Ce projet est développé par une équipe de 5 étudiants dans le cadre de la fo
 | 🔵 **Professionnel de santé** | - Création, modification et annulation de rendez-vous<br>- Accès et création de dossiers médicaux |
 | 🔴 **Admin**            | - Gestion du personnel (création, suppression, modification des comptes)<br>- Attribution ou modification des rôles<br>- Gestion des rendez-vous et plannings du personnel médical |
 
+## 🔐 Modèle de permissions
+
+| Rôle       | Dossiers patients | RDV | Congés | Notes médicales |
+| ---------- | ----------------- | --- | ------ | --------------- |
+| Agent      | Lecture partielle | ✅  | ❌     | ❌              |
+| Secrétaire | Lecture partielle | ✅  | ❌     | ✅ (limitée)    |
+| Médecin    | Lecture complète  | ✅  | ✅     | ✅              |
+
 ---
 
-## 🧱 Architecture
+## 🧱 Architecture technique
 
-L'application est construite selon une architecture **microservices**, avec séparation claire des responsabilités. Chaque microservice est dédié à une fonctionnalité précise et communique via **GraphQL**.
+L'application repose sur une architecture **microservices** pour une meilleure scalabilité et séparation des responsabilités. Chaque microservice communique via **GraphQL**.
 
 ---
 
-## 🪰 Technologies utilisées
+## 🚀 Technologies utilisées
 
 ### Frontend
-- React (TypeScript)
-- React Router
-- Axios
-- React Query
-- CSS Modules ou TailwindCSS
 
-### Backend (Microservices)
-- Express.js
-- Apollo Server (GraphQL)
-- TypeORM
-- PostgreSQL ou MariaDB
-- JWT / Argon2 / Crypto
-- Docker & Docker Compose
+- ⚛️ **React** - Interfaces dynamiques
+- 🔷 **TypeScript** - Typage statique robuste
+- 🎨 **TailwindCSS** - Framework CSS utilitaire
+- 🧩 **Shadcn UI** - Composants UI accessibles
+- 📅 **tweakcn** - Génération de thème UI
+- 🔄 **GraphQL** - API flexible
+- 🔌 **TypeORM** - ORM TypeScript
+- 📅 **casl** - Gestion des permissions
+- 🖼️ **Framer Motion** - Animations fluides
+- 🔍 **Lucide React** - Icônes pour React
+- ✉️ **React Email** - Templates email responsive
+- 🧹 **eslint** - Linter de code
+- 🧪 **husky** - Pré-commit hook
+- 🧪 **playwright** - Tests UI
+
+### Backend
+
+- 🗄️ **PostgreSQL** - Base de données relationnelle
+- 📧 **Nodemailer** - Emails transactionnels
+- 🎨 **Redis** - Cache performant
+- 🔍 **Nginx** - Proxy inverse
+- 🐳 **Docker** - Conteneurisation
+- 📅 **Day.js** - Gestion des dates
+- 🔐 **JWT** - Authentification sécurisée
+- 🔑 **Argon2 / Crypto** - Hashing sécurisé
 
 ---
 
-## 🧹 Services prévus
+## 🧹 Microservices prévus
 
 | Microservice           | Description                            | Port  | Base de données |
 |------------------------|----------------------------------------|-------|-----------------|
 | Auth Service           | Connexion, JWT, gestion des rôles      | 5000  | PostgreSQL      |
-| Rendez-vous Service    | Création et gestion des rendez-vous    | 5001  | PostgreSQL      |
+| Rendez-vous Service    | Gestion des rendez-vous                | 5001  | PostgreSQL      |
 | Patient Service        | Infos patients, recherche, historique  | 5002  | PostgreSQL      |
 | Dossier Médical Service| Dossiers médicaux                      | 5003  | PostgreSQL      |
-| Planning Service       | Emplois du temps des professionnels    | 5004  | PostgreSQL      |
-| User Management        | Gestion des utilisateurs (Admin)       | 5005  | PostgreSQL      |
+| Planning Service       | Plannings des professionnels           | 5004  | PostgreSQL      |
+| User Management        | Gestion des utilisateurs               | 5005  | PostgreSQL      |
 
 ---
 
-## 🧰 Structure du dépôt
+## 📁 Structure du dépôt
 
 ```
 care-plan/
@@ -82,39 +107,67 @@ care-plan/
 
 ---
 
-## 🚀 Démarrage rapide
+## 🛠️ Installation
 
-### 1. Cloner le dépôt
-
+1. Cloner le dépôt
 ```bash
 git clone https://github.com/WildCodeSchool-CDA-FT-2025-03/CDA-Projet-2-Team-1.git
 cd care-plan
 ```
 
-### 2. Lancer le projet
+2. Installer les dépendances racine
+```bash
+npm install
+```
 
+3. Installer les dépendances des services backend
+```bash
+cd backend/<service-name>
+npm install
+```
+
+4. Lancer tous les services avec Docker
 ```bash
 docker-compose up --build
 ```
 
-### 3. Accès
-
-- Application Web : [http://localhost:3000](http://localhost:3000)
-- Interfaces GraphQL : `/graphql` sur chaque service
+5. Accéder à l’application :
+- Frontend : [http://localhost:3000](http://localhost:3000)
+- Backend GraphQL : `/graphql` sur chaque service
 
 ---
 
-## 🛠️ À faire (Roadmap)
+## 🧪 Bonnes pratiques
 
-- [x] Définir les rôles et droits utilisateurs
-- [ ] Mise en place de l’authentification JWT
-- [ ] Création de l’interface Agent mobile
-- [ ] Dashboard Professionnel de santé
-- [ ] Interface Admin pour la gestion du personnel
-- [ ] API GraphQL pour les rendez-vous
-- [ ] Base de données relationnelle avec TypeORM
-- [ ] Tests unitaires & intégration
-- [ ] Déploiement
+### Convention de commits
+
+- `feat:` Nouvelle fonctionnalité
+- `fix:` Correction de bug
+- `docs:` Documentation
+- `refactor:` Refacto sans changement fonctionnel
+- `style:` Changement visuel / CSS uniquement
+
+### Workflow de développement
+
+1. `npm outdated` — Vérification des dépendances obsolètes
+2. `npm run lint` — Analyse statique du code
+3. `npm test` — Lancement des tests
+4. `npm run dev` — Démarrage en développement
+5. `npm run build` — Build de production
+
+---
+
+## 📆 Roadmap
+
+- [x] Définition des rôles utilisateurs
+- [x] Choix technologiques
+- [ ] Authentification JWT sécurisée
+- [ ] Développement de l'interface agent mobile
+- [ ] Création du dashboard professionnel
+- [ ] Panel de gestion administrateur
+- [ ] API GraphQL centralisée
+- [ ] Intégration des tests (unitaires + E2E)
+- [ ] Déploiement (Docker / VPS / NAS)
 
 ---
 
@@ -122,15 +175,14 @@ docker-compose up --build
 
 | Nom                  | Rôle                       |
 |---------------------|----------------------------|
-| Ryan DECIAN          | Développeur Fullstack      |
-| Romaric              | ...                        |
-| Rodolphe             | ...                        |
-| Maximilien           | ...                        |
-| Florian SEBAL        | ...                        |
+| Ryan DECIAN         | Développeur Fullstack      |
+| Romaric             | Développeur Fullstack      |
+| Rodolphe            | Développeur Fullstack      |
+| Maximilien          | Développeur Fullstack      |
+| Florian SEBAL       | Développeur Fullstack      |
 
 ---
 
 ## 📜 Licence
 
 Projet développé dans un cadre pédagogique — toute utilisation externe doit être autorisée par l’équipe.
-
