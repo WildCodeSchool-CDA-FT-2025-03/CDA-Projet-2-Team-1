@@ -23,17 +23,18 @@ Ce projet est réalisé dans le cadre de la formation **CDA - Concepteur Dévelo
 | Rôle                   | Droits & Accès                                                                                      |
 |------------------------|-----------------------------------------------------------------------------------------------------|
 | 🟢 **Agent**            | - Accès mobile uniquement<br>- Recherche patient (nom / n° sécu)<br>- Affichage du lieu et horaire du rendez-vous |
-| 🟡 **Secrétaire**       | - Gestion complète des rendez-vous (créer, modifier, supprimer)<br>- Référent pour les informations patients |
-| 🔵 **Professionnel de santé** | - Création, modification et annulation de rendez-vous<br>- Accès et création de dossiers médicaux |
-| 🔴 **Admin**            | - Gestion du personnel (création, suppression, modification des comptes)<br>- Attribution ou modification des rôles<br>- Gestion des rendez-vous et plannings du personnel médical |
+| 🟡 **Secrétaire**       | - Gestion complète des rendez-vous (créer, modifier, supprimer)<br>- Accès à l’emploi du temps de tous les professionnels de santé<br>- Consultation des absences et congés du personnel médical<br>- Aucun accès aux dossiers médicaux<br>- Ne peut pas poser de congés ou indiquer une absence |
+| 🔵 **Professionnel de santé** | - Consultation et historique de ses rendez-vous<br>- Consultation de ses anciennes consultations<br>- Accès à tous les dossiers médicaux<br>- Rédaction obligatoire d’un compte rendu par consultation<br>- Ne peut pas modifier ni supprimer un compte rendu<br>- Peut rédiger un compte rendu correctif<br>- Peut consulter son propre planning<br>- Peut faire une demande de congé ou d'absence<br>- Ne peut pas voir le planning de ses collègues |
+| 🔴 **Admin**            | - Création, modification, suppression d’utilisateurs<br>- Modification des rôles utilisateurs<br>- Accès au planning de tout le personnel (agents, secrétaires, professionnels de santé, admins)<br>- Peut modifier le planning de tout le personnel<br>- Aucun accès aux dossiers médicaux ni aux rendez-vous des patients |
 
 ## 🔐 Modèle de permissions
 
-| Rôle       | Dossiers patients | RDV | Congés | Notes médicales |
-| ---------- | ----------------- | --- | ------ | --------------- |
-| Agent      | Lecture partielle | ✅  | ❌     | ❌              |
-| Secrétaire | Lecture partielle | ✅  | ❌     | ✅ (limitée)    |
-| Médecin    | Lecture complète  | ✅  | ✅     | ✅              |
+| Rôle       | Dossiers patients | RDV | Congés / Absences | Planning | Comptes utilisateurs |
+| ---------- | ----------------- | --- | ------------------ | -------- | --------------------- |
+| Agent      | ❌                | ✅  | ❌                 | ❌       | ❌                    |
+| Secrétaire | ❌                | ✅  | Lecture seule congés/absences pro | Lecture planning pro | ❌                    |
+| Médecin    | ✅ Lecture / Ajout CR | ✅  | ✅ (sur soi-même)   | ✅ (perso uniquement) | ❌                    |
+| Admin      | ❌                | ❌  | ✅ (tout personnel) | ✅ (tout personnel) | ✅ (CRUD + rôles)   |
 
 ---
 
@@ -83,7 +84,7 @@ L'application repose sur une architecture **microservices** pour une meilleure s
 | Rendez-vous Service    | Gestion des rendez-vous                | 5001  | PostgreSQL      |
 | Patient Service        | Infos patients, recherche, historique  | 5002  | PostgreSQL      |
 | Dossier Médical Service| Dossiers médicaux                      | 5003  | PostgreSQL      |
-| Planning Service       | Plannings des professionnels           | 5004  | PostgreSQL      |
+| Planning Service       | Plannings et congés du personnel       | 5004  | PostgreSQL      |
 | User Management        | Gestion des utilisateurs               | 5005  | PostgreSQL      |
 
 ---
@@ -186,3 +187,4 @@ docker-compose up --build
 ## 📜 Licence
 
 Projet développé dans un cadre pédagogique — toute utilisation externe doit être autorisée par l’équipe.
+
