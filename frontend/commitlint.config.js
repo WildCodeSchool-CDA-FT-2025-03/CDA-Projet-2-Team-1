@@ -15,9 +15,9 @@ export default {
         'build',
         'ci',
         'chore',
-        'revert'
-      ]
+        'revert',
+      ],
     ],
     'subject-case': [0],
-  }
+  },
 };
