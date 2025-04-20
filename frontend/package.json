@@ -10,6 +10,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
     "prepare": "husky install"
   },
   "keywords": [],
