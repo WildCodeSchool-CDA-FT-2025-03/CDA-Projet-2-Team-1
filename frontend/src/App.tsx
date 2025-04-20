@@ -6,7 +6,7 @@ function App() {
     <>
       <div className="card">
         <p>
-          Bienvenue sur Care Plan :)
+          Bienvenue sur Care Plan
         </p>
       </div>
     </>
