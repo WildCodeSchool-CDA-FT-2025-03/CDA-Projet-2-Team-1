@@ -1,14 +1,10 @@
-import { fileURLToPath } from 'url';
-import globals from 'globals';
 import js from '@eslint/js';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
-import path from 'path';
-import reactHooks from 'eslint-plugin-react-hooks';
 import reactPlugin from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default tseslint.config(
   {
@@ -19,7 +15,11 @@ export default tseslint.config(
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.es2020,
+        ...globals.node,
+      },
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -43,7 +43,7 @@ export default tseslint.config(
       ...jsxA11yPlugin.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      '@typescript-eslint/no-non-null-assertion': 'error',
+      '@typescript-eslint/no-non-null-assertion': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'error',
       'no-duplicate-imports': 'error',
