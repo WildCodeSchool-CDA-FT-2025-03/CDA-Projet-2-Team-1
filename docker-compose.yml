@@ -2,28 +2,28 @@ version: '3.8'
 
 services:
   auth-service:
-    build: ./auth-service
+    build: ./backend/auth-service
     container_name: auth-service
     ports:
       - '3001:3000'
     restart: unless-stopped
 
   appointment-service:
-    build: ./appointment-service
+    build: ./backend/appointment-service
     container_name: appointment-service
     ports:
       - '3002:3000'
     restart: unless-stopped
 
   leave-service:
-    build: ./leave-service
+    build: ./backend/leave-service
     container_name: leave-service
     ports:
       - '3003:3000'
     restart: unless-stopped
 
   email-service:
-    build: ./email-service
+    build: ./backend/email-service
     container_name: email-service
     ports:
       - '3004:3000'

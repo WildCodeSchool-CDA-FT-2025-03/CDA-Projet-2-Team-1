@@ -14,7 +14,7 @@
 
 ## 🔥 Objectif pédagogique
 
-Ce projet est réalisé dans le cadre de la formation **CDA - Concepteur Développeur d’Applications** par une équipe de 5 étudiants.
+Ce projet est réalisé dans le cadre de la formation **CDA - Concepteur Développeur d'Applications** par une équipe de 5 étudiants.
 
 ---
 
@@ -23,9 +23,9 @@ Ce projet est réalisé dans le cadre de la formation **CDA - Concepteur Dévelo
 | Rôle                          | Droits & Accès                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 🟢 **Agent**                  | - Accès mobile uniquement<br>- Recherche patient (nom / n° sécu)<br>- Affichage du lieu et horaire du rendez-vous                                                                                                                                                                                                                                                                                                                                      |
-| 🟡 **Secrétaire**             | - Gestion complète des rendez-vous (créer, modifier, supprimer)<br>- Accès à l’emploi du temps de tous les professionnels de santé<br>- Consultation des absences et congés du personnel médical<br>- Aucun accès aux dossiers médicaux<br>- Ne peut pas poser de congés ou indiquer une absence                                                                                                                                                       |
-| 🔵 **Professionnel de santé** | - Consultation et historique de ses rendez-vous<br>- Consultation de ses anciennes consultations<br>- Accès à tous les dossiers médicaux<br>- Rédaction obligatoire d’un compte rendu par consultation<br>- Ne peut pas modifier ni supprimer un compte rendu<br>- Peut rédiger un compte rendu correctif<br>- Peut consulter son propre planning<br>- Peut faire une demande de congé ou d'absence<br>- Ne peut pas voir le planning de ses collègues |
-| 🔴 **Admin**                  | - Création, modification, suppression d’utilisateurs<br>- Modification des rôles utilisateurs<br>- Accès au planning de tout le personnel (agents, secrétaires, professionnels de santé, admins)<br>- Peut modifier le planning de tout le personnel<br>- Aucun accès aux dossiers médicaux ni aux rendez-vous des patients                                                                                                                            |
+| 🟡 **Secrétaire**             | - Gestion complète des rendez-vous (créer, modifier, supprimer)<br>- Accès à l'emploi du temps de tous les professionnels de santé<br>- Consultation des absences et congés du personnel médical<br>- Aucun accès aux dossiers médicaux<br>- Ne peut pas poser de congés ou indiquer une absence                                                                                                                                                       |
+| 🔵 **Professionnel de santé** | - Consultation et historique de ses rendez-vous<br>- Consultation de ses anciennes consultations<br>- Accès à tous les dossiers médicaux<br>- Rédaction obligatoire d'un compte rendu par consultation<br>- Ne peut pas modifier ni supprimer un compte rendu<br>- Peut rédiger un compte rendu correctif<br>- Peut consulter son propre planning<br>- Peut faire une demande de congé ou d'absence<br>- Ne peut pas voir le planning de ses collègues |
+| 🔴 **Admin**                  | - Création, modification, suppression d'utilisateurs<br>- Modification des rôles utilisateurs<br>- Accès au planning de tout le personnel (agents, secrétaires, professionnels de santé, admins)<br>- Peut modifier le planning de tout le personnel<br>- Aucun accès aux dossiers médicaux ni aux rendez-vous des patients                                                                                                                            |
 
 ## 🔐 Modèle de permissions
 
@@ -52,6 +52,7 @@ L'application repose sur une architecture **microservices** pour une meilleure s
 - 🔷 **TypeScript** - Typage statique robuste
 - 🎨 **TailwindCSS** - Framework CSS utilitaire
 - 🧩 **Shadcn UI** - Composants UI accessibles
+- 🔍 **@headlessui/react** - Composants UI accessibles sans styles
 - 📅 **tweakcn** - Génération de thème UI
 - 🔄 **GraphQL** - API flexible
 - 🔌 **TypeORM** - ORM TypeScript
@@ -60,7 +61,8 @@ L'application repose sur une architecture **microservices** pour une meilleure s
 - 🔍 **Lucide React** - Icônes pour React
 - ✉️ **React Email** - Templates email responsive
 - 🧹 **eslint** - Linter de code
-- 🧪 **husky** - Pré-commit hook
+- 🔷 **prettier** - Formattage de code
+- 🔍 **husky** - Pré-commit hook
 - 🧪 **playwright** - Tests UI
 
 ### Backend
@@ -100,6 +102,7 @@ care-plan/
 │   ├── appointment-service/
 │   ├── email-service/
 │   ├── leave-service/
+│   ├── Dockerfile
 ├── docker-compose.yml    # Orchestration
 └── README.md
 ```
@@ -134,7 +137,7 @@ npm install
 docker-compose up --build
 ```
 
-5. Accéder à l’application :
+5. Accéder à l'application :
 
 - Frontend : [http://localhost:3000](http://localhost:3000)
 - Backend GraphQL : `/graphql` sur chaque service
@@ -189,4 +192,4 @@ docker-compose up --build
 
 ## 📜 Licence
 
-Projet développé dans un cadre pédagogique — toute utilisation externe doit être autorisée par l’équipe.
+Projet développé dans un cadre pédagogique — toute utilisation externe doit être autorisée par l'équipe.
