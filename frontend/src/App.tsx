@@ -1,12 +1,12 @@
-import './App.css';
+import './index.css';
+
+import Login from './components/Login';
 
 function App() {
   return (
-    <>
-      <div className="card">
-        <p>Bienvenue sur Care-Plan votre site de santé</p>
-      </div>
-    </>
+    <div className="app">
+      <Login />
+    </div>
   );
 }
 
