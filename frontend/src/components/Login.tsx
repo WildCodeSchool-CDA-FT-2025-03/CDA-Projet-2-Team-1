@@ -30,7 +30,7 @@ export default function Login() {
       <div className="w-1/2 flex flex-col items-center justify-center p-12">
         <div className="w-full max-w-xs">
           {/* Logo */}
-          <img src="/logoText.svg" alt="CarePlan Logo" className="mb-10 h-10 mx-auto" />
+          <img src="/logoText.svg" alt="CarePlan Logo" className="mb10 h-50 mx-auto" />
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -70,7 +70,7 @@ export default function Login() {
               </Button>
             </div>
           </form>
-          <div className="mt-4 text-center">
+          <div className="mt-4 text-right">
             <a href="#" className="text-xs text-turquoise hover:underline">
               Mot de passe perdu ?
             </a>
