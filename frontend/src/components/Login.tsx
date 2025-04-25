@@ -21,13 +21,13 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex bg-background">
-      {/* Colonne gauche avec l'image */}
-      <div className="w-1/2 flex items-center justify-center p-12">
-        <img src="/imagelogin.svg" alt="Illustration connexion" className="max-w-full h-auto" />
+      {/* Colonne gauche avec l'image - masquée sur mobile */}
+      <div className="hidden md:flex w-1/2 items-center justify-center p-12 min-h-screen">
+        <img src="/imagelogin.svg" alt="Illustration connexion" className="max-w-full h-auto mx-auto" />
       </div>
 
-      {/* Colonne droite avec le formulaire */}
-      <div className="w-1/2 flex flex-col items-center justify-center p-12">
+      {/* Colonne droite avec le formulaire - pleine largeur sur mobile */}
+      <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-12 bg-[var(--login-form-bg)]">
         <div className="w-full max-w-xs">
           {/* Logo */}
           <img src="/logoText.svg" alt="CarePlan Logo" className="mb10 h-50 mx-auto" />
@@ -44,7 +44,7 @@ export default function Login() {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                className="mt-1 w-full px-3 py-2 border border-turquoise rounded-md shadow-sm focus:outline-none focus:ring-turquoise focus:border-turquoise text-sm"
+                className="mt-1 w-full px-3 py-2 border border-turquoise rounded-md shadow-sm focus:outline-none focus:ring-turquoise focus:border-turquoise text-sm placeholder:text-gray-500 placeholder:font-medium"
               />
             </div>
             <div>
@@ -58,7 +58,7 @@ export default function Login() {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
-                className="mt-1 w-full px-3 py-2 border border-turquoise rounded-md shadow-sm focus:outline-none focus:ring-turquoise focus:border-turquoise text-sm"
+                className="mt-1 w-full px-3 py-2 border border-turquoise rounded-md shadow-sm focus:outline-none focus:ring-turquoise focus:border-turquoise text-sm placeholder:text-gray-500 placeholder:font-medium"
               />
             </div>
             <div>
