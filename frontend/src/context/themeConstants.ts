@@ -1,4 +1,4 @@
 export const DEFAULT_THEME = {
-  isDarkMode: false,
+  theme: 'light' as const,
   toggleTheme: () => {},
 };

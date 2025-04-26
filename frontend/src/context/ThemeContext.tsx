@@ -1,23 +1,26 @@
-import React, { useMemo, useState } from 'react';
+import React, { createContext, useMemo, useState } from 'react';
 
-import { ThemeContext } from './themeContext';
+import { DEFAULT_THEME } from './themeConstants';
+import { ThemeContextType } from './themeTypes';
+
+export const ThemeContext = createContext<ThemeContextType>(DEFAULT_THEME);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   const toggleTheme = useMemo(
     () => () => {
-      setIsDarkMode(!isDarkMode);
+      setTheme(theme === 'light' ? 'dark' : 'light');
     },
-    [isDarkMode],
+    [theme],
   );
 
   const value = useMemo(
     () => ({
-      isDarkMode,
+      theme,
       toggleTheme,
     }),
-    [isDarkMode, toggleTheme],
+    [theme, toggleTheme],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
