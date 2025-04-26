@@ -9,6 +9,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
+    "autoprefixer": "^10.4.21",
     "eslint": "^8.56.0",
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-node": "^11.1.0",
@@ -17,6 +18,14 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.1",
-    "prettier": "^3.5.3"
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "tailwindcss": "^4.1.4"
+  },
+  "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.16",
+    "react-router-dom": "^7.5.2"
   }
 }
