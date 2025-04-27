@@ -11,7 +11,7 @@ const CategoryPage = () => {
   const articlesPerPage = 5;
 
   const filteredArticles = mockArticles
-    .filter(article => article.category === category)
+    .filter(article => article.category.toLowerCase() === category?.toLowerCase())
     .sort((a, b) => {
       const dateA = new Date(a.date).getTime();
       const dateB = new Date(b.date).getTime();
@@ -69,14 +69,14 @@ const CategoryPage = () => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
             <h1 className="text-3xl font-bold capitalize mb-4 md:mb-0">Articles {category}</h1>
             <div className="flex items-center gap-4">
-              <label htmlFor="sortBy" className="text-gray-400">
+              <label htmlFor="sortBy" className="text-foreground">
                 Trier par :
               </label>
               <select
                 id="sortBy"
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value as 'newest' | 'oldest')}
-                className="bg-dark-lighter text-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                className="bg-dark-lighter text-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary [&>option]:bg-white [&>option]:text-black"
               >
                 <option value="newest">Plus récent</option>
                 <option value="oldest">Plus ancien</option>

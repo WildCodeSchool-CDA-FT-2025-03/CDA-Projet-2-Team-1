@@ -108,9 +108,9 @@ const ArticlePage = () => {
         )}
 
         <p className="text-gray-400">
-          Bienvenue dans notre analyse approfondie du monde du gaming {category}. Dans cet article,
-          nous allons explorer les dernières tendances, les nouveautés et les développements majeurs
-          qui façonnent l&apos;industrie du jeu vidéo.
+          Bienvenue dans notre analyse approfondie du monde du gaming {article.category}. Dans cet
+          article, nous allons explorer les dernières tendances, les nouveautés et les
+          développements majeurs qui façonnent l&apos;industrie du jeu vidéo.
         </p>
 
         <p className="text-gray-400">

@@ -1,21 +1,32 @@
-import React, { createContext, useMemo, useState } from 'react';
-
 import { DEFAULT_THEME } from './themeConstants';
+import React from 'react';
 import { ThemeContextType } from './themeTypes';
 
-export const ThemeContext = createContext<ThemeContextType>(DEFAULT_THEME);
+export const ThemeContext = React.createContext<ThemeContextType>(DEFAULT_THEME);
 
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+type ThemeProviderProps = {
+  children: React.ReactNode;
+};
 
-  const toggleTheme = useMemo(
+export function ThemeProvider({ children }: ThemeProviderProps) {
+  const [theme, setTheme] = React.useState<'light' | 'dark'>('light');
+
+  React.useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
+  const toggleTheme = React.useMemo(
     () => () => {
       setTheme(theme === 'light' ? 'dark' : 'light');
     },
     [theme],
   );
 
-  const value = useMemo(
+  const value = React.useMemo(
     () => ({
       theme,
       toggleTheme,
@@ -24,4 +35,4 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
-};
+}
