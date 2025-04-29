@@ -1,8 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter } from 'react-router';
-// eslint-disable-next-line no-duplicate-imports
-import { RouterProvider } from 'react-router';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 import './index.css';
 import App from './App.tsx';
 import SecretaryPage from './pages/SecretaryPage.tsx';
