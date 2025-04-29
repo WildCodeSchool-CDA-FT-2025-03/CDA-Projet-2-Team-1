@@ -77,11 +77,11 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
-      "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
+      "eslint --fix",
+      "prettier --write"
     ],
     "*.{json,md}": [
-      "prettier --write \"*.{json,md}\""
+      "prettier --write"
     ]
   }
 }
