@@ -73,10 +73,10 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
-      "prettier --write --ignore-unknown"
+      "prettier --write"
     ],
     "*.{json,md}": [
-      "prettier --write --ignore-unknown"
+      "prettier --write --parser json"
     ]
   }
 }
