@@ -78,10 +78,10 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
-      "prettier --write"
+      "prettier --write --ignore-unknown"
     ],
     "*.{json,md}": [
-      "prettier --write"
+      "prettier --write --ignore-unknown"
     ]
   }
 }
