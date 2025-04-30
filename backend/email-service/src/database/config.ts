@@ -1,6 +1,7 @@
 import "dotenv/config";
 import mysql from "mysql2/promise";
 import chalk from "chalk";
+import ENV from "../config/ENV.config";
 
 // ✅ Stockage du pool dans une variable globale
 let pool: mysql.Pool | null = null;
@@ -12,11 +13,11 @@ function initializePool() {
     if (!pool) {
         try {
             pool = mysql.createPool({
-                host: process.env.DB_HOST || "localhost",
-                port: Number(process.env.DB_PORT || "3306"),
-                user: process.env.DB_USER || "root",
-                password: process.env.DB_PASSWORD || "password",
-                database: process.env.DB_NAME || "DB_AESF",
+                host: ENV("process.env.DB_HOST", "Warning") || "localhost",
+                port: Number(ENV("process.env.DB_PORT", "Warning") || "3306"),
+                user: ENV("process.env.DB_USER", "Warning") || "root",
+                password: ENV("process.env.DB_PASSWORD", "Warning") || "password",
+                database: ENV("process.env.DB_NAME", "Warning") || "DB_CarePlan",
                 waitForConnections: true, // Attend qu'une connexion soit disponible au lieu de planter
                 connectionLimit: 10, // Maximum 10 connexions simultanées
                 queueLimit: 0 // Aucune limite d'attente (les requêtes attendent leur tour)
