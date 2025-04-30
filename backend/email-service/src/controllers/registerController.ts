@@ -28,7 +28,6 @@ registerController.post("/",
         try {
             /* Logique métier 1 : Vérification si l'email existe */
                 const dataUser: RowDataPacket[] = await verifyEmailFalseRepository(req.body.email);
-
                 // Si l'email existe déjà dans la DB, on ne peut pas continuer.
                 if (dataUser.length > 0) { // Si c'est supérieur à 0, c'est que l'email existe déjà
                     res.status(409).json({ message: "Cet email est déjà utilisé. Veuillez en choisir un autre." });
@@ -89,7 +88,7 @@ registerController.post("/",
                     URI: "/api/register",
                     methode: "POST",
                     codeStatus: "500 : Internal Server Error",
-                    chemin: "/server/src/middleware/VerifyEmail/VerifyEmailFalse.ts",
+                    chemin: "/server/src/controllers/registerController.ts",
                     "❌ Nature de l'erreur": "Erreur non gérée dans le serveur !",
                     details: error,
                 },

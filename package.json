@@ -4,8 +4,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
-    "format:fix": "prettier --write .",
-    "commit": "bash -c 'git-commit'"
+    "format:fix": "prettier --write ."
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.0.0",

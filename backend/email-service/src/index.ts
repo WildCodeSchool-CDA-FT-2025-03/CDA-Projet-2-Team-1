@@ -1,9 +1,9 @@
 // Import général
+import "./config/dotenv.config";
 import express, { Request, Response } from "express";
 import router from "./router/router";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import "./config/dotenv.config";
 import corsOrigins from "./config/CorsOrigins.config";
 import chalk from "chalk";
 import ENV from "./config/ENV.config";

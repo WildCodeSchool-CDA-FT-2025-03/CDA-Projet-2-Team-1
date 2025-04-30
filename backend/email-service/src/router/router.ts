@@ -6,6 +6,6 @@ import registerController from "../controllers/registerController";
 const router = express.Router();
 
 /* Liste des routes ! */
-router.post("/register", registerController); // Route pour l'inscription d'un utilisateur
+router.use("/register", registerController); // 1 route fonctionnelle
 
 export default router;
