@@ -1,9 +1,10 @@
 import { createBrowserRouter } from 'react-router';
+
 import App from '../App';
-import SecretaryPage from '../pages/SecretaryPage';
-import DoctorPage from '../pages/DoctorPage';
-import AgentPage from '../pages/AgentPage';
 import AdminPage from '../pages/AdminPage';
+import AgentPage from '../pages/AgentPage';
+import DoctorPage from '../pages/DoctorPage';
+import SecretaryPage from '../pages/SecretaryPage';
 
 const router = createBrowserRouter([
   {

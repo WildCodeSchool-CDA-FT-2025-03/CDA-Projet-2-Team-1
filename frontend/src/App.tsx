@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router';
-function App() {
 
+function App() {
   return (
     <>
       <div className="card">
@@ -10,3 +10,5 @@ function App() {
     </>
   );
 }
+
+export default App;
