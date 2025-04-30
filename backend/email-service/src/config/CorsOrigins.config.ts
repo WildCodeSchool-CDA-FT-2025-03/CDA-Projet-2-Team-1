@@ -36,4 +36,3 @@ function CorsOrigins() {
 }
 
 export default CorsOrigins;
-

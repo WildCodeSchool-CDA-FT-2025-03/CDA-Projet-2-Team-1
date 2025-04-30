@@ -55,4 +55,3 @@ if (!fs.existsSync(envPath)) {
   console.info(chalk.magenta(`Environnement .env.${Environnement} chargé !`));
 
 export {Environnement, envPath};
-
