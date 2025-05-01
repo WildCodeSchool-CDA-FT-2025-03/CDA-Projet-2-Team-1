@@ -13,10 +13,10 @@ export default function Header() {
 
       {/* Boutons (non fonctionnels pour l'instant) */}
       <div className="flex gap-4">
-        <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 text-sm">
+        <button className="px-4 py-2 border border-sky-600 rounded hover:bg-sky-600 text-sm">
           Déconnexion
         </button>
-        <button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 text-sm">
+        <button className="px-4 py-2 border border-sky-600 text-black rounded hover:bg-sky-600 text-sm">
           Aide
         </button>
       </div>
