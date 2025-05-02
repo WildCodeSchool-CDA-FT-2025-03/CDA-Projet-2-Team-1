@@ -4,9 +4,8 @@ import Header from '../components/header/header';
 function App() {
   return (
     <>
-      <div>
-        <Header />
-      </div>
+      <Header />
+
       <div className="card">
         <p className="bg-red-500">
           Bienvenue sur Care-Plan votre site de santé
