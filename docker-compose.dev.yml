@@ -5,19 +5,27 @@ services:
     build:
       context: ./backend/appointment-service
       target: dev
+
     environment:
       DATABASE_HOST: database
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_SYNC: ${DATABASE_SYNC}
+      API_PORT: ${API_PORT}
+
+    ports:
+      - ${API_PORT}:${API_PORT}
+
     volumes:
       - ./backend/appointment-service/src:/opt/app/src
+
     depends_on:
       - database
 
   database:
     image: 'postgres:17.4-alpine'
+
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -25,6 +33,12 @@ services:
 
     volumes:
       - care-plan-db:/var/lib/postgresql/data/
+
+    healthcheck:
+      test: pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   adminer:
     image: adminer
