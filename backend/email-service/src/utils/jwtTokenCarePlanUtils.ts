@@ -2,17 +2,18 @@ import payloadType from "../types/payloadType";
 import { createDate_Number_Utils } from "./createDateUtils";
 import jwt from "jsonwebtoken";
 import { Request } from "express";
+import ENV from "../config/ENV.config";
 
 // Récupération de la clé secrète Server
-const SECRET_KEY_TOKEN_SERVER: string | undefined = process.env.SECRET_KEY_TOKEN_SERVER;        
+const SECRET_KEY_TOKEN_SERVER: string = ENV("process.env.SECRET_KEY_TOKEN_SERVER", "Warning");        
 // Récupération de la clé secrète Client
-const SECRET_KEY_TOKEN_CLIENT: string | undefined = process.env.SECRET_KEY_TOKEN_CLIENT;
+const SECRET_KEY_TOKEN_CLIENT: string = ENV("process.env.SECRET_KEY_TOKEN_CLIENT", "Warning");
 
 //--------------------------------------------------------------------------------------
 
-async function createJwtTokenServerCarePlan(dataUser: payloadType): Promise<string | boolean> {
-    if (!SECRET_KEY_TOKEN_SERVER) {
-        return false
+async function createJwtTokenServerCarePlan(dataUser: payloadType): Promise<string> {
+    if (SECRET_KEY_TOKEN_SERVER === "Error") {
+        return "Error";
     }
 
     // Création des variables token
@@ -35,9 +36,9 @@ async function createJwtTokenServerCarePlan(dataUser: payloadType): Promise<stri
 export { createJwtTokenServerCarePlan };
 
 
-async function createJwtTokenClientCarePlan(dataUser: payloadType): Promise<string | boolean> {
-    if (!SECRET_KEY_TOKEN_CLIENT) {
-        return false;
+async function createJwtTokenClientCarePlan(dataUser: payloadType): Promise<string> {
+    if (SECRET_KEY_TOKEN_CLIENT === "Error") {
+        return "Error";
     };
 
     // Création des variables token
@@ -64,22 +65,22 @@ async function createJwtTokenClientCarePlan(dataUser: payloadType): Promise<stri
 export { createJwtTokenClientCarePlan };
 
 
-async function verifyJwtTokenCarePlan(req: Request): Promise<payloadType | boolean> {
+async function verifyJwtTokenCarePlan(req: Request): Promise<payloadType | string> {
     try {
-        if (!SECRET_KEY_TOKEN_SERVER) {
-            return false;
+        if (SECRET_KEY_TOKEN_SERVER === "Error") {
+            return "Error";
         }
     
         // Vérification du token
         const token = req.cookies?.jwtTokenServerCarePlan;
-        if (!token) return false;
+        if (!token) return "Error";
     
         const payload = jwt.verify(token, SECRET_KEY_TOKEN_SERVER) as payloadType;
     
         return payload;
     }
     catch (error) {
-        return false;
+        return "Error";
     }
 }
 
