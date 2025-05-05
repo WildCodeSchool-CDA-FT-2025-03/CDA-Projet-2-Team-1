@@ -1,5 +1,6 @@
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
+import PatientEntity from '../entities/patient.entity';
 
 dotenv.config();
 
@@ -8,11 +9,11 @@ const sync = process.env.DATABASE_SYNC === 'true' ? true : false;
 
 export const dataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost',
+  host: process.env.DATABASE_HOST || '',
   database: process.env.DATABASE_NAME || '',
   username: process.env.DATABASE_USER || '',
-  password: process.env.PASSWORD || '',
+  password: process.env.DATABASE_PASSWORD || '',
   port: port,
-  entities: [],
+  entities: [PatientEntity],
   synchronize: sync,
 });
