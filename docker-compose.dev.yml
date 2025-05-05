@@ -1,4 +1,5 @@
 services:
+  ### Service graphql ###
   appointment-service:
     build:
       context: ./backend/appointment-service
@@ -19,8 +20,10 @@ services:
       - ./backend/appointment-service/src:/opt/app/src
 
     depends_on:
-      - database
+      database:
+        condition: service_healthy
 
+  ### Base de donnees postgres ###
   database:
     image: 'postgres:17.4-alpine'
 
@@ -38,6 +41,7 @@ services:
       timeout: 3s
       retries: 5
 
+  ### Adminer ###
   adminer:
     image: adminer
     ports:
@@ -45,7 +49,8 @@ services:
     environment:
       ADMINER_DEFAULT_SERVER: database
     depends_on:
-      - database
+      database:
+        condition: service_healthy
 
 volumes:
   care-plan-db:
