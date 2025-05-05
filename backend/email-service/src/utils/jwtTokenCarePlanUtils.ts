@@ -10,7 +10,7 @@ const SECRET_KEY_TOKEN_CLIENT: string | undefined = process.env.SECRET_KEY_TOKEN
 
 //--------------------------------------------------------------------------------------
 
-async function createJwtTokenServerLAPM(dataUser: payloadType): Promise<string | boolean> {
+async function createJwtTokenServerCarePlan(dataUser: payloadType): Promise<string | boolean> {
     if (!SECRET_KEY_TOKEN_SERVER) {
         return false
     }
@@ -27,15 +27,15 @@ async function createJwtTokenServerLAPM(dataUser: payloadType): Promise<string |
     }
 
     // Création du token server
-    const jwtTokenServerLAPM = jwt.sign(payload_server, SECRET_KEY_TOKEN_SERVER, { expiresIn })
+    const jwtTokenServerCarePlan = jwt.sign(payload_server, SECRET_KEY_TOKEN_SERVER, { expiresIn })
 
-    return jwtTokenServerLAPM;
+    return jwtTokenServerCarePlan;
 }
 
-export { createJwtTokenServerLAPM };
+export { createJwtTokenServerCarePlan };
 
 
-async function createJwtTokenClientLAPM(dataUser: payloadType): Promise<string | boolean> {
+async function createJwtTokenClientCarePlan(dataUser: payloadType): Promise<string | boolean> {
     if (!SECRET_KEY_TOKEN_CLIENT) {
         return false
     }
@@ -56,22 +56,22 @@ async function createJwtTokenClientLAPM(dataUser: payloadType): Promise<string |
     }
 
     // Création du token client
-    const jwtTokenClientLAPM = jwt.sign(payload_client, SECRET_KEY_TOKEN_CLIENT, { expiresIn })
+    const jwtTokenClientCarePlan = jwt.sign(payload_client, SECRET_KEY_TOKEN_CLIENT, { expiresIn })
 
-    return jwtTokenClientLAPM;
+    return jwtTokenClientCarePlan;
 }
 
-export { createJwtTokenClientLAPM };
+export { createJwtTokenClientCarePlan };
 
 
-async function verifyJwtTokenLAPM(req: Request): Promise<payloadType | boolean> {
+async function verifyJwtTokenCarePlan(req: Request): Promise<payloadType | boolean> {
     try {
         if (!SECRET_KEY_TOKEN_SERVER) {
             return false
         }
     
         // Vérification du token
-        const token = req.cookies?.jwtTokenServerLAPM;
+        const token = req.cookies?.jwtTokenServerCarePlan;
         if (!token) return false;
     
         const payload = jwt.verify(token, SECRET_KEY_TOKEN_SERVER) as payloadType;
@@ -83,4 +83,4 @@ async function verifyJwtTokenLAPM(req: Request): Promise<payloadType | boolean> 
     }
 }
 
-export { verifyJwtTokenLAPM };
+export { verifyJwtTokenCarePlan };

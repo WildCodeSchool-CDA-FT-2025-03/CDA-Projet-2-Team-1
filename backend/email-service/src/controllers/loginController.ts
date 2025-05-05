@@ -17,8 +17,8 @@ import payloadType from "../types/payloadType";
 
 // Import des utils
 import { verifyPasswordArgonUtils } from "../utils/hashArgonUtils";
-import { createJwtTokenServerLAPM } from "../utils/jwtTokenLAPMUtils";
-import { createJwtTokenClientLAPM } from "../utils/jwtTokenLAPMUtils";
+import { createJwtTokenServerCarePlan } from "../utils/jwtTokenCarePlanUtils";
+import { createJwtTokenClientCarePlan } from "../utils/jwtTokenCarePlanUtils";
 
 
 // URI : /api/login
@@ -73,13 +73,13 @@ loginController.post("/",
             /* Logique métier 3 : Création du JWT client et server */
 
                 // Création du token server
-                const jwtTokenServerLAPM: string | boolean = await createJwtTokenServerLAPM(dataUser[0] as payloadType);
+                const jwtTokenServerCarePlan: string | boolean = await createJwtTokenServerCarePlan(dataUser[0] as payloadType);
                 // Création du token client
-                const jwtTokenClientLAPM: string | boolean = await createJwtTokenClientLAPM(dataUser[0] as payloadType);
+                const jwtTokenClientCarePlan: string | boolean = await createJwtTokenClientCarePlan(dataUser[0] as payloadType);
 
                 // Vérification des clés secrète Server et Client si elles existent
                 // Si l'une d'entre elles n'existe pas, on renvoie une erreur 500
-                if (!jwtTokenServerLAPM || !jwtTokenClientLAPM) {
+                if (!jwtTokenServerCarePlan || !jwtTokenClientCarePlan) {
                     res.status(500).json({ message: "Erreur interne serveur." });
                     console.error(
                         {
@@ -91,10 +91,10 @@ loginController.post("/",
                             codeStatus: "500 : Internal Server Error",
                             chemin: "/server/src/controllers/loginController.ts",
                             "❌ Nature de l'erreur": "Erreur interne serveur, impossible de créer les token.",
-                            "jwtTokenServerLAPM et jwtTokenClientLAPM": {
-                                identity: "jwtTokenLAPM.ts",
+                            "jwtTokenServerCarePlan et jwtTokenClientCarePlan": {
+                                identity: "jwtTokenCarePlan.ts",
                                 type: "utils",
-                                chemin: "/server/src/utils/jwtTokenLAPM.ts",
+                                chemin: "/server/src/utils/jwtTokenCarePlan.ts",
                                 "❌ Nature de l'erreur": "Erreur interne serveur, clé secrète Server ou client pour la création token manquante.",
                             }
                         },
@@ -104,7 +104,7 @@ loginController.post("/",
 
             /* Logique métier 4 : Réponse au client */
                 res.status(200)
-                .cookie("jwtTokenServerLAPM", jwtTokenServerLAPM, {
+                .cookie("jwtTokenServerCarePlan", jwtTokenServerCarePlan, {
                     httpOnly: true,
                     // secure: true, seulment en production
                     sameSite: "lax",
@@ -112,7 +112,7 @@ loginController.post("/",
                 })
                 .json({
                     message: "Connexion réussie",
-                    jwtTokenClientLAPM: jwtTokenClientLAPM,
+                    jwtTokenClientCarePlan: jwtTokenClientCarePlan,
                 });
                 return;
         }
