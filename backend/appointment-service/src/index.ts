@@ -2,7 +2,10 @@ import { ApolloServer } from '@apollo/server';
 import { dataSource } from './services/client';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { buildSchema } from 'type-graphql';
+import * as dotenv from 'dotenv';
 import PatientResolver from './resolvers/patient.resolver';
+
+dotenv.config();
 
 (async () => {
   await dataSource.initialize();
