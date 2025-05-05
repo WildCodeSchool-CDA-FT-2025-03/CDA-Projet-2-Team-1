@@ -37,8 +37,8 @@ export { createJwtTokenServerCarePlan };
 
 async function createJwtTokenClientCarePlan(dataUser: payloadType): Promise<string | boolean> {
     if (!SECRET_KEY_TOKEN_CLIENT) {
-        return false
-    }
+        return false;
+    };
 
     // Création des variables token
     const expiresIn: number = 60 * 60; // 1 heure
@@ -56,7 +56,7 @@ async function createJwtTokenClientCarePlan(dataUser: payloadType): Promise<stri
     }
 
     // Création du token client
-    const jwtTokenClientCarePlan = jwt.sign(payload_client, SECRET_KEY_TOKEN_CLIENT, { expiresIn })
+    const jwtTokenClientCarePlan = jwt.sign(payload_client, SECRET_KEY_TOKEN_CLIENT, { expiresIn });
 
     return jwtTokenClientCarePlan;
 }
@@ -67,7 +67,7 @@ export { createJwtTokenClientCarePlan };
 async function verifyJwtTokenCarePlan(req: Request): Promise<payloadType | boolean> {
     try {
         if (!SECRET_KEY_TOKEN_SERVER) {
-            return false
+            return false;
         }
     
         // Vérification du token
@@ -76,7 +76,7 @@ async function verifyJwtTokenCarePlan(req: Request): Promise<payloadType | boole
     
         const payload = jwt.verify(token, SECRET_KEY_TOKEN_SERVER) as payloadType;
     
-        return payload;;
+        return payload;
     }
     catch (error) {
         return false;
