@@ -1,0 +1,126 @@
+@import 'tailwindcss';
+
+@layer base {
+  body {
+    @apply font-sans bg-white;
+  }
+}
+
+@layer components {
+  .login-logo {
+    @apply h-20 md:h-32 mx-auto mb-6 mt-8 md:mt-0;
+  }
+
+  .forgot-password-link {
+    @apply text-xs text-[#027fb5] hover:underline;
+  }
+
+  .login-form-container {
+    @apply w-full max-w-xs flex flex-col items-center px-4;
+  }
+
+  .login-label {
+    @apply text-sm font-medium text-gray-800;
+  }
+
+  .login-input {
+    @apply mt-1 w-full rounded-md border border-[#027fb5] px-3 py-2 text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#027fb5];
+  }
+
+  .login-btn {
+    @apply w-full rounded-md bg-[#027fb5] py-2 text-sm font-semibold text-white hover:bg-[#027fb5] transition;
+  }
+}
+
+/* index.css – pour CarePlan login */
+
+/* Logo dimension */
+img[alt='CarePlan Logo'] {
+  height: 50px;
+  margin-bottom: 2rem;
+}
+
+/* Form inputs */
+input[type='email'],
+input[type='password'] {
+  border: 1px solid #38b2ac; /* turquoise */
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #333;
+}
+
+input::placeholder {
+  color: #9ca3af; /* Gray-400 */
+  font-weight: 500;
+}
+
+/* Submit button */
+button[type='submit'] {
+  background-color: #38b2ac;
+  color: white;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+button[type='submit']:hover {
+  background-color: #319795; /* Darker turquoise */
+}
+
+/* "Mot de passe perdu ?" */
+a[href*='mot'] {
+  font-size: 0.75rem;
+  color: #38b2ac;
+  text-decoration: none;
+}
+
+a[href*='mot']:hover {
+  text-decoration: underline;
+}
+
+/* Responsive split layout */
+@media (min-width: 768px) {
+  .login-illustration {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    min-height: 100vh;
+  }
+
+  .login-form {
+    width: 50%;
+    background-color: #f9fbfd;
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Mobile full layout */
+@media (max-width: 767px) {
+  .login-form {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .login-illustration {
+    display: none;
+  }
+
+  .login-form-container {
+    max-width: 95vw;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .login-logo {
+    margin-top: 2.5rem;
+  }
+}

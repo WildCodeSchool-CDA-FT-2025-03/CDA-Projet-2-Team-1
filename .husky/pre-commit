@@ -1,0 +1,4 @@
+#!/bin/sh
+# husky pre-commit hook
+
+npx lint-staged 
