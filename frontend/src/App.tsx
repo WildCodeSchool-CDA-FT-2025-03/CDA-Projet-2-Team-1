@@ -1,10 +1,14 @@
-import Login from './components/Login';
+import { Outlet } from 'react-router';
+import Header from '../components/header/header';
 
 function App() {
   return (
-    <div className="app">
-      <Login />
-    </div>
+    <>
+      <Header />
+      <div className="app">
+        <Outlet />
+      </div>
+    </>
   );
 }
 
