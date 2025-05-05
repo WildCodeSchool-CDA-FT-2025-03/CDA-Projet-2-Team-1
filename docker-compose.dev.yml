@@ -8,4 +8,10 @@ services:
     volumes:
       - ./backend/appointment-service/src:/opt/app/src
 
-  
+  database:
+    image: 'postgres:17.4-alpine'
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
