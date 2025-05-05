@@ -4,6 +4,7 @@ import App from '../App';
 import AdminPage from '../pages/AdminPage';
 import AgentPage from '../pages/AgentPage';
 import DoctorPage from '../pages/DoctorPage';
+import LoginPage from '../pages/Login';
 import SecretaryPage from '../pages/SecretaryPage';
 
 const router = createBrowserRouter([
@@ -29,5 +30,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
 ]);
+
 export default router;
