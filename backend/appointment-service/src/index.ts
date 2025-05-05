@@ -4,6 +4,7 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { buildSchema } from 'type-graphql';
 import * as dotenv from 'dotenv';
 import PatientResolver from './resolvers/patient.resolver';
+import logger from './services/logger.service';
 
 dotenv.config();
 
@@ -24,5 +25,5 @@ const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
     listen: { port: port },
   });
 
-  console.log(`Server ready at: ${url}`);
+  logger.info(`Server ready at: ${url}`);
 })();
