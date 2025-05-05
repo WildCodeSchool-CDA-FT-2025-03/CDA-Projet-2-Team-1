@@ -131,6 +131,7 @@ resetPasswordController.post("/",
                     to: dataUser[0].email,
                     subject: "Réinitialisation de votre mot de passe",
                     html: `<p>Bonjour ${dataUser[0].firstname},</p>
+                           <p>Vous avez demandé à reinitialiser votre mot de passe. </p>
                            <p>Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe :</p>
                            <a href="${linkResetPassword}">${linkResetPassword}</a>
                            <p>Ce lien expirera dans 1 heure.</p>`,
