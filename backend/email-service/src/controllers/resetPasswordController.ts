@@ -23,6 +23,7 @@ import MailOptionsType from "../types/mailOptionsType";
 // Import des Outils :
 import { createCryptoUtils } from "../utils/cryptoUtils";
 import { createExpireDateUtils } from "../utils/createDateUtils";
+import ENV from "../config/ENV.config";
 
 // URI : /api/resetpassword
 resetPasswordController.post("/",
@@ -103,7 +104,8 @@ resetPasswordController.post("/",
             
             // Logique métier 4 : Création du lien de réinitialisation
                 // Verification de la présence de la variable d'environnement DOMAIN_CLIENT
-                if (!process.env.DOMAIN_FRONT) {
+                const DOMAIN_FRONT = ENV("process.env.DOMAIN_FRONT", "warning"); // On vérifie si la variable d'environnement est présente
+                if (DOMAIN_FRONT === "Error") {
                     res.status(500).json({ message: "Erreur interne du serveur." });
                     console.error(
                         {
@@ -121,7 +123,7 @@ resetPasswordController.post("/",
                 }
 
                 // On crée le lien de réinitialisation
-                const linkResetPassword: string = `${process.env.DOMAIN_FRONT}/reset-password?token=${token}`;
+                const linkResetPassword: string = `${DOMAIN_FRONT}/reset-password?token=${token}`;
 
             // Logique métier 5 : Envoi de l'email de réinitialisation
                 // On prépare les données pour l'envoi par email
