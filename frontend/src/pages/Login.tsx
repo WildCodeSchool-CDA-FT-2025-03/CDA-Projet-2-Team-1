@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-import logoCarePlan from '../../public/logo-cp-full.svg';
-import illustrationLogin from '../../public/login.webp';
+import logoCarePlan from '/logo-cp-full.svg';
+import illustrationLogin from '/login.webp';
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
