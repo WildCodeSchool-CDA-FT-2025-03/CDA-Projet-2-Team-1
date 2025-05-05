@@ -15,37 +15,37 @@ export default {
     },
     extend: {
       colors: {
-        'border': 'var(--border)',
-        'input': 'var(--input)',
-        'ring': 'var(--ring)',
-        'background': 'var(--background)',
-        'foreground': 'var(--foreground)',
-        'primary': {
+        border: 'var(--border)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        primary: {
           DEFAULT: 'var(--primary)',
           foreground: 'var(--primary-foreground)',
         },
-        'secondary': {
+        secondary: {
           DEFAULT: 'var(--secondary)',
           foreground: 'var(--secondary-foreground)',
         },
-        'destructive': {
+        destructive: {
           DEFAULT: 'var(--destructive)',
           foreground: 'var(--destructive-foreground)',
         },
-        'muted': {
+        muted: {
           DEFAULT: 'var(--muted)',
           foreground: 'var(--muted-foreground)',
         },
-        'accent': {
+        accent: {
           DEFAULT: 'var(--accent)',
           foreground: 'var(--accent-foreground)',
         },
-        'popover': {
+        popover: {
           DEFAULT: 'var(--popover)',
           foreground: 'var(--popover-foreground)',
         },
         // Exemple pour la couleur turquoise spécifique si elle n'est pas --primary
-        'turquoise': '#027FB5',
+        turquoise: '#027FB5',
         'turquoise-dark': '#027FB5',
       },
       borderRadius: {

@@ -12,7 +12,7 @@
   }
 
   .forgot-password-link {
-    @apply text-xs text-turquoise hover:underline;
+    @apply text-xs text-[#027fb5] hover:underline;
   }
 
   .login-form-container {
@@ -24,11 +24,11 @@
   }
 
   .login-input {
-    @apply mt-1 w-full rounded-md border border-turquoise px-3 py-2 text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-turquoise;
+    @apply mt-1 w-full rounded-md border border-[#027fb5] px-3 py-2 text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#027fb5];
   }
 
   .login-btn {
-    @apply w-full rounded-md bg-turquoise py-2 text-sm font-semibold text-white hover:bg-turquoise-dark transition;
+    @apply w-full rounded-md bg-[#027fb5] py-2 text-sm font-semibold text-white hover:bg-[#027fb5] transition;
   }
 }
 
