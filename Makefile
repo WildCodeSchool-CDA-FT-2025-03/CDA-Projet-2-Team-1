@@ -1,6 +1,9 @@
 dev: dev-build
 	docker-compose --env-file ./files/.env-dev-default -f ./docker-compose.dev.yml up
 
+dev-bg: dev-build
+	docker-compose --env-file ./files/.env-dev-default -f ./docker-compose.dev.yml up -d
+
 dev-build:
 	docker-compose --env-file ./files/.env-dev-default -f ./docker-compose.dev.yml build
 
