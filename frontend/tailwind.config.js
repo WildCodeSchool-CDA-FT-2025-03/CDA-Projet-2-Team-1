@@ -44,10 +44,6 @@ export default {
           DEFAULT: 'var(--popover)',
           foreground: 'var(--popover-foreground)',
         },
-        'card': {
-          DEFAULT: 'var(--card)',
-          foreground: 'var(--card-foreground)',
-        },
         // Exemple pour la couleur turquoise spécifique si elle n'est pas --primary
         'turquoise': '#027FB5',
         'turquoise-dark': '#027FB5',

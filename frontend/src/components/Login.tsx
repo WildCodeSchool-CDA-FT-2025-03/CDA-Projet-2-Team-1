@@ -9,7 +9,6 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // console.log('Tentative de connexion avec:', formData);
   };
 
   return (
