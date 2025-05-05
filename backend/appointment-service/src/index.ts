@@ -1,5 +1,5 @@
 import { ApolloServer } from '@apollo/server';
-import { dataSource } from './services/client';
+import { dataSource } from './services/client.service';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { buildSchema } from 'type-graphql';
 import * as dotenv from 'dotenv';
