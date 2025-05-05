@@ -57,7 +57,9 @@ export default function Login() {
             <button
               type="button"
               className="forgot-password-link bg-transparent border-none p-0 cursor-pointer"
-              onClick={() => {/* TODO: action mot de passe perdu */ }}
+              onClick={() => {
+                /* TODO: action mot de passe perdu */
+              }}
             >
               Mot de passe perdu ?
             </button>
