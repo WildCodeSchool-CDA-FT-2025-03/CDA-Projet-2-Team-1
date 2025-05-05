@@ -15,3 +15,10 @@ services:
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+
+    volumes:
+      - care-plan-db:/var/lib/postgresql/data/
+
+volumes:
+  care-plan-db:
