@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  appointment-service:
+    build:
+      context: ./backend/appointment-service
+      target: dev
+    volumes:
+      - ./backend/appointment-service/src:/opt/app/src
+
+  
