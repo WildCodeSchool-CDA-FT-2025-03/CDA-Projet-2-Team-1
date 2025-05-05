@@ -15,7 +15,7 @@ import insertTokenResetRepository from "../repository/insertTokenResetRepository
 import {getTokenResetRepository, deleteTokenResetRepository} from "../repository/resetTokenRegulator";
 
 // Import des Services :
-import sendMailerService from "../services/mailer/sendMailerService";
+import sendMailerService from "../services/sendMailerService";
 
 // Import des Types :
 import MailOptionsType from "../types/mailOptionsType";
