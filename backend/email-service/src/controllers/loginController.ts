@@ -73,13 +73,13 @@ loginController.post("/",
             /* Logique métier 3 : Création du JWT client et server */
 
                 // Création du token server
-                const jwtTokenServerCarePlan: string | boolean = await createJwtTokenServerCarePlan(dataUser[0] as payloadType);
+                const jwtTokenServerCarePlan: string = await createJwtTokenServerCarePlan(dataUser[0] as payloadType);
                 // Création du token client
-                const jwtTokenClientCarePlan: string | boolean = await createJwtTokenClientCarePlan(dataUser[0] as payloadType);
+                const jwtTokenClientCarePlan: string = await createJwtTokenClientCarePlan(dataUser[0] as payloadType);
 
                 // Vérification des clés secrète Server et Client si elles existent
                 // Si l'une d'entre elles n'existe pas, on renvoie une erreur 500
-                if (!jwtTokenServerCarePlan || !jwtTokenClientCarePlan) {
+                if (jwtTokenServerCarePlan === "Error" || jwtTokenClientCarePlan === "Error") {
                     res.status(500).json({ message: "Erreur interne serveur." });
                     console.error(
                         {
