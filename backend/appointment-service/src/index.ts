@@ -7,6 +7,8 @@ import PatientResolver from './resolvers/patient.resolver';
 
 dotenv.config();
 
+const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
+
 (async () => {
   await dataSource.initialize();
 
@@ -19,7 +21,7 @@ dotenv.config();
   });
 
   const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
+    listen: { port: port },
   });
 
   console.log(`Server ready at: ${url}`);
