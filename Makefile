@@ -12,10 +12,10 @@ dev-build:
 	docker-compose --env-file $(default-env-dev) -f $(docker-compose-dev) build
 
 dev-rm:
-	docker-compose -f $(docker-compose-dev) rm
+	docker-compose --env-file $(default-env-dev) -f $(docker-compose-dev) rm
 
 dev-down:
-	docker-compose -f $(docker-compose-dev) down
+	docker-compose --env-file $(default-env-dev) -f $(docker-compose-dev) down
 
 delete-db:
 	docker volume rm cda-projet-2-team-1_care-plan-db
