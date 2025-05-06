@@ -52,8 +52,6 @@ const SecretaryPage = () => {
           </Button>
         </div>
         {/* Grille principale */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Calendrier */}
           <div className="bg-white p-6 rounded-xl border-2 border-[#027FB5]">
             {/* Calendrier */}
             <Calendar
