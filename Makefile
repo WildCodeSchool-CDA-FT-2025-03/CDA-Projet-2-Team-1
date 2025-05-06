@@ -2,33 +2,32 @@ project-name=cda-projet-2-team-1
 
 docker-compose-dev=./docker-compose.dev.yml
 default-env-dev=./files/.env-dev-default
-docker-cmd=docker-compose --env-file $(default-env-dev) -f $(docker-compose-dev)
+docker-dev=docker-compose --env-file $(default-env-dev) -f $(docker-compose-dev)
 
 services=appointment-service frontend
 volumes=care-plan-db
 
-VOL_DELETE = $(volumes:%=$(project-name)_%.del)
+VOLUMES=$(volumes:%=$(project-name)_%)
 IMAGES=$(services:%=$(project-name)-%)
 
 dev: dev-build
-	$(docker-cmd) up
+	$(docker-dev) up
 
 dev-bg: dev-build
-	$(docker-cmd) up -d
+	$(docker-dev) up -d
 
 dev-build:
-	$(docker-cmd) build
+	$(docker-dev) build
 
 dev-rm:
-	$(docker-cmd) rm
+	$(docker-dev) rm
 
 dev-down:
-	$(docker-cmd) down
+	$(docker-dev) down
+	sleep 1
 
-%.del:
-	docker volume rm -f $*
-
-delete-volumes: $(VOL_DELETE)
+delete-volumes:
+	docker volume rm -f $(VOLUMES)
 
 delete-images:
 	docker rmi -f $(IMAGES)
