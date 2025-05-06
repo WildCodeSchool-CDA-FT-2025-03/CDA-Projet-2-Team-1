@@ -51,8 +51,8 @@ const SecretaryPage = () => {
           </Button>
         </div>
         {/* Grille principale */}
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-xl border-2 border-[#027FB5]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-white space-y-6 p-6 rounded-xl border-2 border-[#027FB5]">
             {/* Calendrier */}
             <Calendar
               mode="single"
@@ -89,7 +89,7 @@ const SecretaryPage = () => {
             />
           </div>
           {/* Liste des patients */}
-          <div className="bg-white p-6 rounded-xl border-2 border-[#027FB5]"></div>
+          <div className="bg-white space-y-6 p-6 rounded-xl border-2 border-[#027FB5]"></div>
         </div>
       </div>
     </main>
