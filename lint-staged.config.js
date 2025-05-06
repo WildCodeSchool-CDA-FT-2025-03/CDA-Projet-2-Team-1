@@ -6,12 +6,9 @@ module.exports = {
       `cd frontend && npx prettier --write ${paths.join(' ')}`,
     ];
   },
-  'backend/src/**/*.{js,jsx,ts,tsx}': (filenames) => {
+  'backend/*/src/**/*.{js,jsx,ts,tsx}': (filenames) => {
     const paths = filenames.map((filename) => `"${filename}"`);
-    return [
-      `cd backend && npx eslint --fix ${paths.join(' ')}`,
-      `cd backend && npx prettier --write ${paths.join(' ')}`,
-    ];
+    return [`npx eslint --fix ${paths.join(' ')}`, `npx prettier --write ${paths.join(' ')}`];
   },
   '*.{css,scss}': (filenames) => {
     const paths = filenames.map((filename) => `"${filename}"`);
