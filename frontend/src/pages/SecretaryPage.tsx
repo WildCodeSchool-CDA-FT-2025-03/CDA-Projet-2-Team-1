@@ -1,9 +1,3 @@
-import React from 'react';
-import { Search } from 'lucide-react';
-// components
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -11,6 +5,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Eye, Search } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Input } from '@/components/ui/input';
+import React from 'react';
+
+// components
 
 const SecretaryPage = () => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
@@ -46,7 +48,7 @@ const SecretaryPage = () => {
               <SelectItem value="medecin">Médecin</SelectItem>
             </SelectContent>
           </Select>
-          <Button className="bg-[#027FB5] hover:bg-gray-900 text-white px-6">
+          <Button className="bg-[#027FB5] hover:bg-[#026a94] text-white px-6">
             Rechercher
           </Button>
         </div>
@@ -89,8 +91,616 @@ const SecretaryPage = () => {
             />
           </div>
           {/* Liste des patients */}
-          <div className="bg-white space-y-6 p-6 rounded-xl border-2 border-[#027FB5">
-            Liste des patients
+          <div
+            className="bg-white rounded-xl border-2 border-[#027FB5] overflow-hidden"
+            role="region"
+            aria-label="Liste des rendez-vous"
+          >
+            <div className="p-3">
+              <h2 className="text-2xl font-bold text-gray-800 pl-3">
+                Liste des Rendez-vous patients
+              </h2>
+            </div>
+            {/* En-tête des colonnes */}
+            <div
+              className="grid grid-cols-5 gap-4 px-6 py-3 bg-gray-50 border-b border-gray-200"
+              role="rowgroup"
+            >
+              <div
+                className="text-sm font-medium text-gray-500"
+                role="columnheader"
+              >
+                Heure
+              </div>
+              <div
+                className="text-sm font-medium text-gray-500"
+                role="columnheader"
+              >
+                Nom
+              </div>
+              <div
+                className="text-sm font-medium text-gray-500"
+                role="columnheader"
+              >
+                Prénom
+              </div>
+              <div
+                className="text-sm font-medium text-gray-500"
+                role="columnheader"
+              >
+                Médecin
+              </div>
+              <div
+                className="text-sm font-medium text-gray-500"
+                role="columnheader"
+              >
+                Action
+              </div>
+            </div>
+            <div className="max-h-[400px] overflow-y-auto"></div>
+
+            {/* Liste des patients */}
+            <div className="divide-y divide-gray-100" role="rowgroup">
+              <div
+                className="grid grid-cols-5 gap-4 px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                role="row"
+              >
+                <div
+                  className="flex items-center text-sm text-gray-500"
+                  role="cell"
+                >
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>14:30</span>
+                </div>
+                <div className="flex items-center" role="cell">
+                  <div
+                    className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center mr-2"
+                    aria-hidden="true"
+                  >
+                    <span className="text-blue-600 text-sm font-medium">
+                      JD
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-900">Dupont</span>
+                </div>
+                <div
+                  className="flex items-center text-sm text-gray-900"
+                  role="cell"
+                >
+                  Jean
+                </div>
+                <div className="flex flex-col text-sm" role="cell">
+                  <span className="text-gray-500">Dr. Marie Martin</span>
+                  <span className="text-gray-400 text-xs">Généraliste</span>
+                </div>
+                <div className="flex items-center justify-start" role="cell">
+                  <button
+                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-[#027FB5] hover:bg-[#026a94] rounded-md transition-colors"
+                    aria-label="Voir les détails du rendez-vous de Jean Dupont"
+                  >
+                    <Eye className="w-4 h-4 mr-1" aria-hidden="true" />
+                    Voir
+                  </button>
+                </div>
+              </div>
+
+              <div
+                className="grid grid-cols-5 gap-4 px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                role="row"
+              >
+                <div
+                  className="flex items-center text-sm text-gray-500"
+                  role="cell"
+                >
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>10:15</span>
+                </div>
+                <div className="flex items-center" role="cell">
+                  <div
+                    className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center mr-2"
+                    aria-hidden="true"
+                  >
+                    <span className="text-blue-600 text-sm font-medium">
+                      ML
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-900">Laurent</span>
+                </div>
+                <div
+                  className="flex items-center text-sm text-gray-900"
+                  role="cell"
+                >
+                  Marie
+                </div>
+                <div className="flex flex-col text-sm" role="cell">
+                  <span className="text-gray-500">Dr. Pierre Dubois</span>
+                  <span className="text-gray-400 text-xs">Cardiologue</span>
+                </div>
+                <div className="flex items-center justify-start" role="cell">
+                  <button
+                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-[#027FB5] hover:bg-[#026a94] rounded-md transition-colors"
+                    aria-label="Voir les détails du rendez-vous de Marie Laurent"
+                  >
+                    <Eye className="w-4 h-4 mr-1" aria-hidden="true" />
+                    Voir
+                  </button>
+                </div>
+              </div>
+
+              <div
+                className="grid grid-cols-5 gap-4 px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                role="row"
+              >
+                <div
+                  className="flex items-center text-sm text-gray-500"
+                  role="cell"
+                >
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>09:00</span>
+                </div>
+                <div className="flex items-center" role="cell">
+                  <div
+                    className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center mr-2"
+                    aria-hidden="true"
+                  >
+                    <span className="text-blue-600 text-sm font-medium">
+                      PD
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-900">Dubois</span>
+                </div>
+                <div
+                  className="flex items-center text-sm text-gray-900"
+                  role="cell"
+                >
+                  Paul
+                </div>
+                <div className="flex flex-col text-sm" role="cell">
+                  <span className="text-gray-500">Dr. Sophie Bernard</span>
+                  <span className="text-gray-400 text-xs">Dermatologue</span>
+                </div>
+                <div className="flex items-center justify-start" role="cell">
+                  <button
+                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-[#027FB5] hover:bg-[#026a94] rounded-md transition-colors"
+                    aria-label="Voir les détails du rendez-vous de Paul Dubois"
+                  >
+                    <Eye className="w-4 h-4 mr-1" aria-hidden="true" />
+                    Voir
+                  </button>
+                </div>
+              </div>
+
+              <div
+                className="grid grid-cols-5 gap-4 px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                role="row"
+              >
+                <div
+                  className="flex items-center text-sm text-gray-500"
+                  role="cell"
+                >
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>11:30</span>
+                </div>
+                <div className="flex items-center" role="cell">
+                  <div
+                    className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center mr-2"
+                    aria-hidden="true"
+                  >
+                    <span className="text-blue-600 text-sm font-medium">
+                      CL
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-900">Leroy</span>
+                </div>
+                <div
+                  className="flex items-center text-sm text-gray-900"
+                  role="cell"
+                >
+                  Claire
+                </div>
+                <div className="flex flex-col text-sm" role="cell">
+                  <span className="text-gray-500">Dr. Thomas Moreau</span>
+                  <span className="text-gray-400 text-xs">Pédiatre</span>
+                </div>
+                <div className="flex items-center justify-start" role="cell">
+                  <button
+                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-[#027FB5] hover:bg-[#026a94] rounded-md transition-colors"
+                    aria-label="Voir les détails du rendez-vous de Claire Leroy"
+                  >
+                    <Eye className="w-4 h-4 mr-1" aria-hidden="true" />
+                    Voir
+                  </button>
+                </div>
+              </div>
+
+              <div
+                className="grid grid-cols-5 gap-4 px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                role="row"
+              >
+                <div
+                  className="flex items-center text-sm text-gray-500"
+                  role="cell"
+                >
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>13:45</span>
+                </div>
+                <div className="flex items-center" role="cell">
+                  <div
+                    className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center mr-2"
+                    aria-hidden="true"
+                  >
+                    <span className="text-blue-600 text-sm font-medium">
+                      MR
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-900">Rousseau</span>
+                </div>
+                <div
+                  className="flex items-center text-sm text-gray-900"
+                  role="cell"
+                >
+                  Marc
+                </div>
+                <div className="flex flex-col text-sm" role="cell">
+                  <span className="text-gray-500">Dr. Julie Petit</span>
+                  <span className="text-gray-400 text-xs">Ophtalmologue</span>
+                </div>
+                <div className="flex items-center justify-start" role="cell">
+                  <button
+                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-[#027FB5] hover:bg-[#026a94] rounded-md transition-colors"
+                    aria-label="Voir les détails du rendez-vous de Marc Rousseau"
+                  >
+                    <Eye className="w-4 h-4 mr-1" aria-hidden="true" />
+                    Voir
+                  </button>
+                </div>
+              </div>
+
+              <div
+                className="grid grid-cols-5 gap-4 px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                role="row"
+              >
+                <div
+                  className="flex items-center text-sm text-gray-500"
+                  role="cell"
+                >
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>15:15</span>
+                </div>
+                <div className="flex items-center" role="cell">
+                  <div
+                    className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center mr-2"
+                    aria-hidden="true"
+                  >
+                    <span className="text-blue-600 text-sm font-medium">
+                      SL
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-900">Lefebvre</span>
+                </div>
+                <div
+                  className="flex items-center text-sm text-gray-900"
+                  role="cell"
+                >
+                  Sophie
+                </div>
+                <div className="flex flex-col text-sm" role="cell">
+                  <span className="text-gray-500">Dr. Marie Martin</span>
+                  <span className="text-gray-400 text-xs">Généraliste</span>
+                </div>
+                <div className="flex items-center justify-start" role="cell">
+                  <button
+                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-[#027FB5] hover:bg-[#026a94] rounded-md transition-colors"
+                    aria-label="Voir les détails du rendez-vous de Sophie Lefebvre"
+                  >
+                    <Eye className="w-4 h-4 mr-1" aria-hidden="true" />
+                    Voir
+                  </button>
+                </div>
+              </div>
+
+              <div
+                className="grid grid-cols-5 gap-4 px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                role="row"
+              >
+                <div
+                  className="flex items-center text-sm text-gray-500"
+                  role="cell"
+                >
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>16:00</span>
+                </div>
+                <div className="flex items-center" role="cell">
+                  <div
+                    className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center mr-2"
+                    aria-hidden="true"
+                  >
+                    <span className="text-blue-600 text-sm font-medium">
+                      AL
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-900">Leroux</span>
+                </div>
+                <div
+                  className="flex items-center text-sm text-gray-900"
+                  role="cell"
+                >
+                  Antoine
+                </div>
+                <div className="flex flex-col text-sm" role="cell">
+                  <span className="text-gray-500">Dr. Pierre Dubois</span>
+                  <span className="text-gray-400 text-xs">Cardiologue</span>
+                </div>
+                <div className="flex items-center justify-start" role="cell">
+                  <button
+                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-[#027FB5] hover:bg-[#026a94] rounded-md transition-colors"
+                    aria-label="Voir les détails du rendez-vous d'Antoine Leroux"
+                  >
+                    <Eye className="w-4 h-4 mr-1" aria-hidden="true" />
+                    Voir
+                  </button>
+                </div>
+              </div>
+
+              <div
+                className="grid grid-cols-5 gap-4 px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                role="row"
+              >
+                <div
+                  className="flex items-center text-sm text-gray-500"
+                  role="cell"
+                >
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>16:45</span>
+                </div>
+                <div className="flex items-center" role="cell">
+                  <div
+                    className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center mr-2"
+                    aria-hidden="true"
+                  >
+                    <span className="text-blue-600 text-sm font-medium">
+                      EB
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-900">Blanc</span>
+                </div>
+                <div
+                  className="flex items-center text-sm text-gray-900"
+                  role="cell"
+                >
+                  Emma
+                </div>
+                <div className="flex flex-col text-sm" role="cell">
+                  <span className="text-gray-500">Dr. Sophie Bernard</span>
+                  <span className="text-gray-400 text-xs">Dermatologue</span>
+                </div>
+                <div className="flex items-center justify-start" role="cell">
+                  <button
+                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-[#027FB5] hover:bg-[#026a94] rounded-md transition-colors"
+                    aria-label="Voir les détails du rendez-vous d'Emma Blanc"
+                  >
+                    <Eye className="w-4 h-4 mr-1" aria-hidden="true" />
+                    Voir
+                  </button>
+                </div>
+              </div>
+
+              <div
+                className="grid grid-cols-5 gap-4 px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                role="row"
+              >
+                <div
+                  className="flex items-center text-sm text-gray-500"
+                  role="cell"
+                >
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>17:30</span>
+                </div>
+                <div className="flex items-center" role="cell">
+                  <div
+                    className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center mr-2"
+                    aria-hidden="true"
+                  >
+                    <span className="text-blue-600 text-sm font-medium">
+                      JD
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-900">Dupuis</span>
+                </div>
+                <div
+                  className="flex items-center text-sm text-gray-900"
+                  role="cell"
+                >
+                  Julie
+                </div>
+                <div className="flex flex-col text-sm" role="cell">
+                  <span className="text-gray-500">Dr. Thomas Moreau</span>
+                  <span className="text-gray-400 text-xs">Pédiatre</span>
+                </div>
+                <div className="flex items-center justify-start" role="cell">
+                  <button
+                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-[#027FB5] hover:bg-[#026a94] rounded-md transition-colors"
+                    aria-label="Voir les détails du rendez-vous de Julie Dupuis"
+                  >
+                    <Eye className="w-4 h-4 mr-1" aria-hidden="true" />
+                    Voir
+                  </button>
+                </div>
+              </div>
+
+              <div
+                className="grid grid-cols-5 gap-4 px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                role="row"
+              >
+                <div
+                  className="flex items-center text-sm text-gray-500"
+                  role="cell"
+                >
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>18:00</span>
+                </div>
+                <div className="flex items-center" role="cell">
+                  <div
+                    className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center mr-2"
+                    aria-hidden="true"
+                  >
+                    <span className="text-blue-600 text-sm font-medium">
+                      PL
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-900">Lemaire</span>
+                </div>
+                <div
+                  className="flex items-center text-sm text-gray-900"
+                  role="cell"
+                >
+                  Pierre
+                </div>
+                <div className="flex flex-col text-sm" role="cell">
+                  <span className="text-gray-500">Dr. Julie Petit</span>
+                  <span className="text-gray-400 text-xs">Ophtalmologue</span>
+                </div>
+                <div className="flex items-center justify-start" role="cell">
+                  <button
+                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-[#027FB5] hover:bg-[#026a94] rounded-md transition-colors"
+                    aria-label="Voir les détails du rendez-vous de Pierre Lemaire"
+                  >
+                    <Eye className="w-4 h-4 mr-1" aria-hidden="true" />
+                    Voir
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
