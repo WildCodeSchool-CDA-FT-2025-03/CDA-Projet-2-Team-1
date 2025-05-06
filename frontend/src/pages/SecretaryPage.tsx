@@ -16,7 +16,6 @@ const SecretaryPage = () => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
   return (
     <main className="min-h-screen bg-gray-50 border-t-2">
-      {/* Section principale */}
       <div className="container mx-auto p-4 space-y-6">
         {/* En-tête avec deux boutons */}
         <div className="flex gap-4">
@@ -52,6 +51,7 @@ const SecretaryPage = () => {
           </Button>
         </div>
         {/* Grille principale */}
+        <div className="space-y-6">
           <div className="bg-white p-6 rounded-xl border-2 border-[#027FB5]">
             {/* Calendrier */}
             <Calendar
