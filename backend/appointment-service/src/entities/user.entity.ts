@@ -9,27 +9,27 @@ class UserEntity extends BaseEntity {
   id: string;
 
   @Field()
-  @Column()
+  @Column({ type: 'varchar', nullable: false, length: 64 })
   firstName: string;
 
   @Field()
-  @Column()
+  @Column({ type: 'varchar', nullable: false, length: 64 })
   lastName: string;
 
   @Field()
-  @Column()
+  @Column({ type: 'varchar', nullable: false, length: 255, unique: true })
   email: string;
 
   @Field()
-  @Column()
+  @Column({ type: 'char', nullable: false, length: 1 })
   genre: string;
 
   @Field()
-  @Column()
+  @Column({ type: 'varchar', nullable: false, length: 255 })
   password: string;
 
   @Field()
-  @Column()
+  @Column({ type: 'boolean', nullable: false, default: false })
   isActive: boolean;
 }
 
