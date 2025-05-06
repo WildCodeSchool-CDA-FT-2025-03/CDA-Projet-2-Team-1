@@ -3,9 +3,7 @@ import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @ObjectType()
 @Entity('ssn')
-
 class SsnEntity extends BaseEntity {
-
     @Field()
     @PrimaryGeneratedColumn('uuid')
     id: string;
