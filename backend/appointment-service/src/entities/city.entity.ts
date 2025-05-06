@@ -9,11 +9,11 @@ class CityEntity extends BaseEntity {
   id: number;
 
   @Field()
-  @Column({type:'varchar', nullable:false, length: 64})
+  @Column({ type: 'varchar', nullable: false, length: 64})
   name: string;
 
   @Field()
-  @Column({type:'varchar', nullable:false, length: 16})
+  @Column({ type:'varchar', nullable: false, length: 16})
   zip_code: string;
 }
 
