@@ -12,9 +12,9 @@ import { Search } from 'lucide-react';
 
 const SecretaryPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50 border-t-2">
+    <main className="min-h-screen bg-gray-50 border-t-2">
       {/* Section principale */}
-      <main className="container mx-auto p-4 space-y-6">
+      <div className="container mx-auto p-4 space-y-6">
         {/* En-tête avec deux boutons */}
         <div className="flex gap-4">
           <Button className="flex-1 bg-[#027FB5] hover:bg-[#0270a0] text-white text-base font-semibold py-6 rounded-xl">
@@ -58,8 +58,8 @@ const SecretaryPage = () => {
           {/* Liste des patients */}
           <div className="bg-white p-6 rounded-xl border-2 border-[#027FB5]"></div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 };
 
