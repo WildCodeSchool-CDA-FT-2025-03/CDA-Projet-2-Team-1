@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 // Entities
 import PatientEntity from '../entities/patient.entity';
 import RoleEntity from '../entities/role.entity';
+import SsnEntity from '../entities/ssn.entity';
 import ServiceEntity from '../entities/service.entity';
 import UserEntity from '../entities/user.entity';
 
@@ -15,6 +16,6 @@ export const dataSource = new DataSource({
   username: process.env.DATABASE_USER || '',
   password: process.env.DATABASE_PASSWORD || '',
   port: port,
-  entities: [PatientEntity, RoleEntity, ServiceEntity, UserEntity],
+  entities: [PatientEntity, RoleEntity, ServiceEntity, UserEntity, SsnEntity],
   synchronize: sync,
 });
