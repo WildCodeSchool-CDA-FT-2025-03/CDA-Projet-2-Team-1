@@ -24,7 +24,6 @@ const SecretaryPage = () => {
             + Ajouter un nouveau patient
           </Button>
         </div>
-
         {/* Barre de recherche avec filtres */}
         <div className="flex gap-4">
           <div className="relative flex-1">
@@ -49,12 +48,10 @@ const SecretaryPage = () => {
             Rechercher
           </Button>
         </div>
-
         {/* Grille principale */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Calendrier */}
           <div className="bg-white p-6 rounded-xl border-2 border-[#027FB5]"></div>
-
           {/* Liste des patients */}
           <div className="bg-white p-6 rounded-xl border-2 border-[#027FB5]"></div>
         </div>
