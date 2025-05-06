@@ -1,3 +1,9 @@
+import React from 'react';
+import { Search } from 'lucide-react';
+// components
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -5,12 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
-import React from 'react';
 
 const SecretaryPage = () => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
@@ -89,7 +89,9 @@ const SecretaryPage = () => {
             />
           </div>
           {/* Liste des patients */}
-          <div className="bg-white space-y-6 p-6 rounded-xl border-2 border-[#027FB5]"></div>
+          <div className="bg-white space-y-6 p-6 rounded-xl border-2 border-[#027FB5">
+            Liste des patients
+          </div>
         </div>
       </div>
     </main>
