@@ -1,11 +1,11 @@
 import { HelpCircle, LogOut } from 'lucide-react';
-import logocp from './logocp.svg';
+import logoCarePlan from '/logo-cp-full.svg';
 
 export default function Header() {
   return (
     <header className="w-full bg-white shadow px-6 py-4 flex items-center justify-between">
       {/* Logo + Titre */}
-      <img src={logocp} alt="logo" className="h-auto w-auto" />
+      <img src={logoCarePlan} alt="logo Care Plan" className="h-16 w-auto" />
       {/* Boutons (non fonctionnels pour l'instant) */}
       <div className="flex gap-4">
         <button
