@@ -1,6 +1,6 @@
 docker-compose-dev =./docker-compose.dev.yml
 default-env-dev =./files/.env-dev-default
-images = cda-projet-2-team-1-appointment-service
+images = cda-projet-2-team-1-appointment-service cda-projet-2-team-1-frontend
 
 dev: dev-build
 	docker-compose --env-file $(default-env-dev) -f $(docker-compose-dev) up
