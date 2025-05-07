@@ -4,6 +4,7 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { buildSchema } from 'type-graphql';
 import * as dotenv from 'dotenv';
 // resolvers
+import ConsultationResolver from './resolvers/consultation.resolver';
 import PatientResolver from './resolvers/patient.resolver';
 import UserResolver from './resolvers/user.resolver';
 // services
@@ -17,7 +18,7 @@ const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
   await dataSource.initialize();
 
   const schema = await buildSchema({
-    resolvers: [PatientResolver, UserResolver],
+    resolvers: [ConsultationResolver, PatientResolver, UserResolver],
   });
 
   const server = new ApolloServer({
