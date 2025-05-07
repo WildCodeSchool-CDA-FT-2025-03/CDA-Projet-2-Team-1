@@ -1,5 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+
+import ConsultationMotifEntity from './consultation_motif.entity';
 
 @ObjectType()
 @Entity('consultation')
@@ -9,12 +11,15 @@ class ConsultationEntity extends BaseEntity {
   id: string;
 
   @Field()
-  @Column({ type: 'timestamp', nullable: false })
+  @Column({ type: 'timestamptz', nullable: false })
   date: Date;
 
   @Field()
-  @Column({ type: 'time', nullable: false })
-  date_time: Date;
+  @Column({ type: 'interval', nullable: false })
+  duration: string;
+
+  @ManyToOne(() => ConsultationMotifEntity, (motif) => motif.consultations)
+  motif: ConsultationMotifEntity;
 }
 
 export default ConsultationEntity;

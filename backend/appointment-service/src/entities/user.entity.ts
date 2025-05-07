@@ -22,7 +22,7 @@ class UserEntity extends BaseEntity {
 
   @Field()
   @Column({ type: 'char', nullable: false, length: 1 })
-  genre: string;
+  gender: string;
 
   @Field()
   @Column({ type: 'varchar', nullable: false, length: 255 })
