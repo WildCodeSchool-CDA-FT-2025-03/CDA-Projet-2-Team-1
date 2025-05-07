@@ -1,5 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+
+import ConsultationEntity from './consultation.entity';
 
 @ObjectType()
 @Entity('consultation_motif')
@@ -11,6 +13,9 @@ class ConsultationMotifEntity extends BaseEntity {
   @Field()
   @Column({ type: 'varchar', nullable: false, length: 128 })
   name: string;
+
+  @OneToMany(() => ConsultationEntity, (consultation) => consultation.motif)
+  consultations: ConsultationEntity[];
 }
 
 export default ConsultationMotifEntity;
