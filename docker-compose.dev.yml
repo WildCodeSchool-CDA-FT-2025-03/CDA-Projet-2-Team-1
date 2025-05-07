@@ -52,5 +52,21 @@ services:
       database:
         condition: service_healthy
 
+  ### Frontend ###
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+
+    environment:
+      - VITE_APOLLO_SERVER=${VITE_APOLLO_SERVER}
+      - VITE_HOST=frontend
+
+    ports:
+      - ${FRONTEND_PORT}:5173
+
+    volumes:
+      - ./frontend/src:/opt/app/src
+
 volumes:
   care-plan-db:

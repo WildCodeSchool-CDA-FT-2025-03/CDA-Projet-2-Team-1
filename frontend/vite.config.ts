@@ -13,4 +13,8 @@ export default defineConfig({
   },
   root: './',
   publicDir: './public',
+  server: {
+    host: process.env.VITE_HOST || '', // node container in docker (container name)
+    origin: 'http://localhost:5173', // exposed node container address
+  },
 });
