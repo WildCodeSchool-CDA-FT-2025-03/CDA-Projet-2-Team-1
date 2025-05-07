@@ -1,9 +1,9 @@
-import * as React from 'react';
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
 // This is a reusable label component where the association with a control is handled by the parent component
-const Label = React.forwardRef<React.ElementRef<'label'>, React.ComponentPropsWithoutRef<'label'>>(
+const Label = forwardRef<ElementRef<'label'>, ComponentPropsWithoutRef<'label'>>(
   ({ className, ...props }, ref) => (
     // eslint-disable-next-line jsx-a11y/label-has-associated-control
     <label
@@ -19,3 +19,4 @@ const Label = React.forwardRef<React.ElementRef<'label'>, React.ComponentPropsWi
 Label.displayName = 'Label';
 
 export { Label };
+

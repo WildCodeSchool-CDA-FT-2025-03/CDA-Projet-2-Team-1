@@ -1,4 +1,5 @@
 import { HelpCircle, LogOut } from 'lucide-react';
+
 import logoCarePlan from '/logo-cp-full.svg';
 
 export default function Header() {
