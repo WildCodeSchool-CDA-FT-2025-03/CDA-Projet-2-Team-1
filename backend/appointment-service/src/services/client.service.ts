@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm';
 import CityEntity from '../entities/city.entity';
 import ConsultationEntity from '../entities/consultation.entity';
 import ConsultationMotifEntity from '../entities/consultation_motif.entity';
+import NoteRdvEntity from '../entities/note_rdv.entity';
 import PatientEntity from '../entities/patient.entity';
 import RoleEntity from '../entities/role.entity';
 import SsnEntity from '../entities/ssn.entity';
@@ -20,14 +21,16 @@ export const dataSource = new DataSource({
   password: process.env.DATABASE_PASSWORD || '',
   port: port,
   entities: [
+    CityEntity,
     ConsultationEntity,
     ConsultationMotifEntity,
+    ConsultationEntity,
+    NoteRdvEntity,
     PatientEntity,
     RoleEntity,
     ServiceEntity,
     UserEntity,
     SsnEntity,
-    CityEntity,
   ],
   synchronize: sync,
 });
