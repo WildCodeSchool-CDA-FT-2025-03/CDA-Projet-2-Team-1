@@ -1,5 +1,6 @@
 import { Field, ObjectType } from 'type-graphql';
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+
 import ConsultationMotifEntity from './consultation_motif.entity';
 
 @ObjectType()
