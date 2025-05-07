@@ -1,5 +1,5 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Timestamp } from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @ObjectType()
 @Entity('patient')
@@ -17,8 +17,8 @@ class PatientEntity extends BaseEntity {
   lastname: string;
 
   @Field()
-  @Column({ type: 'timestamp', nullable: false, length: 64 })
-  birthdate: Timestamp;
+  @Column({ type: 'date', nullable: false, length: 64 })
+  birthdate: Date;
 
   @Field()
   @Column({ type: 'char', nullable: false, length: 1 })
