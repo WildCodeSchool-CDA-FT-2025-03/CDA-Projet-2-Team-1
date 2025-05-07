@@ -9,7 +9,7 @@ class ConsultationEntity extends BaseEntity {
   id: string;
 
   @Field()
-  @Column({ type: 'timestamp', nullable: false })
+  @Column({ type: 'timestamptz', nullable: false })
   date: Date;
 
   @Field()
