@@ -9,20 +9,20 @@ class PatientEntity extends BaseEntity {
   id: string;
 
   @Field()
-  @Column({type: 'varchar', nullable: false, length: 64})
+  @Column({ type: 'varchar', nullable: false, length: 64 })
   firstname: string;
 
   @Field()
-  @Column({type: 'varchar', nullable: false, length: 64})
+  @Column({ type: 'varchar', nullable: false, length: 64 })
   lastname: string;
 
   @Field()
-  @Column({type: 'timestamp', nullable: false, length: 64})
+  @Column({ type: 'timestamp', nullable: false, length: 64 })
   birthdate: Timestamp;
 
   @Field()
-  @Column({type: 'number', nullable: false, length: 1})
-  gender: number;
+  @Column({ type: 'char', nullable: false, length: 1 })
+  gender: string;
 }
 
 export default PatientEntity;
