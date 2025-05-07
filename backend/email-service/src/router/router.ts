@@ -4,6 +4,7 @@ import express from "express";
 import registerController from "../controllers/registerController";
 import loginController from "../controllers/loginController";
 import resetPasswordController from "../controllers/resetPasswordController";
+import resetPasswordConfirmController from "../controllers/resetPasswordConfirmController";
 
 const router = express.Router();
 
@@ -11,5 +12,6 @@ const router = express.Router();
 router.use("/register", registerController); // 1 route fonctionnelle
 router.use("/login", loginController); // 1 route fonctionnelle
 router.use("/reset-password", resetPasswordController); // 1 route fonctionnelle
+router.use("/reset-password-confirm", resetPasswordConfirmController); // 1 route fonctionnelle
 
 export default router;
