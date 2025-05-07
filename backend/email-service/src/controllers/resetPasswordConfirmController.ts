@@ -16,8 +16,6 @@ import { getOneUserByIdRepository } from '../repository/getUserRepository';
 // Import des Services :
 import sendMailerService from '../services/sendMailerService';
 
-// Import des Types :
-
 // Import des Outils :
 import { hashPasswordArgonUtils } from '../utils/hashArgonUtils';
 import updateNewPasswordUserRepository from '../repository/updateNewPasswordUserRepository';
