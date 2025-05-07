@@ -6,6 +6,7 @@ import RoleEntity from '../entities/role.entity';
 import SsnEntity from '../entities/ssn.entity';
 import ServiceEntity from '../entities/service.entity';
 import UserEntity from '../entities/user.entity';
+import NoteRdvEntity from '../entities/note_rdv.entity';
 
 const port = process.env.DATABASE_PORT ? +process.env.DATABASE_PORT : 5432;
 const sync = process.env.DATABASE_SYNC === 'true' ? true : false;
@@ -17,6 +18,14 @@ export const dataSource = new DataSource({
   username: process.env.DATABASE_USER || '',
   password: process.env.DATABASE_PASSWORD || '',
   port: port,
-  entities: [PatientEntity, RoleEntity, ServiceEntity, UserEntity, SsnEntity, CityEntity],
+  entities: [
+    PatientEntity,
+    RoleEntity,
+    ServiceEntity,
+    UserEntity,
+    SsnEntity,
+    CityEntity,
+    NoteRdvEntity,
+  ],
   synchronize: sync,
 });
