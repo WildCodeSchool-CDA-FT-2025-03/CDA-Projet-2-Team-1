@@ -14,8 +14,8 @@ class ConsultationEntity extends BaseEntity {
   date: Date;
 
   @Field()
-  @Column({ type: 'time', nullable: false })
-  date_time: Date;
+  @Column({ type: 'interval', nullable: false })
+  duration: string;
 
   @ManyToOne(() => ConsultationMotifEntity, (motif) => motif.consultations)
   motif: ConsultationMotifEntity;
