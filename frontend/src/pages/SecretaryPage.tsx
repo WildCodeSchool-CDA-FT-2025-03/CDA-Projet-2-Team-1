@@ -50,7 +50,6 @@ const SecretaryPage = () => {
             + Ajouter un nouveau patient
           </Button>
         </header>
-
         {/* Barre de recherche avec filtres */}
         <nav className="flex gap-4" aria-label="Recherche et filtres">
           <div className="relative flex-1">
@@ -82,7 +81,6 @@ const SecretaryPage = () => {
             Rechercher
           </Button>
         </nav>
-
         {/* Grille principale */}
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Calendrier */}
@@ -100,7 +98,6 @@ const SecretaryPage = () => {
               />
             </section>
           </aside>
-
           {/* Liste des patients */}
           <section
             className={`lg:col-span-2 bg-white ${roundedStyles} ${borderStyles} overflow-hidden`}
@@ -112,7 +109,6 @@ const SecretaryPage = () => {
                 Liste des Rendez-vous patients
               </h2>
             </header>
-
             {/* En-tête des colonnes */}
             <div className="grid grid-cols-5 gap-4 px-6 py-3 bg-gray-50 border-b border-gray-200">
               <ul className="contents">
@@ -126,7 +122,6 @@ const SecretaryPage = () => {
                 ))}
               </ul>
             </div>
-
             <main className="max-h-[400px] overflow-y-auto">
               <ul className="w-full" aria-label="Liste des rendez-vous patients">
                 {patients.map((patient) => (
