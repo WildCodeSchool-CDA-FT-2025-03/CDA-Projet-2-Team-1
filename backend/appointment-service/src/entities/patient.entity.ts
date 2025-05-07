@@ -1,5 +1,6 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import CityEntity from './city.entity';
 
 @ObjectType()
 @Entity('patient')
@@ -23,6 +24,9 @@ class PatientEntity extends BaseEntity {
   @Field()
   @Column({ type: 'char', nullable: false, length: 1 })
   gender: string;
+
+  @ManyToOne(() => CityEntity, (city) => city.patient)
+  city: CityEntity;
 }
 
 export default PatientEntity;
