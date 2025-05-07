@@ -13,7 +13,6 @@ import { Input } from '@/components/ui/input';
 import patientsData from '@/data/patients.json';
 import React from 'react';
 
-// Type pour les données des patients
 type Patient = {
   id: string;
   time: string;
@@ -25,39 +24,49 @@ type Patient = {
   };
 };
 
+const buttonStyles = "bg-[#005580] hover:bg-[#004466] text-white";
+const borderStyles = "border-2 border-[#005580]";
+const roundedStyles = "rounded-xl";
+
 const SecretaryPage = () => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
   const patients: Patient[] = patientsData.patients;
 
-  // Styles communs
-  const buttonStyles = "bg-[#027FB5] hover:bg-[#026a94] text-white";
-  const borderStyles = "border-2 border-[#027FB5]";
-  const roundedStyles = "rounded-xl";
-
   return (
-    <main className="min-h-screen bg-gray-50 border-t-2">
+    <main className="min-h-screen bg-gray-50 border-t-2" role="main">
       <section className="container mx-auto p-4 space-y-6">
         {/* En-tête avec deux boutons */}
         <header className="flex gap-4">
-          <Button className={`flex-1 ${buttonStyles} text-base font-semibold py-6 ${roundedStyles}`}>
+          <Button
+            className={`flex-1 ${buttonStyles} text-base font-semibold py-6 ${roundedStyles}`}
+            aria-label="Ajouter un nouveau rendez-vous"
+          >
             + Ajouter un nouveau rendez-vous
           </Button>
-          <Button className={`flex-1 ${buttonStyles} text-base font-semibold py-6 ${roundedStyles}`}>
+          <Button
+            className={`flex-1 ${buttonStyles} text-base font-semibold py-6 ${roundedStyles}`}
+            aria-label="Ajouter un nouveau patient"
+          >
             + Ajouter un nouveau patient
           </Button>
         </header>
+
         {/* Barre de recherche avec filtres */}
-        <nav className="flex gap-4">
-          <section className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+        <nav className="flex gap-4" aria-label="Recherche et filtres">
+          <div className="relative flex-1">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600 w-5 h-5" />
             <Input
               type="search"
               placeholder="Rechercher un patient..."
               className="pl-12 py-3 text-base rounded-lg border-2 border-[#027FB5] focus:border-[#027FB5] focus:ring-1 focus:ring-[#027FB5]"
+              aria-label="Rechercher un patient"
             />
-          </section>
+          </div>
           <Select>
-            <SelectTrigger className={`w-[180px] ${borderStyles} bg-white`}>
+            <SelectTrigger
+              className={`w-[180px] ${borderStyles} bg-white`}
+              aria-label="Filtrer par"
+            >
               <SelectValue placeholder="Filtrer par" />
             </SelectTrigger>
             <SelectContent className="bg-white">
@@ -66,69 +75,71 @@ const SecretaryPage = () => {
               <SelectItem value="medecin">Médecin</SelectItem>
             </SelectContent>
           </Select>
-          <Button className={`${buttonStyles} px-6`}>
+          <Button
+            className={`${buttonStyles} px-6`}
+            aria-label="Lancer la recherche"
+          >
             Rechercher
           </Button>
         </nav>
+
         {/* Grille principale */}
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Calendrier */}
-          <article className="lg:col-span-1">
-            <section className={`bg-white ${roundedStyles} ${borderStyles} p-4 h-[calc(400px+4rem)] flex flex-col`} aria-label="Calendrier des rendez-vous">
+          <aside className="lg:col-span-1">
+            <section className={`bg-white ${roundedStyles} ${borderStyles} p-4 h-[calc(400px+4rem)] flex flex-col`}>
               <Calendar
                 mode="single"
                 selected={date}
                 onSelect={setDate}
                 className="flex-1 rounded-md"
+                initialFocus
+                disabled={{ before: new Date() }}
+                fromDate={new Date()}
+                toDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
               />
             </section>
-          </article>
+          </aside>
+
           {/* Liste des patients */}
-          <article
+          <section
             className={`lg:col-span-2 bg-white ${roundedStyles} ${borderStyles} overflow-hidden`}
             role="region"
-            aria-label="Liste des rendez-vous"
+            aria-labelledby="liste-rendezvous-titre"
           >
             <header className="p-3">
-              <h2 className="text-2xl font-bold text-gray-800 pl-3">
+              <h2 id="liste-rendezvous-titre" className="text-2xl font-bold text-gray-800 pl-3">
                 Liste des Rendez-vous patients
               </h2>
             </header>
+
             {/* En-tête des colonnes */}
-            <section
-              className="grid grid-cols-5 gap-4 px-6 py-3 bg-gray-50 border-b border-gray-200"
-              role="rowgroup"
-              aria-label="En-têtes des colonnes"
-            >
-              {['Heure', 'Nom', 'Prénom', 'Médecin', 'Action'].map((header) => (
-                <header
-                  key={header}
-                  className="text-sm font-medium text-gray-500"
-                  role="columnheader"
-                >
-                  {header}
-                </header>
-              ))}
-            </section>
-            <section className="max-h-[400px] overflow-y-auto">
-              <ul className="divide-y divide-gray-100">
+            <div className="grid grid-cols-5 gap-4 px-6 py-3 bg-gray-50 border-b border-gray-200">
+              <ul className="contents">
+                {['Heure', 'Nom', 'Prénom', 'Médecin', 'Action'].map((header) => (
+                  <li
+                    key={header}
+                    className="text-sm font-medium text-gray-900"
+                  >
+                    {header}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <main className="max-h-[400px] overflow-y-auto">
+              <ul className="w-full" aria-label="Liste des rendez-vous patients">
                 {patients.map((patient) => (
                   <li
                     key={patient.id}
                     className="grid grid-cols-5 gap-4 px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
-                    role="row"
                   >
-                    <section
-                      className="flex items-center text-sm text-gray-500"
-                      role="cell"
-                      aria-label={`Heure du rendez-vous: ${patient.time}`}
-                    >
+                    <div className="flex items-center text-sm text-gray-900">
                       <svg
                         className="w-4 h-4 mr-1"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
-                        aria-hidden="true"
                       >
                         <path
                           strokeLinecap="round"
@@ -137,14 +148,11 @@ const SecretaryPage = () => {
                           d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
-                      <time>{patient.time}</time>
-                    </section>
-                    <section className="flex items-center" role="cell">
-                      <figure
-                        className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center mr-2"
-                        aria-hidden="true"
-                      >
-                        <span className="text-blue-600 text-sm font-medium">
+                      <time dateTime={patient.time}>{patient.time}</time>
+                    </div>
+                    <div className="flex items-center">
+                      <figure className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center mr-2">
+                        <span className="text-blue-800 text-sm font-medium">
                           {patient.firstName[0]}
                           {patient.lastName[0]}
                         </span>
@@ -152,33 +160,30 @@ const SecretaryPage = () => {
                       <span className="text-sm text-gray-900">
                         {patient.lastName}
                       </span>
-                    </section>
-                    <section
-                      className="flex items-center text-sm text-gray-900"
-                      role="cell"
-                    >
+                    </div>
+                    <div className="flex items-center text-sm text-gray-900">
                       {patient.firstName}
-                    </section>
-                    <section className="flex flex-col text-sm" role="cell">
-                      <span className="text-gray-500">{patient.doctor.name}</span>
-                      <span className="text-gray-400 text-xs">
+                    </div>
+                    <div className="flex flex-col text-sm">
+                      <span className="text-gray-900">{patient.doctor.name}</span>
+                      <span className="text-gray-700 text-xs">
                         {patient.doctor.specialty}
                       </span>
-                    </section>
-                    <section className="flex items-center justify-start" role="cell">
+                    </div>
+                    <div className="flex items-center justify-start">
                       <button
                         className={`inline-flex items-center px-3 py-1.5 text-sm font-medium ${buttonStyles} rounded-md transition-colors`}
                         aria-label={`Voir les détails du rendez-vous de ${patient.firstName} ${patient.lastName}`}
                       >
-                        <Eye className="w-4 h-4 mr-1" aria-hidden="true" />
+                        <Eye className="w-4 h-4 mr-1" />
                         Voir
                       </button>
-                    </section>
+                    </div>
                   </li>
                 ))}
               </ul>
-            </section>
-          </article>
+            </main>
+          </section>
         </section>
       </section>
     </main>
