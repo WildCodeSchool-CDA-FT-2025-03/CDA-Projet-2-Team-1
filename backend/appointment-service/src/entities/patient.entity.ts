@@ -17,7 +17,7 @@ class PatientEntity extends BaseEntity {
   lastname: string;
 
   @Field()
-  @Column({ type: 'date', nullable: false, length: 64 })
+  @Column({ type: 'timestamptz', nullable: false })
   birthdate: Date;
 
   @Field()
