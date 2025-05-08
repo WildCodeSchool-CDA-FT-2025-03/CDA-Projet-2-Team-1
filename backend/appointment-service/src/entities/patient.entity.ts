@@ -1,6 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from 'typeorm';
 import CityEntity from './city.entity';
+import SsnEntity from './ssn.entity';
 
 @ObjectType()
 @Entity('patient')
@@ -27,6 +28,9 @@ class PatientEntity extends BaseEntity {
 
   @ManyToOne(() => CityEntity, (city) => city.patient)
   city: CityEntity;
+
+  @OneToOne(() => SsnEntity, (ssn) => ssn.patient)
+  ssn: SsnEntity;
 }
 
 export default PatientEntity;
