@@ -1,5 +1,6 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import RoleEntity from './role.entity';
 
 @ObjectType()
 @Entity('user')
@@ -31,6 +32,10 @@ class UserEntity extends BaseEntity {
   @Field()
   @Column({ type: 'boolean', nullable: false, default: false })
   isActive: boolean;
+
+  @ManyToOne(() => RoleEntity, (role) => role.users, { nullable: false })
+  @JoinColumn({ name: 'role_id' })
+  role: RoleEntity;
 }
 
 export default UserEntity;
