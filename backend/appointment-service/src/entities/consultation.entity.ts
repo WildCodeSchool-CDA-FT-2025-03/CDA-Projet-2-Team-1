@@ -1,5 +1,13 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+  ManyToMany,
+} from 'typeorm';
 
 import ConsultationMotifEntity from './consultation_motif.entity';
 import NoteSecretEntity from './note_secret.entity';
@@ -26,7 +34,7 @@ class ConsultationEntity extends BaseEntity {
   @OneToMany(() => NoteSecretEntity, (note) => note.consultation)
   notes_secrets: NoteSecretEntity[];
 
-  @ManyToOne(() => PatientEntity, (patient) => patient.consultation, { nullable: false })
+  @ManyToMany(() => PatientEntity, (patient) => patient.consultation, { nullable: false })
   patient: PatientEntity;
 }
 

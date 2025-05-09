@@ -1,5 +1,13 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany } from 'typeorm';
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import CityEntity from './city.entity';
 import SsnEntity from './ssn.entity';
 import ConsultationEntity from './consultation.entity';
@@ -34,6 +42,7 @@ class PatientEntity extends BaseEntity {
   ssn: SsnEntity;
 
   @ManyToMany(() => ConsultationEntity, (consultation) => consultation.patient, { nullable: false })
+  @JoinTable()
   consultation: ConsultationEntity;
 }
 
