@@ -34,7 +34,7 @@ class NoteSecretEntity extends BaseEntity {
   @ManyToOne(() => ConsultationEntity, (consultation) => consultation.notes_secrets)
   consultation: ConsultationEntity;
 
-  @ManyToMany(() => FileEntity, (file) => file.notes_secrets)
+  @ManyToMany(() => FileEntity, (file) => file.note_secret)
   @JoinTable({ name: 'note_secret_file' })
   file: FileEntity;
 }

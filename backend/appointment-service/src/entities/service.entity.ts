@@ -13,8 +13,8 @@ class ServiceEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: false, length: 64 })
   name: string;
 
-  @OneToMany(() => UserEntity, (users) => users.service)
-  users: UserEntity[];
+  @OneToMany(() => UserEntity, (user) => user.service)
+  user: UserEntity[];
 }
 
 export default ServiceEntity;

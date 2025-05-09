@@ -44,15 +44,15 @@ class UserEntity extends BaseEntity {
   @Column({ type: 'boolean', nullable: false, default: false })
   isActive: boolean;
 
-  @ManyToOne(() => RoleEntity, (role) => role.users, { nullable: false })
+  @ManyToOne(() => RoleEntity, (role) => role.user, { nullable: false })
   @JoinColumn({ name: 'role_id' })
   role: RoleEntity;
 
-  @ManyToOne(() => ServiceEntity, (service) => service.users, { nullable: false })
+  @ManyToOne(() => ServiceEntity, (service) => service.user, { nullable: false })
   @JoinColumn({ name: 'service_id' })
   service: ServiceEntity;
 
-  @ManyToMany(() => ConsultationEntity, (consultation) => consultation.users)
+  @ManyToMany(() => ConsultationEntity, (consultation) => consultation.user)
   @JoinTable({ name: 'user_consultation' })
   consultation: ConsultationEntity;
 }

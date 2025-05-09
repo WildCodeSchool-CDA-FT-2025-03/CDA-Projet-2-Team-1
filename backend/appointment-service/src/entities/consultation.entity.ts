@@ -41,8 +41,8 @@ class ConsultationEntity extends BaseEntity {
   @ManyToMany(() => PatientEntity, (patient) => patient.consultation, { nullable: false })
   patient: PatientEntity;
 
-  @ManyToMany(() => UserEntity, (users) => users.consultation)
-  users: UserEntity;
+  @ManyToMany(() => UserEntity, (user) => user.consultation)
+  user: UserEntity;
 
   @OneToOne(() => NoteRdvEntity, (note_rdv) => note_rdv.consultation)
   @JoinColumn()

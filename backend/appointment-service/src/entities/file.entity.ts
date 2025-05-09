@@ -28,8 +28,8 @@ class FileEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: false, length: 64 })
   path: string;
 
-  @ManyToMany(() => NoteSecretEntity, (notes_secrets) => notes_secrets.file)
-  notes_secrets: NoteSecretEntity;
+  @ManyToMany(() => NoteSecretEntity, (note_secrets) => note_secrets.file)
+  note_secret: NoteSecretEntity;
 }
 
 export default FileEntity;

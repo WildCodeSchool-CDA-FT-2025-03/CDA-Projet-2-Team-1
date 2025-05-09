@@ -13,8 +13,8 @@ class RoleEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: false, length: 64 })
   name: string;
 
-  @OneToMany(() => UserEntity, (users) => users.role)
-  users: UserEntity[];
+  @OneToMany(() => UserEntity, (user) => user.role)
+  user: UserEntity[];
 }
 
 export default RoleEntity;
