@@ -6,8 +6,11 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import ConsultationEntity from './consultation.entity';
+import FileEntity from './file.entity';
 
 @ObjectType()
 @Entity('note_secret')
@@ -30,6 +33,10 @@ class NoteSecretEntity extends BaseEntity {
 
   @ManyToOne(() => ConsultationEntity, (consultation) => consultation.notes_secrets)
   consultation: ConsultationEntity;
+
+  @ManyToMany(() => FileEntity, (file) => file.notes_secrets)
+  @JoinTable()
+  file: FileEntity;
 }
 
 export default NoteSecretEntity;
