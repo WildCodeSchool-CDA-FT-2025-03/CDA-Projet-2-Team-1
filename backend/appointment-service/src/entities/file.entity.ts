@@ -3,9 +3,9 @@ import {
   BaseEntity,
   Column,
   Entity,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  ManyToMany,
 } from 'typeorm';
 import NoteSecretEntity from './note_secret.entity';
 
@@ -28,7 +28,7 @@ class FileEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: false, length: 64 })
   path: string;
 
-  @ManyToOne(() => NoteSecretEntity, (notes_secrets) => notes_secrets.file)
+  @ManyToMany(() => NoteSecretEntity, (notes_secrets) => notes_secrets.file)
   notes_secrets: NoteSecretEntity;
 }
 
