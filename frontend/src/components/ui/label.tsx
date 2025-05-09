@@ -1,22 +1,27 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
+"use client"
 
-import { cn } from '@/lib/utils';
+import * as LabelPrimitive from "@radix-ui/react-label"
+import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react"
 
-// This is a reusable label component where the association with a control is handled by the parent component
-const Label = forwardRef<ElementRef<'label'>, ComponentPropsWithoutRef<'label'>>(
-  ({ className, ...props }, ref) => (
-    // eslint-disable-next-line jsx-a11y/label-has-associated-control
-    <label
-      ref={ref}
-      className={cn(
-        'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
-        className,
-      )}
-      {...props}
-    />
-  ),
-);
-Label.displayName = 'Label';
+import { cn } from "@/lib/utils"
 
-export { Label };
+const labelVariants = cva(
+  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+)
+
+const Label = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
+  VariantProps<typeof labelVariants>
+>(({ className, ...props }, ref) => (
+  <LabelPrimitive.Root
+    ref={ref}
+    className={cn(labelVariants(), className)}
+    {...props}
+  />
+))
+Label.displayName = LabelPrimitive.Root.displayName
+
+export { Label }
 

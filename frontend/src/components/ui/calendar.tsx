@@ -1,8 +1,8 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+import { DayPicker } from 'react-day-picker';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { DayPicker } from 'react-day-picker';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -35,23 +35,23 @@ function Calendar({
         cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
         day: cn(
           buttonVariants({ variant: 'ghost' }),
-          'h-9 w-9 p-0 font-normal aria-selected:opacity-100 hover:bg-[#005580] hover:text-white',
+          'h-9 w-9 p-0 font-normal aria-selected:opacity-100 hover:bg-[#0395d3] hover:text-white',
         ),
         day_range_end: 'day-range-end',
         day_selected:
-          'bg-[#005580] text-white hover:bg-[#004466] hover:text-white focus:bg-[#005580] focus:text-white',
-        day_today: 'bg-[#005580] text-white font-bold',
+          'bg-[#0395d3] text-white hover:bg-[#0395d3] hover:text-white focus:bg-[#0395d3] focus:text-white',
+        day_today: 'bg-[#0395d3] text-white font-bold',
         day_outside:
           'day-outside text-gray-500 opacity-50 aria-selected:bg-accent/50 aria-selected:text-gray-500 aria-selected:opacity-30',
         day_disabled: 'text-gray-500 opacity-50',
         day_range_middle:
-          'aria-selected:bg-[#005580] aria-selected:text-white',
+          'aria-selected:bg-[#0395d3] aria-selected:text-white',
         day_hidden: 'invisible',
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+        IconLeft: () => <ChevronLeft className="h-4 w-4" />,
+        IconRight: () => <ChevronRight className="h-4 w-4" />,
       }}
       {...props}
     />

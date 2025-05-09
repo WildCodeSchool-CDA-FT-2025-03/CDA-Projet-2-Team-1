@@ -1,3 +1,4 @@
+import { Eye, Search } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -5,13 +6,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Eye, Search } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
-import patientsData from '@/data/patients.json';
 import React from 'react';
+import { SecretaryContentModal } from '@/components/SecretaryContentModal';
+import patientsData from '@/data/patients.json';
 
 type Patient = {
   id: string;
@@ -24,12 +25,13 @@ type Patient = {
   };
 };
 
-const buttonStyles = "bg-[#005580] hover:bg-[#004466] text-white";
-const borderStyles = "border-2 border-[#005580]";
+const buttonStyles = "bg-[#0395d3] hover:bg-[#0284bc] text-white";
+const borderStyles = "border-2 border-[#0395d3]";
 const roundedStyles = "rounded-xl";
 
 const SecretaryPage = () => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
   const patients: Patient[] = patientsData.patients;
 
   return (
@@ -40,6 +42,7 @@ const SecretaryPage = () => {
           <Button
             className={`flex-1 ${buttonStyles} text-base font-semibold py-6 ${roundedStyles}`}
             aria-label="Ajouter un nouveau rendez-vous"
+            onClick={() => setIsModalOpen(true)}
           >
             + Ajouter un nouveau rendez-vous
           </Button>
@@ -50,6 +53,12 @@ const SecretaryPage = () => {
             + Ajouter un nouveau patient
           </Button>
         </header>
+
+        <SecretaryContentModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+
         {/* Barre de recherche avec filtres */}
         <nav className="flex gap-4" aria-label="Recherche et filtres">
           <div className="relative flex-1">
@@ -90,7 +99,7 @@ const SecretaryPage = () => {
                 mode="single"
                 selected={date}
                 onSelect={setDate}
-                className="flex-1 rounded-md"
+                className="flex-1 rounded-md [&_.rdp-day_selected]:bg-[#0395d3] [&_.rdp-day_selected]:text-white [&_.rdp-day_selected:hover]:bg-[#0284bc]"
                 initialFocus
                 disabled={{ before: new Date() }}
                 fromDate={new Date()}
