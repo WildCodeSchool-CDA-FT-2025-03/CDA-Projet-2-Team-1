@@ -1,5 +1,5 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToMany } from 'typeorm';
 import PatientEntity from './patient.entity';
 
 @ObjectType()
@@ -13,7 +13,7 @@ class SsnEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: false, length: 15 })
   number: string;
 
-  @OneToOne(() => PatientEntity, (patient) => patient.ssn)
+  @OneToMany(() => PatientEntity, (patient) => patient.ssn)
   @JoinColumn()
   patient: PatientEntity;
 }
