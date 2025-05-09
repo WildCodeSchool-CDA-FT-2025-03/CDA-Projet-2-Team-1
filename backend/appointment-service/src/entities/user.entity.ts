@@ -1,7 +1,17 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import RoleEntity from './role.entity';
 import ServiceEntity from './service.entity';
+import ConsultationEntity from './consultation.entity';
 
 @ObjectType()
 @Entity('user')
@@ -41,6 +51,10 @@ class UserEntity extends BaseEntity {
   @ManyToOne(() => ServiceEntity, (service) => service.users, { nullable: false })
   @JoinColumn({ name: 'service_id' })
   service: ServiceEntity;
+
+  @ManyToMany(() => ConsultationEntity, (consultation) => consultation.users)
+  @JoinTable({ name: 'user_consultation' })
+  consultation: ConsultationEntity;
 }
 
 export default UserEntity;

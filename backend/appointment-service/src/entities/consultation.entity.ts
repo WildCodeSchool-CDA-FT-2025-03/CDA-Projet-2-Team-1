@@ -12,6 +12,7 @@ import {
 import ConsultationMotifEntity from './consultation_motif.entity';
 import NoteSecretEntity from './note_secret.entity';
 import PatientEntity from './patient.entity';
+import UserEntity from './user.entity';
 
 @ObjectType()
 @Entity('consultation')
@@ -36,6 +37,9 @@ class ConsultationEntity extends BaseEntity {
 
   @ManyToMany(() => PatientEntity, (patient) => patient.consultation, { nullable: false })
   patient: PatientEntity;
+
+  @ManyToMany(() => UserEntity, (users) => users.consultation)
+  users: UserEntity;
 }
 
 export default ConsultationEntity;

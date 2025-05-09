@@ -42,7 +42,7 @@ class PatientEntity extends BaseEntity {
   ssn: SsnEntity;
 
   @ManyToMany(() => ConsultationEntity, (consultation) => consultation.patient, { nullable: false })
-  @JoinTable()
+  @JoinTable({ name: 'patient_consultation' })
   consultation: ConsultationEntity;
 }
 
