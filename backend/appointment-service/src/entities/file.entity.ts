@@ -1,5 +1,13 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  ManyToMany,
+} from 'typeorm';
+import NoteSecretEntity from './note_secret.entity';
 
 @ObjectType()
 @Entity('file')
@@ -19,6 +27,9 @@ class FileEntity extends BaseEntity {
   @Field()
   @Column({ type: 'varchar', nullable: false, length: 64 })
   path: string;
+
+  @ManyToMany(() => NoteSecretEntity, (note_secrets) => note_secrets.file)
+  note_secret: NoteSecretEntity;
 }
 
 export default FileEntity;
