@@ -3,6 +3,7 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMan
 
 import ConsultationMotifEntity from './consultation_motif.entity';
 import NoteSecretEntity from './note_secret.entity';
+import PatientEntity from './patient.entity';
 
 @ObjectType()
 @Entity('consultation')
@@ -24,6 +25,9 @@ class ConsultationEntity extends BaseEntity {
 
   @OneToMany(() => NoteSecretEntity, (note) => note.consultation)
   notes_secrets: NoteSecretEntity[];
+
+  @ManyToOne(() => PatientEntity, (patient) => patient.consultation, { nullable: false })
+  patient: PatientEntity;
 }
 
 export default ConsultationEntity;
