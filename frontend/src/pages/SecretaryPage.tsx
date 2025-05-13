@@ -9,6 +9,7 @@ import { Eye, Search } from 'lucide-react';
 
 import { SecretaryContentModal } from '@/components/SecretaryContentModal';
 import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import patientsData from '@/data/patients.json';
 import React from 'react';
@@ -32,15 +33,6 @@ const SecretaryPage = () => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const patients: Patient[] = patientsData.patients;
-
-  // Génère la liste des jours du mois sélectionné
-  const getDaysInMonth = (month: number, year: number) => {
-    return new Date(year, month + 1, 0).getDate();
-  };
-  const daysInMonth = getDaysInMonth(
-    date?.getMonth() || 0,
-    date?.getFullYear() || 0
-  );
 
   return (
     <main className="min-h-screen bg-gray-50 border-t-2" role="main">
@@ -102,39 +94,26 @@ const SecretaryPage = () => {
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Calendrier */}
           <aside className="lg:col-span-1">
-            <section
-              className={`bg-white ${roundedStyles} ${borderStyles} p-4 h-[calc(400px+4rem)] flex flex-col`}
-            >
-              <div className="flex gap-2 overflow-x-auto py-2">
-                {Array.from({ length: daysInMonth }, (_, i) => {
-                  const day = i + 1;
-                  const isSelected =
-                    date &&
-                    date.getDate() === day &&
-                    date.getMonth() === (date.getMonth() || 0) &&
-                    date.getFullYear() === (date.getFullYear() || 0);
-                  return (
-                    <Button
-                      key={day}
-                      type="button"
-                      variant={isSelected ? 'default' : 'outline'}
-                      className={`min-w-[48px] ${isSelected ? 'bg-[#0395d3] text-white' : 'border-2 border-[#0395d3]'}`}
-                      onClick={() =>
-                        setDate(
-                          new Date(
-                            date?.getFullYear() || 0,
-                            date?.getMonth() || 0,
-                            day
-                          )
-                        )
-                      }
-                    >
-                      {day}
-                    </Button>
-                  );
-                })}
-              </div>
-            </section>
+            <aside className="lg:col-span-1">
+              <section
+                className={`bg-white ${roundedStyles} ${borderStyles} p-4 h-[calc(400px+4rem)] flex flex-col`}
+              >
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  className="flex-1 rounded-md [&_.rdp-day_selected]:bg-[#0395d3] [&_.rdp-day_selected]:text-white [&_.rdp-day_selected:hover]:bg-[#0284bc]"
+                  initialFocus
+                  disabled={{ before: new Date() }}
+                  fromDate={new Date()}
+                  toDate={
+                    new Date(
+                      new Date().setFullYear(new Date().getFullYear() + 1)
+                    )
+                  }
+                />
+              </section>
+            </aside>
           </aside>
           {/* Liste des patients */}
           <section

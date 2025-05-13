@@ -7,10 +7,8 @@ import {
 } from '@/components/ui/select';
 
 import { Button } from '@/components/ui/button';
-import { DialogClose } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
 import { useState } from 'react';
 import { Modal } from './ui/Modal';
 
@@ -111,22 +109,42 @@ export function SecretaryContentModal({
           onClose={handleClose}
           title="Nouveau rendez-vous"
         >
-          <div className="relative">
-            <DialogClose asChild>
-              <Button
-                variant="ghost"
-                className="absolute -top-2 -right-2 h-8 w-8 p-0 rounded-full hover:bg-gray-100"
-                aria-label="Fermer"
-                onClick={handleClose}
+          <div className="relative max-h-[80vh] overflow-y-auto">
+            <form className="space-y-4 py-4 mx-[5px]" onSubmit={handleSubmit}>
+              <label
+                htmlFor="input-secu"
+                className="mb-1 text-sm font-medium text-gray-700"
               >
-                <X className="h-4 w-4" />
-              </Button>
-            </DialogClose>
-            <form className="space-y-4 py-4" onSubmit={handleSubmit}>
-              <Input placeholder="N° de sécurité sociale" className="mb-2" />
+                N° de sécurité sociale
+              </label>
+              <Input
+                id="input-secu"
+                placeholder="N° de sécurité sociale"
+                className="mb-2"
+              />
               <div className="flex gap-2">
-                <Input placeholder="Nom" className="flex-1" />
-                <Input placeholder="Prénom" className="flex-1" />
+                <div className="flex-1 flex flex-col">
+                  <label
+                    htmlFor="input-nom"
+                    className="mb-1 text-sm font-medium text-gray-700"
+                  >
+                    Nom
+                  </label>
+                  <Input id="input-nom" placeholder="Nom" className="flex-1" />
+                </div>
+                <div className="flex-1 flex flex-col">
+                  <label
+                    htmlFor="input-prenom"
+                    className="mb-1 text-sm font-medium text-gray-700"
+                  >
+                    Prénom
+                  </label>
+                  <Input
+                    id="input-prenom"
+                    placeholder="Prénom"
+                    className="flex-1"
+                  />
+                </div>
               </div>
               <Button
                 type="button"
@@ -346,7 +364,7 @@ export function SecretaryContentModal({
                 id="label-horaires"
                 className="mb-1 text-sm font-medium text-gray-700"
               >
-                Horaires
+                Horaires disponibles
               </span>
               <div
                 className="flex gap-2 overflow-x-auto py-2"
@@ -364,7 +382,14 @@ export function SecretaryContentModal({
                   </Button>
                 ))}
               </div>
+              <label
+                htmlFor="input-info-supp"
+                className="mb-1 text-sm font-medium text-gray-700"
+              >
+                Information supplémentaire
+              </label>
               <textarea
+                id="input-info-supp"
                 placeholder="Information supplémentaire"
                 className="w-full border-2 border-[#0395d3] rounded-lg p-2"
                 rows={3}
