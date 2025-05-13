@@ -32,7 +32,7 @@ class ConsultationEntity extends BaseEntity {
   @Column({ type: 'interval', nullable: false })
   duration: string;
 
-  @OneToOne(() => PatientEntity, (patient) => patient.consultations)
+  @ManyToOne(() => PatientEntity, (patient) => patient.consultations)
   @JoinColumn({ name: 'patient_id' })
   patient: PatientEntity;
 
@@ -40,7 +40,7 @@ class ConsultationEntity extends BaseEntity {
   @JoinColumn({ name: 'note_secretary_id' })
   note_secretary: NoteSecretaryEntity;
 
-  @ManyToOne(() => NoteConfidentialEntity, (note) => note.consultations)
+  @OneToOne(() => NoteConfidentialEntity, (note) => note.consultations)
   @JoinColumn({ name: 'note_confidential_id' })
   note_confidential: NoteConfidentialEntity;
 
