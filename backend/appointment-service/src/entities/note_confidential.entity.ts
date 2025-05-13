@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  OneToMany,
+  OneToOne,
 } from 'typeorm';
 import ConsultationEntity from './consultation.entity';
 
@@ -28,8 +28,8 @@ class NoteConfidentialEntity extends BaseEntity {
   @CreateDateColumn({ type: 'timestamptz' })
   created_at: Date;
 
-  @OneToMany(() => ConsultationEntity, (consultation) => consultation.note_confidential)
-  consultations: ConsultationEntity[];
+  @OneToOne(() => ConsultationEntity, (consultation) => consultation.note_confidential)
+  consultations: ConsultationEntity;
 }
 
 export default NoteConfidentialEntity;

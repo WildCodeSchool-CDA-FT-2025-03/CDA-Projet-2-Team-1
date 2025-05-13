@@ -4,7 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -29,8 +29,8 @@ class NoteSecretaryEntity extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   update_at: Date;
 
-  @OneToMany(() => ConsultationEntity, (consultation) => consultation.note_secretary)
-  consultations: ConsultationEntity[];
+  @OneToOne(() => ConsultationEntity, (consultation) => consultation.note_secretary)
+  consultations: ConsultationEntity;
 }
 
 export default NoteSecretaryEntity;
