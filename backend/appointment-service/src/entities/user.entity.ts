@@ -53,7 +53,10 @@ class UserEntity extends BaseEntity {
   role: RoleEntity;
 
   @OneToMany(() => ConsultationEntity, (consultation) => consultation.created_by)
-  consultation: ConsultationEntity[];
+  createdConsultations: ConsultationEntity[];
+
+  @OneToMany(() => ConsultationEntity, (consultation) => consultation.doctor_assigned_id)
+  assignedConsultations: ConsultationEntity[];
 }
 
 export default UserEntity;
