@@ -2,10 +2,10 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle
-} from "@/components/ui/dialog";
+  DialogTitle,
+} from '@/components/ui/dialog';
 
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -27,4 +27,4 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
       </DialogContent>
     </Dialog>
   );
-} 
+}
