@@ -59,6 +59,7 @@ services:
       target: dev
 
     environment:
+      - VITE_NODE_ENV=development
       - VITE_APOLLO_SERVER=${VITE_APOLLO_SERVER}
       - VITE_HOST=frontend
 
