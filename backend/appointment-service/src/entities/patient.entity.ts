@@ -5,12 +5,13 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  ManyToMany,
-  JoinTable,
+  JoinColumn,
+  OneToMany,
 } from 'typeorm';
+
 import CityEntity from './city.entity';
-import SsnEntity from './ssn.entity';
 import ConsultationEntity from './consultation.entity';
+import SsnEntity from './ssn.entity';
 
 @ObjectType()
 @Entity('patient')
@@ -35,15 +36,20 @@ class PatientEntity extends BaseEntity {
   @Column({ type: 'char', nullable: false, length: 1 })
   gender: string;
 
-  @ManyToOne(() => CityEntity, (city) => city.patient, { nullable: false })
-  city: CityEntity;
+  @Field()
+  @Column({ type: 'varchar', nullable: false, length: 255 })
+  email: string;
 
   @ManyToOne(() => SsnEntity, (ssn) => ssn.patient, { nullable: false })
+  @JoinColumn({ name: 'ssn_id' })
   ssn: SsnEntity;
 
-  @ManyToMany(() => ConsultationEntity, (consultation) => consultation.patient, { nullable: false })
-  @JoinTable({ name: 'patient_consultation' })
-  consultation: ConsultationEntity;
+  @ManyToOne(() => CityEntity, (city) => city.patient, { nullable: false })
+  @JoinColumn({ name: 'city_id' })
+  city: CityEntity;
+
+  @OneToMany(() => ConsultationEntity, (consultation) => consultation.patient)
+  consultations: ConsultationEntity[];
 }
 
 export default PatientEntity;

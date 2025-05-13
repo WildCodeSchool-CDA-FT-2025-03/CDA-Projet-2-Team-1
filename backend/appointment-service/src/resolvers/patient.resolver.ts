@@ -1,6 +1,6 @@
 import { Query, Resolver } from 'type-graphql';
+
 import PatientEntity from '../entities/patient.entity';
-import { promises } from 'node:timers';
 
 @Resolver(PatientEntity)
 class PatientResolver {

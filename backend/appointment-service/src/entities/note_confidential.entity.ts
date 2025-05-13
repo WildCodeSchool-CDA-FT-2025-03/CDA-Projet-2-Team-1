@@ -5,16 +5,13 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  ManyToOne,
-  ManyToMany,
-  JoinTable,
+  OneToOne,
 } from 'typeorm';
 import ConsultationEntity from './consultation.entity';
-import FileEntity from './file.entity';
 
 @ObjectType()
-@Entity('note_secret')
-class NoteSecretEntity extends BaseEntity {
+@Entity('note_confidential')
+class NoteConfidentialEntity extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -31,12 +28,8 @@ class NoteSecretEntity extends BaseEntity {
   @CreateDateColumn({ type: 'timestamptz' })
   created_at: Date;
 
-  @ManyToOne(() => ConsultationEntity, (consultation) => consultation.notes_secrets)
-  consultation: ConsultationEntity;
-
-  @ManyToMany(() => FileEntity, (file) => file.note_secret)
-  @JoinTable({ name: 'note_secret_file' })
-  file: FileEntity;
+  @OneToOne(() => ConsultationEntity, (consultation) => consultation.note_confidential)
+  consultations: ConsultationEntity;
 }
 
-export default NoteSecretEntity;
+export default NoteConfidentialEntity;
