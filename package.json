@@ -18,10 +18,5 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "husky": "^9.1.7",
     "prettier": "^3.5.3"
-  },
-  "dependencies": {
-    "@radix-ui/react-dialog": "^1.1.13",
-    "@radix-ui/react-label": "^2.1.6",
-    "class-variance-authority": "^0.7.1"
   }
 }
