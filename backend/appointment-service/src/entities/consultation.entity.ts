@@ -7,6 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 
 import FileEntity from './file.entity';
@@ -31,11 +32,11 @@ class ConsultationEntity extends BaseEntity {
   @Column({ type: 'interval', nullable: false })
   duration: string;
 
-  @ManyToOne(() => PatientEntity, (patient) => patient.consultations)
+  @OneToOne(() => PatientEntity, (patient) => patient.consultations)
   @JoinColumn({ name: 'patient_id' })
   patient: PatientEntity;
 
-  @ManyToOne(() => NoteSecretaryEntity, (note) => note.consultations)
+  @OneToOne(() => NoteSecretaryEntity, (note) => note.consultations)
   @JoinColumn({ name: 'note_secretary_id' })
   note_secretary: NoteSecretaryEntity;
 
@@ -47,11 +48,11 @@ class ConsultationEntity extends BaseEntity {
   @JoinColumn({ name: 'reason_consultation_id' })
   reason_consultation: ReasonConsultationEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.consultation)
+  @ManyToOne(() => UserEntity, (user) => user.createdConsultations)
   @JoinColumn({ name: 'created_by' })
   created_by: UserEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.consultation)
+  @ManyToOne(() => UserEntity, (user) => user.assignedConsultations)
   @JoinColumn({ name: 'doctor_assigned_id' })
   doctor_assigned_id: UserEntity;
 
