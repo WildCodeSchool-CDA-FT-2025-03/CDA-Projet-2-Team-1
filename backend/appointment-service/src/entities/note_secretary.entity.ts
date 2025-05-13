@@ -2,16 +2,17 @@ import { Field, ObjectType } from 'type-graphql';
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
   Entity,
-  OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import ConsultationEntity from './consultation.entity';
 
 @ObjectType()
-@Entity('note_rdv')
-class NoteRdvEntity extends BaseEntity {
+@Entity('note_secretary')
+class NoteSecretaryEntity extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -21,11 +22,15 @@ class NoteRdvEntity extends BaseEntity {
   text: string;
 
   @Field()
+  @CreateDateColumn({ type: 'timestamp with time zone' })
+  created_at: Date;
+
+  @Field()
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   update_at: Date;
 
-  @OneToOne(() => ConsultationEntity, (consultation) => consultation.note_rdv)
-  consultation: ConsultationEntity;
+  @OneToMany(() => ConsultationEntity, (consultation) => consultation.note_secretary)
+  consultations: ConsultationEntity[];
 }
 
-export default NoteRdvEntity;
+export default NoteSecretaryEntity;

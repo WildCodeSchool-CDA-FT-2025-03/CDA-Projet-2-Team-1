@@ -4,10 +4,12 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  ManyToMany,
+  CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
-import NoteSecretEntity from './note_secret.entity';
+
+import ConsultationEntity from './consultation.entity';
 
 @ObjectType()
 @Entity('file')
@@ -21,15 +23,20 @@ class FileEntity extends BaseEntity {
   name: string;
 
   @Field()
-  @UpdateDateColumn({ type: 'timestamp with time zone', nullable: false })
+  @CreateDateColumn({ type: 'timestamp with time zone', nullable: false })
   created_at: Date;
 
   @Field()
   @Column({ type: 'varchar', nullable: false, length: 64 })
   path: string;
 
-  @ManyToMany(() => NoteSecretEntity, (note_secrets) => note_secrets.file)
-  note_secret: NoteSecretEntity;
+  @Field()
+  @Column({ type: 'boolean', nullable: false, default: false })
+  isConfidential: boolean;
+
+  @ManyToOne(() => ConsultationEntity, (consultation) => consultation.files)
+  @JoinColumn({ name: 'consultation_id' })
+  consultation: ConsultationEntity;
 }
 
 export default FileEntity;

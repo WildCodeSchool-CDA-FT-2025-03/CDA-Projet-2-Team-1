@@ -5,17 +5,16 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   ManyToOne,
-  OneToMany,
-  ManyToMany,
-  OneToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
-import ConsultationMotifEntity from './consultation_motif.entity';
-import NoteSecretEntity from './note_secret.entity';
+import FileEntity from './file.entity';
+import NoteConfidentialEntity from './note_confidential.entity';
+import NoteSecretaryEntity from './note_secretary.entity';
 import PatientEntity from './patient.entity';
+import ReasonConsultationEntity from './reason_consultation.entity';
 import UserEntity from './user.entity';
-import NoteRdvEntity from './note_rdv.entity';
 
 @ObjectType()
 @Entity('consultation')
@@ -32,21 +31,32 @@ class ConsultationEntity extends BaseEntity {
   @Column({ type: 'interval', nullable: false })
   duration: string;
 
-  @ManyToOne(() => ConsultationMotifEntity, (motif) => motif.consultations)
-  motif: ConsultationMotifEntity;
-
-  @OneToMany(() => NoteSecretEntity, (note) => note.consultation)
-  notes_secrets: NoteSecretEntity[];
-
-  @ManyToMany(() => PatientEntity, (patient) => patient.consultation, { nullable: false })
+  @ManyToOne(() => PatientEntity, (patient) => patient.consultations)
+  @JoinColumn({ name: 'patient_id' })
   patient: PatientEntity;
 
-  @ManyToMany(() => UserEntity, (user) => user.consultation)
-  user: UserEntity;
+  @ManyToOne(() => NoteSecretaryEntity, (note) => note.consultations)
+  @JoinColumn({ name: 'note_secretary_id' })
+  note_secretary: NoteSecretaryEntity;
 
-  @OneToOne(() => NoteRdvEntity, (note_rdv) => note_rdv.consultation)
-  @JoinColumn()
-  note_rdv: NoteRdvEntity;
+  @ManyToOne(() => NoteConfidentialEntity, (note) => note.consultations)
+  @JoinColumn({ name: 'note_confidential_id' })
+  note_confidential: NoteConfidentialEntity;
+
+  @ManyToOne(() => ReasonConsultationEntity, (reason) => reason.consultations)
+  @JoinColumn({ name: 'reason_consultation_id' })
+  reason_consultation: ReasonConsultationEntity;
+
+  @ManyToOne(() => UserEntity, (user) => user.consultation)
+  @JoinColumn({ name: 'created_by' })
+  created_by: UserEntity;
+
+  @ManyToOne(() => UserEntity, (user) => user.consultation)
+  @JoinColumn({ name: 'doctor_assigned_id' })
+  doctor_assigned_id: UserEntity;
+
+  @OneToMany(() => FileEntity, (file) => file.consultation)
+  files: FileEntity[];
 }
 
 export default ConsultationEntity;

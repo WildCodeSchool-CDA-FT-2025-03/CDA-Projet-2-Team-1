@@ -2,11 +2,11 @@ import { DataSource } from 'typeorm';
 // Entities
 import CityEntity from '../entities/city.entity';
 import ConsultationEntity from '../entities/consultation.entity';
-import ConsultationMotifEntity from '../entities/consultation_motif.entity';
 import FileEntity from '../entities/file.entity';
-import NoteRdvEntity from '../entities/note_rdv.entity';
-import NoteSecretEntity from '../entities/note_secret.entity';
+import NoteSecretaryEntity from '../entities/note_secretary.entity';
+import NoteConfidentialEntity from '../entities/note_confidential.entity';
 import PatientEntity from '../entities/patient.entity';
+import ReasonConsultationEntity from '../entities/reason_consultation.entity';
 import RoleEntity from '../entities/role.entity';
 import SsnEntity from '../entities/ssn.entity';
 import ServiceEntity from '../entities/service.entity';
@@ -25,11 +25,11 @@ export const dataSource = new DataSource({
   entities: [
     CityEntity,
     ConsultationEntity,
-    ConsultationMotifEntity,
     FileEntity,
-    NoteRdvEntity,
-    NoteSecretEntity,
+    NoteConfidentialEntity,
+    NoteSecretaryEntity,
     PatientEntity,
+    ReasonConsultationEntity,
     RoleEntity,
     ServiceEntity,
     SsnEntity,

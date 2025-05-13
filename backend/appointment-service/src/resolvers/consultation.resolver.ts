@@ -1,4 +1,5 @@
 import { Arg, Query, Resolver } from 'type-graphql';
+
 import ConsultationEntity from '../entities/consultation.entity';
 
 @Resolver(ConsultationEntity)

@@ -6,12 +6,12 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
-  ManyToMany,
-  JoinTable,
+  OneToMany,
 } from 'typeorm';
+
+import ConsultationEntity from './consultation.entity';
 import RoleEntity from './role.entity';
 import ServiceEntity from './service.entity';
-import ConsultationEntity from './consultation.entity';
 
 @ObjectType()
 @Entity('user')
@@ -29,12 +29,12 @@ class UserEntity extends BaseEntity {
   lastName: string;
 
   @Field()
-  @Column({ type: 'varchar', nullable: false, length: 255, unique: true })
-  email: string;
-
-  @Field()
   @Column({ type: 'char', nullable: false, length: 1 })
   gender: string;
+
+  @Field()
+  @Column({ type: 'varchar', nullable: false, length: 255, unique: true })
+  email: string;
 
   @Field()
   @Column({ type: 'varchar', nullable: false, length: 255 })
@@ -42,19 +42,18 @@ class UserEntity extends BaseEntity {
 
   @Field()
   @Column({ type: 'boolean', nullable: false, default: false })
-  isActive: boolean;
-
-  @ManyToOne(() => RoleEntity, (role) => role.user, { nullable: false })
-  @JoinColumn({ name: 'role_id' })
-  role: RoleEntity;
+  isActivated: boolean;
 
   @ManyToOne(() => ServiceEntity, (service) => service.user, { nullable: false })
   @JoinColumn({ name: 'service_id' })
   service: ServiceEntity;
 
-  @ManyToMany(() => ConsultationEntity, (consultation) => consultation.user)
-  @JoinTable({ name: 'user_consultation' })
-  consultation: ConsultationEntity;
+  @ManyToOne(() => RoleEntity, (role) => role.user, { nullable: false })
+  @JoinColumn({ name: 'role_id' })
+  role: RoleEntity;
+
+  @OneToMany(() => ConsultationEntity, (consultation) => consultation.created_by)
+  consultation: ConsultationEntity[];
 }
 
 export default UserEntity;
