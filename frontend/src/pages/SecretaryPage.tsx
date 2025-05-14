@@ -82,26 +82,22 @@ const SecretaryPage = () => {
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Calendrier */}
           <aside className="lg:col-span-1">
-            <aside className="lg:col-span-1">
-              <section
-                className={`bg-white ${roundedStyles} ${borderStyles} p-4 h-[calc(400px+4rem)] flex flex-col`}
-              >
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="flex-1 rounded-md [&_.rdp-day_selected]:bg-[#0395d3] [&_.rdp-day_selected]:text-white [&_.rdp-day_selected:hover]:bg-[#0284bc]"
-                  initialFocus
-                  disabled={{ before: new Date() }}
-                  fromDate={new Date()}
-                  toDate={
-                    new Date(
-                      new Date().setFullYear(new Date().getFullYear() + 1)
-                    )
-                  }
-                />
-              </section>
-            </aside>
+            <section
+              className={`bg-white ${roundedStyles} ${borderStyles} p-4 h-[calc(400px+4rem)] flex flex-col`}
+            >
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                className="flex-1 rounded-md [&_.rdp-day_selected]:bg-[#0395d3] [&_.rdp-day_selected]:text-white [&_.rdp-day_selected:hover]:bg-[#0284bc]"
+                initialFocus
+                disabled={{ before: new Date() }}
+                fromDate={new Date()}
+                toDate={
+                  new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+                }
+              />
+            </section>
           </aside>
           {/* Liste des patients */}
           <section
