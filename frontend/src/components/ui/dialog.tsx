@@ -1,9 +1,8 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import * as React from 'react';
 
-import { HTMLMotionProps, motion } from 'framer-motion';
-
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 const Dialog = DialogPrimitive.Root;
 
@@ -55,7 +54,7 @@ const DialogContent = React.forwardRef<
           'z-50 h-full w-full max-w-lg border bg-background p-6 shadow-lg sm:rounded-l-lg',
           className
         )}
-        {...(props as HTMLMotionProps<'div'>)}
+        {...props}
       >
         {children}
       </motion.div>

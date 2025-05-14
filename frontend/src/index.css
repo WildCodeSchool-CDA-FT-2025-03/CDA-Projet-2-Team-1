@@ -58,7 +58,7 @@ input::placeholder {
 
 /* Submit button */
 button[type='submit'] {
-  background-color: #38b2ac;
+  background-color: #0395d3;
   color: white;
   padding: 0.5rem;
   font-size: 0.875rem;
@@ -68,7 +68,7 @@ button[type='submit'] {
 }
 
 button[type='submit']:hover {
-  background-color: #319795; /* Darker turquoise */
+  background-color: #0284bc;
 }
 
 /* "Mot de passe perdu ?" */

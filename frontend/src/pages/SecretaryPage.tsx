@@ -12,18 +12,8 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import patientsData from '@/data/patients.json';
+import { Patient } from '@/types/patient';
 import React from 'react';
-
-type Patient = {
-  id: string;
-  time: string;
-  lastName: string;
-  firstName: string;
-  doctor: {
-    name: string;
-    specialty: string;
-  };
-};
 
 const buttonStyles = 'bg-[#0395d3] hover:bg-[#0284bc] text-white';
 const borderStyles = 'border-2 border-[#0395d3]';
@@ -35,7 +25,14 @@ const SecretaryPage = () => {
   const patients: Patient[] = patientsData.patients;
 
   return (
-    <main className="min-h-screen bg-gray-50 border-t-2" role="main">
+    <main
+      className={`${isModalOpen ? 'h-screen' : 'h-full'} bg-gray-50 border-t-2`}
+      role="main"
+    >
+      <SecretaryContentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
       <section className="container mx-auto p-4 space-y-6">
         {/* En-tête avec deux boutons */}
         <header className="flex gap-4">
@@ -53,10 +50,6 @@ const SecretaryPage = () => {
             + Ajouter un nouveau patient
           </Button>
         </header>
-        <SecretaryContentModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-        />
         {/* Barre de recherche avec filtres */}
         <nav className="flex gap-4" aria-label="Recherche et filtres">
           <div className="relative flex-1">
@@ -137,12 +130,11 @@ const SecretaryPage = () => {
                 )}
               </ul>
             </div>
-            <main className="max-h-[400px] overflow-y-auto">
+            <section className="max-h-[400px] overflow-y-auto">
               <ul
                 className="w-full"
                 aria-label="Liste des rendez-vous patients"
               >
-                {' '}
                 {patients.map((patient) => (
                   <li
                     key={patient.id}
@@ -198,7 +190,7 @@ const SecretaryPage = () => {
                   </li>
                 ))}
               </ul>
-            </main>
+            </section>
           </section>
         </section>
       </section>
