@@ -83,7 +83,7 @@ export function SecretaryContentModal({
     e.preventDefault();
     handleClose();
   };
-  
+
   const getDaysInMonth = (month: number, year: number) => {
     return new Date(year, month + 1, 0).getDate();
   };
@@ -108,8 +108,11 @@ export function SecretaryContentModal({
           onClose={handleClose}
           title="Nouveau rendez-vous"
         >
-          <div className="relative max-h-[80vh] overflow-y-auto">
-            <form className="space-y-4 py-4 mx-[5px]" onSubmit={handleSubmit}>
+          <div className="relative h-full overflow-y-auto">
+            <form
+              className="h-full space-y-4 py-4 mx-[5px]"
+              onSubmit={handleSubmit}
+            >
               <label
                 htmlFor="input-secu"
                 className="mb-1 text-sm font-medium text-gray-700"

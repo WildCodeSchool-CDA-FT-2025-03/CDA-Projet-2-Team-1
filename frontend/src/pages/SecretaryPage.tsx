@@ -25,7 +25,10 @@ const SecretaryPage = () => {
   const patients: Patient[] = patientsData.patients;
 
   return (
-    <main className="min-h-screen bg-gray-50 border-t-2" role="main">
+    <main
+      className={`${isModalOpen ? 'h-screen' : 'h-full'} bg-gray-50 border-t-2`}
+      role="main"
+    >
       <SecretaryContentModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -127,7 +130,7 @@ const SecretaryPage = () => {
                 )}
               </ul>
             </div>
-            <main className="max-h-[400px] overflow-y-auto">
+            <section className="max-h-[400px] overflow-y-auto">
               <ul
                 className="w-full"
                 aria-label="Liste des rendez-vous patients"
@@ -187,7 +190,7 @@ const SecretaryPage = () => {
                   </li>
                 ))}
               </ul>
-            </main>
+            </section>
           </section>
         </section>
       </section>
