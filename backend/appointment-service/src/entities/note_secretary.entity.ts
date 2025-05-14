@@ -4,32 +4,33 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
-  ManyToOne,
+  UpdateDateColumn,
 } from 'typeorm';
 import ConsultationEntity from './consultation.entity';
 
 @ObjectType()
-@Entity('note_secret')
-class NoteSecretEntity extends BaseEntity {
+@Entity('note_secretary')
+class NoteSecretaryEntity extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Field()
-  @Column({ type: 'varchar', nullable: true, length: 64 })
-  title: string;
 
   @Field()
   @Column({ type: 'varchar', nullable: true, length: 512 })
   text: string;
 
   @Field()
-  @CreateDateColumn({ type: 'timestamptz' })
+  @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at: Date;
 
-  @ManyToOne(() => ConsultationEntity, (consultation) => consultation.notes_secrets)
-  consultation: ConsultationEntity;
+  @Field()
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
+  update_at: Date;
+
+  @OneToOne(() => ConsultationEntity, (consultation) => consultation.note_secretary)
+  consultations: ConsultationEntity;
 }
 
-export default NoteSecretEntity;
+export default NoteSecretaryEntity;

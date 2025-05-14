@@ -53,12 +53,6 @@ const SecretaryPage = () => {
             + Ajouter un nouveau patient
           </Button>
         </header>
-
-        <SecretaryContentModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-        />
-
         {/* Barre de recherche avec filtres */}
         <nav className="flex gap-4" aria-label="Recherche et filtres">
           <div className="relative flex-1">

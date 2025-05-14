@@ -16,7 +16,6 @@ interface SecretaryContentModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
 export function SecretaryContentModal({
   isOpen,
   onClose,
@@ -84,7 +83,7 @@ export function SecretaryContentModal({
     e.preventDefault();
     handleClose();
   };
-
+  
   const getDaysInMonth = (month: number, year: number) => {
     return new Date(year, month + 1, 0).getDate();
   };

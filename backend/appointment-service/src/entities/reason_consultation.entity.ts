@@ -4,8 +4,8 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, OneToMany } from 't
 import ConsultationEntity from './consultation.entity';
 
 @ObjectType()
-@Entity('consultation_motif')
-class ConsultationMotifEntity extends BaseEntity {
+@Entity('reason_consultation')
+class ReasonConsultationEntity extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn('increment')
   id: number;
@@ -14,8 +14,8 @@ class ConsultationMotifEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: false, length: 128 })
   name: string;
 
-  @OneToMany(() => ConsultationEntity, (consultation) => consultation.motif)
+  @OneToMany(() => ConsultationEntity, (consultation) => consultation.reason_consultation)
   consultations: ConsultationEntity[];
 }
 
-export default ConsultationMotifEntity;
+export default ReasonConsultationEntity;
