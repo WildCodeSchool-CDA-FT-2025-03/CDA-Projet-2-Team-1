@@ -12,18 +12,8 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import patientsData from '@/data/patients.json';
+import { Patient } from '@/types/patient';
 import React from 'react';
-
-type Patient = {
-  id: string;
-  time: string;
-  lastName: string;
-  firstName: string;
-  doctor: {
-    name: string;
-    specialty: string;
-  };
-};
 
 const buttonStyles = 'bg-[#0395d3] hover:bg-[#0284bc] text-white';
 const borderStyles = 'border-2 border-[#0395d3]';
@@ -36,6 +26,10 @@ const SecretaryPage = () => {
 
   return (
     <main className="min-h-screen bg-gray-50 border-t-2" role="main">
+      <SecretaryContentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
       <section className="container mx-auto p-4 space-y-6">
         {/* En-tête avec deux boutons */}
         <header className="flex gap-4">

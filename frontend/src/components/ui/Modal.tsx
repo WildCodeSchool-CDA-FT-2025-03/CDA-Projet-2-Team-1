@@ -1,6 +1,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -23,6 +24,9 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
             {title}
           </DialogTitle>
         </DialogHeader>
+        <DialogDescription className="sr-only">
+          Formulaire de rendez-vous médical
+        </DialogDescription>
         {children}
       </DialogContent>
     </Dialog>
