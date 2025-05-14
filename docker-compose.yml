@@ -28,3 +28,23 @@ services:
     ports:
       - '3004:3000'
     restart: unless-stopped
+
+  ### Frontend ###
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+
+    environment:
+      - VITE_NODE_ENV=production
+      - VITE_APOLLO_SERVER=${VITE_APOLLO_SERVER}
+      - VITE_HOST=frontend
+
+    ports:
+      - ${FRONTEND_PORT}:5173
+
+    volumes:
+      - ./frontend/src:/opt/app/src
+
+volumes:
+  care-plan-db:
