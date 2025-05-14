@@ -5,13 +5,6 @@ import './index.css';
 
 import router from './router/router.tsx';
 
-// const router = createBrowserRouter([
-//     {
-//      element: <App />,
-//      children: ListDataRouter
-//     },
-// ]);
-
 const rootElement = document.getElementById("root");
 if (rootElement == null) {
   throw new Error(`Your HTML Document should contain a <div id="root"></div>`);
