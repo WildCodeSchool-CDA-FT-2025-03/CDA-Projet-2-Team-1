@@ -5,14 +5,11 @@
     "format:fix": "prettier --write .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prepare": "husky",
-    "dev": "concurrently \"npm --prefix frontend run dev\" \"npm --prefix backend/auth-service run dev\"",
-    "install-all": "concurrently \"npm install\" \"npm --prefix frontend install\""
+    "prepare": "husky"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
-    "concurrently": "^9.1.2",
     "eslint": "^8.56.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-node": "^11.1.0",
