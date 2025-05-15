@@ -15,6 +15,9 @@ class RestEntity extends BaseEntity {
   @Field()
   @Column({ type: 'interval', nullable: false })
   duration: string;
+
+  @Column()
+  user_id: string;
 }
 
 export default RestEntity;
