@@ -60,7 +60,7 @@ module.exports = {
       },
     },
     {
-      files: ['backend/*/src/**/*.{ts,js}', 'backend/src/**/*.{ts,js}'],
+      files: ['backend/*/src/**/*.{ts,js}'],
       extends: ['plugin:node/recommended'],
       settings: {
         node: {
