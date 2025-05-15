@@ -1,0 +1,73 @@
+services:
+  ### Service graphql ###
+  appointment-service:
+    build:
+      context: ./backend/appointment-service
+      target: dev
+
+    environment:
+      DATABASE_HOST: database
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_SYNC: ${DATABASE_SYNC}
+      API_PORT: ${API_PORT}
+
+    ports:
+      - ${API_PORT}:${API_PORT}
+
+    volumes:
+      - ./backend/appointment-service/src:/opt/app/src
+
+    depends_on:
+      database:
+        condition: service_healthy
+
+  ### Base de donnees postgres ###
+  database:
+    image: 'postgres:17.4-alpine'
+
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+
+    volumes:
+      - care-plan-db:/var/lib/postgresql/data/
+
+    healthcheck:
+      test: pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  ### Adminer ###
+  adminer:
+    image: adminer
+    ports:
+      - ${ADMINER_PORT}:8080
+    environment:
+      ADMINER_DEFAULT_SERVER: database
+    depends_on:
+      database:
+        condition: service_healthy
+
+  ### Frontend ###
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+
+    environment:
+      - VITE_NODE_ENV=development
+      - VITE_APOLLO_SERVER=${VITE_APOLLO_SERVER}
+      - VITE_HOST=frontend
+
+    ports:
+      - ${FRONTEND_PORT}:5173
+
+    volumes:
+      - ./frontend/src:/opt/app/src
+
+volumes:
+  care-plan-db:
