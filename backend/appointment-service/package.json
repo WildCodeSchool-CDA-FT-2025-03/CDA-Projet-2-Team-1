@@ -21,7 +21,6 @@
   "dependencies": {
     "@apollo/server": "^4.12.0",
     "@types/winston": "^2.4.4",
-    "appointment-service": "file:",
     "class-validator": "^0.14.2",
     "dotenv": "^16.5.0",
     "pg": "^8.15.6",
