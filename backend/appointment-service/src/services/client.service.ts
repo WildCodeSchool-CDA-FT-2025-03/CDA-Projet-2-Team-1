@@ -1,6 +1,7 @@
 import { DataSource } from 'typeorm';
 // Entities
 import UserEntity from '../entities/user.entity';
+import RestEntity from '../entities/rest.entity';
 
 const port = process.env.DATABASE_PORT ? +process.env.DATABASE_PORT : 5432;
 const sync = process.env.DATABASE_SYNC === 'true' ? true : false;
@@ -12,6 +13,6 @@ export const dataSource = new DataSource({
   username: process.env.DATABASE_USER || '',
   password: process.env.DATABASE_PASSWORD || '',
   port: port,
-  entities: [UserEntity],
+  entities: [UserEntity, RestEntity],
   synchronize: sync,
 });
