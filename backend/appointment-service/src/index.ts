@@ -7,6 +7,7 @@ import * as dotenv from 'dotenv';
 import UserResolver from './resolvers/user.resolver';
 // services
 import logger from './services/logger.service';
+import RestResolver from './resolvers/rest.resolver';
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
   await dataSource.initialize();
 
   const schema = await buildSchema({
-    resolvers: [UserResolver],
+    resolvers: [UserResolver, RestResolver],
   });
 
   const server = new ApolloServer({
