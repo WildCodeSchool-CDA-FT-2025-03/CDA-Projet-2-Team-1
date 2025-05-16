@@ -17,5 +17,8 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "husky": "^9.1.7"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.13"
   }
 }

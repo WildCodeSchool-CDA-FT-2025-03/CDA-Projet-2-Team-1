@@ -1,5 +1,5 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import SsnEntity from './ssn.entity';
 

@@ -29,17 +29,16 @@ const DialogContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
   <DialogPortal>
-    <DialogPrimitive.Overlay asChild>
+    <DialogOverlay />
+    <DialogPrimitive.Content
+      ref={ref}
+      className={cn(
+        'fixed right-0 top-0 z-50 h-full w-full max-w-lg border bg-background p-6 shadow-lg sm:rounded-l-lg',
+        className
+      )}
+      {...props}
+    >
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
-      />
-    </DialogPrimitive.Overlay>
-    <DialogPrimitive.Content asChild>
-      <motion.div
-        ref={ref}
         initial={{ x: '100%' }}
         animate={{ x: 0 }}
         exit={{ x: '100%' }}
@@ -49,12 +48,6 @@ const DialogContent = React.forwardRef<
           stiffness: 200,
           duration: 0.3,
         }}
-        style={{ position: 'fixed', right: 0, top: 0 }}
-        className={cn(
-          'z-50 h-full w-full max-w-lg border bg-background p-6 shadow-lg sm:rounded-l-lg',
-          className
-        )}
-        {...props}
       >
         {children}
       </motion.div>
