@@ -1,11 +1,15 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import SsnEntity from './ssn.entity';
 
 @ObjectType()
 @Entity('patient')
 class PatientEntity extends BaseEntity {
+  @Field()
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Field()
   @Column({ type: 'varchar', nullable: false, length: 64 })
   firstname: string;
