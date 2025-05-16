@@ -1,5 +1,14 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import UserEntity from './user.entity';
 
 @ObjectType()
 @Entity('rest')
@@ -9,15 +18,20 @@ class RestEntity extends BaseEntity {
   id: number;
 
   @Field()
-  @Column({ type: 'timestamptz', nullable: false })
-  date: Date;
+  @Column({ type: 'varchar', nullable: false, length: 16 })
+  type: string;
 
   @Field()
-  @Column({ type: 'interval', nullable: false })
-  duration: string;
+  @Column({ type: 'timestamptz', nullable: false })
+  date_start: Date;
 
-  @Column()
-  user_id: string;
+  @Field()
+  @Column({ type: 'timestamptz', nullable: false })
+  date_end: Date;
+
+  @ManyToOne(() => UserEntity, (user) => user.rest, { nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
+  user: UserEntity;
 }
 
 export default RestEntity;
