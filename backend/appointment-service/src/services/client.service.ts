@@ -10,7 +10,7 @@ const sync = process.env.DATABASE_SYNC === 'true' ? true : false;
 
 export const dataSource = new DataSource({
   type: 'postgres',
-  host: process.env.DATABASE_HOST || '',
+  host: process.env.DATABASE_HOST || 'localhost',
   database: process.env.DATABASE_NAME || '',
   username: process.env.DATABASE_USER || '',
   password: process.env.DATABASE_PASSWORD || '',

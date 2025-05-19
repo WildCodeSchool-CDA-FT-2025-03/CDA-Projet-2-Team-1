@@ -1,11 +1,10 @@
+import { defineConfig, loadEnv } from 'vite';
+
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { defineConfig, loadEnv } from 'vite';
-
 
 export default defineConfig(() => {
-
   // Récupère le chemin absolue ou est exécuté ce fichier
   const root = process.cwd();
 
@@ -18,11 +17,10 @@ export default defineConfig(() => {
 
   // Initialisation conditionnelle
   if (viteNodeEnv === 'production') {
-    envBase = loadEnv('base', root, 'VITE_');        // .env.base
-    envRoot = loadEnv('production', root, 'VITE_');  // .env.production
-  } 
-  else {
-    envBase = loadEnv('base', root, 'VITE_');        // .env.base
+    envBase = loadEnv('base', root, 'VITE_'); // .env.base
+    envRoot = loadEnv('production', root, 'VITE_'); // .env.production
+  } else {
+    envBase = loadEnv('base', root, 'VITE_'); // .env.base
     envRoot = loadEnv('development', root, 'VITE_'); // .env.development
   }
 
@@ -43,10 +41,13 @@ export default defineConfig(() => {
         '@': path.resolve(__dirname, './src'),
       },
     },
-    root: './',         // (facultatif, c’est la valeur par défaut)
+    root: './', // (facultatif, c’est la valeur par défaut)
     publicDir: './public', // (facultatif aussi)
     server: {
       host: true,
+      watch: {
+        usePolling: true,
+      },
       port: parseInt(process.env.VITE_FRONTEND_PORT || '5173'),
     },
   };

@@ -5,7 +5,7 @@ import PatientEntity from '../entities/patient.entity';
 @Resolver(PatientEntity)
 class PatientResolver {
   @Query(() => [PatientEntity])
-  async getPatients(): Promise<PatientEntity[]> {
+  patients(): Promise<PatientEntity[]> {
     return PatientEntity.find();
   }
 }
