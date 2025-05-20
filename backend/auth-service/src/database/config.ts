@@ -27,7 +27,28 @@ function initializePool() {
       console.info(chalk.green(`${'✅ '}Pool de connexions MySQL créé avec succès !`));
 
       // ✅ Test réel de connexion MySQL
-      testPoolConnection(pool);
+      try {
+        testPoolConnection(pool);
+      } catch (error) {
+        const testPoolConnectionError = error as Error;
+        console.error({
+          identity: 'config.ts',
+          type: 'Fichier de configuration database',
+          chemin: 'src/database/config.ts',
+          "❌ Nature de l'erreur":
+            "Erreur détecté lors de l'utilisation de la fonction testPoolConnection",
+          testPoolConnection: {
+            identity: 'testPoolConnection.config.repository.ts',
+            type: 'Repository',
+            chemin: 'src/repository/testPoolConnection.config.repository.ts',
+            /* Erreur retourné par le composant : */
+            "❌ Nature de l'erreur": testPoolConnectionError.message,
+            '❌ Erreur': testPoolConnectionError.name,
+          },
+        });
+        console.error(chalk.red(`${'⚠️ '} Arret du serveur !`));
+        process.exit(1); // Arrête le serveur si la connexion échoue
+      }
     } catch (error) {
       console.error(chalk.white(error));
       console.error(chalk.red(`${'❌ '}Erreur lors de la création du pool MySQL`));

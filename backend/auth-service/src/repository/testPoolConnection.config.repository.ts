@@ -14,13 +14,22 @@ async function testPoolConnection(pool: mysql.Pool) {
       result[0].test === 1 /* On vérifie que la clé test vaux bien 1 */
     ) {
       console.info(chalk.green('✅ Connexion MySQL vérifiée avec succès !'));
-    } else {
-      throw new Error('❌ La requête de test MySQL a retourné un résultat inattendu.');
+      return;
     }
+
+    // ⛔ Requête réussie mais le résultat n’est pas celui attendu
+    throw new Error('La requête de test MySQL a retourné un résultat inattendu.');
   } catch (error) {
-    console.error(chalk.red(`${'❌ '}Connexion MySQL impossible :`));
-    console.error(chalk.red(`${'⚠️ '} Arret du serveur !`), error);
-    process.exit(1); // Arrête le serveur si la connexion échoue
+    /* Si le résultat est inattendu, on récupère l'erreur plus haut et on le renvois à config.ts */
+    if (error instanceof Error) {
+      error.message = `${error.message}`;
+      throw error;
+    }
+
+    /* Si la connexion échoue complètement */
+    throw new Error(
+      `Connexion impossible à la DB, vérifiez vos identifiants de connexion et vos variables d'environnement.`
+    );
   }
 }
 
