@@ -11,9 +11,6 @@ import { GetPatientsDocument } from '@/gql/graphql';
 import { motion } from 'framer-motion';
 import { useQuery } from '@apollo/client';
 
-//import { GET_PATIENTS } from '@/graphql/queries';
-//import { useQuery } from '@apollo/client';
-
 interface Patient {
   id: string;
   firstName: string;
@@ -21,8 +18,6 @@ interface Patient {
 }
 
 const SecretaryPage = () => {
-  //const { loading, error, data } = useQuery(GET_PATIENTS);
-
   const { data, loading, error } = useQuery(GetPatientsDocument);
 
   return (
@@ -46,7 +41,6 @@ const SecretaryPage = () => {
                 Liste des patients
               </DialogTitle>
             </DialogHeader>
-
             {loading && <p>Chargement...</p>}
             {error && (
               <div className="bg-red-50 border border-red-200 rounded-md p-4">

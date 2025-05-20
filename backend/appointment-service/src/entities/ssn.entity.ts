@@ -14,6 +14,7 @@ class SsnEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: false, length: 15 })
   number: string;
 
+  @Field(() => [PatientEntity], { nullable: true })
   @OneToMany(() => PatientEntity, (patient) => patient.ssn)
   patient: PatientEntity[];
 }

@@ -18,6 +18,7 @@ class PatientEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: true, length: 64 })
   lastName: string;
 
+  @Field(() => SsnEntity, { nullable: true })
   @ManyToOne(() => SsnEntity, (ssn) => ssn.patient, { nullable: true })
   @JoinColumn({ name: 'ssn_id' })
   ssn: SsnEntity;
