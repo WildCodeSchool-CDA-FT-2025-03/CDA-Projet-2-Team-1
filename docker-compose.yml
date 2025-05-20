@@ -28,21 +28,3 @@ services:
     ports:
       - '3004:3000'
     restart: unless-stopped
-
-  frontend:
-    build: ./frontend
-    container_name: frontend
-    ports:
-      - '5173:5173'
-    restart: unless-stopped
-
-  adminer:
-    image: adminer
-    container_name: adminer
-    restart: unless-stopped
-    ports:
-      - '8080:8080'
-
-networks:
-  default:
-    name: cda-projet-2-team-1-network

@@ -21,7 +21,7 @@ export const PatientDialog = ({ patients, loading, error, serverUrl }: PatientDi
           Voir les patients
         </Button>
       </DialogTrigger>
-      <DialogContent asChild>
+      <DialogContent asChild aria-describedby="">
         <motion.div
           initial={{ x: '100%' }}
           animate={{ x: 0 }}
