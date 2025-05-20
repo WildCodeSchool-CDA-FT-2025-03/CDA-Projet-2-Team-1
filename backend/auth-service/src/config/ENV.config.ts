@@ -129,7 +129,7 @@ function ENV(env: ParamsType['env'], lvl?: ParamsType['lvl']) {
       return (acc as Record<string, unknown>)[key];
     }
     return undefined;
-  }, globalThis) as string | undefined;
+  }, globalThis) as unknown;
 
   // Logique principale :
   if (typeof env_verify !== 'string') {
@@ -166,7 +166,7 @@ function ENV(env: ParamsType['env'], lvl?: ParamsType['lvl']) {
     }
   }
 
-  return env_verify; // Retourne la valeur de l'environnement sans undefined
+  return env_verify as string; // Retourne la valeur de l'environnement sans undefined
 }
 
 export default ENV;

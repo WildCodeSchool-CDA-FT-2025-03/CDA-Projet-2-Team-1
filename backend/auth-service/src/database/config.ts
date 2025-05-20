@@ -1,11 +1,11 @@
 import 'dotenv/config';
-import mysql from 'mysql2/promise';
 import chalk from 'chalk';
 import ENV from '../config/ENV.config';
 import testPoolConnection from '../repository/testPoolConnection.config.repository';
+import { Pool } from 'pg';
 
 // ✅ Stockage du pool dans une variable globale
-let pool: mysql.Pool | null = null;
+let pool: Pool | null = null;
 
 /**
  * Fonction pour initialiser le pool avec gestion des erreurs
@@ -13,15 +13,13 @@ let pool: mysql.Pool | null = null;
 function initializePool() {
   if (!pool) {
     try {
-      pool = mysql.createPool({
+      pool = new Pool({
         host: ENV('process.env.DB_HOST', 'Warning') || 'localhost',
         port: Number(ENV('process.env.DB_PORT', 'Warning') || '3306'),
         user: ENV('process.env.DB_USER', 'Warning') || 'root',
         password: ENV('process.env.DB_PASSWORD', 'Warning') || 'password',
         database: ENV('process.env.DB_NAME', 'Warning') || 'DB_CarePlan',
-        waitForConnections: true, // Attend qu'une connexion soit disponible au lieu de planter
-        connectionLimit: 10, // Maximum 10 connexions simultanées
-        queueLimit: 0, // Aucune limite d'attente (les requêtes attendent leur tour)
+        max: 10, // Maximum 10 connexions simultanées
       });
 
       console.info(chalk.green(`${'✅ '}Pool de connexions MySQL créé avec succès !`));
@@ -70,7 +68,7 @@ export async function useComplexConnection() {
   }
 
   try {
-    const connection = await pool.getConnection();
+    const connection = await pool.connect();
     return connection;
   } catch (error) {
     console.error(chalk.white(error));

@@ -36,14 +36,14 @@ loginController.post(
       const dataUser: RowDataPacket[] = await verifyEmailTrueRepository(req.body.email);
 
       if (dataUser.length === 0) {
-        res.status(404).json({ message: 'Email ou mot de passe incorrect' });
+        res.status(401).json({ message: 'Email ou mot de passe incorrect' });
         console.error({
           identity: 'loginController.ts',
           type: 'controller',
           URI: '/api/login',
           methode: 'POST',
           metier: 'Logique métier 1',
-          codeStatus: '404 : Not Found',
+          codeStatus: '401 : Not Found',
           chemin: '/server/src/middleware/VerifyEmail/VerifyEmailTrue.ts',
           "❌ Nature de l'erreur": "L'email n'existe pas dans la DB, impossible de continuer.",
         });

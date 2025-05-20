@@ -3,7 +3,6 @@ import './config/dotenv.config';
 import express, { Request, Response } from 'express';
 import router from './router/router';
 import cors from 'cors';
-import cookieParser from 'cookie-parser';
 import corsOrigins from './config/CorsOrigins.config';
 import chalk from 'chalk';
 import ENV from './config/ENV.config';
@@ -19,7 +18,6 @@ app.use(
 );
 
 app.use(express.json());
-app.use(cookieParser());
 app.use('/api', router);
 
 /**
@@ -29,7 +27,7 @@ app.use('/api', router);
  * Methode: GET
  */
 app.get('/', (req: Request, res: Response) => {
-  res.status(200).send('API de Anne SAUNIER !!!');
+  res.status(200).send('API CarePlan');
 });
 
 /**
