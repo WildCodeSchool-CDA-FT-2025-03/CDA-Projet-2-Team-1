@@ -1,5 +1,3 @@
--- Adminer 5.2.1 PostgreSQL 17.4 dump
-
 DROP TABLE IF EXISTS "patient";
 CREATE TABLE "public"."patient" (
     "id" uuid DEFAULT uuid_generate_v4() NOT NULL,
@@ -7,7 +5,7 @@ CREATE TABLE "public"."patient" (
     "lastName" character varying(64),
     "ssn_id" uuid,
     CONSTRAINT "PK_8dfa510bb29ad31ab2139fbfb99" PRIMARY KEY ("id")
-) WITH (oids = false);
+);
 
 INSERT INTO "patient" ("id", "firstName", "lastName", "ssn_id") VALUES
 ('fe6a9b0a-8e82-496f-9621-827fabe24a6e',	'Jean',	'Dupont',	'9f52541f-6fd1-46f6-82e5-9e03144af896'),
@@ -36,7 +34,7 @@ CREATE TABLE "public"."ssn" (
     "id" uuid DEFAULT uuid_generate_v4() NOT NULL,
     "number" character varying(15) NOT NULL,
     CONSTRAINT "PK_fd9f1c91cf6bcd38ae0b7dfccc2" PRIMARY KEY ("id")
-) WITH (oids = false);
+);
 
 INSERT INTO "ssn" ("id", "number") VALUES
 ('9f52541f-6fd1-46f6-82e5-9e03144af896',	'123-45-6789'),
@@ -60,7 +58,4 @@ INSERT INTO "ssn" ("id", "number") VALUES
 ('226f325a-b08e-4504-82f9-f92e1233d363',	'999-00-2222'),
 ('d826e6fc-f5a0-429a-a8f9-8ca8e33598da',	'123-45-0000');
 
-
 ALTER TABLE ONLY "public"."patient" ADD CONSTRAINT "FK_55747a4dfc143fc3d34307ff056" FOREIGN KEY (ssn_id) REFERENCES ssn(id) NOT DEFERRABLE;
-
--- 2025-05-19 15:08:45 UTC

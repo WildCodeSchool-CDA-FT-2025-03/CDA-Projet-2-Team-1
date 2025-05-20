@@ -1,5 +1,5 @@
 import { PatientDialog } from '@/components/patients/PatientDialog';
-import { GetPatientsDocument } from '@/gql/graphql';
+import { GetPatientsDocument } from '@/gql/graphql-types';
 import { useQuery } from '@apollo/client';
 
 const SecretaryPage = () => {
