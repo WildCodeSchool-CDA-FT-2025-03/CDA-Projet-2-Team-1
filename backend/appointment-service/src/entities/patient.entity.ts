@@ -19,7 +19,7 @@ class PatientEntity extends BaseEntity {
   lastName: string;
 
   @Field(() => SsnEntity, { nullable: true })
-  @ManyToOne(() => SsnEntity, (ssn) => ssn.patient, { nullable: true })
+  @ManyToOne(() => SsnEntity, (ssn) => ssn.patient, { nullable: false })
   @JoinColumn({ name: 'ssn_id' })
   ssn: SsnEntity;
 }

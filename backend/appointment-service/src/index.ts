@@ -1,20 +1,17 @@
-import * as dotenv from 'dotenv';
-
 import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import * as dotenv from 'dotenv';
+import { buildSchema } from 'type-graphql';
+// resolvers
 import PatientResolver from './resolvers/patient.resolver';
 import UserResolver from './resolvers/user.resolver';
-import { buildSchema } from 'type-graphql';
+// services
 import { dataSource } from './services/client.service';
 import logger from './services/logger.service';
-import { startStandaloneServer } from '@apollo/server/standalone';
-
-// resolvers
-
-// services
 
 dotenv.config();
 
-const port = process.env.PORT ? +process.env.PORT : 4000;
+const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
 
 (async () => {
   await dataSource.initialize();
