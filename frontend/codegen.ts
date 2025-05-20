@@ -1,7 +1,5 @@
-import { defineConfig, loadEnv } from 'vite';
+import 'vite';
 import type { CodegenConfig } from '@graphql-codegen/cli';
-
-const root = process.cwd();
 
 const config: CodegenConfig = {
   schema: `${process.env.VITE_APOLLO_SERVER}/`,
