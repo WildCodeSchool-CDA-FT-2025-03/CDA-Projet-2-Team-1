@@ -14,8 +14,8 @@ import verifyEmailTrueRepository from '../repository/user.repository';
 import userTableType from '../types/userTable.type';
 
 // Import des utils
-import { verifyPasswordArgonUtils } from '../utils/hashArgonUtils';
-import { createJwtTokenServerCarePlan } from '../utils/jwtTokenCarePlanUtils';
+import { verifyPasswordArgonUtils } from '../utils/Argon.utils';
+import { createJwtTokenServerCarePlan } from '../utils/jwtTokenCarePlan.utils';
 
 // URI : /api/login
 loginController.post(
@@ -31,16 +31,6 @@ loginController.post(
 
       if (dataUser === null) {
         res.status(401).json({ message: 'Email ou mot de passe incorrect' });
-        console.error({
-          identity: 'loginController.ts',
-          type: 'controller',
-          URI: '/api/login',
-          methode: 'POST',
-          metier: 'Logique métier 1',
-          codeStatus: '401 : Not Found',
-          chemin: '/server/src/middleware/VerifyEmail/VerifyEmailTrue.ts',
-          "❌ Nature de l'erreur": "L'email n'existe pas dans la DB, impossible de continuer.",
-        });
         return;
       }
 
@@ -53,16 +43,6 @@ loginController.post(
       if (!verifyPassword) {
         // Si c'est false, c'est que le mot de passe est incorrect
         res.status(401).json({ message: 'Email ou mot de passe incorrect' });
-        console.error({
-          identity: 'loginController.ts',
-          type: 'controller',
-          URI: '/api/login',
-          methode: 'POST',
-          metier: 'Logique métier 2',
-          codeStatus: '401 : Unauthorized',
-          chemin: '/server/src/middleware/Argon/VerifyPassword.ts',
-          "❌ Nature de l'erreur": 'Le mot de passe reçu est différent de la DB, accès interdit',
-        });
         return;
       }
 
@@ -75,23 +55,6 @@ loginController.post(
       // Si l'une d'entre elles n'existe pas, on renvoie une erreur 500
       if (jwtTokenServerCarePlan === 'Error') {
         res.status(500).json({ message: 'Erreur interne serveur.' });
-        console.error({
-          identity: 'loginController.ts',
-          type: 'controller',
-          URI: '/api/login',
-          methode: 'POST',
-          metier: 'Logique métier 3',
-          codeStatus: '500 : Internal Server Error',
-          chemin: '/server/src/controllers/loginController.ts',
-          "❌ Nature de l'erreur": 'Erreur interne serveur, impossible de créer les token.',
-          'jwtTokenServerCarePlan et jwtTokenClientCarePlan': {
-            identity: 'jwtTokenCarePlan.ts',
-            type: 'utils',
-            chemin: '/server/src/utils/jwtTokenCarePlan.ts',
-            "❌ Nature de l'erreur":
-              'Erreur interne serveur, clé secrète Server ou client pour la création token manquante.',
-          },
-        });
         return;
       }
 
@@ -106,20 +69,19 @@ loginController.post(
         })
         .json({
           message: 'Connexion réussie',
+          data: {
+            fistname: dataUser.firstname,
+            lastname: dataUser.lastname,
+            genre: dataUser.genre,
+            email: dataUser.email,
+            role_id: dataUser.role_id,
+            service_id: dataUser.service_id,
+            created_at: dataUser.created_at,
+          },
         });
       return;
     } catch (error) {
       res.status(500).json({ message: 'Erreur interne serveur.' });
-      console.error({
-        identity: 'loginController.ts',
-        type: 'controller',
-        URI: '/api/login',
-        methode: 'POST',
-        codeStatus: '500 : Internal Server Error',
-        chemin: '/server/src/controllers/loginController.ts',
-        "❌ Nature de l'erreur": 'Erreur non gérée dans le serveur !',
-        details: error,
-      });
       return;
     }
   }
