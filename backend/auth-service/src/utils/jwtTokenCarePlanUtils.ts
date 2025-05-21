@@ -1,16 +1,15 @@
-import payloadType from '../types/payloadType';
+import payloadType from '../types/payloadTokenJWT.type';
 import { createDate_Number_Utils } from './createDateUtils';
 import jwt from 'jsonwebtoken';
-import ENV from '../config/ENV.config';
 import userTableType from '../types/userTable.type';
 
 // Récupération de la clé secrète Server
-const SECRET_KEY_TOKEN_SERVER: string = ENV('process.env.SECRET_KEY_TOKEN_SERVER');
+const SECRET_KEY_TOKEN_SERVER: string | undefined = process.env.SECRET_KEY_TOKEN_SERVER;
 
 //--------------------------------------------------------------------------------------
 
 async function createJwtTokenServerCarePlan(dataUser: userTableType): Promise<string> {
-  if (SECRET_KEY_TOKEN_SERVER === 'Error') {
+  if (!SECRET_KEY_TOKEN_SERVER) {
     return 'Error';
   }
 
