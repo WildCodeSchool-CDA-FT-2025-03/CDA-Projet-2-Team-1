@@ -83,7 +83,7 @@ services:
       - NODE_ENV=development
 
     ports:
-      - '3001:3000'
+      - '9500:9500'
     restart: unless-stopped
     volumes:
       - ./backend/auth-service/src:/opt/app/src

@@ -56,8 +56,3 @@ app.use(async (req: Request, res: Response) => {
 app.listen(port, async () => {
   console.info(chalk.cyan(`Server lancé sur ${await ENV('process.env.VITE_DOMAIN_AUTH_SERVICE')}`));
 });
-
-// import { hashPasswordArgonUtils } from './utils/hashArgonUtils';
-
-// const pasword = hashPasswordArgonUtils('1234');
-// console.log(pasword);

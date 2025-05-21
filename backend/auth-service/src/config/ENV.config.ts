@@ -22,7 +22,7 @@ function ENV(env: string, defaultValue?: string): string {
     if (!env_verify || typeof env_verify !== 'string' || !env_verify.trim()) {
       if (typeof defaultValue === 'string' && defaultValue.trim()) {
         console.warn(
-          `⚠️ ENV.config.ts : La variable ${env} est manquante. Valeur par défaut utilisée : "${defaultValue}"`
+          `${'⚠️ '} ENV.config.ts : La variable ${env} est manquante. Valeur par défaut utilisée : "${defaultValue}"`
         );
         return defaultValue as string;
       }
