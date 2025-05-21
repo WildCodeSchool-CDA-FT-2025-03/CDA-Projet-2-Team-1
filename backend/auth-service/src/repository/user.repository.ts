@@ -1,6 +1,6 @@
 import usePoolConnection from '../database/config';
 import { QueryResult } from 'pg';
-import userTableType from '../types/typeTablePostgres/userTable.type';
+import userTableType from '../types/userTable.type';
 
 async function verifyEmailRepository(email: string): Promise<userTableType | null> {
   // Vérification : l'email reçu existe t-il dans la DB ?

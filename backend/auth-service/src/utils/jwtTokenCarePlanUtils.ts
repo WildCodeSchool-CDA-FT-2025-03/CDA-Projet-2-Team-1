@@ -2,7 +2,7 @@ import payloadType from '../types/payloadType';
 import { createDate_Number_Utils } from './createDateUtils';
 import jwt from 'jsonwebtoken';
 import ENV from '../config/ENV.config';
-import userTableType from '../types/typeTablePostgres/userTable.type';
+import userTableType from '../types/userTable.type';
 
 // Récupération de la clé secrète Server
 const SECRET_KEY_TOKEN_SERVER: string = ENV('process.env.SECRET_KEY_TOKEN_SERVER');

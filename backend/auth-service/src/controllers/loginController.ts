@@ -12,7 +12,7 @@ import VerifyKeys from '../middleware/VerifyKeys/VerifyKeys';
 import verifyEmailTrueRepository from '../repository/user.repository';
 
 // Import des Types :
-import userTableType from '../types/typeTablePostgres/userTable.type';
+import userTableType from '../types/userTable.type';
 
 // Import des utils
 import { verifyPasswordArgonUtils } from '../utils/hashArgonUtils';
