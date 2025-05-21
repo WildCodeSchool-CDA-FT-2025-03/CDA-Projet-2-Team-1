@@ -1,5 +1,3 @@
-// apollo-client.ts
-
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 import { RetryLink } from '@apollo/client/link/retry';
