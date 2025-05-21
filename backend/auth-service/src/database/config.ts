@@ -1,7 +1,5 @@
 import 'dotenv/config';
 import chalk from 'chalk';
-import ENV from '../config/ENV.config';
-import testPoolConnection from '../repository/testPoolConnection.config.repository';
 import { Pool } from 'pg';
 
 // ✅ Stockage du pool dans une variable globale
@@ -14,42 +12,17 @@ function initializePool() {
   if (!pool) {
     try {
       pool = new Pool({
-        host: ENV('process.env.DB_HOST', 'localhost'),
-        port: Number(ENV('process.env.DB_PORT', '5432')),
-        user: ENV('process.env.DB_USER', 'bob'),
-        password: ENV('process.env.DB_PASSWORD', '1234'),
-        database: ENV('process.env.DB_NAME', 'care-plan'),
+        host: process.env.DB_HOST || 'localhost',
+        port: Number(process.env.DB_PORT || '9500'),
+        user: process.env.DB_USER || 'bob',
+        password: process.env.DB_PASSWORD || '1234',
+        database: process.env.DB_NAME || 'care-plan',
         max: 10, // Maximum 10 connexions simultanées
       });
 
       console.info(chalk.green(`${'✅ '}Pool de connexions Postgres créé avec succès !`));
 
       // ✅ Test réel de connexion Posgres
-      (async () => {
-        try {
-          await testPoolConnection(pool);
-        } catch (error) {
-          const testPoolConnectionError = error as Error;
-
-          console.error({
-            identity: 'config.ts',
-            type: 'Fichier de configuration database',
-            chemin: 'src/database/config.ts',
-            "❌ Nature de l'erreur":
-              "Erreur détectée lors de l'utilisation de la fonction testPoolConnection",
-            testPoolConnection: {
-              identity: 'testPoolConnection.config.repository.ts',
-              type: 'Repository',
-              chemin: 'src/repository/testPoolConnection.config.repository.ts',
-              "❌ Nature de l'erreur": testPoolConnectionError.message,
-              '❌ Erreur': testPoolConnectionError.name,
-            },
-          });
-
-          console.error(chalk.red('⚠️ Arrêt du serveur !'));
-          process.exit(1);
-        }
-      })();
     } catch (error) {
       console.error(chalk.white(error));
       console.error(chalk.red('❌ Erreur lors de la création du pool PostgreSQL'));

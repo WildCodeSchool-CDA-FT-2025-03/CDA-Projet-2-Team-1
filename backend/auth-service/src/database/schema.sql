@@ -1,3 +1,6 @@
+-- Commande a lancer : 
+-- docker exec -i cda-projet-2-team-1-database-1 psql -U bob -d care-plan < schema.sql
+
 -- 🔄 SUPPRESSION DES TABLES EXISTANTES
 DROP TABLE IF EXISTS "user" CASCADE;
 DROP TABLE IF EXISTS role CASCADE;
