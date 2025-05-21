@@ -7,9 +7,13 @@ export const PatientList = ({ patients }: PatientListProps) => {
   }
 
   return (
-    <ul className="patients-list">
+    <ul className="patients-list" aria-label="Liste des patients">
       {patients.map((patient) => (
-        <li key={patient.id} className="patients-list-item">
+        <li
+          key={patient.id}
+          className="patients-list-item"
+          aria-label={`Patient: ${patient.firstName} ${patient.lastName}`}
+        >
           <p className="patients-list-name">
             {patient.firstName} {patient.lastName} {patient.ssn?.number}
           </p>
