@@ -5,7 +5,6 @@ import { ApolloProvider } from '@apollo/client';
 import { apolloClient } from './lib/apollo-client.ts';
 // pages
 import App from './App.tsx';
-// Components
 import AdminPage from './pages/AdminPage.tsx';
 import AgentPage from './pages/AgentPage.tsx';
 import DoctorPage from './pages/DoctorPage.tsx';
