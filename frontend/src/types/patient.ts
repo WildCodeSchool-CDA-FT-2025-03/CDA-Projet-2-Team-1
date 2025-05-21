@@ -20,8 +20,5 @@ export type ErrorDisplayProps = {
 };
 
 export type PatientDialogProps = {
-  patients: Patient[] | undefined;
-  loading: boolean;
-  error: Error | undefined;
   serverUrl: string;
 };

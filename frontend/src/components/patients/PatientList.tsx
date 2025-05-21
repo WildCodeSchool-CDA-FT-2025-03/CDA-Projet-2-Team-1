@@ -1,5 +1,4 @@
 import { type PatientListProps } from '@/types/patient';
-import './patients.css';
 
 export const PatientList = ({ patients }: PatientListProps) => {
   if (patients.length === 0) {
@@ -7,14 +6,14 @@ export const PatientList = ({ patients }: PatientListProps) => {
   }
 
   return (
-    <ul className="patients-list" aria-label="Liste des patients">
+    <ul className="list-none p-0 m-0" aria-label="Liste des patients">
       {patients.map((patient) => (
         <li
           key={patient.id}
-          className="patients-list-item"
+          className="p-4 border border-gray-200 rounded mb-4 last:mb-0"
           aria-label={`Patient: ${patient.firstName} ${patient.lastName}`}
         >
-          <p className="patients-list-name">
+          <p className="font-bold m-0">
             {patient.firstName} {patient.lastName} {patient.ssn?.number}
           </p>
         </li>

@@ -1,13 +1,10 @@
 import { type ErrorDisplayProps } from '@/types/patient';
-import './patients.css';
 
 export const ErrorDisplay = ({ error, serverUrl }: ErrorDisplayProps) => {
   return (
-    <div className="patients-error">
-      <p className="patients-error-message">
-        Erreur lors du chargement des patients: {error.message}
-      </p>
-      <p className="patients-error-details">
+    <div className="bg-red-50 border border-red-200 rounded p-4">
+      <p className="text-red-500 m-0">Erreur lors du chargement des patients: {error.message}</p>
+      <p className="text-sm text-red-400 mt-2 mb-0">
         Vérifiez que le serveur backend est accessible sur {serverUrl}/graphql
       </p>
     </div>
