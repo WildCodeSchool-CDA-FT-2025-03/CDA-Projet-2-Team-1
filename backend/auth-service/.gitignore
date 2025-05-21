@@ -2,4 +2,5 @@
 .env.production
 .env.development
 .env.base
+.env.test
 node_modules

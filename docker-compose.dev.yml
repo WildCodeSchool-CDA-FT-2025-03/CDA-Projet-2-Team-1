@@ -72,23 +72,25 @@ services:
     volumes:
       - ./frontend/src:/opt/app/src
 
+  ### Auth-Service ###
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ./backend/auth-service
+      target: dev
+
+    environment:
+      - NODE_ENV=development
+
+    ports:
+      - '9500:9500'
+    restart: unless-stopped
+    volumes:
+      - ./backend/auth-service/src:/opt/app/src
+
+    depends_on:
+      database:
+        condition: service_healthy
+
 volumes:
   care-plan-db:
-
-  ### Auth-Service ###
-  services:
-    auth-service:
-      build: ./backend/auth-service
-      container_name: auth-
-
-      environment:
-        DATABASE_HOST: database
-        DATABASE_USER: ${DATABASE_USER}
-        DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-        DATABASE_NAME: ${DATABASE_NAME}
-        DATABASE_SYNC: ${DATABASE_SYNC}
-        API_PORT: ${API_PORT}
-
-      ports:
-        - '3001:3000'
-      restart: unless-stopped
