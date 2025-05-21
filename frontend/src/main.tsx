@@ -1,14 +1,16 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router';
+import './index.css';
 
-import App from './App.tsx';
+import { RouterProvider, createBrowserRouter } from 'react-router';
+
 import AdminPage from './pages/AdminPage.tsx';
 import AgentPage from './pages/AgentPage.tsx';
+import { ApolloProvider } from '@apollo/client';
+import App from './App.tsx';
 import DoctorPage from './pages/DoctorPage.tsx';
 import SecretaryPage from './pages/SecretaryPage.tsx';
-
-import './index.css';
+import { StrictMode } from 'react';
+import { apolloClient } from './lib/apollo-client';
+import { createRoot } from 'react-dom/client';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ApolloProvider client={apolloClient}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
   </StrictMode>
 );

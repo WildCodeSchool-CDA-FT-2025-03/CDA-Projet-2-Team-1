@@ -1,12 +1,16 @@
-import { ApolloServer } from '@apollo/server';
-import { dataSource } from './services/client.service';
-import { startStandaloneServer } from '@apollo/server/standalone';
-import { buildSchema } from 'type-graphql';
 import * as dotenv from 'dotenv';
-// resolvers
+
+import { ApolloServer } from '@apollo/server';
+import PatientResolver from './resolvers/patient.resolver';
 import UserResolver from './resolvers/user.resolver';
-// services
+import { buildSchema } from 'type-graphql';
+import { dataSource } from './services/client.service';
 import logger from './services/logger.service';
+import { startStandaloneServer } from '@apollo/server/standalone';
+
+// resolvers
+
+// services
 
 dotenv.config();
 
@@ -16,9 +20,9 @@ const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
   await dataSource.initialize();
 
   const schema = await buildSchema({
-    resolvers: [UserResolver],
+    resolvers: [UserResolver, PatientResolver],
+    validate: true, // Évite des erreurs de validation inutiles
   });
-
   const server = new ApolloServer({
     schema,
   });
