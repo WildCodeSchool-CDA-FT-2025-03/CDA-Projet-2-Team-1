@@ -30,7 +30,6 @@ export const PatientDialog = ({
   // Gestion du focus trap dans la modal
   useEffect(() => {
     if (isOpen) {
-      // Store the element that had focus before opening the modal
       previousFocusRef.current = document.activeElement as HTMLElement;
 
       if (modalRef.current) {
