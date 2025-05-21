@@ -5,7 +5,6 @@ const loginController = express.Router();
 // Import des dépendances externes :
 
 // Import des Middlewares :
-import RouteLimiterRequestIP from '../security/middlewareSecurity/RouteLimiterRequestIP';
 import VerifyKeys from '../middleware/VerifyKeys/VerifyKeys';
 
 // Import des Repositories :
@@ -23,7 +22,6 @@ loginController.post(
   '/',
 
   // Vérification :
-  RouteLimiterRequestIP,
   VerifyKeys(['email', 'password']),
 
   async (req: Request, res: Response) => {
