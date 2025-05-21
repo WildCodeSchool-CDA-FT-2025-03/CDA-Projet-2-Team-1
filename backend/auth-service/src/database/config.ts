@@ -22,38 +22,42 @@ function initializePool() {
         max: 10, // Maximum 10 connexions simultanées
       });
 
-      console.info(chalk.green(`${'✅ '}Pool de connexions MySQL créé avec succès !`));
+      console.info(chalk.green(`${'✅ '}Pool de connexions Postgres créé avec succès !`));
 
-      // ✅ Test réel de connexion MySQL
-      try {
-        testPoolConnection(pool);
-      } catch (error) {
-        const testPoolConnectionError = error as Error;
-        console.error({
-          identity: 'config.ts',
-          type: 'Fichier de configuration database',
-          chemin: 'src/database/config.ts',
-          "❌ Nature de l'erreur":
-            "Erreur détecté lors de l'utilisation de la fonction testPoolConnection",
-          testPoolConnection: {
-            identity: 'testPoolConnection.config.repository.ts',
-            type: 'Repository',
-            chemin: 'src/repository/testPoolConnection.config.repository.ts',
-            /* Erreur retourné par le composant : */
-            "❌ Nature de l'erreur": testPoolConnectionError.message,
-            '❌ Erreur': testPoolConnectionError.name,
-          },
-        });
-        console.error(chalk.red(`${'⚠️ '} Arret du serveur !`));
-        process.exit(1); // Arrête le serveur si la connexion échoue
-      }
+      // ✅ Test réel de connexion Posgres
+      (async () => {
+        try {
+          await testPoolConnection(pool);
+        } catch (error) {
+          const testPoolConnectionError = error as Error;
+
+          console.error({
+            identity: 'config.ts',
+            type: 'Fichier de configuration database',
+            chemin: 'src/database/config.ts',
+            "❌ Nature de l'erreur":
+              "Erreur détectée lors de l'utilisation de la fonction testPoolConnection",
+            testPoolConnection: {
+              identity: 'testPoolConnection.config.repository.ts',
+              type: 'Repository',
+              chemin: 'src/repository/testPoolConnection.config.repository.ts',
+              "❌ Nature de l'erreur": testPoolConnectionError.message,
+              '❌ Erreur': testPoolConnectionError.name,
+            },
+          });
+
+          console.error(chalk.red('⚠️ Arrêt du serveur !'));
+          process.exit(1);
+        }
+      })();
     } catch (error) {
       console.error(chalk.white(error));
-      console.error(chalk.red(`${'❌ '}Erreur lors de la création du pool MySQL`));
-      console.error(chalk.red(`${'⚠️ '} Arret du serveur !`));
-      throw error; // Permet de stopper l'application si le pool ne peut pas être créé
+      console.error(chalk.red('❌ Erreur lors de la création du pool PostgreSQL'));
+      console.error(chalk.red('⚠️ Arrêt du serveur !'));
+      throw error;
     }
   }
+
   return pool;
 }
 
@@ -62,9 +66,9 @@ function initializePool() {
  */
 export async function useComplexConnection() {
   if (!pool) {
-    console.error(chalk.red(`${'❌ '}Le pool de connexions MySQL n'a pas été initialisé !`));
+    console.error(chalk.red(`${'❌ '}Le pool de connexions Postgres n'a pas été initialisé !`));
     console.error(chalk.bold.red(`${'⚠️ '} Arret du serveur !`));
-    throw new Error("Le pool de connexions MySQL n'a pas été initialisé !");
+    throw new Error("Le pool de connexions Postgres n'a pas été initialisé !");
   }
 
   try {
@@ -72,7 +76,9 @@ export async function useComplexConnection() {
     return connection;
   } catch (error) {
     console.error(chalk.white(error));
-    console.error(chalk.bold.red(`${'❌ '}Erreur lors de la récupération d'une connexion MySQL`));
+    console.error(
+      chalk.bold.red(`${'❌ '}Erreur lors de la récupération d'une connexion Postgres`)
+    );
     throw error;
   }
 }
