@@ -6,7 +6,6 @@ export type Patient = {
 };
 
 export type Ssn = {
-  id: string;
   number: string;
 };
 
