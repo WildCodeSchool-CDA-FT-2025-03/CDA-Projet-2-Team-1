@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import chalk from 'chalk';
 import { Pool } from 'pg';
+import testPoolConnection from '../repository/testPoolConnection.config.repository';
 
 // ✅ Stockage du pool dans une variable globale
 let pool: Pool | null = null;
@@ -23,6 +24,9 @@ function initializePool() {
       console.info(chalk.green(`${'✅ '}Pool de connexions Postgres créé avec succès !`));
 
       // ✅ Test réel de connexion Posgres
+      (async () => {
+        await testPoolConnection(pool);
+      })();
     } catch (error) {
       console.error(chalk.yellow(`${'⚠️ '} Erreur lors de la création du pool PostgreSQL`));
       throw error;

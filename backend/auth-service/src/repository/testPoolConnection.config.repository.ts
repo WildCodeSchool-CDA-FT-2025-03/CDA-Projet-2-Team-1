@@ -15,17 +15,13 @@ async function testPoolConnection(pool: Pool) {
     }
 
     // ⛔ Requête réussie mais le résultat n’est pas celui attendu
-    throw new Error('La requête de test Postgres a retourné un résultat inattendu.');
+    console.error('La requête de test Postgres a retourné un résultat inattendu.');
+    return;
   } catch (error) {
-    /* Si le résultat est inattendu, on récupère l'erreur plus haut et on le renvois à config.ts */
-    if (error instanceof Error) {
-      error.message = `${error.message}`;
-      throw error;
-    }
-
-    /* Si la connexion échoue complètement */
-    throw new Error(
-      `Connexion impossible à la DB, vérifiez vos identifiants de connexion et vos variables d'environnement.`
+    console.error(
+      chalk.yellow(
+        `Connexion impossible à la DB, vérifiez vos identifiants de connexion et vos variables d'environnement : ${error}`
+      )
     );
   }
 }
