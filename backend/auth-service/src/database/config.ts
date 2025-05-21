@@ -24,36 +24,12 @@ function initializePool() {
 
       // ✅ Test réel de connexion Posgres
     } catch (error) {
-      console.error(chalk.white(error));
-      console.error(chalk.red('❌ Erreur lors de la création du pool PostgreSQL'));
-      console.error(chalk.red('⚠️ Arrêt du serveur !'));
+      console.error(chalk.yellow(`${'⚠️ '} Erreur lors de la création du pool PostgreSQL`));
       throw error;
     }
   }
 
   return pool;
-}
-
-/**
- * Fonction pour récupérer une connexion du pool avec `try/catch`
- */
-export async function useComplexConnection() {
-  if (!pool) {
-    console.error(chalk.red(`${'❌ '}Le pool de connexions Postgres n'a pas été initialisé !`));
-    console.error(chalk.bold.red(`${'⚠️ '} Arret du serveur !`));
-    throw new Error("Le pool de connexions Postgres n'a pas été initialisé !");
-  }
-
-  try {
-    const connection = await pool.connect();
-    return connection;
-  } catch (error) {
-    console.error(chalk.white(error));
-    console.error(
-      chalk.bold.red(`${'❌ '}Erreur lors de la récupération d'une connexion Postgres`)
-    );
-    throw error;
-  }
 }
 
 // ✅ Initialisation du pool au démarrage
