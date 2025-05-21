@@ -9,6 +9,13 @@ const config: CodegenConfig = {
       plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],
       config: {
         withHooks: true,
+        // Définition des types scalaires
+        scalars: {
+          DateTimeISO: 'Date',
+          Date: 'Date',
+        },
+        strictScalars: true, // Assure que les types scalaires sont strictement respectés
+        avoidOptionals: true, // Évite les types optionnels
       },
     },
   },
