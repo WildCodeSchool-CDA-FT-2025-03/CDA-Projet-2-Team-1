@@ -1,6 +1,6 @@
 import { RestEntity, useGetByUserIdQuery } from '@/gql/graphql-types';
 import { useState } from 'react';
-import { Calendar, SlotInfo, dateFnsLocalizer } from 'react-big-calendar';
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -53,12 +53,6 @@ const eventStyleGetter = (event: RestEntity) => ({
   },
 });
 
-// Gestionnaire de sélection
-const handleSelect = (slotInfo: SlotInfo) => {
-  console.log('Selected slot:', slotInfo);
-  // ouvrir un modal pour ajouter un nouvel événement
-};
-
 type RestProps = {
   user_id: string;
 };
@@ -89,7 +83,6 @@ function Rest({ user_id }: RestProps) {
           views={['month', 'week', 'day']}
           defaultView="month"
           selectable
-          onSelectSlot={handleSelect}
           eventPropGetter={eventStyleGetter}
           date={currentDate}
           onNavigate={(date) => setCurrentDate(date)}
