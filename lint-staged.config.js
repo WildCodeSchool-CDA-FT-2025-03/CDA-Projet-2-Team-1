@@ -1,11 +1,17 @@
 module.exports = {
   'frontend/src/**/*.{js,jsx,ts,tsx}': (filenames) => {
     const paths = filenames.map((filename) => `"${filename}"`);
-    return [`eslint --fix ${paths.join(' ')}`, `prettier --write ${paths.join(' ')}`];
+    return [
+      `eslint --fix --rule 'no-console: [error, { allow: ["warn", "error", "info"] }]' ${paths.join(' ')}`,
+      `prettier --write ${paths.join(' ')}`,
+    ];
   },
   'backend/*/src/**/*.{js,jsx,ts,tsx}': (filenames) => {
     const paths = filenames.map((filename) => `"${filename}"`);
-    return [`eslint --fix ${paths.join(' ')}`, `prettier --write ${paths.join(' ')}`];
+    return [
+      `eslint --fix --rule 'no-console: [error, { allow: ["warn", "error", "info"] }]' ${paths.join(' ')}`,
+      `prettier --write ${paths.join(' ')}`,
+    ];
   },
   '*.{css,scss}': (filenames) => {
     const paths = filenames.map((filename) => `"${filename}"`);
@@ -30,6 +36,9 @@ module.exports = {
     );
     if (rootFiles.length === 0) return [];
     const paths = rootFiles.map((filename) => `"${filename}"`);
-    return [`eslint --fix ${paths.join(' ')}`, `prettier --write ${paths.join(' ')}`];
+    return [
+      `eslint --fix --rule 'no-console: [error, { allow: ["warn", "error", "info"] }]' ${paths.join(' ')}`,
+      `prettier --write ${paths.join(' ')}`,
+    ];
   },
 };
