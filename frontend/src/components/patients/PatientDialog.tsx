@@ -30,10 +30,12 @@ export const PatientDialog = ({
   // Gestion du focus trap dans la modal
   useEffect(() => {
     if (isOpen) {
+      // Store the element that had focus before opening the modal
       previousFocusRef.current = document.activeElement as HTMLElement;
 
-      if (modalRef.current) {
-        const focusableElements = modalRef.current.querySelectorAll(
+      const modalElement = modalRef.current;
+      if (modalElement) {
+        const focusableElements = modalElement.querySelectorAll(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
         );
         const firstFocusable = focusableElements[0] as HTMLElement;
@@ -51,11 +53,11 @@ export const PatientDialog = ({
           }
         };
 
-        modalRef.current.addEventListener('keydown', handleTabKey);
+        modalElement.addEventListener('keydown', handleTabKey);
         firstFocusable.focus();
 
         return () => {
-          modalRef.current?.removeEventListener('keydown', handleTabKey);
+          modalElement.removeEventListener('keydown', handleTabKey);
           // Restore focus when modal closes
           previousFocusRef.current?.focus();
         };
