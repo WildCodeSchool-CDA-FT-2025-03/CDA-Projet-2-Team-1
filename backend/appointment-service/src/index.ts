@@ -18,7 +18,7 @@ const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
   await dataSource.initialize();
 
   const schema = await buildSchema({
-    resolvers: [PatientResolver,  RestResolver, UserResolver],
+    resolvers: [PatientResolver, RestResolver, UserResolver],
     validate: true, // Évite des erreurs de validation inutiles
   });
   
