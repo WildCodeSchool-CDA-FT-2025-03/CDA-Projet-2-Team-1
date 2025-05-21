@@ -58,7 +58,7 @@ function RestModal({ isOpen, onClose, onSubmit, selectedDates }: RestModalProps)
   return (
     <dialog
       ref={dialogRef}
-      className="z-50 m-0 p-6 min-h-screen fixed top-0 right-0 left-auto bottom-0 transform-none w-full max-w-3/7 border-l border-gray-200 rounded-none bg-white shadow-xl backdrop:bg-transparent backdrop:backdrop-blur-sm"
+      className="z-50 m-0 p-6 min-h-screen fixed top-0 right-0 left-auto bottom-0 w-full max-w-3/7 border-l border-gray-200 rounded-none bg-white shadow-xl backdrop:bg-transparent backdrop:backdrop-blur-xs pointer-events-auto"
       aria-labelledby="dialog-title"
       aria-describedby="dialog-desc"
     >
