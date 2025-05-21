@@ -1,4 +1,9 @@
-import { RestEntity, useGetByUserIdQuery } from '@/gql/graphql-types';
+import {
+  RestEntity,
+  useGetByUserIdQuery,
+  useCreateRestMutation,
+  GetByUserIdDocument,
+} from '@/gql/graphql-types';
 import { useState } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -42,7 +47,7 @@ const eventColors = (typeRest: string) => {
   }
 };
 
-// Style personnalisé pour les événements
+// Style personnalisé pour les congés
 const eventStyleGetter = (event: RestEntity) => ({
   style: {
     backgroundColor: eventColors(event.type),
@@ -59,7 +64,15 @@ type RestProps = {
 
 function Rest({ user_id }: RestProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [showModal, setShowModal] = useState(false);
+  const [selectedDates, setSelectedDates] = useState<{ start: Date; end: Date } | null>(null);
+  const [selectedType, setSelectedType] = useState('Congé');
+
   const events = useGetByUserIdQuery({ variables: { userId: user_id } });
+  const [createRest] = useCreateRestMutation({
+    refetchQueries: [{ query: GetByUserIdDocument, variables: { userId: user_id } }],
+  });
+
   const rest =
     events.data?.getByUserID.map((e) => {
       return {
@@ -68,6 +81,30 @@ function Rest({ user_id }: RestProps) {
         date_end: new Date(e.date_end),
       };
     }) || [];
+
+  const handleSelect = ({ start, end }: { start: Date; end: Date }) => {
+    setSelectedDates({ start, end });
+    setShowModal(true);
+  };
+
+  const handleCreateRest = async () => {
+    if (selectedDates) {
+      try {
+        await createRest({
+          variables: {
+            userId: user_id,
+            type: selectedType,
+            dateStart: selectedDates.start,
+            dateEnd: selectedDates.end,
+          },
+        });
+        setShowModal(false);
+        setSelectedDates(null);
+      } catch (error) {
+        console.error('Erreur lors de la création du congé:', error);
+      }
+    }
+  };
 
   return (
     <section className="p-4 max-w-6xl mx-auto">
@@ -86,10 +123,54 @@ function Rest({ user_id }: RestProps) {
           eventPropGetter={eventStyleGetter}
           date={currentDate}
           onNavigate={(date) => setCurrentDate(date)}
+          onSelectSlot={handleSelect}
           culture="fr"
           messages={navigation}
         />
       </div>
+
+      {showModal && (
+        <div className="fixed z-50 inset-0 bg-transparent backdrop-blur-sm flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-xl">
+            <h3 className="text-xl font-semibold mb-4">Nouveau congé</h3>
+            <div className="mb-4">
+              <label htmlFor="restType" className="block text-sm font-medium text-gray-700 mb-2">
+                Type de congé
+              </label>
+              <select
+                id="restType"
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+                className="w-full p-2 border rounded"
+              >
+                <option value="Congé">Congé</option>
+                <option value="Maladie">Maladie</option>
+                <option value="Formation">Formation</option>
+              </select>
+            </div>
+            <div className="mb-4">
+              <p className="text-sm text-gray-600">
+                Du {selectedDates?.start.toLocaleDateString()} au{' '}
+                {selectedDates?.end.toLocaleDateString()}
+              </p>
+            </div>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setShowModal(false)}
+                className="px-4 py-2 text-gray-600 hover:text-gray-800"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={handleCreateRest}
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                Créer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
