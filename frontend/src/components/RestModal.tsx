@@ -1,11 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-
-type RestModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  onSubmit: (type: string) => void;
-  selectedDates: { start: Date; end: Date } | null;
-};
+import { RestModalProps } from '@/types/rest.types';
 
 function RestModal({ isOpen, onClose, onSubmit, selectedDates }: RestModalProps) {
   const [selectedType, setSelectedType] = useState('Congé');

@@ -1,15 +1,18 @@
+import { useState } from 'react';
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { format, parse, startOfWeek, getDay } from 'date-fns';
+import { fr } from 'date-fns/locale';
+//components
+import RestModal from './RestModal';
+//types
 import {
   RestEntity,
   useGetByUserIdQuery,
   useCreateRestMutation,
   GetByUserIdDocument,
 } from '@/gql/graphql-types';
-import { useState } from 'react';
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { format, parse, startOfWeek, getDay } from 'date-fns';
-import { fr } from 'date-fns/locale';
-import RestModal from './RestModal';
+import { RestProps } from '@/types/rest.types';
 
 // Configuration du localisateur
 const locales = {
@@ -58,10 +61,6 @@ const eventStyleGetter = (event: RestEntity) => ({
     padding: '2px 5px',
   },
 });
-
-type RestProps = {
-  user_id: string;
-};
 
 function Rest({ user_id }: RestProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -133,7 +132,6 @@ function Rest({ user_id }: RestProps) {
           messages={navigation}
         />
       </div>
-
       <RestModal
         isOpen={showModal}
         onClose={handleCloseModal}
