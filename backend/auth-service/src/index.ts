@@ -7,7 +7,7 @@ import chalk from 'chalk';
 import ENV from './config/ENV.config';
 
 const app = express();
-const port = ENV('process.env.PORT_SERVER');
+const port = ENV('process.env.VITE_PORT_AUTH_SERVICE', '9500');
 
 app.use(
   cors({
@@ -51,8 +51,13 @@ app.use(async (req: Request, res: Response) => {
 });
 
 /**
- * Le server se lance sur le port 8080
+ * Le server se lance sur le port 9500
  */
 app.listen(port, async () => {
-  console.info(chalk.cyan(`Server lancé sur ${await ENV('process.env.DOMAIN_BACK')}`));
+  console.info(chalk.cyan(`Server lancé sur ${await ENV('process.env.VITE_DOMAIN_AUTH_SERVICE')}`));
 });
+
+// import { hashPasswordArgonUtils } from './utils/hashArgonUtils';
+
+// const pasword = hashPasswordArgonUtils('1234');
+// console.log(pasword);

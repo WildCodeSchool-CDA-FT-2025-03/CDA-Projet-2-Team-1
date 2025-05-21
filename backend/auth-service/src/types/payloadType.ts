@@ -3,9 +3,9 @@ type payloadType = {
   email: string;
   firstname?: string;
   lastname?: string;
-  address?: string;
-  role: string;
-  date_save?: string;
+  role_id: number;
+  service_id: number;
+  create_at?: string;
   iat: number; // Date de création du token
 };
 

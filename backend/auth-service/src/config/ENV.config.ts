@@ -1,4 +1,4 @@
-function ENV(env: string): string {
+function ENV(env: string, defaultValue?: string): string {
   try {
     /* Vérification de la syntaxe de la variable d'environnement demandée */
     const env_array: string[] = env.split('.');
@@ -20,6 +20,12 @@ function ENV(env: string): string {
     /* Vérification de la validité de la variable d'environnement */
     /* Si la variable, n'existe pas, n'est pas une string ou est une chaine string vide, renvois une erreur */
     if (!env_verify || typeof env_verify !== 'string' || !env_verify.trim()) {
+      if (typeof defaultValue === 'string' && defaultValue.trim()) {
+        console.warn(
+          `⚠️ ENV.config.ts : La variable ${env} est manquante. Valeur par défaut utilisée : "${defaultValue}"`
+        );
+        return defaultValue as string;
+      }
       throw new Error(
         "ENV.config.ts : La variable d'environnement demandée n'existe pas ou n'est pas valide !"
       );

@@ -14,11 +14,11 @@ function initializePool() {
   if (!pool) {
     try {
       pool = new Pool({
-        host: ENV('process.env.DB_HOST', 'Warning') || 'localhost',
-        port: Number(ENV('process.env.DB_PORT', 'Warning') || '3306'),
-        user: ENV('process.env.DB_USER', 'Warning') || 'root',
-        password: ENV('process.env.DB_PASSWORD', 'Warning') || 'password',
-        database: ENV('process.env.DB_NAME', 'Warning') || 'DB_CarePlan',
+        host: ENV('process.env.DB_HOST', 'localhost'),
+        port: Number(ENV('process.env.DB_PORT', '5432')),
+        user: ENV('process.env.DB_USER', 'bob'),
+        password: ENV('process.env.DB_PASSWORD', '1234'),
+        database: ENV('process.env.DB_NAME', 'care-plan'),
         max: 10, // Maximum 10 connexions simultanées
       });
 
