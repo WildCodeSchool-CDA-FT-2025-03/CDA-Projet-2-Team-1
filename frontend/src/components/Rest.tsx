@@ -3,6 +3,8 @@ import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //components
 import RestModal from './RestModal';
 //types
@@ -102,43 +104,64 @@ function Rest({ user_id }: RestProps) {
             dateEnd: selectedDates.end,
           },
         });
+
+        // Afficher le toast de confirmation
+        toast.success(
+          `${type} enregistré avec succès du ${selectedDates.start.toLocaleDateString()} au ${new Date(selectedDates.end.getTime() - 1000).toLocaleDateString()} (inclus)`,
+          {
+            position: 'bottom-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          }
+        );
+
         setShowModal(false);
         setSelectedDates(null);
       } catch (error) {
-        console.error('Erreur lors de la création du congé:', error);
+        console.error(`Erreur lors de la création de l'événement ${type}:`, error);
+        toast.error(`Erreur lors de l'enregistrement de l'événement ${type}`, {
+          position: 'bottom-right',
+          autoClose: 5000,
+        });
       }
     }
   };
 
   return (
-    <section className="p-4 max-w-6xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-4">Gestion des Congés</h2>
-      <div className="bg-white rounded-lg shadow-md p-4 h-[600px]">
-        <Calendar
-          localizer={localizer}
-          events={rest}
-          startAccessor="date_start"
-          endAccessor="date_end"
-          titleAccessor={(event) => event.type}
-          style={{ height: '100%' }}
-          views={['month', 'week', 'day']}
-          defaultView="month"
-          selectable
-          eventPropGetter={eventStyleGetter}
-          date={currentDate}
-          onNavigate={(date) => setCurrentDate(date)}
-          onSelectSlot={handleSelect}
-          culture="fr"
-          messages={navigation}
-        />
-      </div>
+    <>
+      <section className="p-4 max-w-6xl mx-auto">
+        <h2 className="text-2xl font-semibold mb-4">Gestion des Congés</h2>
+        <div className="bg-white rounded-lg shadow-md p-4 h-[600px]">
+          <Calendar
+            localizer={localizer}
+            events={rest}
+            startAccessor="date_start"
+            endAccessor="date_end"
+            titleAccessor={(event) => event.type}
+            style={{ height: '100%' }}
+            views={['month', 'week', 'day']}
+            defaultView="month"
+            selectable
+            eventPropGetter={eventStyleGetter}
+            date={currentDate}
+            onNavigate={(date) => setCurrentDate(date)}
+            onSelectSlot={handleSelect}
+            culture="fr"
+            messages={navigation}
+          />
+        </div>
+      </section>
       <RestModal
         isOpen={showModal}
         onClose={handleCloseModal}
         onSubmit={handleCreateRest}
         selectedDates={selectedDates}
       />
-    </section>
+      <ToastContainer />
+    </>
   );
 }
 
