@@ -60,12 +60,15 @@ module.exports = {
       },
     },
     {
-      files: ['backend/src/**/*.{ts,js}'],
+      files: ['backend/*/src/**/*.{ts,js}'],
       extends: ['plugin:node/recommended'],
       settings: {
         node: {
           tryExtensions: ['.js', '.json', '.node', '.ts', '.d.ts'],
         },
+      },
+      rules: {
+        'node/no-unsupported-features/es-syntax': 'off',
       },
     },
     {
