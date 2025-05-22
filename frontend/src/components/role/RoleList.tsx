@@ -14,7 +14,7 @@ export default function Rolelist({ value, handleChange }: RoleListProps) {
       <Select
         value={value}
         handleChange={handleChange}
-        label="Choisissez une option"
+        label="Choisissez un role"
         list={data?.getRoles || []}
         field="name"
       />
