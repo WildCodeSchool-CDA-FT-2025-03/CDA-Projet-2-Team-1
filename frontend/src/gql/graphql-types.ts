@@ -243,6 +243,7 @@ export type GetByUserIdQueryResult = Apollo.QueryResult<
   GetByUserIdQuery,
   GetByUserIdQueryVariables
 >;
+                                                    
 export const CreateRestDocument = gql`
   mutation CreateRest(
     $userId: String!
