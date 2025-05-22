@@ -45,7 +45,11 @@ export default {
           foreground: 'var(--popover-foreground)',
         },
         // Exemple pour la couleur turquoise spécifique si elle n'est pas --primary
-        turquoise: '#027FB5',
+        // turquoise: {
+        //   500: '#0395d3',
+        //   600: '#027fb5',
+        //   DEFAULT: '#0395d3',
+        // },
         'turquoise-dark': '#027FB5',
       },
       borderRadius: {

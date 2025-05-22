@@ -97,14 +97,14 @@ function RestModal({ isOpen, onClose, onSubmit, selectedDates }: RestModalProps)
           <button
             type="button"
             onClick={onClose}
-            className="w-1/4 text-gray-600 hover:text-gray-800 cursor-pointer"
+            className="px-8 py-2 text-gray-600 hover:text-gray-800 cursor-pointer"
             aria-label="Annuler la création de l'événement"
           >
             Annuler
           </button>
           <button
             type="submit"
-            className="w-1/4 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer"
+            className="px-8 py-2 bg-turquoise-500 text-white rounded hover:bg-turquoise-600 cursor-pointer"
             aria-label="Valider et créer l'événement"
           >
             Valider
