@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { RestModalProps } from '@/types/rest.types';
+import { RestModalProps, RestEnum } from '@/types/rest.types';
 
 function RestModal({ isOpen, onClose, onSubmit, selectedDates }: RestModalProps) {
-  const [selectedType, setSelectedType] = useState('Congé');
+  const [selectedType, setSelectedType] = useState(RestEnum.REST);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   //useEffect pour gérer l'ouverture/fermeture et les événements de la modale
@@ -81,13 +81,13 @@ function RestModal({ isOpen, onClose, onSubmit, selectedDates }: RestModalProps)
           <select
             id="restType"
             value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
+            onChange={(e) => setSelectedType(e.target.value as RestEnum)}
             className="w-full p-2 border rounded"
             aria-required="true"
           >
-            <option value="Congé">Congé</option>
-            <option value="Maladie">Maladie</option>
-            <option value="Formation">Formation</option>
+            <option value={RestEnum.REST}>{RestEnum.REST}</option>
+            <option value={RestEnum.SICK}>{RestEnum.SICK}</option>
+            <option value={RestEnum.COURSE}>{RestEnum.COURSE}</option>
           </select>
           <p id="dialog-desc" className="text-sm text-gray-600 mt-2">
             {`Du ${selectedDates.start.toLocaleDateString()} au ${new Date(selectedDates.end.getTime() - 1000).toLocaleDateString()} (inclus)`}

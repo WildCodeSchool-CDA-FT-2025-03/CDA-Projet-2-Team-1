@@ -8,3 +8,9 @@ export type RestModalProps = {
   onSubmit: (type: string) => void;
   selectedDates: { start: Date; end: Date } | null;
 };
+
+export enum RestEnum {
+  REST = 'Congé',
+  COURSE = 'Formation',
+  SICK = 'Maladie',
+}
