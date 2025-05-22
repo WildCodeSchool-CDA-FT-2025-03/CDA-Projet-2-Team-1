@@ -101,6 +101,24 @@ export type GetByUserIdQuery = {
   }>;
 };
 
+export type CreateRestMutationVariables = Exact<{
+  userId: Scalars['String']['input'];
+  type: Scalars['String']['input'];
+  dateStart: Scalars['DateTimeISO']['input'];
+  dateEnd: Scalars['DateTimeISO']['input'];
+}>;
+
+export type CreateRestMutation = {
+  __typename?: 'Mutation';
+  createRest: {
+    __typename?: 'RestEntity';
+    id: number;
+    type: string;
+    date_start: Date;
+    date_end: Date;
+  };
+};
+
 export const GetPatientsDocument = gql`
   query GetPatients {
     patients {
@@ -224,4 +242,60 @@ export type GetByUserIdSuspenseQueryHookResult = ReturnType<typeof useGetByUserI
 export type GetByUserIdQueryResult = Apollo.QueryResult<
   GetByUserIdQuery,
   GetByUserIdQueryVariables
+>;
+                                                    
+export const CreateRestDocument = gql`
+  mutation CreateRest(
+    $userId: String!
+    $type: String!
+    $dateStart: DateTimeISO!
+    $dateEnd: DateTimeISO!
+  ) {
+    createRest(userId: $userId, type: $type, dateStart: $dateStart, dateEnd: $dateEnd) {
+      id
+      type
+      date_start
+      date_end
+    }
+  }
+`;
+export type CreateRestMutationFn = Apollo.MutationFunction<
+  CreateRestMutation,
+  CreateRestMutationVariables
+>;
+
+/**
+ * __useCreateRestMutation__
+ *
+ * To run a mutation, you first call `useCreateRestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateRestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createRestMutation, { data, loading, error }] = useCreateRestMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      type: // value for 'type'
+ *      dateStart: // value for 'dateStart'
+ *      dateEnd: // value for 'dateEnd'
+ *   },
+ * });
+ */
+export function useCreateRestMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateRestMutation, CreateRestMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateRestMutation, CreateRestMutationVariables>(
+    CreateRestDocument,
+    options
+  );
+}
+export type CreateRestMutationHookResult = ReturnType<typeof useCreateRestMutation>;
+export type CreateRestMutationResult = Apollo.MutationResult<CreateRestMutation>;
+export type CreateRestMutationOptions = Apollo.BaseMutationOptions<
+  CreateRestMutation,
+  CreateRestMutationVariables
 >;

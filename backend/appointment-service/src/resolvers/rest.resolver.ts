@@ -1,4 +1,4 @@
-import { Arg, Query, Resolver } from 'type-graphql';
+import { Arg, Query, Resolver, Mutation } from 'type-graphql';
 
 import RestEntity from '../entities/rest.entity';
 
@@ -12,6 +12,23 @@ class RestResolver {
       where: { user: { id: userId } },
       relations: ['user'],
     });
+  }
+
+  @Mutation(() => RestEntity)
+  async createRest(
+    @Arg('userId', () => String) userId: string,
+    @Arg('type', () => String) type: string,
+    @Arg('dateStart', () => Date) dateStart: Date,
+    @Arg('dateEnd', () => Date) dateEnd: Date
+  ): Promise<RestEntity> {
+    const rest = RestEntity.create({
+      type,
+      date_start: dateStart,
+      date_end: dateEnd,
+      user: { id: userId },
+    });
+    await rest.save();
+    return rest;
   }
 }
 
