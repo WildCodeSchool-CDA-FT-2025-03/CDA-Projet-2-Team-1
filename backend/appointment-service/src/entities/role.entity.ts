@@ -5,7 +5,7 @@ import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity('role')
 class RoleEntity extends BaseEntity {
   @Field()
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
   @Field()
