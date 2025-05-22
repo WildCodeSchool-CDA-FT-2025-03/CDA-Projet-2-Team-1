@@ -10,7 +10,6 @@ module.exports = {
     'coverage/**',
     '**/*.min.js',
     '**/*.d.ts',
-    'frontend/src/gql/**',
   ],
   parserOptions: {
     ecmaVersion: 2020,
