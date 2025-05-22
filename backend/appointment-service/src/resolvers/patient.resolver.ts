@@ -6,7 +6,7 @@ import PatientEntity from '../entities/patient.entity';
 class PatientResolver {
   @Query(() => [PatientEntity])
   patients(): Promise<PatientEntity[]> {
-    return PatientEntity.find({ relations: ['ssn'] });
+    return PatientEntity.find({ relations: ['ssn', 'city'] });
   }
 }
 

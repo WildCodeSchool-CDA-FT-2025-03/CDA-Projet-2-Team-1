@@ -1,6 +1,7 @@
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 
+import CityEntity from './city.entity';
 import SsnEntity from './ssn.entity';
 
 @ObjectType()
@@ -18,10 +19,27 @@ class PatientEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: true, length: 64 })
   lastName: string;
 
+  @Field()
+  @Column({ type: 'date', nullable: true })
+  birthdate: Date;
+
+  @Field()
+  @Column({ type: 'varchar', nullable: true, length: 16 })
+  gender: string;
+
+  @Field()
+  @Column({ type: 'varchar', nullable: true, length: 128 })
+  mailAddress: string;
+
   @Field(() => SsnEntity, { nullable: false })
   @ManyToOne(() => SsnEntity, (ssn) => ssn.patient, { nullable: false })
   @JoinColumn({ name: 'ssn_id' })
   ssn: SsnEntity;
+
+  @Field(() => CityEntity, { nullable: false })
+  @ManyToOne(() => CityEntity, (city) => city.patients, { nullable: true })
+  @JoinColumn({ name: 'city_id' })
+  city: CityEntity;
 }
 
 export default PatientEntity;
