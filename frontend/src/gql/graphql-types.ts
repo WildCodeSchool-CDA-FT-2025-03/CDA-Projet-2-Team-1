@@ -22,16 +22,13 @@ export type Scalars = {
   DateTimeISO: { input: Date; output: Date };
 };
 
-export type Mutation = {
-  __typename?: 'Mutation';
-  createRest: RestEntity;
-};
-
-export type MutationCreateRestArgs = {
-  dateEnd: Scalars['DateTimeISO']['input'];
-  dateStart: Scalars['DateTimeISO']['input'];
-  type: Scalars['String']['input'];
-  userId: Scalars['String']['input'];
+export type ConsultationEntity = {
+  __typename?: 'ConsultationEntity';
+  date_end: Scalars['DateTimeISO']['output'];
+  date_start: Scalars['DateTimeISO']['output'];
+  doctor: UserEntity;
+  id: Scalars['String']['output'];
+  patient: PatientEntity;
 };
 
 export type PatientEntity = {
@@ -45,6 +42,7 @@ export type PatientEntity = {
 export type Query = {
   __typename?: 'Query';
   getByUserID: Array<RestEntity>;
+  getConsultationByDay: Array<ConsultationEntity>;
   getUsers: Array<UserEntity>;
   patients: Array<PatientEntity>;
 };
@@ -53,12 +51,22 @@ export type QueryGetByUserIdArgs = {
   userId: Scalars['String']['input'];
 };
 
+export type QueryGetConsultationByDayArgs = {
+  date: Scalars['DateTimeISO']['input'];
+};
+
 export type RestEntity = {
   __typename?: 'RestEntity';
   date_end: Scalars['DateTimeISO']['output'];
   date_start: Scalars['DateTimeISO']['output'];
   id: Scalars['Float']['output'];
   type: Scalars['String']['output'];
+};
+
+export type ServiceEntity = {
+  __typename?: 'ServiceEntity';
+  id: Scalars['Float']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type SsnEntity = {
@@ -71,6 +79,33 @@ export type SsnEntity = {
 export type UserEntity = {
   __typename?: 'UserEntity';
   id: Scalars['String']['output'];
+  service: ServiceEntity;
+};
+
+export type GetConsultationByDayQueryVariables = Exact<{
+  date: Scalars['DateTimeISO']['input'];
+}>;
+
+export type GetConsultationByDayQuery = {
+  __typename?: 'Query';
+  getConsultationByDay: Array<{
+    __typename?: 'ConsultationEntity';
+    date_end: Date;
+    date_start: Date;
+    id: string;
+    doctor: {
+      __typename?: 'UserEntity';
+      id: string;
+      service: { __typename?: 'ServiceEntity'; name: string };
+    };
+    patient: {
+      __typename?: 'PatientEntity';
+      firstName: string;
+      id: string;
+      lastName: string;
+      ssn: { __typename?: 'SsnEntity'; number: string };
+    };
+  }>;
 };
 
 export type GetPatientsQueryVariables = Exact<{ [key: string]: never }>;
@@ -101,6 +136,94 @@ export type GetByUserIdQuery = {
   }>;
 };
 
+export const GetConsultationByDayDocument = gql`
+  query getConsultationByDay($date: DateTimeISO!) {
+    getConsultationByDay(date: $date) {
+      date_end
+      date_start
+      id
+      doctor {
+        id
+        service {
+          name
+        }
+      }
+      patient {
+        firstName
+        id
+        lastName
+        ssn {
+          number
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetConsultationByDayQuery__
+ *
+ * To run a query within a React component, call `useGetConsultationByDayQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetConsultationByDayQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetConsultationByDayQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useGetConsultationByDayQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetConsultationByDayQuery,
+    GetConsultationByDayQueryVariables
+  > &
+    ({ variables: GetConsultationByDayQueryVariables; skip?: boolean } | { skip: boolean })
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetConsultationByDayQuery, GetConsultationByDayQueryVariables>(
+    GetConsultationByDayDocument,
+    options
+  );
+}
+export function useGetConsultationByDayLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetConsultationByDayQuery,
+    GetConsultationByDayQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetConsultationByDayQuery, GetConsultationByDayQueryVariables>(
+    GetConsultationByDayDocument,
+    options
+  );
+}
+export function useGetConsultationByDaySuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetConsultationByDayQuery, GetConsultationByDayQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetConsultationByDayQuery, GetConsultationByDayQueryVariables>(
+    GetConsultationByDayDocument,
+    options
+  );
+}
+export type GetConsultationByDayQueryHookResult = ReturnType<typeof useGetConsultationByDayQuery>;
+export type GetConsultationByDayLazyQueryHookResult = ReturnType<
+  typeof useGetConsultationByDayLazyQuery
+>;
+export type GetConsultationByDaySuspenseQueryHookResult = ReturnType<
+  typeof useGetConsultationByDaySuspenseQuery
+>;
+export type GetConsultationByDayQueryResult = Apollo.QueryResult<
+  GetConsultationByDayQuery,
+  GetConsultationByDayQueryVariables
+>;
 export const GetPatientsDocument = gql`
   query GetPatients {
     patients {
