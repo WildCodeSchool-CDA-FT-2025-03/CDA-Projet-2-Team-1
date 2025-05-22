@@ -9,7 +9,7 @@ class RoleEntity extends BaseEntity {
   id: string;
 
   @Field()
-  @Column({ type: 'varchar', nullable: false, length: 64 })
+  @Column({ type: 'varchar', nullable: false, length: 64, unique: true })
   name: string;
 }
 
