@@ -5,8 +5,8 @@ import RoleEntity from '../entities/role.entity';
 @Resolver(RoleEntity)
 class RoleResolver {
   @Query(() => [RoleEntity])
-  async getRoles(): Promise<RoleEntity[]> {
-    return RoleEntity.find();
+  async getRoles(): Promise<RoleEntity[] | []> {
+    return await RoleEntity.find();
   }
 }
 

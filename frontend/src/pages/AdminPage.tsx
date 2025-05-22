@@ -1,10 +1,10 @@
-import Rolelist from '@/components/role/RoleList';
+import AddUserForm from '@/components/user/AddUserForm';
 
 const AdminPage = () => {
   return (
     <div>
       <h1>Bienvenue Admin</h1>
-      <Rolelist />
+      <AddUserForm />
     </div>
   );
 };
