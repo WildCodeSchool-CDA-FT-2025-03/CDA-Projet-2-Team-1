@@ -13,14 +13,14 @@ class PatientEntity extends BaseEntity {
 
   @Field()
   @Column({ type: 'varchar', nullable: true, length: 64 })
-  firstName: string;
+  firstname: string;
 
   @Field()
   @Column({ type: 'varchar', nullable: true, length: 64 })
-  lastName: string;
+  lastname: string;
 
-  @Field()
-  @Column({ type: 'date', nullable: true })
+  @Field({ nullable: true })
+  @Column({ type: 'timestamptz', nullable: true })
   birthdate: Date;
 
   @Field()
@@ -29,7 +29,7 @@ class PatientEntity extends BaseEntity {
 
   @Field()
   @Column({ type: 'varchar', nullable: true, length: 128 })
-  mailAddress: string;
+  email: string;
 
   @Field(() => SsnEntity, { nullable: false })
   @ManyToOne(() => SsnEntity, (ssn) => ssn.patient, { nullable: false })

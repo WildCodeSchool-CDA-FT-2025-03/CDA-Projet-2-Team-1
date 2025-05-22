@@ -1,25 +1,45 @@
 import { useEffect, useRef, useState } from 'react';
 // Components
 import { ErrorDisplay } from './ErrorDisplay';
+import PatientDetail from './PatientDetail';
 import { PatientList } from './PatientList';
 // types
-import { useGetPatientsQuery } from '@/gql/graphql-types';
-import { type PatientDialogProps } from '@/types/patient';
+import { GetPatientsQuery, useGetPatientsQuery } from '@/gql/graphql-types';
+import { type Patient, type PatientDialogProps } from '@/types/patient';
 
 export const PatientDialog = ({
   serverUrl,
 }: Omit<PatientDialogProps, 'patients' | 'loading' | 'error'>) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const { data, loading, error } = useGetPatientsQuery();
+
+  // Convert GraphQL patient to frontend patient type
+  const convertToFrontendPatient = (patient: GetPatientsQuery['patients'][0]): Patient => ({
+    id: patient.id,
+    firstname: patient.firstname,
+    lastname: patient.lastname,
+    birthdate: patient.birthdate,
+    gender: patient.gender,
+    email: patient.email,
+    ssn: patient.ssn ? { number: patient.ssn.number } : null,
+    city: patient.city
+      ? {
+          name: patient.city.name,
+          zip_code: patient.city.zip_code,
+        }
+      : null,
+  });
 
   // Gestion de la fermeture avec la touche Escape
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
         setIsOpen(false);
+        setSelectedPatient(null);
       }
     };
 
@@ -65,6 +85,20 @@ export const PatientDialog = ({
     }
   }, [isOpen]);
 
+  // Mapping pour PatientDetail
+  const mapPatientToDetailProps = (patient: Patient) => {
+    return {
+      ssn: patient.ssn?.number || '',
+      lastname: patient.lastname || '',
+      firstname: patient.firstname || '',
+      birthdate: patient.birthdate ? patient.birthdate.toISOString() : 'N/A',
+      gender: patient.gender || '---',
+      email: patient.email || '',
+      zipCode: patient.city?.zip_code || '',
+      city: patient.city?.name || '',
+    };
+  };
+
   return (
     <>
       <button
@@ -81,7 +115,10 @@ export const PatientDialog = ({
         <>
           <div
             className="fixed inset-0 bg-black/50 z-40"
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              setIsOpen(false);
+              setSelectedPatient(null);
+            }}
             aria-hidden="true"
           />
           <div
@@ -95,11 +132,14 @@ export const PatientDialog = ({
           >
             <div className="flex justify-between items-center mb-4">
               <h2 id="patients-title" className="text-2xl font-bold m-0">
-                Liste des patients
+                {selectedPatient ? 'Détail du patient' : 'Liste des patients'}
               </h2>
               <button
                 className="bg-transparent border-none cursor-pointer text-xl p-1 text-inherit hover:opacity-70 focus:outline-2 focus:outline-blue-500 focus:outline-offset-2 rounded"
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  setSelectedPatient(null);
+                }}
                 aria-label="Fermer la liste des patients"
               >
                 ✕
@@ -108,7 +148,18 @@ export const PatientDialog = ({
             <div id="patients-content">
               {loading && <p>Chargement...</p>}
               {error && <ErrorDisplay error={error} serverUrl={serverUrl} />}
-              {!loading && !error && data && <PatientList patients={data.patients} />}
+              {!loading && !error && data && !selectedPatient && (
+                <PatientList
+                  patients={data.patients.map(convertToFrontendPatient)}
+                  onShowDetail={(patient) => setSelectedPatient(patient)}
+                />
+              )}
+              {!loading && !error && selectedPatient && (
+                <PatientDetail
+                  {...mapPatientToDetailProps(selectedPatient)}
+                  onShowDetail={setSelectedPatient}
+                />
+              )}
             </div>
           </div>
         </>

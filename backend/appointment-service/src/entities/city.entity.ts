@@ -14,7 +14,7 @@ class CityEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 128 })
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ type: 'varchar', length: 16, nullable: true })
   zip_code: string;
 

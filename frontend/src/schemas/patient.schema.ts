@@ -4,10 +4,17 @@ export const GET_PATIENTS = gql`
   query GetPatients {
     patients {
       id
-      firstName
-      lastName
+      firstname
+      lastname
+      birthdate
+      gender
+      email
       ssn {
         number
+      }
+      city {
+        name
+        zip_code
       }
     }
   }

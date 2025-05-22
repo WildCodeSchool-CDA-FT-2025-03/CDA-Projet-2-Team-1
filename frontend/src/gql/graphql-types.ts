@@ -19,7 +19,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
-  DateTimeISO: { input: any; output: any };
+  DateTimeISO: { input: Date; output: Date };
 };
 
 export type CityEntity = {
@@ -27,18 +27,18 @@ export type CityEntity = {
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
   patients: Array<PatientEntity>;
-  zip_code: Scalars['String']['output'];
+  zip_code: Maybe<Scalars['String']['output']>;
 };
 
 export type PatientEntity = {
   __typename?: 'PatientEntity';
-  birthdate: Scalars['DateTimeISO']['output'];
+  birthdate: Maybe<Scalars['DateTimeISO']['output']>;
   city: CityEntity;
-  firstName: Scalars['String']['output'];
+  email: Scalars['String']['output'];
+  firstname: Scalars['String']['output'];
   gender: Scalars['String']['output'];
   id: Scalars['String']['output'];
-  lastName: Scalars['String']['output'];
-  mailAddress: Scalars['String']['output'];
+  lastname: Scalars['String']['output'];
   ssn: SsnEntity;
 };
 
@@ -80,9 +80,13 @@ export type GetPatientsQuery = {
   patients: Array<{
     __typename?: 'PatientEntity';
     id: string;
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
+    birthdate: Date | null;
+    gender: string;
+    email: string;
     ssn: { __typename?: 'SsnEntity'; number: string };
+    city: { __typename?: 'CityEntity'; name: string; zip_code: string | null };
   }>;
 };
 
@@ -94,8 +98,8 @@ export type GetByUserIdQuery = {
   __typename?: 'Query';
   getByUserID: Array<{
     __typename?: 'RestEntity';
-    date_end: any;
-    date_start: any;
+    date_end: Date;
+    date_start: Date;
     id: number;
     type: string;
   }>;
@@ -105,10 +109,17 @@ export const GetPatientsDocument = gql`
   query GetPatients {
     patients {
       id
-      firstName
-      lastName
+      firstname
+      lastname
+      birthdate
+      gender
+      email
       ssn {
         number
+      }
+      city {
+        name
+        zip_code
       }
     }
   }
