@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_CONSULTATION_BY_DATE = gql`
-  query GetByDay($date: DateTimeISO!) {
-    getByDay(date: $date) {
+  query getConsultationByDay($date: DateTimeISO!) {
+    getConsultationByDay(date: $date) {
       date_end
       date_start
       id
