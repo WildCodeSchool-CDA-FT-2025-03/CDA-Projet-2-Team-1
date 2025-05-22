@@ -18,6 +18,7 @@ class ConsultationEntity extends BaseEntity {
   @Column({ type: 'timestamptz', nullable: false })
   date_end: Date;
 
+  @Field(() => PatientEntity)
   @ManyToOne(() => PatientEntity, (patient) => patient.consultation, {
     nullable: false,
     onDelete: 'CASCADE',
@@ -25,6 +26,7 @@ class ConsultationEntity extends BaseEntity {
   @JoinColumn({ name: 'patient_id' })
   patient: PatientEntity;
 
+  @Field(() => UserEntity)
   @ManyToOne(() => UserEntity, (user) => user.consultation, {
     nullable: false,
     onDelete: 'CASCADE',
