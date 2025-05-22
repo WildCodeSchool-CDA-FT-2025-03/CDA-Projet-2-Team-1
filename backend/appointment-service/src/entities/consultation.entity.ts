@@ -4,7 +4,7 @@ import PatientEntity from './patient.entity';
 import UserEntity from './user.entity';
 
 @ObjectType()
-@Entity('consulation')
+@Entity('consultation')
 class ConsultationEntity extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn('uuid')
