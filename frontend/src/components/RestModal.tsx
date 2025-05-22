@@ -85,9 +85,11 @@ function RestModal({ isOpen, onClose, onSubmit, selectedDates }: RestModalProps)
             className="w-full p-2 border rounded"
             aria-required="true"
           >
-            <option value={RestEnum.REST}>{RestEnum.REST}</option>
-            <option value={RestEnum.SICK}>{RestEnum.SICK}</option>
-            <option value={RestEnum.COURSE}>{RestEnum.COURSE}</option>
+            {Object.values(RestEnum).map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
           </select>
           <p id="dialog-desc" className="text-sm text-gray-600 mt-2">
             {`Du ${selectedDates.start.toLocaleDateString()} au ${new Date(selectedDates.end.getTime() - 1000).toLocaleDateString()} (inclus)`}
