@@ -9,6 +9,7 @@ import UserResolver from './resolvers/user.resolver';
 // services
 import { dataSource } from './services/client.service';
 import logger from './services/logger.service';
+import ConsultationResolver from './resolvers/consultation.resolver';
 
 dotenv.config();
 
@@ -18,10 +19,10 @@ const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
   await dataSource.initialize();
 
   const schema = await buildSchema({
-    resolvers: [PatientResolver, RestResolver, UserResolver],
+    resolvers: [PatientResolver, RestResolver, UserResolver, ConsultationResolver],
     validate: true, // Évite des erreurs de validation inutiles
   });
-  
+
   const server = new ApolloServer({
     schema,
   });
