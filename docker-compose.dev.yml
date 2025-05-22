@@ -6,7 +6,7 @@ services:
       target: dev
 
     environment:
-      DATABASE_HOST: database
+      DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
@@ -62,9 +62,9 @@ services:
       target: dev
 
     environment:
-      - VITE_NODE_ENV=development
-      - VITE_APOLLO_SERVER=${VITE_APOLLO_SERVER}
-      - VITE_HOST=frontend
+      VITE_NODE_ENV: development
+      VITE_APOLLO_SERVER: ${VITE_APOLLO_SERVER}
+      VITE_HOST: frontend
 
     ports:
       - ${FRONTEND_PORT}:5173
@@ -80,13 +80,23 @@ services:
       target: dev
 
     environment:
-      - NODE_ENV=development
+      NODE_ENV: ${VITE_NODE_ENV}
+
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+
+      VITE_DOMAIN_AUTH_SERVICE: ${VITE_DOMAIN_AUTH_SERVICE}
+
+      SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
 
     ports:
       - '9500:9500'
     restart: unless-stopped
     volumes:
-      - ./backend/auth-service/src:/opt/app/src
+      - ./backend/auth-service/src:/app/src
 
     depends_on:
       database:

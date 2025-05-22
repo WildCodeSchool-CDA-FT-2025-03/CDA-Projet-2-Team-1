@@ -1,5 +1,4 @@
 // Import général
-import './config/dotenv.config';
 import express, { Request, Response } from 'express';
 import router from './router/router';
 import cors from 'cors';
@@ -10,7 +9,7 @@ const port = process.env.VITE_PORT_AUTH_SERVICE || '9500';
 
 app.use(
   cors({
-    origin: process.env.DOMAIN_FRONT,
+    origin: process.env.VITE_DOMAIN_FRONT,
     credentials: true,
   })
 );
@@ -32,14 +31,12 @@ app.get('/', (req: Request, res: Response) => {
  * Gestion des routes innexistante
  */
 app.use(async (req: Request, res: Response) => {
-  res
-    .status(404)
-    .json({
-      success: false,
-      message: 'Route non trouvée',
-      method: req.method,
-      path: req.originalUrl,
-    });
+  res.status(404).json({
+    success: false,
+    message: 'Route non trouvée',
+    method: req.method,
+    path: req.originalUrl,
+  });
   console.error(`Route innexistante : ${req.method} ${req.originalUrl}`);
 });
 
