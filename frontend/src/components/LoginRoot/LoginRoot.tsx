@@ -15,7 +15,7 @@ function LoginRoot() {
     setError('');
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_DOMAIN_AUTH_SERVICE}/login`, {
+      const response = await fetch(`${import.meta.env.VITE_DOMAIN_AUTH_SERVICE}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

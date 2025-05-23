@@ -9,7 +9,7 @@ const port = process.env.VITE_PORT_AUTH_SERVICE || '9500';
 
 app.use(
   cors({
-    origin: process.env.VITE_DOMAIN_FRONT,
+    origin: process.env.VITE_DOMAIN_FRONTEND,
     credentials: true,
   })
 );
