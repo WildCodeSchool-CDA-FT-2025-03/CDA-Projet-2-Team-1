@@ -78,7 +78,9 @@ export type SsnEntity = {
 
 export type UserEntity = {
   __typename?: 'UserEntity';
+  firstName: Scalars['String']['output'];
   id: Scalars['String']['output'];
+  lastName: Scalars['String']['output'];
   service: ServiceEntity;
 };
 
@@ -96,6 +98,7 @@ export type GetConsultationByDayQuery = {
     doctor: {
       __typename?: 'UserEntity';
       id: string;
+      lastName: string;
       service: { __typename?: 'ServiceEntity'; name: string };
     };
     patient: {
@@ -144,6 +147,7 @@ export const GetConsultationByDayDocument = gql`
       id
       doctor {
         id
+        lastName
         service {
           name
         }

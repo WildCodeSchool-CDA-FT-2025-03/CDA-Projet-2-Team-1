@@ -8,6 +8,7 @@ export const GET_CONSULTATION_BY_DATE = gql`
       id
       doctor {
         id
+        lastName
         service {
           name
         }
