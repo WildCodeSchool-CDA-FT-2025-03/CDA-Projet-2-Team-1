@@ -37,7 +37,7 @@ class PatientEntity extends BaseEntity {
   ssn: SsnEntity;
 
   @Field(() => CityEntity, { nullable: false })
-  @ManyToOne(() => CityEntity, (city) => city.patients, { nullable: true })
+  @ManyToOne(() => CityEntity, (city) => city.patients, { nullable: false })
   @JoinColumn({ name: 'city_id' })
   city: CityEntity;
 }
