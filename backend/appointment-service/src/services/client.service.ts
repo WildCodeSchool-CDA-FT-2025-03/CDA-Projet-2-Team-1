@@ -5,7 +5,6 @@ import RestEntity from '../entities/rest.entity';
 import SsnEntity from '../entities/ssn.entity';
 import UserEntity from '../entities/user.entity';
 
-// Entities
 const port = process.env.DATABASE_PORT ? +process.env.DATABASE_PORT : 5432;
 const sync = process.env.DATABASE_SYNC === 'true' ? true : false;
 

@@ -11,11 +11,11 @@ class CityEntity extends BaseEntity {
   id: string;
 
   @Field()
-  @Column({ type: 'varchar', length: 128 })
+  @Column({ type: 'varchar', length: 128, nullable: false })
   name: string;
 
-  @Field({ nullable: true })
-  @Column({ type: 'varchar', length: 16, nullable: true })
+  @Field({ nullable: false })
+  @Column({ type: 'varchar', length: 16, nullable: false })
   zip_code: string;
 
   @Field(() => [PatientEntity])
