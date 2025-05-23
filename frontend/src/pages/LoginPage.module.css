@@ -1,0 +1,11 @@
+.Page,
+.Main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}

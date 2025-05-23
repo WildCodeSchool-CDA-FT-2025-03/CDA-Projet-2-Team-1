@@ -16,6 +16,7 @@ import userTableType from '../types/userTable.type';
 // Import des utils
 import { verifyPasswordArgonUtils } from '../utils/Argon.utils';
 import { createJwtTokenServerCarePlan } from '../utils/jwtTokenCarePlan.utils';
+import { createDate_Number_Utils } from '../utils/createDateUtils';
 
 // URI : /api/login
 loginController.post(
@@ -58,7 +59,11 @@ loginController.post(
         return;
       }
 
-      /* Logique métier 4 : Réponse au client */
+      /* Logique métier 4 : Création d'une variable d'expiratation */
+      const dateNow: number = await createDate_Number_Utils(); // Date actuelle en timestamp UNIX
+      const exp = dateNow + 60 * 60 * 1000; // ajoute 1h en ms
+
+      /* Logique métier 5 : Réponse au client */
       res
         .status(200)
         .cookie('jwtTokenServerCarePlan', jwtTokenServerCarePlan, {
@@ -77,6 +82,7 @@ loginController.post(
             role_id: dataUser.role_id,
             service_id: dataUser.service_id,
             created_at: dataUser.created_at,
+            exp: exp,
           },
         });
       return;
