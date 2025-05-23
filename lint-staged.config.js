@@ -2,25 +2,28 @@ module.exports = {
   'frontend/src/**/*.{js,jsx,ts,tsx}': (filenames) => {
     const paths = filenames.map((filename) => `"${filename}"`);
     return [
-      `cd frontend && npx eslint --fix ${paths.join(' ')}`,
-      `cd frontend && npx prettier --write ${paths.join(' ')}`,
+      `eslint --fix --rule 'no-console: [error, { allow: ["warn", "error", "info"] }]' ${paths.join(' ')}`,
+      `prettier --write ${paths.join(' ')}`,
     ];
   },
   'backend/*/src/**/*.{js,jsx,ts,tsx}': (filenames) => {
     const paths = filenames.map((filename) => `"${filename}"`);
-    return [`npx eslint --fix ${paths.join(' ')}`, `npx prettier --write ${paths.join(' ')}`];
+    return [
+      `eslint --fix --rule 'no-console: [error, { allow: ["warn", "error", "info"] }]' ${paths.join(' ')}`,
+      `prettier --write ${paths.join(' ')}`,
+    ];
   },
   '*.{css,scss}': (filenames) => {
     const paths = filenames.map((filename) => `"${filename}"`);
-    return [`npx prettier --write ${paths.join(' ')}`];
+    return [`prettier --write ${paths.join(' ')}`];
   },
   '*.{json,md}': (filenames) => {
     const paths = filenames.map((filename) => `"${filename}"`);
-    return [`npx prettier --write ${paths.join(' ')}`];
+    return [`prettier --write ${paths.join(' ')}`];
   },
   '*.{yml,yaml}': (filenames) => {
     const paths = filenames.map((filename) => `"${filename}"`);
-    return [`npx prettier --write ${paths.join(' ')}`];
+    return [`prettier --write ${paths.join(' ')}`];
   },
   '*.{js,jsx,ts,tsx}': (filenames) => {
     const rootFiles = filenames.filter(
@@ -33,6 +36,9 @@ module.exports = {
     );
     if (rootFiles.length === 0) return [];
     const paths = rootFiles.map((filename) => `"${filename}"`);
-    return [`npx eslint --fix ${paths.join(' ')}`, `npx prettier --write ${paths.join(' ')}`];
+    return [
+      `eslint --fix --rule 'no-console: [error, { allow: ["warn", "error", "info"] }]' ${paths.join(' ')}`,
+      `prettier --write ${paths.join(' ')}`,
+    ];
   },
 };
