@@ -1,6 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
 import {
   BaseEntity,
+  Column,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -17,6 +18,14 @@ class UserEntity extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Field()
+  @Column({ type: 'varchar', nullable: false, length: 64 })
+  firstName: string;
+
+  @Field()
+  @Column({ type: 'varchar', nullable: false, length: 64 })
+  lastName: string;
 
   @OneToMany(() => RestEntity, (rest) => rest.user)
   rest: RestEntity[];
