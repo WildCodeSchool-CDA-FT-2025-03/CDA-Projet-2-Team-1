@@ -67,7 +67,7 @@ services:
       VITE_HOST: frontend
 
     ports:
-      - ${FRONTEND_PORT}:5173
+      - ${VITE_FRONTEND_PORT}:${VITE_FRONTEND_PORT}
 
     volumes:
       - ./frontend/src:/opt/app/src
@@ -89,11 +89,13 @@ services:
       DATABASE_PORT: ${DATABASE_PORT}
 
       VITE_DOMAIN_AUTH_SERVICE: ${VITE_DOMAIN_AUTH_SERVICE}
+      VITE_FRONTEND_PORT: ${FRONTEND_PORT}
+      VITE_PORT_AUTH_SERVICE: ${VITE_PORT_AUTH_SERVICE}
 
       SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
 
     ports:
-      - '9500:9500'
+      - ${VITE_PORT_AUTH_SERVICE}:${VITE_PORT_AUTH_SERVICE}
     restart: unless-stopped
     volumes:
       - ./backend/auth-service/src:/app/src
