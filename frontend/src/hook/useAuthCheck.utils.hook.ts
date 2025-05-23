@@ -48,9 +48,4 @@ Utilisation :
 
 import useAuthCheck from "../hooks/useAuthCheck";
 const { isLoggedIn, userInfo, isChecking  } = useAuthCheck();
-
-if (!isLoggedIn || !userInfo) {
-    return <p>Chargement ou redirection...</p>;
-  }
-
 */
