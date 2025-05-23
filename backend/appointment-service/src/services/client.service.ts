@@ -1,12 +1,11 @@
-import CityEntity from '../entities/city.entity';
 import { DataSource } from 'typeorm';
+import CityEntity from '../entities/city.entity';
 import PatientEntity from '../entities/patient.entity';
 import RestEntity from '../entities/rest.entity';
 import SsnEntity from '../entities/ssn.entity';
 import UserEntity from '../entities/user.entity';
 
 // Entities
-
 const port = process.env.DATABASE_PORT ? +process.env.DATABASE_PORT : 5432;
 const sync = process.env.DATABASE_SYNC === 'true' ? true : false;
 

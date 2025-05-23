@@ -1,5 +1,5 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import CityEntity from './city.entity';
 import SsnEntity from './ssn.entity';
@@ -12,23 +12,23 @@ class PatientEntity extends BaseEntity {
   id: string;
 
   @Field()
-  @Column({ type: 'varchar', nullable: true, length: 64 })
+  @Column({ type: 'varchar', nullable: false, length: 64 })
   firstname: string;
 
   @Field()
-  @Column({ type: 'varchar', nullable: true, length: 64 })
+  @Column({ type: 'varchar', nullable: false, length: 64 })
   lastname: string;
 
   @Field({ nullable: true })
-  @Column({ type: 'timestamptz', nullable: true })
+  @Column({ type: 'timestamptz', nullable: false })
   birthdate: Date;
 
   @Field()
-  @Column({ type: 'varchar', nullable: true, length: 16 })
+  @Column({ type: 'varchar', nullable: false, length: 16 })
   gender: string;
 
   @Field()
-  @Column({ type: 'varchar', nullable: true, length: 128 })
+  @Column({ type: 'varchar', nullable: false, length: 128 })
   email: string;
 
   @Field(() => SsnEntity, { nullable: false })

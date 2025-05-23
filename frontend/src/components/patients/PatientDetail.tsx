@@ -1,20 +1,9 @@
 import { Button } from '@/components/ui/button';
+import { PatientDetailProps } from '@/types/patient';
 import { ChevronLeft } from 'lucide-react';
 import React from 'react';
 
 // Exemple de props, à adapter selon vos données réelles
-interface PatientDetailProps {
-  ssn: string;
-  lastname: string;
-  firstname: string;
-  birthdate: string;
-  gender: string;
-  email: string;
-  zipCode: string;
-  city: string;
-  onShowDetail: (patient: null) => void;
-}
-
 export const PatientDetail: React.FC<PatientDetailProps> = ({
   ssn,
   lastname,
@@ -27,9 +16,9 @@ export const PatientDetail: React.FC<PatientDetailProps> = ({
   onShowDetail,
 }) => {
   // Affiche uniquement la date (YYYY-MM-DD) même si birthdate est un DateTime ISO
-  let displayBirthdate = birthdate;
-  if (birthdate && birthdate.length > 10 && birthdate.includes('T')) {
-    displayBirthdate = birthdate.slice(0, 10);
+  let displayBirthdate: string = '';
+  if (birthdate instanceof Date) {
+    displayBirthdate = birthdate.toISOString().slice(0, 10);
   }
 
   return (

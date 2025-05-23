@@ -33,3 +33,15 @@ export interface ErrorDisplayProps {
 export interface PatientDialogProps {
   serverUrl: string;
 }
+
+export interface PatientDetailProps {
+  ssn: string;
+  lastname: string;
+  firstname: string;
+  birthdate: Date | null;
+  gender: string;
+  email: string;
+  zipCode: string;
+  city: string;
+  onShowDetail: (patient: null) => void;
+}
