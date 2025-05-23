@@ -1,10 +1,10 @@
-export interface City {
+export type City = {
   name: string | null;
   zip_code: string | null;
-}
+};
 
 // Type conforme au backend
-export interface Patient {
+export type Patient = {
   id: string;
   firstname: string;
   lastname: string;
@@ -15,26 +15,26 @@ export interface Patient {
     number: string;
   } | null;
   city?: City | null;
-}
+};
 
-export interface Ssn {
+export type Ssn = {
   number: string;
-}
+};
 
-export interface PatientListProps {
+export type PatientListProps = {
   patients: Patient[];
-}
+};
 
-export interface ErrorDisplayProps {
+export type ErrorDisplayProps = {
   error: Error;
   serverUrl: string;
-}
+};
 
-export interface PatientDialogProps {
+export type PatientDialogProps = {
   serverUrl: string;
-}
+};
 
-export interface PatientDetailProps {
+export type PatientDetailProps = {
   ssn: string;
   lastname: string;
   firstname: string;
@@ -44,4 +44,4 @@ export interface PatientDetailProps {
   zipCode: string;
   city: string;
   onShowDetail: (patient: null) => void;
-}
+};

@@ -17,7 +17,7 @@ export const PatientDialog = ({
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const { data, loading, error } = useGetPatientsQuery();
 
-  // Convert GraphQL patient to frontend patient type
+  // Convertit le patient GraphQL en type patient frontend
   const convertToFrontendPatient = (patient: GetPatientsQuery['patients'][0]): Patient => ({
     id: patient.id,
     firstname: patient.firstname,
@@ -50,7 +50,7 @@ export const PatientDialog = ({
   // Gestion du focus trap dans la modal
   useEffect(() => {
     if (isOpen) {
-      // Store the element that had focus before opening the modal
+      // Stocke l'élément qui avait le focus avant l'ouverture de la modal
       previousFocusRef.current = document.activeElement as HTMLElement;
 
       const modalElement = modalRef.current;
