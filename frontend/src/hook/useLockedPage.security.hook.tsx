@@ -4,43 +4,59 @@ import { useNavigate } from 'react-router';
 
 type UserType = 'admin' | 'medecin' | 'secretaire' | 'agent';
 
-/* Cette fonction prend en parametre une string qui indique quel utilisateur est autorisé sur la page */
 function useLockedPage(userTarget: UserType) {
   const { isLoggedIn, userInfo, isChecking } = useAuthCheck();
   const navigate = useNavigate();
 
-  let userVerify: number = 0;
-  let redirectRoute: string = '';
-  /* Détermination du rôle interdit et de la route de redirection */
-  if (userTarget === 'admin') {
-    userVerify = 1;
-    redirectRoute = '/';
-  }
-  if (userTarget === 'medecin') {
-    userVerify = 2;
-    redirectRoute = '/doctor';
-  }
-  if (userTarget === 'secretaire') {
-    userVerify = 3;
-    redirectRoute = '/secretary';
-  }
-  if (userTarget === 'agent') {
-    userVerify = 4;
-    redirectRoute = '/agent';
+  let userVerify = 0;
+  let redirectRoute = '/';
+
+  /* En fonction de l'utilisateur autorisé, on met a jours les valeur de userVerify et redirectedRoute */
+  switch (userTarget) {
+    case 'admin':
+      userVerify = 1;
+      redirectRoute = '/admin';
+      break;
+    case 'medecin':
+      userVerify = 2;
+      redirectRoute = '/doctor';
+      break;
+    case 'secretaire':
+      userVerify = 3;
+      redirectRoute = '/secretary';
+      break;
+    case 'agent':
+      userVerify = 4;
+      redirectRoute = '/agent';
+      break;
   }
 
-  // Vérification du Role et de la connexion pour forcer la redirection
   useEffect(() => {
+    // On attend la fin des vérifications pour agir
+    /* Si la férification est terminé, que toute les data du userInfo sont disponible et que role_id n'est pas autorisé avec le role définit en paramètre */
     if (!isChecking && userInfo && userInfo.role_id !== userVerify) {
-      navigate(redirectRoute);
+      // Redirection vers la bonne page pour cet utilisateur
+      switch (userInfo.role_id) {
+        case 1:
+          navigate('/admin', { replace: true });
+          break;
+        case 2:
+          navigate('/doctor', { replace: true });
+          break;
+        case 3:
+          navigate('/secretary', { replace: true });
+          break;
+        case 4:
+          navigate('/agent', { replace: true });
+          break;
+        default:
+          navigate('/', { replace: true }); // Fallback
+      }
     }
-  }, [isChecking, userInfo, navigate, redirectRoute, userVerify]);
+  }, [isChecking, userInfo, navigate, userVerify, redirectRoute]);
 
-  // En attente de vérification du token
   if (isChecking) return null;
-
-  // Sécurité supplémentaire
-  if (!isLoggedIn || !userInfo) return null;
+  if (!isLoggedIn || !userInfo || userInfo.role_id !== userVerify) return null;
 
   return userInfo;
 }

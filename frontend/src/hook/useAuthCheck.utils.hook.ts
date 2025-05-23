@@ -13,7 +13,7 @@ const useAuthCheck = () => {
   useEffect(() => {
     /* Si pas connecté donc contexte vide alors on redirige vers la page Login */
     if (!user) {
-      navigate('/login');
+      navigate('/');
       return;
     }
 
@@ -24,7 +24,7 @@ const useAuthCheck = () => {
       if (user.exp && user.exp < now) {
         /* Force la déconnexion */
         setUser(null); /* Supprime les données utilisateur */
-        navigate('/login'); /* Redirige */
+        navigate('/'); /* Redirige */
         return;
       }
 
@@ -32,7 +32,7 @@ const useAuthCheck = () => {
       setIsLoggedIn(true); /* Utilisateur connecté */
     } catch {
       setUser(null); /* Supprime les données utilisateur en cas de problème */
-      navigate('/login'); /* Redirige vers Login */
+      navigate('/'); /* Redirige vers Login */
     } finally {
       setIsChecking(false); /* Fin de la vérification */
     }
