@@ -1,9 +1,9 @@
-import { RoleEntity } from '@/gql/graphql-types';
+import { RoleEntity, ServiceEntity } from '@/gql/graphql-types';
 
 type SelectProps = {
   value: string;
   handleChange: (value: string) => void;
-  list: RoleEntity[];
+  list: RoleEntity[] | ServiceEntity[];
   field: 'name';
   label: string;
 };
