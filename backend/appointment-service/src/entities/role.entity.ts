@@ -6,7 +6,7 @@ import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 class RoleEntity extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn('increment')
-  id: string;
+  id: number;
 
   @Field()
   @Column({ type: 'varchar', nullable: false, length: 64, unique: true })
