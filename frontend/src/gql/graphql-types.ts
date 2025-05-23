@@ -21,12 +21,14 @@ export type Scalars = {
   Float: { input: number; output: number };
   DateTimeISO: { input: Date; output: Date };
 };
+
 export type CityEntity = {
   __typename?: 'CityEntity';
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
   patients: Array<PatientEntity>;
-  zip_code: Maybe<Scalars['String']['output']>;
+  zip_code: Scalars['String']['output'];
+};
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -96,7 +98,7 @@ export type GetPatientsQuery = {
     gender: string;
     email: string;
     ssn: { __typename?: 'SsnEntity'; number: string };
-    city: { __typename?: 'CityEntity'; name: string; zip_code: string | null };
+    city: { __typename?: 'CityEntity'; name: string; zip_code: string };
   }>;
 };
 
@@ -132,7 +134,6 @@ export type CreateRestMutation = {
     date_end: Date;
   };
 };
-
 
 export const GetPatientsDocument = gql`
   query GetPatients {
@@ -265,7 +266,6 @@ export type GetByUserIdQueryResult = Apollo.QueryResult<
   GetByUserIdQuery,
   GetByUserIdQueryVariables
 >;
-                                                    
 export const CreateRestDocument = gql`
   mutation CreateRest(
     $userId: String!

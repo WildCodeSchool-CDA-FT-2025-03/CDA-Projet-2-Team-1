@@ -91,7 +91,7 @@ export const PatientDialog = ({
       ssn: patient.ssn?.number || '',
       lastname: patient.lastname || '',
       firstname: patient.firstname || '',
-      birthdate: patient.birthdate ? patient.birthdate.toISOString() : 'N/A',
+      birthdate: patient.birthdate ? new Date(patient.birthdate) : new Date(),
       gender: patient.gender || '---',
       email: patient.email || '',
       zipCode: patient.city?.zip_code || '',
