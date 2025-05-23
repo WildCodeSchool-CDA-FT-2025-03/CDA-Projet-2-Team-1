@@ -10,3 +10,19 @@ export const GET_REST_BY_USER_ID = gql`
     }
   }
 `;
+
+export const CREATE_REST = gql`
+  mutation CreateRest(
+    $userId: String!
+    $type: String!
+    $dateStart: DateTimeISO!
+    $dateEnd: DateTimeISO!
+  ) {
+    createRest(userId: $userId, type: $type, dateStart: $dateStart, dateEnd: $dateEnd) {
+      id
+      type
+      date_start
+      date_end
+    }
+  }
+`;
