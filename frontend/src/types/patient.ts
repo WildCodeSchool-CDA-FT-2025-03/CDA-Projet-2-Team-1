@@ -1,8 +1,20 @@
+export type City = {
+  name: string | null;
+  zip_code: string | null;
+};
+
+// Type conforme au backend
 export type Patient = {
   id: string;
-  firstName: string;
-  lastName: string;
-  ssn?: Ssn | null;
+  firstname: string;
+  lastname: string;
+  birthdate: Date | null;
+  gender: string;
+  email: string;
+  ssn?: {
+    number: string;
+  } | null;
+  city?: City | null;
 };
 
 export type Ssn = {
@@ -20,4 +32,16 @@ export type ErrorDisplayProps = {
 
 export type PatientDialogProps = {
   serverUrl: string;
+};
+
+export type PatientDetailProps = {
+  ssn: string;
+  lastname: string;
+  firstname: string;
+  birthdate: Date | null;
+  gender: string;
+  email: string;
+  zipCode: string;
+  city: string;
+  onShowDetail: (patient: null) => void;
 };

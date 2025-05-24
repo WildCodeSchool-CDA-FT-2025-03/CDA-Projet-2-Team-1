@@ -22,6 +22,14 @@ export type Scalars = {
   DateTimeISO: { input: Date; output: Date };
 };
 
+export type CityEntity = {
+  __typename?: 'CityEntity';
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  patients: Array<PatientEntity>;
+  zip_code: Scalars['String']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createRest: RestEntity;
@@ -36,9 +44,13 @@ export type MutationCreateRestArgs = {
 
 export type PatientEntity = {
   __typename?: 'PatientEntity';
-  firstName: Scalars['String']['output'];
+  birthdate: Maybe<Scalars['DateTimeISO']['output']>;
+  city: CityEntity;
+  email: Scalars['String']['output'];
+  firstname: Scalars['String']['output'];
+  gender: Scalars['String']['output'];
   id: Scalars['String']['output'];
-  lastName: Scalars['String']['output'];
+  lastname: Scalars['String']['output'];
   ssn: SsnEntity;
 };
 
@@ -46,11 +58,16 @@ export type Query = {
   __typename?: 'Query';
   getByUserID: Array<RestEntity>;
   getUsers: Array<UserEntity>;
+  patient: Maybe<PatientEntity>;
   patients: Array<PatientEntity>;
 };
 
 export type QueryGetByUserIdArgs = {
   userId: Scalars['String']['input'];
+};
+
+export type QueryPatientArgs = {
+  id: Scalars['String']['input'];
 };
 
 export type RestEntity = {
@@ -73,17 +90,36 @@ export type UserEntity = {
   id: Scalars['String']['output'];
 };
 
-export type GetPatientsQueryVariables = Exact<{ [key: string]: never }>;
+export type GetPatientsBasicQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetPatientsQuery = {
+export type GetPatientsBasicQuery = {
   __typename?: 'Query';
   patients: Array<{
     __typename?: 'PatientEntity';
     id: string;
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     ssn: { __typename?: 'SsnEntity'; number: string };
   }>;
+};
+
+export type GetPatientDetailsQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+export type GetPatientDetailsQuery = {
+  __typename?: 'Query';
+  patient: {
+    __typename?: 'PatientEntity';
+    id: string;
+    firstname: string;
+    lastname: string;
+    birthdate: Date | null;
+    gender: string;
+    email: string;
+    ssn: { __typename?: 'SsnEntity'; number: string };
+    city: { __typename?: 'CityEntity'; name: string; zip_code: string };
+  } | null;
 };
 
 export type GetByUserIdQueryVariables = Exact<{
@@ -119,12 +155,12 @@ export type CreateRestMutation = {
   };
 };
 
-export const GetPatientsDocument = gql`
-  query GetPatients {
+export const GetPatientsBasicDocument = gql`
+  query GetPatientsBasic {
     patients {
       id
-      firstName
-      lastName
+      firstname
+      lastname
       ssn {
         number
       }
@@ -133,53 +169,134 @@ export const GetPatientsDocument = gql`
 `;
 
 /**
- * __useGetPatientsQuery__
+ * __useGetPatientsBasicQuery__
  *
- * To run a query within a React component, call `useGetPatientsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPatientsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetPatientsBasicQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPatientsBasicQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetPatientsQuery({
+ * const { data, loading, error } = useGetPatientsBasicQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetPatientsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetPatientsQuery, GetPatientsQueryVariables>
+export function useGetPatientsBasicQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetPatientsBasicQuery, GetPatientsBasicQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetPatientsQuery, GetPatientsQueryVariables>(GetPatientsDocument, options);
-}
-export function useGetPatientsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetPatientsQuery, GetPatientsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetPatientsQuery, GetPatientsQueryVariables>(
-    GetPatientsDocument,
+  return Apollo.useQuery<GetPatientsBasicQuery, GetPatientsBasicQueryVariables>(
+    GetPatientsBasicDocument,
     options
   );
 }
-export function useGetPatientsSuspenseQuery(
+export function useGetPatientsBasicLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetPatientsBasicQuery, GetPatientsBasicQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetPatientsBasicQuery, GetPatientsBasicQueryVariables>(
+    GetPatientsBasicDocument,
+    options
+  );
+}
+export function useGetPatientsBasicSuspenseQuery(
   baseOptions?:
     | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<GetPatientsQuery, GetPatientsQueryVariables>
+    | Apollo.SuspenseQueryHookOptions<GetPatientsBasicQuery, GetPatientsBasicQueryVariables>
 ) {
   const options =
     baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<GetPatientsQuery, GetPatientsQueryVariables>(
-    GetPatientsDocument,
+  return Apollo.useSuspenseQuery<GetPatientsBasicQuery, GetPatientsBasicQueryVariables>(
+    GetPatientsBasicDocument,
     options
   );
 }
-export type GetPatientsQueryHookResult = ReturnType<typeof useGetPatientsQuery>;
-export type GetPatientsLazyQueryHookResult = ReturnType<typeof useGetPatientsLazyQuery>;
-export type GetPatientsSuspenseQueryHookResult = ReturnType<typeof useGetPatientsSuspenseQuery>;
-export type GetPatientsQueryResult = Apollo.QueryResult<
-  GetPatientsQuery,
-  GetPatientsQueryVariables
+export type GetPatientsBasicQueryHookResult = ReturnType<typeof useGetPatientsBasicQuery>;
+export type GetPatientsBasicLazyQueryHookResult = ReturnType<typeof useGetPatientsBasicLazyQuery>;
+export type GetPatientsBasicSuspenseQueryHookResult = ReturnType<
+  typeof useGetPatientsBasicSuspenseQuery
+>;
+export type GetPatientsBasicQueryResult = Apollo.QueryResult<
+  GetPatientsBasicQuery,
+  GetPatientsBasicQueryVariables
+>;
+export const GetPatientDetailsDocument = gql`
+  query GetPatientDetails($id: String!) {
+    patient(id: $id) {
+      id
+      firstname
+      lastname
+      birthdate
+      gender
+      email
+      ssn {
+        number
+      }
+      city {
+        name
+        zip_code
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetPatientDetailsQuery__
+ *
+ * To run a query within a React component, call `useGetPatientDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPatientDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPatientDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetPatientDetailsQuery(
+  baseOptions: Apollo.QueryHookOptions<GetPatientDetailsQuery, GetPatientDetailsQueryVariables> &
+    ({ variables: GetPatientDetailsQueryVariables; skip?: boolean } | { skip: boolean })
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetPatientDetailsQuery, GetPatientDetailsQueryVariables>(
+    GetPatientDetailsDocument,
+    options
+  );
+}
+export function useGetPatientDetailsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetPatientDetailsQuery, GetPatientDetailsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetPatientDetailsQuery, GetPatientDetailsQueryVariables>(
+    GetPatientDetailsDocument,
+    options
+  );
+}
+export function useGetPatientDetailsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetPatientDetailsQuery, GetPatientDetailsQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetPatientDetailsQuery, GetPatientDetailsQueryVariables>(
+    GetPatientDetailsDocument,
+    options
+  );
+}
+export type GetPatientDetailsQueryHookResult = ReturnType<typeof useGetPatientDetailsQuery>;
+export type GetPatientDetailsLazyQueryHookResult = ReturnType<typeof useGetPatientDetailsLazyQuery>;
+export type GetPatientDetailsSuspenseQueryHookResult = ReturnType<
+  typeof useGetPatientDetailsSuspenseQuery
+>;
+export type GetPatientDetailsQueryResult = Apollo.QueryResult<
+  GetPatientDetailsQuery,
+  GetPatientDetailsQueryVariables
 >;
 export const GetByUserIdDocument = gql`
   query GetByUserID($userId: String!) {
@@ -243,7 +360,6 @@ export type GetByUserIdQueryResult = Apollo.QueryResult<
   GetByUserIdQuery,
   GetByUserIdQueryVariables
 >;
-                                                    
 export const CreateRestDocument = gql`
   mutation CreateRest(
     $userId: String!
