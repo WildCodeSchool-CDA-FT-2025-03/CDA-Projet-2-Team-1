@@ -15,7 +15,6 @@ type ConsultationProps = {
 
 export default function ConsultationList({ date }: ConsultationProps) {
   const req = useGetConsultationByDayQuery({ variables: { date: date } });
-  // const res = req.data?.getConsultationByDay || [];
 
   return (
     <section className="border-1 rounded-[6px] border-turquoise-600 w-1/2">
@@ -45,49 +44,6 @@ export default function ConsultationList({ date }: ConsultationProps) {
                 <TableCell className="text-right font-bold">Dr. {el.doctor.lastName}</TableCell>
               </TableRow>
             ))}
-            {/* TODO: à supprimer après le test */}
-            <TableRow className="border-none">
-              <TableCell className="w-[100px]">10:00</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right font-bold">Dr. test</TableCell>
-            </TableRow>
-            <TableRow className="border-none">
-              <TableCell className="w-[100px]">10:00</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right font-bold">Dr. test</TableCell>
-            </TableRow>
-            <TableRow className="border-none">
-              <TableCell className="w-[100px]">10:00</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right font-bold">Dr. test</TableCell>
-            </TableRow>
-            <TableRow className="border-none">
-              <TableCell className="w-[100px]">10:00</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right font-bold">Dr. test</TableCell>
-            </TableRow>
-            <TableRow className="border-none">
-              <TableCell className="w-[100px]">10:00</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right font-bold">Dr. test</TableCell>
-            </TableRow>
-            <TableRow className="border-none">
-              <TableCell className="w-[100px]">10:00</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right font-bold">Dr. test</TableCell>
-            </TableRow>
-            <TableRow className="border-none">
-              <TableCell className="w-[100px]">10:00</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right">test</TableCell>
-              <TableCell className="text-right font-bold">Dr. test</TableCell>
-            </TableRow>
           </TableBody>
         </Table>
       </div>
