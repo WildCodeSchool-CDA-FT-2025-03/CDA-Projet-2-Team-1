@@ -1,9 +1,8 @@
 import { Button } from '@/components/ui/button';
-import { PatientDetailProps } from '@/types/patient';
 import { ChevronLeft } from 'lucide-react';
+import { PatientDetailProps } from '@/types/patient';
 import React from 'react';
 
-// Exemple de props, à adapter selon vos données réelles
 export const PatientDetail: React.FC<PatientDetailProps> = ({
   ssn,
   lastname,
