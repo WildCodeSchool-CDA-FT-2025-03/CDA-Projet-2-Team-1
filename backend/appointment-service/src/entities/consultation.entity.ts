@@ -1,0 +1,38 @@
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Field, ObjectType } from 'type-graphql';
+import PatientEntity from './patient.entity';
+import UserEntity from './user.entity';
+
+@ObjectType()
+@Entity('consultation')
+class ConsultationEntity extends BaseEntity {
+  @Field()
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Field()
+  @Column({ type: 'timestamptz', nullable: false })
+  date_start: Date;
+
+  @Field()
+  @Column({ type: 'timestamptz', nullable: false })
+  date_end: Date;
+
+  @Field(() => PatientEntity)
+  @ManyToOne(() => PatientEntity, (patient) => patient.consultation, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'patient_id' })
+  patient: PatientEntity;
+
+  @Field(() => UserEntity)
+  @ManyToOne(() => UserEntity, (user) => user.consultation, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'doctor_assigned_id' })
+  doctor: UserEntity;
+}
+
+export default ConsultationEntity;
