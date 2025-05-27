@@ -44,7 +44,7 @@ export type MutationCreateRestArgs = {
 
 export type PatientEntity = {
   __typename?: 'PatientEntity';
-  birthdate: Maybe<Scalars['DateTimeISO']['output']>;
+  birthdate: Scalars['DateTimeISO']['output'];
   city: CityEntity;
   email: Scalars['String']['output'];
   firstname: Scalars['String']['output'];
@@ -114,7 +114,7 @@ export type GetPatientDetailsQuery = {
     id: string;
     firstname: string;
     lastname: string;
-    birthdate: Date | null;
+    birthdate: Date;
     gender: string;
     email: string;
     ssn: { __typename?: 'SsnEntity'; number: string };

@@ -1,5 +1,4 @@
 import {
-  GetPatientDetailsQuery,
   GetPatientsBasicQuery,
   useGetPatientDetailsLazyQuery,
   useGetPatientsBasicQuery,
@@ -37,50 +36,17 @@ export const PatientDialog = ({
     await getPatientDetails({ variables: { id: patient.id } });
   };
 
-  // Convertit le patient GraphQL en type patient frontend pour la liste
+  // Convertit le patient GraphQL pour la liste basique (données minimales)
   const convertToBasicPatient = (patient: GetPatientsBasicQuery['patients'][0]): Patient => ({
     id: patient.id,
     firstname: patient.firstname,
     lastname: patient.lastname,
-    birthdate: null,
+    birthdate: new Date().toISOString(),
     gender: '',
     email: '',
-    ssn: patient.ssn ? { number: patient.ssn.number } : null,
-    city: null,
+    ssn: { number: patient.ssn.number },
+    city: { name: '', zip_code: '' },
   });
-
-  // Convertit le patient GraphQL en type patient frontend pour les détails
-  const convertToDetailPatient = (
-    patient: NonNullable<GetPatientDetailsQuery['patient']>
-  ): Patient => ({
-    id: patient.id,
-    firstname: patient.firstname,
-    lastname: patient.lastname,
-    birthdate: patient.birthdate ? new Date(patient.birthdate) : null,
-    gender: patient.gender,
-    email: patient.email,
-    ssn: patient.ssn ? { number: patient.ssn.number } : null,
-    city: patient.city
-      ? {
-          name: patient.city.name,
-          zip_code: patient.city.zip_code,
-        }
-      : null,
-  });
-
-  // Mapping pour PatientDetail
-  const mapPatientToDetailProps = (patient: Patient) => ({
-    ssn: patient.ssn?.number || '',
-    lastname: patient.lastname,
-    firstname: patient.firstname,
-    birthdate: patient.birthdate,
-    gender: patient.gender,
-    email: patient.email,
-    zipCode: patient.city?.zip_code || '',
-    city: patient.city?.name || '',
-  });
-
-  // ... reste du code pour la gestion du focus et des événements ...
 
   return (
     <>
@@ -146,7 +112,14 @@ export const PatientDialog = ({
                 ) : (
                   detailData?.patient && (
                     <PatientDetail
-                      {...mapPatientToDetailProps(convertToDetailPatient(detailData.patient))}
+                      ssn={detailData.patient.ssn.number}
+                      lastname={detailData.patient.lastname}
+                      firstname={detailData.patient.firstname}
+                      birthdate={detailData.patient.birthdate as unknown as string}
+                      gender={detailData.patient.gender}
+                      email={detailData.patient.email}
+                      zipCode={detailData.patient.city.zip_code}
+                      city={detailData.patient.city.name}
                       onShowDetail={() => setSelectedPatient(null)}
                     />
                   )
