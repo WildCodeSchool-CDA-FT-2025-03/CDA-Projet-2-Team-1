@@ -15,18 +15,21 @@ export const PatientDetail: React.FC<PatientDetailProps> = ({
   city,
   onShowDetail,
 }) => {
-  // Affiche uniquement la date (YYYY-MM-DD) même si birthdate est un DateTime ISO
-  let displayBirthdate: string = '';
-  if (birthdate instanceof Date) {
-    displayBirthdate = birthdate.toISOString().slice(0, 10);
-  }
+  // Formatage de la date ISO string en JJ/MM/AAAA
+  const formatDate = (isoString: string): string => {
+    return new Date(isoString).toLocaleDateString('fr-FR');
+  };
 
   return (
     <section
       aria-labelledby="patient-details-title"
       className="w-full p-6 focus-within:ring-2 focus-within:ring-blue-500"
     >
-      <Button onClick={() => onShowDetail(null)} variant="ghost" className="gap-2 pl-0 mb-6">
+      <Button
+        onClick={() => onShowDetail(null)}
+        variant="ghost"
+        className="gap-2 pl-0 mb-6 cursor-pointer"
+      >
         <ChevronLeft className="h-4 w-4" />
         Retour à la liste
       </Button>
@@ -43,7 +46,7 @@ export const PatientDetail: React.FC<PatientDetailProps> = ({
             value={ssn}
             readOnly
             aria-label="Numéro de sécurité sociale"
-            className="w-full bg-gray-100 text-lg font-semibold tracking-widest rounded px-2 py-1 border border-gray-200 focus:outline-none"
+            className="w-full text-lg font-semibold tracking-widest rounded px-2 py-1 focus:outline-none"
             aria-readonly="true"
             tabIndex={0}
           />
@@ -85,7 +88,7 @@ export const PatientDetail: React.FC<PatientDetailProps> = ({
               <input
                 id="birthdate"
                 type="text"
-                value={displayBirthdate}
+                value={formatDate(birthdate)}
                 readOnly
                 className="w-full bg-transparent px-2 py-1 border-none focus:outline-none"
                 aria-readonly="true"
