@@ -3,7 +3,6 @@ export type City = {
   zip_code: string;
 };
 
-// Type conforme au backend
 export type Patient = {
   id: string;
   firstname: string;
