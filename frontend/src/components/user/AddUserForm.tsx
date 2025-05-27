@@ -22,7 +22,10 @@ function AddUserForm() {
         mél :
         <input type="text" name="email" />
       </label>
-      <input type="submit" value={'créer'} />
+      <button type="submit" value={'créer'}>
+        {' '}
+        ajouter
+      </button>
     </form>
   );
 }
