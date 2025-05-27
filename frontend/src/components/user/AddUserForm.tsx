@@ -10,6 +10,19 @@ function AddUserForm() {
     <form>
       <Rolelist value={selectedRole} handleChange={setSelectedRole} />
       <Servicelist value={selectedSevice} handleChange={setSelectedService} />
+      <label>
+        Nom :
+        <input type="text" name="name" />
+      </label>
+      <label>
+        Prénom :
+        <input type="text" name="firstname" />
+      </label>
+      <label>
+        mél :
+        <input type="text" name="email" />
+      </label>
+      <input type="submit" value={'créer'} />
     </form>
   );
 }
