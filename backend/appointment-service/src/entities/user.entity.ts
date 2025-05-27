@@ -21,11 +21,11 @@ class UserEntity extends BaseEntity {
 
   @Field()
   @Column({ type: 'varchar', nullable: false, length: 64 })
-  firstName: string;
+  firstname: string;
 
   @Field()
   @Column({ type: 'varchar', nullable: false, length: 64 })
-  lastName: string;
+  lastname: string;
 
   @OneToMany(() => RestEntity, (rest) => rest.user)
   rest: RestEntity[];
