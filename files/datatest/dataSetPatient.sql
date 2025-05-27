@@ -9,7 +9,7 @@ CREATE TABLE "public"."patient" (
     "email" character varying(128),
     "birthdate" timestamptz,
     CONSTRAINT "PK_8dfa510bb29ad31ab2139fbfb99" PRIMARY KEY ("id")
-) WITH (oids = false);
+);
 
 INSERT INTO "patient" ("id", "firstname", "lastname", "ssn_id", "city_id", "gender", "email", "birthdate") VALUES
 ('11111111-1111-1111-1111-000000000001',	'Jean',	'Dupont',	'9f52541f-6fd1-46f6-82e5-9e03144af896',	'790321b2-3765-4447-bda9-cad86126999c',	'M',	'jean.dupont@email.com',	'1980-01-01 00:00:00+00'),
@@ -39,7 +39,7 @@ CREATE TABLE "public"."city" (
     "name" character varying(128) NOT NULL,
     "zip_code" character varying(16),
     CONSTRAINT "city_pkey" PRIMARY KEY ("id")
-) WITH (oids = false);
+);
 
 INSERT INTO "city" ("id", "name", "zip_code") VALUES
 ('11111111-1111-1111-1111-111111111111',	'Paris',	'75000'),
@@ -152,7 +152,7 @@ CREATE TABLE "public"."ssn" (
     "id" uuid DEFAULT uuid_generate_v4() NOT NULL,
     "number" character varying(15) NOT NULL,
     CONSTRAINT "PK_fd9f1c91cf6bcd38ae0b7dfccc2" PRIMARY KEY ("id")
-) WITH (oids = false);
+);
 
 INSERT INTO "ssn" ("id", "number") VALUES
 ('9f52541f-6fd1-46f6-82e5-9e03144af896',	'123-45-6789'),
