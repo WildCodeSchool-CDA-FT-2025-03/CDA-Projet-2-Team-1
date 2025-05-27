@@ -19,7 +19,7 @@ class PatientEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: false, length: 64 })
   lastname: string;
 
-  @Field({ nullable: true })
+  @Field()
   @Column({ type: 'timestamptz', nullable: false })
   birthdate: Date;
 
