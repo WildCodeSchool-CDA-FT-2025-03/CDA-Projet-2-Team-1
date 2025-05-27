@@ -10,7 +10,7 @@ class ServiceEntity extends BaseEntity {
   id: number;
 
   @Field()
-  @Column({ type: 'varchar', nullable: false, length: 64 })
+  @Column({ type: 'varchar', nullable: false, length: 64, unique: true })
   name: string;
 
   @OneToMany(() => UserEntity, (user) => user.service)

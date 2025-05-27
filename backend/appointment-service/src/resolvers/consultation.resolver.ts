@@ -6,7 +6,7 @@ import { Between } from 'typeorm';
 @Resolver(ConsultationEntity)
 class ConsultationResolver {
   @Query(() => [ConsultationEntity])
-  async getByDay(@Arg('date', () => Date) date: Date): Promise<ConsultationEntity[]> {
+  async getConsultationByDay(@Arg('date', () => Date) date: Date): Promise<ConsultationEntity[]> {
     const startOfDay = new Date(date);
     startOfDay.setHours(0, 0, 0, 0);
 

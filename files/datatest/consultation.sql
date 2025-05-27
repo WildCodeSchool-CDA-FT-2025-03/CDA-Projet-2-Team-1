@@ -10,10 +10,10 @@ INSERT INTO "patient" ("id", "firstName", "lastName", "ssn_id") VALUES
 ('dc9ce2d2-a28a-41e6-9eda-31e9e0f58eb9','Jean B','Dupont','e0eb73a4-7b3c-46bb-af57-870505fc035d'),
 ('17b87836-e9b7-4c5c-b799-02c9b8cb892b','Jean C','Dupont','c219f71d-ef14-417a-8223-b897b3a51f64');
 
-INSERT INTO "user" (id, service_id) VALUES
-('550e8400-e29b-41d4-a716-446655440000', 1),
-('550e8400-e29b-41d4-a716-446655440001', 2),
-('550e8400-e29b-41d4-a716-446655440002', 3);
+INSERT INTO "user" (id, "firstName", "lastName", service_id) VALUES
+('550e8400-e29b-41d4-a716-446655440000', 'Chien', 'Foo', 1),
+('550e8400-e29b-41d4-a716-446655440001', 'Chat', 'Foo', 2),
+('550e8400-e29b-41d4-a716-446655440002', 'Panda', 'Bar', 3);
 
 INSERT INTO "consultation" ("id", "date_start", "date_end", "patient_id", "doctor_assigned_id") VALUES
 (gen_random_uuid(), NOW(), NOW() + INTERVAL '1 hour', 'fe6a9b0a-8e82-496f-9621-827fabe24a6e', '550e8400-e29b-41d4-a716-446655440000'),
