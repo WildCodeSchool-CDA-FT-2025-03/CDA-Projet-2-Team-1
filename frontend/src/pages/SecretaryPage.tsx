@@ -5,7 +5,6 @@ const SecretaryPage = () => {
   return (
     <>
       <ConsultationList date={new Date()} />
-      <h1>test</h1>
       <PatientDialog serverUrl={import.meta.env.VITE_APOLLO_SERVER} />
     </>
   );
