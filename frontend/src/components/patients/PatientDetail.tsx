@@ -52,7 +52,7 @@ export const PatientDetail: React.FC<PatientDetailProps> = ({
           />
         </fieldset>
         <ul className="space-y-4">
-          <li className="grid grid-cols-1 md:grid-cols-2 gap-4div">
+          <li className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label htmlFor="lastname" className="block text-xs font-semibold text-gray-500">
                 Nom
