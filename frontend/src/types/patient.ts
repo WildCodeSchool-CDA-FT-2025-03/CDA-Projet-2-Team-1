@@ -1,6 +1,6 @@
 export type City = {
-  name: string | null;
-  zip_code: string | null;
+  name: string;
+  zip_code: string;
 };
 
 // Type conforme au backend
@@ -8,13 +8,13 @@ export type Patient = {
   id: string;
   firstname: string;
   lastname: string;
-  birthdate: Date | null;
+  birthdate: string;
   gender: string;
   email: string;
-  ssn?: {
+  ssn: {
     number: string;
-  } | null;
-  city?: City | null;
+  };
+  city: City;
 };
 
 export type Ssn = {
@@ -38,7 +38,7 @@ export type PatientDetailProps = {
   ssn: string;
   lastname: string;
   firstname: string;
-  birthdate: Date | null;
+  birthdate: string;
   gender: string;
   email: string;
   zipCode: string;
