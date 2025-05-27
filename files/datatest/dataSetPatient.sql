@@ -1,3 +1,38 @@
+DROP TABLE IF EXISTS "patient";
+CREATE TABLE "public"."patient" (
+    "id" uuid DEFAULT uuid_generate_v4() NOT NULL,
+    "firstname" character varying(64),
+    "lastname" character varying(64),
+    "ssn_id" uuid NOT NULL,
+    "city_id" uuid,
+    "gender" character varying(16),
+    "email" character varying(128),
+    "birthdate" timestamptz,
+    CONSTRAINT "PK_8dfa510bb29ad31ab2139fbfb99" PRIMARY KEY ("id")
+) WITH (oids = false);
+
+INSERT INTO "patient" ("id", "firstname", "lastname", "ssn_id", "city_id", "gender", "email", "birthdate") VALUES
+('11111111-1111-1111-1111-000000000001',	'Jean',	'Dupont',	'9f52541f-6fd1-46f6-82e5-9e03144af896',	'790321b2-3765-4447-bda9-cad86126999c',	'M',	'jean.dupont@email.com',	'1980-01-01 00:00:00+00'),
+('11111111-1111-1111-1111-000000000002',	'Marie',	'Curie',	'e0eb73a4-7b3c-46bb-af57-870505fc035d',	'f04b4168-8d98-44ca-a286-ceab028de146',	'F',	'marie.curie@email.com',	'1867-11-07 00:00:00+00'),
+('11111111-1111-1111-1111-000000000003',	'Paul',	'Morel',	'c219f71d-ef14-417a-8223-b897b3a51f64',	'3f87af63-9990-4537-95f5-33ce278ecdff',	'M',	'paul.morel@email.com',	'1975-05-12 00:00:00+00'),
+('11111111-1111-1111-1111-000000000004',	'Sophie',	'Martin',	'2ec072e5-0c7d-4377-9d67-898c46fb73b9',	'f3cb570c-759c-4de6-adf3-5586360a0ac6',	'F',	'sophie.martin@email.com',	'1990-03-20 00:00:00+00'),
+('11111111-1111-1111-1111-000000000005',	'Luc',	'Durand',	'd4e1296e-98eb-4b5b-a470-d818b9b51db9',	'fc7ac145-62a0-41b0-96ec-05fcedf62eb7',	'M',	'luc.durand@email.com',	'1985-09-15 00:00:00+00'),
+('11111111-1111-1111-1111-000000000006',	'Camille',	'Robert',	'03e99762-848b-47ac-9b33-225ab6def832',	'1ee150fe-569e-4016-9e25-8767e8006376',	'F',	'camille.robert@email.com',	'1992-06-10 00:00:00+00'),
+('11111111-1111-1111-1111-000000000007',	'Julien',	'Lemoine',	'53af8f15-9de3-44d4-b848-15dc898bb9d3',	'ffa6298c-ce06-4c25-9464-91fe48b00b60',	'M',	'julien.lemoine@email.com',	'1988-04-18 00:00:00+00'),
+('11111111-1111-1111-1111-000000000008',	'Claire',	'Faure',	'9bd0799c-99f7-4449-8879-5302b3687a36',	'ba03f3f5-a770-47bd-bd26-d862f31c0564',	'F',	'claire.faure@email.com',	'1991-07-22 00:00:00+00'),
+('11111111-1111-1111-1111-000000000009',	'Hugo',	'Garcia',	'9d7e85e5-0969-43f2-8670-3a9d5a765f9d',	'b8f00549-8124-4788-a531-a72d1b414029',	'M',	'hugo.garcia@email.com',	'1987-12-03 00:00:00+00'),
+('11111111-1111-1111-1111-000000000010',	'Emma',	'Benoit',	'82fe462b-a4f1-4803-a3e8-29083185a16a',	'76dd465c-9c54-43d1-96b6-b020c5a571a2',	'F',	'emma.benoit@email.com',	'1993-11-30 00:00:00+00'),
+('11111111-1111-1111-1111-000000000011',	'Louis',	'Bernard',	'3ffb763a-380e-4c68-8fb6-2427fc163ec9',	'964adbd8-e83f-4132-ada8-eb1c90faa2c6',	'M',	'louis.bernard@email.com',	'1994-02-17 00:00:00+00'),
+('11111111-1111-1111-1111-000000000012',	'Alice',	'Giraud',	'30ac3c2a-8b9e-422d-a5f4-871a8c002cc3',	'd13313c9-750c-4906-9506-5cf241944bd2',	'F',	'alice.giraud@email.com',	'1986-08-08 00:00:00+00'),
+('11111111-1111-1111-1111-000000000013',	'Noé',	'Gauthier',	'c4c8638c-0a58-4662-915e-58471c362aba',	'9d397275-e05d-4e9e-acb0-7f1bc7a5bed1',	'M',	'noe.gauthier@email.com',	'1990-10-25 00:00:00+00'),
+('11111111-1111-1111-1111-000000000014',	'Julie',	'Roux',	'3a9bf8c7-e0f1-4664-9ec9-094750a1c7cf',	'e4b39a55-348b-4f5d-a234-27955016179c',	'F',	'julie.roux@email.com',	'1995-03-03 00:00:00+00'),
+('11111111-1111-1111-1111-000000000015',	'Antoine',	'Fabre',	'2b3e1895-828a-48d8-9e48-5bb57da004a1',	'59321b81-931b-4fc8-86c7-88846e0d51fe',	'M',	'antoine.fabre@email.com',	'1983-05-09 00:00:00+00'),
+('11111111-1111-1111-1111-000000000016',	'Laura',	'Philippe',	'73647573-a150-44df-9357-f32fe5939761',	'c3947049-9bac-4d8e-95a6-6d87e410ecd8',	'F',	'laura.philippe@email.com',	'1989-01-29 00:00:00+00'),
+('11111111-1111-1111-1111-000000000017',	'Mathieu',	'Leclerc',	'a85fc9ab-d5b1-4ce2-8da4-46dfbe0b4cc5',	'faa881bc-166d-4930-9d62-9009736475c6',	'M',	'mathieu.leclerc@email.com',	'1982-04-02 00:00:00+00'),
+('11111111-1111-1111-1111-000000000018',	'Eva',	'Girard',	'ad1aa4c2-68f4-4875-9bec-f55ff76d1320',	'f1fba268-7eb1-4ac2-9718-7a3748be0ec4',	'F',	'eva.girard@email.com',	'1996-07-12 00:00:00+00'),
+('11111111-1111-1111-1111-000000000019',	'Lucas',	'Marchand',	'226f325a-b08e-4504-82f9-f92e1233d363',	'f6eb59e5-3e57-4d0c-aa00-483cdf426eef',	'M',	'lucas.marchand@email.com',	'1981-06-21 00:00:00+00'),
+('11111111-1111-1111-1111-000000000020',	'Anaïs',	'Chevalier',	'd826e6fc-f5a0-429a-a8f9-8ca8e33598da',	'76c28dfe-94fe-4abd-8cd9-147a64bafc83',	'F',	'anais.chevalier@email.com',	'1997-09-19 00:00:00+00');
+
 DROP TABLE IF EXISTS "city";
 CREATE TABLE "public"."city" (
     "id" uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -111,41 +146,6 @@ INSERT INTO "city" ("id", "name", "zip_code") VALUES
 ('bc114b89-52bc-4638-98ad-652022838cf9',	'Guyane',	'97300'),
 ('63026c21-5972-43d7-84fd-c2d189f977bd',	'La Réunion',	'97400'),
 ('53d70ef0-1465-429d-83d2-1bc028f3f27b',	'Mayotte',	'97600');
-
-DROP TABLE IF EXISTS "patient";
-CREATE TABLE "public"."patient" (
-    "id" uuid DEFAULT uuid_generate_v4() NOT NULL,
-    "firstname" character varying(64),
-    "lastname" character varying(64),
-    "ssn_id" uuid NOT NULL,
-    "city_id" uuid,
-    "gender" character varying(16),
-    "email" character varying(128),
-    "birthdate" timestamptz,
-    CONSTRAINT "PK_8dfa510bb29ad31ab2139fbfb99" PRIMARY KEY ("id")
-) WITH (oids = false);
-
-INSERT INTO "patient" ("id", "firstname", "lastname", "ssn_id", "city_id", "gender", "email", "birthdate") VALUES
-('11111111-1111-1111-1111-000000000001',	'Jean',	'Dupont',	'9f52541f-6fd1-46f6-82e5-9e03144af896',	'790321b2-3765-4447-bda9-cad86126999c',	'M',	'jean.dupont@email.com',	'1980-01-01 00:00:00+00'),
-('11111111-1111-1111-1111-000000000002',	'Marie',	'Curie',	'e0eb73a4-7b3c-46bb-af57-870505fc035d',	'f04b4168-8d98-44ca-a286-ceab028de146',	'F',	'marie.curie@email.com',	'1867-11-07 00:00:00+00'),
-('11111111-1111-1111-1111-000000000003',	'Paul',	'Morel',	'c219f71d-ef14-417a-8223-b897b3a51f64',	'3f87af63-9990-4537-95f5-33ce278ecdff',	'M',	'paul.morel@email.com',	'1975-05-12 00:00:00+00'),
-('11111111-1111-1111-1111-000000000004',	'Sophie',	'Martin',	'2ec072e5-0c7d-4377-9d67-898c46fb73b9',	'f3cb570c-759c-4de6-adf3-5586360a0ac6',	'F',	'sophie.martin@email.com',	'1990-03-20 00:00:00+00'),
-('11111111-1111-1111-1111-000000000005',	'Luc',	'Durand',	'd4e1296e-98eb-4b5b-a470-d818b9b51db9',	'fc7ac145-62a0-41b0-96ec-05fcedf62eb7',	'M',	'luc.durand@email.com',	'1985-09-15 00:00:00+00'),
-('11111111-1111-1111-1111-000000000006',	'Camille',	'Robert',	'03e99762-848b-47ac-9b33-225ab6def832',	'1ee150fe-569e-4016-9e25-8767e8006376',	'F',	'camille.robert@email.com',	'1992-06-10 00:00:00+00'),
-('11111111-1111-1111-1111-000000000007',	'Julien',	'Lemoine',	'53af8f15-9de3-44d4-b848-15dc898bb9d3',	'ffa6298c-ce06-4c25-9464-91fe48b00b60',	'M',	'julien.lemoine@email.com',	'1988-04-18 00:00:00+00'),
-('11111111-1111-1111-1111-000000000008',	'Claire',	'Faure',	'9bd0799c-99f7-4449-8879-5302b3687a36',	'ba03f3f5-a770-47bd-bd26-d862f31c0564',	'F',	'claire.faure@email.com',	'1991-07-22 00:00:00+00'),
-('11111111-1111-1111-1111-000000000009',	'Hugo',	'Garcia',	'9d7e85e5-0969-43f2-8670-3a9d5a765f9d',	'b8f00549-8124-4788-a531-a72d1b414029',	'M',	'hugo.garcia@email.com',	'1987-12-03 00:00:00+00'),
-('11111111-1111-1111-1111-000000000010',	'Emma',	'Benoit',	'82fe462b-a4f1-4803-a3e8-29083185a16a',	'76dd465c-9c54-43d1-96b6-b020c5a571a2',	'F',	'emma.benoit@email.com',	'1993-11-30 00:00:00+00'),
-('11111111-1111-1111-1111-000000000011',	'Louis',	'Bernard',	'3ffb763a-380e-4c68-8fb6-2427fc163ec9',	'964adbd8-e83f-4132-ada8-eb1c90faa2c6',	'M',	'louis.bernard@email.com',	'1994-02-17 00:00:00+00'),
-('11111111-1111-1111-1111-000000000012',	'Alice',	'Giraud',	'30ac3c2a-8b9e-422d-a5f4-871a8c002cc3',	'd13313c9-750c-4906-9506-5cf241944bd2',	'F',	'alice.giraud@email.com',	'1986-08-08 00:00:00+00'),
-('11111111-1111-1111-1111-000000000013',	'Noé',	'Gauthier',	'c4c8638c-0a58-4662-915e-58471c362aba',	'9d397275-e05d-4e9e-acb0-7f1bc7a5bed1',	'M',	'noe.gauthier@email.com',	'1990-10-25 00:00:00+00'),
-('11111111-1111-1111-1111-000000000014',	'Julie',	'Roux',	'3a9bf8c7-e0f1-4664-9ec9-094750a1c7cf',	'e4b39a55-348b-4f5d-a234-27955016179c',	'F',	'julie.roux@email.com',	'1995-03-03 00:00:00+00'),
-('11111111-1111-1111-1111-000000000015',	'Antoine',	'Fabre',	'2b3e1895-828a-48d8-9e48-5bb57da004a1',	'59321b81-931b-4fc8-86c7-88846e0d51fe',	'M',	'antoine.fabre@email.com',	'1983-05-09 00:00:00+00'),
-('11111111-1111-1111-1111-000000000016',	'Laura',	'Philippe',	'73647573-a150-44df-9357-f32fe5939761',	'c3947049-9bac-4d8e-95a6-6d87e410ecd8',	'F',	'laura.philippe@email.com',	'1989-01-29 00:00:00+00'),
-('11111111-1111-1111-1111-000000000017',	'Mathieu',	'Leclerc',	'a85fc9ab-d5b1-4ce2-8da4-46dfbe0b4cc5',	'faa881bc-166d-4930-9d62-9009736475c6',	'M',	'mathieu.leclerc@email.com',	'1982-04-02 00:00:00+00'),
-('11111111-1111-1111-1111-000000000018',	'Eva',	'Girard',	'ad1aa4c2-68f4-4875-9bec-f55ff76d1320',	'f1fba268-7eb1-4ac2-9718-7a3748be0ec4',	'F',	'eva.girard@email.com',	'1996-07-12 00:00:00+00'),
-('11111111-1111-1111-1111-000000000019',	'Lucas',	'Marchand',	'226f325a-b08e-4504-82f9-f92e1233d363',	'f6eb59e5-3e57-4d0c-aa00-483cdf426eef',	'M',	'lucas.marchand@email.com',	'1981-06-21 00:00:00+00'),
-('11111111-1111-1111-1111-000000000020',	'Anaïs',	'Chevalier',	'd826e6fc-f5a0-429a-a8f9-8ca8e33598da',	'76c28dfe-94fe-4abd-8cd9-147a64bafc83',	'F',	'anais.chevalier@email.com',	'1997-09-19 00:00:00+00');
 
 DROP TABLE IF EXISTS "ssn";
 CREATE TABLE "public"."ssn" (
