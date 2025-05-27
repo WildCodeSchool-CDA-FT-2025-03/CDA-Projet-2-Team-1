@@ -39,9 +39,9 @@ export default function ConsultationList({ date }: ConsultationProps) {
             {req.data?.getConsultationByDay.map((el) => (
               <TableRow className="border-none" key={el.id}>
                 <TableCell className="w-[100px]">{dateToTime(new Date(el.date_start))}</TableCell>
-                <TableCell className="text-right">{el.patient.firstName}</TableCell>
-                <TableCell className="text-right">{el.patient.lastName}</TableCell>
-                <TableCell className="text-right font-bold">Dr. {el.doctor.lastName}</TableCell>
+                <TableCell className="text-right">{el.patient.firstname}</TableCell>
+                <TableCell className="text-right">{el.patient.lastname}</TableCell>
+                <TableCell className="text-right font-bold">Dr. {el.doctor.lastname}</TableCell>
               </TableRow>
             ))}
           </TableBody>
