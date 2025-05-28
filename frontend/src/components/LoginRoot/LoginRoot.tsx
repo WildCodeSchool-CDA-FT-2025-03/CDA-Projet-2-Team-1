@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '@/context/Auth.context';
+import axios from 'axios';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -20,32 +21,32 @@ export default function LoginRoot() {
     setError('');
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_DOMAIN_AUTH_SERVICE}/api/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_DOMAIN_AUTH_SERVICE}/api/login`,
+        { email, password },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Identifiants incorrects.');
-      }
+      const data = response.data;
 
       setUser(data.data);
       const user = data.data;
 
-      if (user.role_id === 1) navigate('/admin');
-      if (user.role_id === 2) navigate('/doctor');
-      if (user.role_id === 3) navigate('/secretary');
-      if (user.role_id === 4) navigate('/agent');
+      if (user.role_id === 1) return navigate('/admin');
+      if (user.role_id === 2) return navigate('/doctor');
+      if (user.role_id === 3) return navigate('/secretary');
+      if (user.role_id === 4) return navigate('/agent');
+
+      throw new Error(`Rôle utilisateur inconnu : ${user.role_id}`);
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.error('Erreur login:', err.message);
-        setError(err.message);
+      if (axios.isAxiosError(err)) {
+        console.error('Erreur login:', err.response?.data?.message || err.message);
+        setError(err.response?.data?.message || 'Identifiants incorrects.');
       } else {
         setError('Erreur inconnue lors de la connexion.');
       }
