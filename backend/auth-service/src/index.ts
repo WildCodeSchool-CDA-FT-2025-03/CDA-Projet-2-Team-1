@@ -31,12 +31,8 @@ app.get('/', (req: Request, res: Response) => {
  */
 app.use(async (req: Request, res: Response) => {
   res.status(404).json({
-    success: false,
     message: 'Route non trouvée',
-    method: req.method,
-    path: req.originalUrl,
   });
-  console.error(`Route innexistante : ${req.method} ${req.originalUrl}`);
 });
 
 /**

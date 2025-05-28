@@ -1,4 +1,3 @@
-import chalk from 'chalk';
 import { Pool } from 'pg';
 
 async function testPoolConnection(pool: Pool) {
@@ -10,7 +9,7 @@ async function testPoolConnection(pool: Pool) {
       result.rows.length === 1 /* Vérifie le nombre de ligne retourné est bien 1 */ &&
       result.rows[0].test === 1 /* On vérifie que la clé test vaux bien 1 */
     ) {
-      console.info(chalk.green('✅ Connexion Postgres vérifiée avec succès !'));
+      console.info('✅ Connexion Postgres vérifiée avec succès !');
       return;
     }
 
@@ -19,9 +18,7 @@ async function testPoolConnection(pool: Pool) {
     return;
   } catch (error) {
     console.error(
-      chalk.yellow(
-        `Connexion impossible à la DB, vérifiez vos identifiants de connexion et vos variables d'environnement : ${error}`
-      )
+      `Connexion impossible à la DB, vérifiez vos identifiants de connexion et vos variables d'environnement : ${error}`
     );
   }
 }
