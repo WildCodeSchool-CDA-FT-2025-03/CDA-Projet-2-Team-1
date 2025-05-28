@@ -30,9 +30,7 @@ app.get('/', (req: Request, res: Response) => {
  * Gestion des routes innexistante
  */
 app.use(async (req: Request, res: Response) => {
-  res.status(404).json({
-    message: 'Route non trouvée',
-  });
+  res.status(404);
 });
 
 /**
