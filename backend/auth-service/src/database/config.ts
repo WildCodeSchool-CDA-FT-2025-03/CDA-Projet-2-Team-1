@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import chalk from 'chalk';
 import { Pool } from 'pg';
 import testPoolConnection from '../repository/testPoolConnection.config.repository';
 
@@ -21,14 +20,14 @@ function initializePool() {
         max: 10, // Maximum 10 connexions simultanées
       });
 
-      console.info(chalk.green(`${'✅ '}Pool de connexions Postgres créé avec succès !`));
+      console.info(`${'✅ '}Pool de connexions Postgres créé avec succès !`);
 
       // ✅ Test réel de connexion Posgres
       (async () => {
         await testPoolConnection(pool);
       })();
     } catch (error) {
-      console.error(chalk.yellow(`${'⚠️ '} Erreur lors de la création du pool PostgreSQL`));
+      console.error(`${'⚠️ '} Erreur lors de la création du pool PostgreSQL`);
       throw error;
     }
   }
