@@ -21,7 +21,7 @@ function SsnSearchBar({
             name="ssn"
             onChange={handleSSNChange}
             value={ssn}
-            placeholder="1 23 45 67 890 123 45"
+            placeholder="X XX XX XX XXX XXX XX"
             maxLength={21} // 15 chiffres + 6 espaces pour le format fr
           />
           <button
