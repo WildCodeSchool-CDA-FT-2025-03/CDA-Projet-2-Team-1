@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ConsultationAgentDisplay from '@/components/agent/ConsultationAgentDisplay';
 import SsnSearchBar from '@/components/agent/SsnSearchBar';
 // utils
-import { formatSSN, unformatSSN } from '@/utils/ssnUtils';
+import { formatSSN, unformatSSN } from '@/utiles/ssn.utility';
 // types
 import { useGetConsultationBySsnForAgentLazyQuery } from '@/gql/graphql-types';
 
