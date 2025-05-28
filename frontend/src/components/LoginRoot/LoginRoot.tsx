@@ -88,7 +88,7 @@ export default function LoginRoot() {
               <Input
                 id="password"
                 type="password"
-                placeholder="yourpassword"
+                placeholder="mot de passe"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
