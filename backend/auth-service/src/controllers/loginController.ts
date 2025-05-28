@@ -75,10 +75,6 @@ loginController.post(
         .json({
           message: 'Connexion réussie',
           data: {
-            firstname: dataUser.firstname,
-            lastname: dataUser.lastname,
-            genre: dataUser.genre,
-            email: dataUser.email,
             role_id: dataUser.role_id,
             service_id: dataUser.service_id,
             created_at: dataUser.created_at,
