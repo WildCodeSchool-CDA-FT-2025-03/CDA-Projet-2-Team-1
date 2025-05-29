@@ -1,12 +1,9 @@
-import { useRef, useEffect, useState, ReactNode } from 'react';
+import useModal from '@/context/ModalNav';
+import { useRef, useEffect } from 'react';
 
-type PropsModal = {
-  children: ReactNode;
-};
-
-function Modal({ children }: PropsModal) {
+function Modal() {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const { currentContent, isOpen, setIsOpen } = useModal();
 
   //useEffect pour gérer l'ouverture/fermeture et les événements de la modale
   useEffect(() => {
@@ -49,7 +46,7 @@ function Modal({ children }: PropsModal) {
       dialog.removeEventListener('keydown', handleKeyDown);
       dialog.removeEventListener('click', handleBackdropClick);
     };
-  }, [isOpen /*, selectedDates, onClose*/]);
+  }, [isOpen, currentContent, setIsOpen]);
 
   return (
     <dialog
@@ -66,7 +63,7 @@ function Modal({ children }: PropsModal) {
       >
         {'>>'}
       </button>
-      <section>{children}</section>
+      {currentContent}
     </dialog>
   );
 }
