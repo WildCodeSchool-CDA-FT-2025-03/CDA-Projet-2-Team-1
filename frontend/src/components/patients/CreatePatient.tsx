@@ -46,7 +46,7 @@ const CreatePatient = () => {
           className="w-full"
           {...register('gender', { required: true })}
         >
-          <option id="None" value="None" selected>
+          <option id="None" value="None">
             --
           </option>
           <option id="H" value="H">
