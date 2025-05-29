@@ -39,12 +39,17 @@ const CreatePatient = () => {
           label="Date de naissance"
           {...register('birthDate', { required: true })}
         />
-        <SelectLabel id="gender" label="Genre" {...register('gender', { required: true })}>
-          <option id="M" value="M">
-            M
+        <SelectLabel
+          id="gender"
+          label="Genre"
+          className="w-full"
+          {...register('gender', { required: true })}
+        >
+          <option id="H" value="H">
+            Homme
           </option>
           <option id="F" value="F">
-            F
+            Femme
           </option>
         </SelectLabel>
         <InputLabel
