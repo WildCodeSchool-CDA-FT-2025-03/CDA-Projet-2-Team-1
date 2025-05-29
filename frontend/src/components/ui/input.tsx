@@ -24,7 +24,7 @@ type InputLabelProps = React.ComponentProps<'input'> & { label: string };
 const InputLabel = React.forwardRef<HTMLInputElement, InputLabelProps>(
   ({ className, type, id, label, ...props }, ref) => {
     return (
-      <div>
+      <div className="mb-4">
         <label htmlFor={id}>{label}</label>
         <Input id={id} type={type} className={className} ref={ref} {...props} />
       </div>

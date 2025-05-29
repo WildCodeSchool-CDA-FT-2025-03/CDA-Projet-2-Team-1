@@ -27,7 +27,7 @@ type SelectLabelProps = SelectProps & { label: string };
 const SelectLabel = React.forwardRef<HTMLInputElement, SelectLabelProps>(
   ({ className, id, label, children, ...props }) => {
     return (
-      <div>
+      <div className="mb-4">
         <label htmlFor={id}>{label}</label>
         <Select id={id} className={className} {...props}>
           {children}
