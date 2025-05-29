@@ -4,6 +4,7 @@ import { Button } from '../ui/button';
 import { SelectLabel } from '../ui/select';
 
 enum GenderInput {
+  none = 'None',
   male = 'M',
   female = 'F',
 }
@@ -45,6 +46,9 @@ const CreatePatient = () => {
           className="w-full"
           {...register('gender', { required: true })}
         >
+          <option id="None" value="None" selected>
+            --
+          </option>
           <option id="H" value="H">
             Homme
           </option>
