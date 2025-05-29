@@ -24,7 +24,7 @@ const CreatePatient = () => {
   const submit: SubmitHandler<PatientInput> = (_data) => {};
   return (
     <section>
-      <h2 className="font-bold text-3xl">Ajouter un patient</h2>
+      <h2 className="font-bold text-3xl mb-4">Ajouter un patient</h2>
       <form onSubmit={handleSubmit(submit)}>
         <InputLabel
           id="ssn"
