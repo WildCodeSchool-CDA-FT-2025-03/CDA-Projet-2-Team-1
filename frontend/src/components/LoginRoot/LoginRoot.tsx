@@ -21,10 +21,10 @@ export default function LoginRoot() {
     e.preventDefault();
     setError('');
 
-    // 💡 Validation côté client avec Joi
+    // ✅ Validation côté client avec Joi
     const erreurs = validateFormLogin(email, password);
     if (erreurs.length > 0) {
-      setError(erreurs.join('\n')); // ou afficher chaque erreur séparément si tu veux
+      setError(erreurs.join('\n'));
       return;
     }
 
@@ -41,9 +41,8 @@ export default function LoginRoot() {
       );
 
       const data = response.data;
-
-      setUser(data.data);
       const user = data.data;
+      setUser(user);
 
       if (user.role_id === 1) return navigate('/admin');
       if (user.role_id === 2) return navigate('/doctor');
@@ -62,47 +61,64 @@ export default function LoginRoot() {
   }
 
   return (
-    <div className="min-h-screen flex flex-row w-full">
-      {/* Colonne gauche : image */}
-      <div className="hidden md:flex w-1/2 items-center justify-center bg-white">
-        <img src={logoCarePlan} alt="Illustration connexion" className="max-w-full h-auto" />
-      </div>
+    <main className="min-h-screen flex flex-row w-full bg-gray-100" role="main">
+      {/* Image latérale (décorative) */}
+      <aside
+        className="hidden md:flex w-1/2 items-center justify-center bg-white"
+        aria-hidden="true"
+      >
+        <img src={logoCarePlan} alt="" className="max-w-full h-auto" />
+      </aside>
 
-      {/* Colonne droite : formulaire */}
-      <div className="w-full md:w-1/2 flex items-center justify-center bg-[#f9fbfd]">
+      {/* Section formulaire */}
+      <section className="w-full md:w-1/2 flex items-center justify-center bg-[#f9fbfd]">
         <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
-          <img src={logoCarePlan} alt="Logo Care Plan" className="mx-auto mb-6 w-32" />
+          <header>
+            <img
+              src={logoCarePlan}
+              alt="Logo de l'application Care Plan"
+              className="mx-auto mb-6 w-32"
+            />
+          </header>
 
-          <form onSubmit={formulaireLogin} className="w-full space-y-5">
-            <div>
-              <Label htmlFor="email" className="block mb-1 font-semibold text-gray-700">
-                Identifiant
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="youremail@exemple.com"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </div>
+          <form
+            onSubmit={formulaireLogin}
+            className="w-full space-y-5"
+            aria-label="Formulaire de connexion"
+          >
+            <fieldset>
+              <legend className="sr-only">Connexion à l’espace utilisateur</legend>
 
-            <div>
-              <Label htmlFor="password" className="block mb-1 font-semibold text-gray-700">
-                Mot de passe
-              </Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="mot de passe"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </div>
+              <div>
+                <Label htmlFor="email" className="block mb-1 font-semibold text-gray-700">
+                  Identifiant
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="youremail@exemple.com"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="password" className="block mb-1 font-semibold text-gray-700">
+                  Mot de passe
+                </Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="mot de passe"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                />
+              </div>
+            </fieldset>
 
             <Button
               type="submit"
@@ -111,10 +127,14 @@ export default function LoginRoot() {
               Se connecter
             </Button>
 
-            {error && <p className="text-red-600 font-bold">{error}</p>}
+            {error && (
+              <div role="alert" aria-live="assertive" className="text-red-600 font-bold">
+                {error}
+              </div>
+            )}
           </form>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
