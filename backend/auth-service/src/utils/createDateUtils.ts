@@ -1,10 +1,10 @@
-async function createExpireDateUtils(): Promise<Date> {
+function createExpireDateUtils() {
   return new Date(Date.now() + 3600000); // Expiration dans 1h
 }
 
 export { createExpireDateUtils };
 
-async function createDate_Number_Utils(): Promise<number> {
+function createDate_Number_Utils() {
   const dateNow: number = Math.floor(Date.now() / 1000); // Date actuelle
   return dateNow; // Date actuelle en timestamp UNIX
 }
