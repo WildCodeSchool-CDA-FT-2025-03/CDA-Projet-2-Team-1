@@ -1,14 +1,16 @@
 import { Field, InputType, ObjectType } from 'type-graphql';
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-
+import { IsNotEmpty } from 'class-validator';
 import PatientEntity from './patient.entity';
 
 @InputType()
 export class CityInput {
   @Field()
+  @IsNotEmpty()
   name: string;
 
   @Field()
+  @IsNotEmpty()
   zip_code: string;
 }
 
