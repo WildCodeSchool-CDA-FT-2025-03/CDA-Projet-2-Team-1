@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '@/context/Auth.context';
 import axios from 'axios';
+import { validateFormLogin } from '@/utils/validateFormLogin';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,6 +20,13 @@ export default function LoginRoot() {
   async function formulaireLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError('');
+
+    // 💡 Validation côté client avec Joi
+    const erreurs = validateFormLogin(email, password);
+    if (erreurs.length > 0) {
+      setError(erreurs.join('\n')); // ou afficher chaque erreur séparément si tu veux
+      return;
+    }
 
     try {
       const response = await axios.post(

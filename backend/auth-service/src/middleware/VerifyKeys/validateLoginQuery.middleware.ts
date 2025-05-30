@@ -1,20 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import Joi from 'joi';
 
-// Définition du schéma de validation
 const schema = Joi.object({
   email: Joi.string().email().required().messages({
     'string.empty': 'Le champ email est requis.',
     'string.email': 'Le champ email doit être une adresse email valide.',
   }),
   password: Joi.string()
-    .pattern(
-      new RegExp(`^
-      (?=.*[A-Z])
-      (?=.*[0-9])
-      (?=.*[^A-Za-z0-9])
-      .{12,}$`)
-    )
+    .pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{12,}$/)
     .required()
     .messages({
       'string.empty': 'Le champ mot de passe est requis.',
@@ -23,7 +16,6 @@ const schema = Joi.object({
     }),
 });
 
-// Middleware de validation
 export default function validateLoginQuery(req: Request, res: Response, next: NextFunction) {
   const { error } = schema.validate(req.body, { abortEarly: false });
 
