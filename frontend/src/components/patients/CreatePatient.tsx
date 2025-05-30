@@ -3,15 +3,35 @@ import { InputLabel } from '../ui/input';
 import { Button } from '../ui/button';
 import { SelectStyle } from '../ui/select';
 import { AddNewPatientMutationVariables, useAddNewPatientMutation } from '@/gql/graphql-types';
+import { toast, ToastContainer } from 'react-toastify';
 
 const CreatePatient = () => {
   const { register, handleSubmit } = useForm<AddNewPatientMutationVariables>();
   const [addPatient] = useAddNewPatientMutation();
 
-  const onSubmit: SubmitHandler<AddNewPatientMutationVariables> = (
+  const onSubmit: SubmitHandler<AddNewPatientMutationVariables> = async (
     input: AddNewPatientMutationVariables
   ) => {
-    addPatient({ variables: input });
+    try {
+      await addPatient({ variables: input });
+      toast.success(`Nouveau patient enregistre`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    } catch (_err) {
+      toast.error(`Erreur durant la creation du patient`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
   };
 
   return (
@@ -67,6 +87,7 @@ const CreatePatient = () => {
         />
         <Button type="submit">Enregistrer le nouveau patient</Button>
       </form>
+      <ToastContainer />
     </section>
   );
 };
