@@ -113,18 +113,6 @@ export default function LoginRoot() {
 
             {error && <p className="text-red-600 font-bold">{error}</p>}
           </form>
-
-          <div className="mt-4 w-full text-right">
-            <button
-              type="button"
-              className="text-sm text-blue-600 hover:underline bg-transparent border-none p-0 cursor-pointer"
-              onClick={() => {
-                // TODO: action mot de passe perdu
-              }}
-            >
-              Mot de passe perdu ?
-            </button>
-          </div>
         </div>
       </div>
     </div>
