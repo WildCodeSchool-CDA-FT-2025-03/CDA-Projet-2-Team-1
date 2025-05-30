@@ -71,7 +71,13 @@ const CreatePatient = () => {
         />
         <div className="mb-4">
           <label htmlFor="genre">Genre</label>
-          <select className={SelectStyle} id="genre" {...register('patient.gender')}>
+          <select
+            className={SelectStyle}
+            id="genre"
+            {...register('patient.gender', {
+              pattern: { value: /^[M|F]$/, message: 'Le genre est requis' },
+            })}
+          >
             <option id="None" value="None">
               --
             </option>
@@ -82,6 +88,9 @@ const CreatePatient = () => {
               Femme
             </option>
           </select>
+          {errors.patient?.gender && (
+            <p className="text-red-600">{errors.patient.gender.message}</p>
+          )}
         </div>
         <InputLabel
           type="email"
