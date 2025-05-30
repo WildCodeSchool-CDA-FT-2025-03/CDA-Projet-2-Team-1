@@ -12,24 +12,15 @@ function AddUserForm() {
 
   const addUser = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
-    const payload = {
-      service_id: selectedService,
-      role_id: selectedRole,
-      name,
-      firstname,
-      email,
-    };
-
-    console.info(payload);
   };
 
   return (
-    <form onSubmit={addUser}>
+    <form onSubmit={addUser} className="m-4 flex flex-col gap-4">
       <Rolelist value={selectedRole} handleChange={setSelectedRole} />
       <Servicelist value={selectedService} handleChange={setSelectedService} />
 
       <InputLabel
+        className="pt-"
         id="name"
         label="Nom"
         type="text"
