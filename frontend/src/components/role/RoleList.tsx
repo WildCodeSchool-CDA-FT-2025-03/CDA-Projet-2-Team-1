@@ -10,11 +10,11 @@ export default function Rolelist({ value, handleChange }: RoleListProps) {
   const { data } = useGetRolesQuery();
 
   return (
-    <div className="w-64">
+    <div className="w-64 ">
       <Select
         value={value}
         handleChange={handleChange}
-        label="Choisissez un role"
+        label="Choisissez un rôle"
         list={data?.getRoles || []}
         field="name"
       />

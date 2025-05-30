@@ -31,8 +31,8 @@ function AddUserForm() {
       />
 
       <InputLabel
-        id="Prenom"
-        label="Prenom"
+        id="Prénom"
+        label="Prénom"
         type="text"
         name="firstname"
         value={firstname}
