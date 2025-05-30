@@ -22,7 +22,7 @@ export default function LoginRoot() {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_DOMAIN_AUTH_SERVICE}/api/login`,
+        `${import.meta.env.VITE_DOMAIN_AUTH_SERVICE}/auth/login`,
         { email, password },
         {
           withCredentials: true,
