@@ -1,7 +1,13 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Field, ObjectType } from 'type-graphql';
+import { Field, InputType, ObjectType } from 'type-graphql';
 
 import PatientEntity from './patient.entity';
+
+@InputType()
+export class SsnInput {
+  @Field()
+  number: string;
+}
 
 @ObjectType()
 @Entity('ssn')
