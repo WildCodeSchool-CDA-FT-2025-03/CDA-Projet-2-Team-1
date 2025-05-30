@@ -68,7 +68,6 @@ loginController.post(
         .status(200)
         .cookie('jwtTokenServerCarePlan', jwtTokenServerCarePlan, {
           httpOnly: true,
-          // secure: true, seulment en production
           sameSite: 'lax',
           maxAge: 60 * 60 * 1000, // 1 heure
         })
