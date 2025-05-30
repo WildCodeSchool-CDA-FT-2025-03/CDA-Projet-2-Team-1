@@ -18,7 +18,7 @@ import { verifyPasswordArgonUtils } from '../utils/Argon.utils';
 import { createJwtTokenServerCarePlan } from '../utils/jwtTokenCarePlan.utils';
 import { createDate_Number_Utils } from '../utils/createDateUtils';
 
-// URI : /api/login
+// URI : /auth/login
 loginController.post(
   '/',
 
