@@ -6,7 +6,11 @@ import { AddNewPatientMutationVariables, useAddNewPatientMutation } from '@/gql/
 import { toast, ToastContainer } from 'react-toastify';
 
 const CreatePatient = () => {
-  const { register, handleSubmit } = useForm<AddNewPatientMutationVariables>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AddNewPatientMutationVariables>();
   const [addPatient] = useAddNewPatientMutation();
 
   const onSubmit: SubmitHandler<AddNewPatientMutationVariables> = async (
@@ -14,6 +18,7 @@ const CreatePatient = () => {
   ) => {
     try {
       await addPatient({ variables: input });
+
       toast.success(`Nouveau patient enregistre`, {
         position: 'bottom-right',
         autoClose: 5000,
@@ -41,19 +46,41 @@ const CreatePatient = () => {
         <InputLabel
           id="ssn"
           label="N° de sécurité sociale"
-          {...register('patient.ssn.number', { required: true })}
+          isError={errors.patient?.ssn !== null}
+          msg={errors.patient?.ssn?.number?.message}
+          {...register('patient.ssn.number', {
+            required: { value: true, message: 'Le SSN est requis.' },
+            pattern: { value: /^[0-9]{15}$/, message: 'Le SSN doit contenir 15 chiffres.' },
+          })}
         />
-        <InputLabel id="nom" label="Nom" {...register('patient.lastname', { required: true })} />
+        {/* {console.log(errors)} */}
+        <InputLabel
+          id="nom"
+          label="Nom"
+          isError={errors.patient?.lastname !== null}
+          msg={errors.patient?.lastname?.message}
+          {...register('patient.lastname', {
+            required: { value: true, message: 'Le nom est requis.' },
+          })}
+        />
         <InputLabel
           id="prenom"
-          label="Prenom"
-          {...register('patient.firstname', { required: true })}
+          label="Prénom"
+          isError={errors.patient?.firstname !== null}
+          msg={errors.patient?.firstname?.message}
+          {...register('patient.firstname', {
+            required: { value: true, message: 'Le prenom est requis.' },
+          })}
         />
         <InputLabel
           id="date"
           type="date"
           label="Date de naissance"
-          {...register('patient.birthdate', { required: true })}
+          isError={errors.patient?.birthdate !== null}
+          msg={errors.patient?.birthdate?.message}
+          {...register('patient.birthdate', {
+            required: { value: true, message: 'La date de naissance est requis.' },
+          })}
         />
         <div className="mb-4">
           <label htmlFor="genre">Genre</label>
@@ -73,17 +100,29 @@ const CreatePatient = () => {
           type="email"
           id="email"
           label="Email"
-          {...register('patient.email', { required: true })}
+          isError={errors.patient?.email !== null}
+          msg={errors.patient?.email?.message}
+          {...register('patient.email', {
+            required: { value: true, message: "L'adresse mail est requis." },
+          })}
         />
         <InputLabel
           id="codepostal"
           label="Code postal"
-          {...register('patient.city.zip_code', { required: true })}
+          isError={errors.patient?.city?.zip_code !== null}
+          msg={errors.patient?.city?.zip_code?.message}
+          {...register('patient.city.zip_code', {
+            required: { value: true, message: 'Le code postal est requis.' },
+          })}
         />
         <InputLabel
           id="city"
           label="Ville"
-          {...register('patient.city.name', { required: true })}
+          isError={errors.patient?.city?.name !== null}
+          msg={errors.patient?.city?.name?.message}
+          {...register('patient.city.name', {
+            required: { value: true, message: 'Le nom de la ville est requis.' },
+          })}
         />
         <Button type="submit">Enregistrer le nouveau patient</Button>
       </form>
