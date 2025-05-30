@@ -1,14 +1,16 @@
+import { AddNewPatientMutationVariables, useAddNewPatientMutation } from '@/gql/graphql-types';
+import { ToastContainer } from 'react-toastify';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { InputLabel } from '../ui/input';
 import { Button } from '../ui/button';
 import { SelectStyle } from '../ui/select';
-import { AddNewPatientMutationVariables, useAddNewPatientMutation } from '@/gql/graphql-types';
-import { toast, ToastContainer } from 'react-toastify';
+import { toastError, toastSuccess } from '../ui/toast';
 
 const CreatePatient = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<AddNewPatientMutationVariables>();
   const [addPatient] = useAddNewPatientMutation();
@@ -18,24 +20,10 @@ const CreatePatient = () => {
   ) => {
     try {
       await addPatient({ variables: input });
-
-      toast.success(`Nouveau patient enregistre`, {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      toastSuccess('Nouveau patient enregistré');
+      reset();
     } catch (_err) {
-      toast.error(`Erreur durant la creation du patient`, {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      toastError('Erreur durant la creation du patient');
     }
   };
 
@@ -53,7 +41,6 @@ const CreatePatient = () => {
             pattern: { value: /^[0-9]{15}$/, message: 'Le SSN doit contenir 15 chiffres.' },
           })}
         />
-        {/* {console.log(errors)} */}
         <InputLabel
           id="nom"
           label="Nom"
