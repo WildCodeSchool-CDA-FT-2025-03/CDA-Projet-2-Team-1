@@ -5,7 +5,7 @@ const loginController = express.Router();
 // Import des dépendances externes :
 
 // Import des Middlewares :
-import VerifyKeys from '../middleware/VerifyKeys/VerifyKeys';
+import validateLoginQuery from '../middleware/VerifyKeys/validateLoginQuery.middleware';
 
 // Import des Repositories :
 import verifyEmailTrueRepository from '../repository/user.repository';
@@ -23,7 +23,7 @@ loginController.post(
   '/',
 
   // Vérification :
-  VerifyKeys(['email', 'password']),
+  validateLoginQuery,
 
   async (req: Request, res: Response) => {
     try {
