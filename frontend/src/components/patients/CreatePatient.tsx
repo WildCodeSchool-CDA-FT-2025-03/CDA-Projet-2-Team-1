@@ -5,15 +5,16 @@ import { InputLabel } from '../ui/input';
 import { Button } from '../ui/button';
 import { SelectStyle } from '../ui/select';
 import { toastError, toastSuccess } from '../ui/toast';
+import { useNavigate } from 'react-router';
 
 const CreatePatient = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<AddNewPatientMutationVariables>();
   const [addPatient] = useAddNewPatientMutation();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<AddNewPatientMutationVariables> = async (
     input: AddNewPatientMutationVariables
@@ -21,7 +22,7 @@ const CreatePatient = () => {
     try {
       await addPatient({ variables: input });
       toastSuccess('Nouveau patient enregistré');
-      reset();
+      navigate('..');
     } catch (_err) {
       toastError('Erreur durant la creation du patient');
     }
