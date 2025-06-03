@@ -14,7 +14,7 @@ export default function Servicelist({ value, handleChange }: ServiceListProps) {
       <Select
         value={value}
         handleChange={handleChange}
-        label="Choisissez une option"
+        label="Choisissez un service"
         list={data?.getServices || []}
         field="name"
       />

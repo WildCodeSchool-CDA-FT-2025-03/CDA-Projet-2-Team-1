@@ -35,8 +35,8 @@ CREATE TABLE "user" (
 
 INSERT INTO role (name) VALUES
 ('admin'),
-('medecin'),
-('secretaire'),
+('médecin'),
+('secrétaire'),
 ('agent');
 
 -- Insertion des services

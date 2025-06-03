@@ -17,11 +17,13 @@ function Select({ value, handleChange, label, list, field }: SelectProps) {
       <select
         id="options"
         value={value}
+        required
         onChange={(e) => handleChange(e.target.value)}
         className="block w-full p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700"
       >
+        <option value=""></option>
         {list.map((el) => (
-          <option key={el.id} value={el[field]}>
+          <option key={el.id} value={el.id}>
             {el[field]}
           </option>
         ))}
