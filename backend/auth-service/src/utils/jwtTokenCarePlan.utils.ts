@@ -1,5 +1,5 @@
 import payloadType from '../types/payloadTokenJWT.type';
-import { createDate_Number_Utils } from './createDateUtils';
+import { createDateNumberUtils } from './createDateUtils';
 import jwt from 'jsonwebtoken';
 import userTableType from '../types/userTable.type';
 
@@ -15,7 +15,7 @@ async function createJwtTokenServerCarePlan(dataUser: userTableType): Promise<st
 
   // Création des variables token
   const expiresIn: number = 60 * 60; // 1 heure
-  const dateNow: number = await createDate_Number_Utils(); // Date actuelle en timestamp UNIX
+  const dateNow: number = await createDateNumberUtils(); // Date actuelle en timestamp UNIX
 
   const payload_server: payloadType = {
     id: dataUser.id,
