@@ -1,8 +1,13 @@
+import ConsultationList from '@/components/consultation/ConsultationList';
+import { PatientDialog } from '@/components/patients/PatientDialog';
+
 const SecretaryPage = () => {
   return (
-    <div>
-      <h1>Bienvenue sur la page secrétariat</h1>
-    </div>
+    <>
+      <ConsultationList date={new Date()} />
+      <PatientDialog serverUrl={import.meta.env.VITE_APOLLO_SERVER} />
+    </>
   );
 };
+
 export default SecretaryPage;
