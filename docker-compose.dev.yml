@@ -69,5 +69,11 @@ services:
     volumes:
       - ./frontend/src:/opt/app/src
 
+  cache:
+    image: redis
+
+    ports:
+      - ${REDIS_PORT}:5173
+
 volumes:
   care-plan-db:
