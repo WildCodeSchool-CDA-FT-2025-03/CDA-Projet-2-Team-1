@@ -1,23 +1,15 @@
 import ConsultationList from '@/components/consultation/ConsultationList';
-import Modal from '@/components/Modal';
-import CreatePatient from '@/components/patients/CreatePatient';
 import { PatientDialog } from '@/components/patients/PatientDialog';
-import { Button } from '@/components/ui/button';
-import useModal from '@/context/ModalNav';
+import { ButtonLink } from '@/components/ui/button';
+import { Outlet } from 'react-router';
 
 const SecretaryPage = () => {
-  const { open } = useModal();
-
-  const openCreatePatient = () => {
-    open(<CreatePatient />);
-  };
-
   return (
     <>
-      <Button onClick={openCreatePatient}>+ Creation d&apos;un nouveau patient</Button>
+      <ButtonLink to="patient/creation">+ Creation d&apos;un nouveau patient</ButtonLink>
       <ConsultationList date={new Date()} />
       <PatientDialog serverUrl={import.meta.env.VITE_APOLLO_SERVER} />
-      <Modal />
+      <Outlet />
     </>
   );
 };
