@@ -6,6 +6,7 @@ import { Button } from '../ui/button';
 import { SelectStyle } from '../ui/select';
 import { toastError, toastSuccess } from '../ui/toast';
 import { useNavigate } from 'react-router';
+import { useEffect, useRef } from 'react';
 
 const CreatePatient = () => {
   const {
@@ -14,6 +15,7 @@ const CreatePatient = () => {
     formState: { errors },
   } = useForm<AddNewPatientMutationVariables>();
   const [addPatient] = useAddNewPatientMutation();
+  const ssnRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<AddNewPatientMutationVariables> = async (
@@ -28,19 +30,29 @@ const CreatePatient = () => {
     }
   };
 
+  const { ref: registerRef, ...registerProps } = register('patient.ssn.number', {
+    required: { value: true, message: 'Le SSN est requis.' },
+    pattern: { value: /^[0-9]{15}$/, message: 'Le SSN doit contenir 15 chiffres.' },
+  });
+
+  useEffect(() => {
+    ssnRef.current?.focus();
+  });
+
   return (
-    <section>
+    <section aria-label="create patient">
       <h2 className="font-bold text-3xl mb-4">Ajouter un patient</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputLabel
+          ref={(e) => {
+            registerRef(e);
+            ssnRef.current = e;
+          }}
           id="ssn"
           label="N° de sécurité sociale"
           isError={errors.patient?.ssn !== null}
           msg={errors.patient?.ssn?.number?.message}
-          {...register('patient.ssn.number', {
-            required: { value: true, message: 'Le SSN est requis.' },
-            pattern: { value: /^[0-9]{15}$/, message: 'Le SSN doit contenir 15 chiffres.' },
-          })}
+          {...registerProps}
         />
         <InputLabel
           id="nom"

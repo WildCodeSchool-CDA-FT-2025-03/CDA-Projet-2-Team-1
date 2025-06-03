@@ -40,7 +40,7 @@ function Modal({ children }: PropsModal) {
 
     // Affichage de la modale
     dialog.showModal();
-
+    dialog.focus();
     // Ajout des événements de fermeture a11y de la modale
     dialog.addEventListener('keydown', handleKeyDown);
     dialog.addEventListener('click', handleBackdropClick);
