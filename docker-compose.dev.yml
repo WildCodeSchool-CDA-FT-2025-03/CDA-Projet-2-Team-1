@@ -11,6 +11,8 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_SYNC: ${DATABASE_SYNC}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_HOST: ${REDIS_HOST}
       API_PORT: ${API_PORT}
 
     ports:
@@ -21,6 +23,8 @@ services:
 
     depends_on:
       database:
+        condition: service_healthy
+      cache:
         condition: service_healthy
 
   ### Base de donnees postgres ###
@@ -71,9 +75,13 @@ services:
 
   cache:
     image: redis
-
     ports:
-      - ${REDIS_PORT}:5173
+      - ${REDIS_PORT}:6379
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 2s
+      timeout: 10s
+      retries: 5
 
 volumes:
   care-plan-db:
