@@ -1,9 +1,17 @@
-import useModal from '@/context/ModalNav';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, ReactNode } from 'react';
+import { useNavigate } from 'react-router';
 
-function Modal() {
+type PropsModal = {
+  children: ReactNode;
+};
+
+function Modal({ children }: PropsModal) {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const { currentContent, isOpen, setIsOpen } = useModal();
+  const navigate = useNavigate();
+
+  const close = () => {
+    navigate('..');
+  };
 
   //useEffect pour gérer l'ouverture/fermeture et les événements de la modale
   useEffect(() => {
@@ -13,7 +21,7 @@ function Modal() {
     // Fermer la modale lorsque l'utilisateur appuie sur Escape
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setIsOpen(false);
+        close();
       }
     };
 
@@ -26,27 +34,22 @@ function Modal() {
         e.clientY < rect.top ||
         e.clientY > rect.bottom
       ) {
-        setIsOpen(false);
+        close();
       }
     };
 
     // Affichage de la modale
-    if (isOpen) {
-      dialog.showModal();
+    dialog.showModal();
 
-      // Ajout des événements de fermeture a11y de la modale
-      dialog.addEventListener('keydown', handleKeyDown);
-      dialog.addEventListener('click', handleBackdropClick);
-    } else {
-      dialog.close();
-    }
-
+    // Ajout des événements de fermeture a11y de la modale
+    dialog.addEventListener('keydown', handleKeyDown);
+    dialog.addEventListener('click', handleBackdropClick);
     // Nettoyage des événements
     return () => {
       dialog.removeEventListener('keydown', handleKeyDown);
       dialog.removeEventListener('click', handleBackdropClick);
     };
-  }, [isOpen, currentContent, setIsOpen]);
+  });
 
   return (
     <dialog
@@ -57,13 +60,13 @@ function Modal() {
     >
       <button
         type="button"
-        onClick={() => setIsOpen(false)}
+        onClick={() => close()}
         className="p-2 text-gray-600 hover:text-gray-800 cursor-pointer"
         aria-label="Fermer le panneau"
       >
         {'>>'}
       </button>
-      {currentContent}
+      {children}
     </dialog>
   );
 }
