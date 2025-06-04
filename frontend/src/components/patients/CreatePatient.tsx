@@ -40,7 +40,7 @@ const CreatePatient = () => {
   });
 
   return (
-    <section aria-label="create patient">
+    <section aria-label="création du patient">
       <h2 className="font-bold text-3xl mb-4">Ajouter un patient</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputLabel
@@ -55,7 +55,7 @@ const CreatePatient = () => {
           {...registerProps}
         />
         <InputLabel
-          id="nom"
+          id="lastname"
           label="Nom"
           isError={errors.patient?.lastname !== null}
           msg={errors.patient?.lastname?.message}
@@ -64,12 +64,12 @@ const CreatePatient = () => {
           })}
         />
         <InputLabel
-          id="prenom"
+          id="firstname"
           label="Prénom"
           isError={errors.patient?.firstname !== null}
           msg={errors.patient?.firstname?.message}
           {...register('patient.firstname', {
-            required: { value: true, message: 'Le prenom est requis.' },
+            required: { value: true, message: 'Le prénom est requis.' },
           })}
         />
         <InputLabel
@@ -86,7 +86,7 @@ const CreatePatient = () => {
           <label htmlFor="genre">Genre</label>
           <select
             className={SelectStyle}
-            id="genre"
+            id="gender"
             {...register('patient.gender', {
               pattern: { value: /^[M|F]$/, message: 'Le genre est requis' },
             })}
@@ -116,7 +116,7 @@ const CreatePatient = () => {
           })}
         />
         <InputLabel
-          id="codepostal"
+          id="zip_code"
           label="Code postal"
           isError={errors.patient?.city?.zip_code !== null}
           msg={errors.patient?.city?.zip_code?.message}
