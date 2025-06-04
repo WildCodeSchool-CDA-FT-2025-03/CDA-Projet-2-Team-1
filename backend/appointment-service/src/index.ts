@@ -1,4 +1,3 @@
-import * as dotenv from 'dotenv';
 import { ApolloServer } from '@apollo/server';
 import { buildSchema } from 'type-graphql';
 import { startStandaloneServer } from '@apollo/server/standalone';
@@ -11,8 +10,7 @@ import { dataSource } from './services/client.service';
 import logger from './services/logger.service';
 import ConsultationResolver from './resolvers/consultation.resolver';
 import redisClient from './services/cache.service';
-
-dotenv.config();
+import 'dotenv/config';
 
 const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
 
