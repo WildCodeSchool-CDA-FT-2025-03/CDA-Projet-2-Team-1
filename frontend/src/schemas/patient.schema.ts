@@ -34,3 +34,9 @@ export const GET_PATIENT_DETAILS = gql`
     }
   }
 `;
+
+export const ADD_PATIENT = gql`
+  mutation AddNewPatient($patient: PatientInput!) {
+    addNewPatient(patient: $patient)
+  }
+`;

@@ -30,6 +30,11 @@ export type CityEntity = {
   zip_code: Scalars['String']['output'];
 };
 
+export type CityInput = {
+  name: Scalars['String']['input'];
+  zip_code: Scalars['String']['input'];
+};
+
 export type ConsultationEntity = {
   __typename?: 'ConsultationEntity';
   date_end: Scalars['DateTimeISO']['output'];
@@ -41,7 +46,12 @@ export type ConsultationEntity = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addNewPatient: Scalars['String']['output'];
   createRest: RestEntity;
+};
+
+export type MutationAddNewPatientArgs = {
+  patient: PatientInput;
 };
 
 export type MutationCreateRestArgs = {
@@ -61,6 +71,16 @@ export type PatientEntity = {
   id: Scalars['String']['output'];
   lastname: Scalars['String']['output'];
   ssn: SsnEntity;
+};
+
+export type PatientInput = {
+  birthdate: Scalars['String']['input'];
+  city: CityInput;
+  email: Scalars['String']['input'];
+  firstname: Scalars['String']['input'];
+  gender: Scalars['String']['input'];
+  lastname: Scalars['String']['input'];
+  ssn: SsnInput;
 };
 
 export type Query = {
@@ -108,6 +128,10 @@ export type SsnEntity = {
   id: Scalars['String']['output'];
   number: Scalars['String']['output'];
   patient: Array<PatientEntity>;
+};
+
+export type SsnInput = {
+  number: Scalars['String']['input'];
 };
 
 export type UserEntity = {
@@ -194,6 +218,12 @@ export type GetPatientDetailsQuery = {
     city: { __typename?: 'CityEntity'; name: string; zip_code: string };
   } | null;
 };
+
+export type AddNewPatientMutationVariables = Exact<{
+  patient: PatientInput;
+}>;
+
+export type AddNewPatientMutation = { __typename?: 'Mutation'; addNewPatient: string };
 
 export type GetByUserIdQueryVariables = Exact<{
   userId: Scalars['String']['input'];
@@ -543,6 +573,48 @@ export type GetPatientDetailsSuspenseQueryHookResult = ReturnType<
 export type GetPatientDetailsQueryResult = Apollo.QueryResult<
   GetPatientDetailsQuery,
   GetPatientDetailsQueryVariables
+>;
+export const AddNewPatientDocument = gql`
+  mutation AddNewPatient($patient: PatientInput!) {
+    addNewPatient(patient: $patient)
+  }
+`;
+export type AddNewPatientMutationFn = Apollo.MutationFunction<
+  AddNewPatientMutation,
+  AddNewPatientMutationVariables
+>;
+
+/**
+ * __useAddNewPatientMutation__
+ *
+ * To run a mutation, you first call `useAddNewPatientMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddNewPatientMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addNewPatientMutation, { data, loading, error }] = useAddNewPatientMutation({
+ *   variables: {
+ *      patient: // value for 'patient'
+ *   },
+ * });
+ */
+export function useAddNewPatientMutation(
+  baseOptions?: Apollo.MutationHookOptions<AddNewPatientMutation, AddNewPatientMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<AddNewPatientMutation, AddNewPatientMutationVariables>(
+    AddNewPatientDocument,
+    options
+  );
+}
+export type AddNewPatientMutationHookResult = ReturnType<typeof useAddNewPatientMutation>;
+export type AddNewPatientMutationResult = Apollo.MutationResult<AddNewPatientMutation>;
+export type AddNewPatientMutationOptions = Apollo.BaseMutationOptions<
+  AddNewPatientMutation,
+  AddNewPatientMutationVariables
 >;
 export const GetByUserIdDocument = gql`
   query GetByUserID($userId: String!) {
