@@ -7,14 +7,19 @@ import DoctorPage from '../pages/DoctorPage';
 import SecretaryPage from '../pages/SecretaryPage';
 import CreatePatient from '@/components/patients/CreatePatient';
 import Modal from '@/components/Modal';
+import LoginPage from '@/pages/LoginPage';
 
 const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <LoginPage />,
+  },
   {
     path: '/',
     element: <App />,
     children: [
       {
-        path: '/secretary',
+        path: 'secretary',
         element: <SecretaryPage />,
         children: [
           {
@@ -28,15 +33,15 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/doctor',
+        path: 'doctor',
         element: <DoctorPage />,
       },
       {
-        path: '/agent',
+        path: 'agent',
         element: <AgentPage />,
       },
       {
-        path: '/admin',
+        path: 'admin',
         element: <AdminPage />,
       },
     ],

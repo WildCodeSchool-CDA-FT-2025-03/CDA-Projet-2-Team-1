@@ -87,6 +87,7 @@ export type Query = {
   __typename?: 'Query';
   getByUserID: Array<RestEntity>;
   getConsultationByDay: Array<ConsultationEntity>;
+  getConsultationBySsnForAgent: Array<ConsultationEntity>;
   getUsers: Array<UserEntity>;
   patient: Maybe<PatientEntity>;
   patients: Array<PatientEntity>;
@@ -98,6 +99,10 @@ export type QueryGetByUserIdArgs = {
 
 export type QueryGetConsultationByDayArgs = {
   date: Scalars['DateTimeISO']['input'];
+};
+
+export type QueryGetConsultationBySsnForAgentArgs = {
+  ssn: Scalars['String']['input'];
 };
 
 export type QueryPatientArgs = {
@@ -160,6 +165,24 @@ export type GetConsultationByDayQuery = {
       id: string;
       lastname: string;
       ssn: { __typename?: 'SsnEntity'; number: string };
+    };
+  }>;
+};
+
+export type GetConsultationBySsnForAgentQueryVariables = Exact<{
+  ssn: Scalars['String']['input'];
+}>;
+
+export type GetConsultationBySsnForAgentQuery = {
+  __typename?: 'Query';
+  getConsultationBySsnForAgent: Array<{
+    __typename?: 'ConsultationEntity';
+    date_start: Date;
+    id: string;
+    doctor: {
+      __typename?: 'UserEntity';
+      lastname: string;
+      service: { __typename?: 'ServiceEntity'; name: string };
     };
   }>;
 };
@@ -323,6 +346,90 @@ export type GetConsultationByDaySuspenseQueryHookResult = ReturnType<
 export type GetConsultationByDayQueryResult = Apollo.QueryResult<
   GetConsultationByDayQuery,
   GetConsultationByDayQueryVariables
+>;
+export const GetConsultationBySsnForAgentDocument = gql`
+  query getConsultationBySsnForAgent($ssn: String!) {
+    getConsultationBySsnForAgent(ssn: $ssn) {
+      date_start
+      id
+      doctor {
+        lastname
+        service {
+          name
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetConsultationBySsnForAgentQuery__
+ *
+ * To run a query within a React component, call `useGetConsultationBySsnForAgentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetConsultationBySsnForAgentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetConsultationBySsnForAgentQuery({
+ *   variables: {
+ *      ssn: // value for 'ssn'
+ *   },
+ * });
+ */
+export function useGetConsultationBySsnForAgentQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetConsultationBySsnForAgentQuery,
+    GetConsultationBySsnForAgentQueryVariables
+  > &
+    ({ variables: GetConsultationBySsnForAgentQueryVariables; skip?: boolean } | { skip: boolean })
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetConsultationBySsnForAgentQuery,
+    GetConsultationBySsnForAgentQueryVariables
+  >(GetConsultationBySsnForAgentDocument, options);
+}
+export function useGetConsultationBySsnForAgentLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetConsultationBySsnForAgentQuery,
+    GetConsultationBySsnForAgentQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetConsultationBySsnForAgentQuery,
+    GetConsultationBySsnForAgentQueryVariables
+  >(GetConsultationBySsnForAgentDocument, options);
+}
+export function useGetConsultationBySsnForAgentSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetConsultationBySsnForAgentQuery,
+        GetConsultationBySsnForAgentQueryVariables
+      >
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetConsultationBySsnForAgentQuery,
+    GetConsultationBySsnForAgentQueryVariables
+  >(GetConsultationBySsnForAgentDocument, options);
+}
+export type GetConsultationBySsnForAgentQueryHookResult = ReturnType<
+  typeof useGetConsultationBySsnForAgentQuery
+>;
+export type GetConsultationBySsnForAgentLazyQueryHookResult = ReturnType<
+  typeof useGetConsultationBySsnForAgentLazyQuery
+>;
+export type GetConsultationBySsnForAgentSuspenseQueryHookResult = ReturnType<
+  typeof useGetConsultationBySsnForAgentSuspenseQuery
+>;
+export type GetConsultationBySsnForAgentQueryResult = Apollo.QueryResult<
+  GetConsultationBySsnForAgentQuery,
+  GetConsultationBySsnForAgentQueryVariables
 >;
 export const GetPatientsBasicDocument = gql`
   query GetPatientsBasic {

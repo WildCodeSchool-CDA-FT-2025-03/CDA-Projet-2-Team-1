@@ -6,7 +6,7 @@ services:
       target: dev
 
     environment:
-      DATABASE_HOST: database
+      DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
@@ -31,6 +31,9 @@ services:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
+
+    ports:
+      - ${DATABASE_PORT}:5432
 
     volumes:
       - care-plan-db:/var/lib/postgresql/data/
@@ -59,15 +62,50 @@ services:
       target: dev
 
     environment:
-      - VITE_NODE_ENV=development
-      - VITE_APOLLO_SERVER=${VITE_APOLLO_SERVER}
-      - VITE_HOST=frontend
+      VITE_NODE_ENV: development
+      VITE_APOLLO_SERVER: ${VITE_APOLLO_SERVER}
+      VITE_HOST: frontend
+      VITE_DOMAIN_AUTH_SERVICE: ${VITE_DOMAIN_AUTH_SERVICE}
 
     ports:
-      - ${FRONTEND_PORT}:5173
+      - ${VITE_FRONTEND_PORT}:${VITE_FRONTEND_PORT}
 
     volumes:
       - ./frontend/src:/opt/app/src
+
+  ### Auth-Service ###
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ./backend/auth-service
+      target: dev
+
+    environment:
+      NODE_ENV: ${VITE_NODE_ENV}
+
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+
+      VITE_DOMAIN_AUTH_SERVICE: ${VITE_DOMAIN_AUTH_SERVICE}
+      VITE_DOMAIN_FRONTEND: ${VITE_DOMAIN_FRONTEND}
+
+      VITE_FRONTEND_PORT: ${FRONTEND_PORT}
+      VITE_PORT_AUTH_SERVICE: ${VITE_PORT_AUTH_SERVICE}
+
+      SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
+
+    ports:
+      - ${VITE_PORT_AUTH_SERVICE}:${VITE_PORT_AUTH_SERVICE}
+    restart: unless-stopped
+    volumes:
+      - ./backend/auth-service/src:/app/src
+
+    depends_on:
+      database:
+        condition: service_healthy
 
 volumes:
   care-plan-db:
