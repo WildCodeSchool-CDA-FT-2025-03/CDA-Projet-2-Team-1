@@ -25,7 +25,7 @@ CREATE TABLE service (
 
 -- Table USER
 CREATE TABLE "user" (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     firstname VARCHAR(100) NOT NULL,
     lastname VARCHAR(100) NOT NULL,
     genre CHAR(1) NOT NULL,
