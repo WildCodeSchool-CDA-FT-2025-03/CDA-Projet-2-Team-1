@@ -21,7 +21,8 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-non-null-assertion': 'off',
-    'no-console': ['warn', { allow: ['warn', 'error'] }],
+    'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
+    'no-process-exit': 'off', // ✅ ajouté ici
     'no-debugger': 'error',
     'no-duplicate-imports': 'error',
     'no-var': 'error',
@@ -65,10 +66,13 @@ module.exports = {
       settings: {
         node: {
           tryExtensions: ['.js', '.json', '.node', '.ts', '.d.ts'],
+          version: '>=16.0.0',
         },
       },
       rules: {
         'node/no-unsupported-features/es-syntax': 'off',
+        'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
+        'no-process-exit': 'off', // ✅ aussi ici pour s’assurer que le plugin node ne le réactive pas
       },
     },
     {

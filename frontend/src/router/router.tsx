@@ -5,26 +5,31 @@ import AdminPage from '../pages/AdminPage';
 import AgentPage from '../pages/AgentPage';
 import DoctorPage from '../pages/DoctorPage';
 import SecretaryPage from '../pages/SecretaryPage';
+import LoginPage from '@/pages/LoginPage';
 
 const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <LoginPage />,
+  },
   {
     path: '/',
     element: <App />,
     children: [
       {
-        path: '/secretary',
+        path: 'secretary',
         element: <SecretaryPage />,
       },
       {
-        path: '/doctor',
+        path: 'doctor',
         element: <DoctorPage />,
       },
       {
-        path: '/agent',
+        path: 'agent',
         element: <AgentPage />,
       },
       {
-        path: '/admin',
+        path: 'admin',
         element: <AdminPage />,
       },
     ],

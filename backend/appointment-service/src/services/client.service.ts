@@ -17,6 +17,14 @@ export const dataSource = new DataSource({
   username: process.env.DATABASE_USER || '',
   password: process.env.DATABASE_PASSWORD || '',
   port: port,
-  entities: [CityEntity, PatientEntity, RestEntity, UserEntity, SsnEntity, ConsultationEntity, ServiceEntity],
+  entities: [
+    CityEntity,
+    PatientEntity,
+    RestEntity,
+    UserEntity,
+    SsnEntity,
+    ConsultationEntity,
+    ServiceEntity,
+  ],
   synchronize: sync,
 });

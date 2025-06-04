@@ -10,7 +10,6 @@ import {
 
 import { Field, ObjectType } from 'type-graphql';
 
-
 import CityEntity from './city.entity';
 import SsnEntity from './ssn.entity';
 import ConsultationEntity from './consultation.entity';
@@ -54,7 +53,6 @@ class PatientEntity extends BaseEntity {
   @ManyToOne(() => CityEntity, (city) => city.patients, { nullable: false })
   @JoinColumn({ name: 'city_id' })
   city: CityEntity;
-
 }
 
 export default PatientEntity;
