@@ -1,11 +1,12 @@
 import { DataSource } from 'typeorm';
-// Entities
+import CityEntity from '../entities/city.entity';
 import PatientEntity from '../entities/patient.entity';
 import RestEntity from '../entities/rest.entity';
 import SsnEntity from '../entities/ssn.entity';
 import UserEntity from '../entities/user.entity';
-import RoleEntity from '../entities/role.entity';
+import ConsultationEntity from '../entities/consultation.entity';
 import ServiceEntity from '../entities/service.entity';
+import RoleEntity from '../entities/role.entity';
 
 const port = process.env.DATABASE_PORT ? +process.env.DATABASE_PORT : 5432;
 const sync = process.env.DATABASE_SYNC === 'true' ? true : false;
@@ -17,6 +18,15 @@ export const dataSource = new DataSource({
   username: process.env.DATABASE_USER || '',
   password: process.env.DATABASE_PASSWORD || '',
   port: port,
-  entities: [PatientEntity, RestEntity, UserEntity, SsnEntity, RoleEntity, ServiceEntity],
+  entities: [
+    CityEntity,
+    PatientEntity,
+    RestEntity,
+    UserEntity,
+    SsnEntity,
+    ConsultationEntity,
+    ServiceEntity,
+    RoleEntity,
+  ],
   synchronize: sync,
 });

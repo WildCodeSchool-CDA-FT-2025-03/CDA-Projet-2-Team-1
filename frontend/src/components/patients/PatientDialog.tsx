@@ -1,69 +1,52 @@
-import { useEffect, useRef, useState } from 'react';
-// Components
+import {
+  GetPatientsBasicQuery,
+  useGetPatientDetailsLazyQuery,
+  useGetPatientsBasicQuery,
+} from '@/gql/graphql-types';
+import { type Patient, type PatientDialogProps } from '@/types/patient';
+import { useRef, useState } from 'react';
 import { ErrorDisplay } from './ErrorDisplay';
+import PatientDetail from './PatientDetail';
 import { PatientList } from './PatientList';
-// types
-import { useGetPatientsQuery } from '@/gql/graphql-types';
-import { type PatientDialogProps } from '@/types/patient';
 
 export const PatientDialog = ({
   serverUrl,
 }: Omit<PatientDialogProps, 'patients' | 'loading' | 'error'>) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
-  const previousFocusRef = useRef<HTMLElement | null>(null);
-  const { data, loading, error } = useGetPatientsQuery();
 
-  // Gestion de la fermeture avec la touche Escape
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
-        setIsOpen(false);
-      }
-    };
+  // Requête pour la liste basique des patients
+  const {
+    data: basicData,
+    loading: basicLoading,
+    error: basicError,
+  } = useGetPatientsBasicQuery({
+    skip: !isOpen, // Ne charge les données que lorsque la modal est ouverte
+  });
 
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [isOpen]);
+  // Requête pour les détails d'un patient
+  const [getPatientDetails, { data: detailData, loading: detailLoading, error: detailError }] =
+    useGetPatientDetailsLazyQuery();
 
-  // Gestion du focus trap dans la modal
-  useEffect(() => {
-    if (isOpen) {
-      // Store the element that had focus before opening the modal
-      previousFocusRef.current = document.activeElement as HTMLElement;
+  // Gestionnaire pour afficher les détails d'un patient
+  const handleShowDetail = async (patient: Patient) => {
+    setSelectedPatient(patient);
+    await getPatientDetails({ variables: { id: patient.id } });
+  };
 
-      const modalElement = modalRef.current;
-      if (modalElement) {
-        const focusableElements = modalElement.querySelectorAll(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-        const firstFocusable = focusableElements[0] as HTMLElement;
-        const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
-
-        const handleTabKey = (e: KeyboardEvent) => {
-          if (e.key === 'Tab') {
-            if (e.shiftKey && document.activeElement === firstFocusable) {
-              e.preventDefault();
-              lastFocusable.focus();
-            } else if (!e.shiftKey && document.activeElement === lastFocusable) {
-              e.preventDefault();
-              firstFocusable.focus();
-            }
-          }
-        };
-
-        modalElement.addEventListener('keydown', handleTabKey);
-        firstFocusable.focus();
-
-        return () => {
-          modalElement.removeEventListener('keydown', handleTabKey);
-          // Restore focus when modal closes
-          previousFocusRef.current?.focus();
-        };
-      }
-    }
-  }, [isOpen]);
+  // Convertit le patient GraphQL pour la liste basique (données minimales)
+  const convertToBasicPatient = (patient: GetPatientsBasicQuery['patients'][0]): Patient => ({
+    id: patient.id,
+    firstname: patient.firstname,
+    lastname: patient.lastname,
+    birthdate: new Date().toISOString(),
+    gender: '',
+    email: '',
+    ssn: { number: patient.ssn.number },
+    city: { name: '', zip_code: '' },
+  });
 
   return (
     <>
@@ -81,7 +64,10 @@ export const PatientDialog = ({
         <>
           <div
             className="fixed inset-0 bg-black/50 z-40"
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              setIsOpen(false);
+              setSelectedPatient(null);
+            }}
             aria-hidden="true"
           />
           <div
@@ -95,21 +81,51 @@ export const PatientDialog = ({
           >
             <div className="flex justify-between items-center mb-4">
               <h2 id="patients-title" className="text-2xl font-bold m-0">
-                Liste des patients
+                {selectedPatient ? 'Détail du patient' : 'Liste des patients'}
               </h2>
               <button
                 className="bg-transparent border-none cursor-pointer text-xl p-1 text-inherit hover:opacity-70 focus:outline-2 focus:outline-blue-500 focus:outline-offset-2 rounded"
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  setSelectedPatient(null);
+                }}
                 aria-label="Fermer la liste des patients"
               >
                 ✕
               </button>
             </div>
-            <div id="patients-content">
-              {loading && <p>Chargement...</p>}
-              {error && <ErrorDisplay error={error} serverUrl={serverUrl} />}
-              {!loading && !error && data && <PatientList patients={data.patients} />}
-            </div>
+
+            {basicLoading && <p>Chargement de la liste...</p>}
+            {basicError && <ErrorDisplay error={basicError} serverUrl={serverUrl} />}
+            {detailError && <ErrorDisplay error={detailError} serverUrl={serverUrl} />}
+
+            {!basicLoading && !basicError && basicData && !selectedPatient && (
+              <PatientList
+                patients={basicData.patients.map(convertToBasicPatient)}
+                onShowDetail={handleShowDetail}
+              />
+            )}
+            {selectedPatient && (
+              <>
+                {detailLoading ? (
+                  <p>Chargement des détails...</p>
+                ) : (
+                  detailData?.patient && (
+                    <PatientDetail
+                      ssn={detailData.patient.ssn.number}
+                      lastname={detailData.patient.lastname}
+                      firstname={detailData.patient.firstname}
+                      birthdate={detailData.patient.birthdate as unknown as string}
+                      gender={detailData.patient.gender}
+                      email={detailData.patient.email}
+                      zipCode={detailData.patient.city.zip_code}
+                      city={detailData.patient.city.name}
+                      onShowDetail={() => setSelectedPatient(null)}
+                    />
+                  )
+                )}
+              </>
+            )}
           </div>
         </>
       )}
