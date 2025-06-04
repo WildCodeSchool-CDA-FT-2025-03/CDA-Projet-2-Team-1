@@ -10,7 +10,7 @@ class RoleEntity extends BaseEntity {
   id: number;
 
   @Field()
-  @Column({ type: 'varchar', length: 100, unique: true, nullable: false })
+  @Column({ type: 'varchar', length: 64, unique: true, nullable: false })
   name: string;
 
   @OneToMany(() => UserEntity, (user) => user.role)
