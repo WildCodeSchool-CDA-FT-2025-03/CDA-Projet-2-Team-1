@@ -121,6 +121,5 @@ services:
       database:
         condition: service_healthy
 
-
 volumes:
   care-plan-db:

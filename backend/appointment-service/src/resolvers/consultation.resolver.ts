@@ -3,7 +3,6 @@ import ConsultationEntity from '../entities/consultation.entity';
 import { Between } from 'typeorm';
 import { CacheMiddleware } from '../middlewares/cache.middleware';
 
-
 @Resolver(ConsultationEntity)
 class ConsultationResolver {
   @UseMiddleware(CacheMiddleware(15 * 60))

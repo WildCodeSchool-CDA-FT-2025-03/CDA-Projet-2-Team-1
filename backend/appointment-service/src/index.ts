@@ -4,6 +4,8 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 // resolvers
 import PatientResolver from './resolvers/patient.resolver';
 import RestResolver from './resolvers/rest.resolver';
+import RoleResolver from './resolvers/role.resolver';
+import ServiceResolver from './resolvers/service.resolver';
 import UserResolver from './resolvers/user.resolver';
 // services
 import { dataSource } from './services/client.service';
@@ -26,7 +28,14 @@ const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
   }
 
   const schema = await buildSchema({
-    resolvers: [PatientResolver, RestResolver, UserResolver, ConsultationResolver],
+    resolvers: [
+      ConsultationResolver,
+      PatientResolver,
+      RestResolver,
+      RoleResolver,
+      ServiceResolver,
+      UserResolver,
+    ],
     validate: true, // Évite des erreurs de validation inutiles
   });
 
