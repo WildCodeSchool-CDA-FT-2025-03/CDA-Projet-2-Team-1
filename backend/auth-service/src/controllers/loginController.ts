@@ -35,7 +35,13 @@ loginController.post(
         return;
       }
 
-      /* Logique métier 2 : Vérifier le mot de passe utilisateur */
+      /* Logique métier 2 : Vérification si le compte est activé */
+      if (dataUser.is_active === false) {
+        res.status(401).json({ message: 'Compte désactivé' });
+        return;
+      }
+
+      /* Logique métier 3 : Vérifier le mot de passe utilisateur */
       const verifyPassword: boolean = await verifyPasswordArgonUtils(
         dataUser.password,
         req.body.password
@@ -47,7 +53,7 @@ loginController.post(
         return;
       }
 
-      /* Logique métier 3 : Création du JWT client et server */
+      /* Logique métier 4 : Création du JWT client et server */
 
       // Création du token server
       const jwtTokenServerCarePlan: string = await createJwtTokenServerCarePlan(dataUser);
@@ -59,11 +65,11 @@ loginController.post(
         return;
       }
 
-      /* Logique métier 4 : Création d'une variable d'expiratation */
+      /* Logique métier 5 : Création d'une variable d'expiratation */
       const dateNow: number = await createDateNumberUtils(); // Date actuelle en timestamp UNIX
       const exp = dateNow + 60 * 60 * 1000; // ajoute 1h en ms
 
-      /* Logique métier 5 : Réponse au client */
+      /* Logique métier 6 : Réponse au client */
       res
         .status(200)
         .cookie('jwtTokenServerCarePlan', jwtTokenServerCarePlan, {

@@ -83,7 +83,7 @@ INSERT INTO service (name) VALUES
 
 -- ✅ Insertion des utilisateurs médecins
 INSERT INTO "user" (firstname, lastname, genre, email, password, is_active, role_id, service_id)
-VALUES ('Adrienne', 'LACOMBE', 'F', 'adrienne.lacombe@hopital.gouv.fr', '$argon2id$v=19$m=65536,t=3,p=4$ewUA3ZObc8zT8LhiTpBH7A$vV73m/sPdanxwkzL2JEqXb25zm6a/C66hVMioAEB5Eo', true, 2, 14);
+VALUES ('Adrienne', 'LACOMBE', 'F', 'adrienne.lacombe@hopital.gouv.fr', '$argon2id$v=19$m=65536,t=3,p=4$ewUA3ZObc8zT8LhiTpBH7A$vV73m/sPdanxwkzL2JEqXb25zm6a/C66hVMioAEB5Eo', false, 2, 14);
 
 INSERT INTO "user" (firstname, lastname, genre, email, password, is_active, role_id, service_id)
 VALUES ('Alain', 'COURTOIS', 'H', 'alain.courtois@hopital.gouv.fr', '$argon2id$v=19$m=65536,t=3,p=4$ewUA3ZObc8zT8LhiTpBH7A$vV73m/sPdanxwkzL2JEqXb25zm6a/C66hVMioAEB5Eo', true, 2, 9);
