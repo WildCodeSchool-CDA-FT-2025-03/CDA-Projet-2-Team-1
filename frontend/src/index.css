@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 
 @theme {
+  --color-turquoise-50: #fafdff;
   --color-turquoise-500: #0395d3;
   --color-turquoise-600: #027fb5;
+
+  --color-main: var(--color-turquoise-600);
 }

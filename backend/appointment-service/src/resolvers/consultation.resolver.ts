@@ -3,6 +3,7 @@ import ConsultationEntity from '../entities/consultation.entity';
 import { Between } from 'typeorm';
 import { CacheMiddleware } from '../middlewares/cache.middleware';
 
+
 @Resolver(ConsultationEntity)
 class ConsultationResolver {
   @UseMiddleware(CacheMiddleware(15 * 60))
@@ -17,6 +18,22 @@ class ConsultationResolver {
     return ConsultationEntity.find({
       where: {
         date_start: Between(startOfDay, endOfDay),
+      },
+      relations: ['patient.ssn', 'doctor.service'],
+    });
+  }
+
+  @Query(() => [ConsultationEntity])
+  async getConsultationBySsnForAgent(
+    @Arg('ssn', () => String) ssn: string
+  ): Promise<ConsultationEntity[]> {
+    return ConsultationEntity.find({
+      where: {
+        patient: {
+          ssn: {
+            number: ssn,
+          },
+        },
       },
       relations: ['patient.ssn', 'doctor.service'],
     });
