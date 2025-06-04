@@ -26,7 +26,7 @@ const CreatePatient = () => {
       toastSuccess('Nouveau patient enregistré');
       navigate('..');
     } catch (_err) {
-      toastError('Erreur durant la creation du patient');
+      toastError('Erreur durant la création du patient');
     }
   };
 
