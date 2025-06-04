@@ -1,3 +1,4 @@
+import { ChevronsRight } from 'lucide-react';
 import { useRef, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -64,7 +65,7 @@ function Modal({ children }: PropsModal) {
         className="p-2 text-gray-600 hover:text-gray-800 cursor-pointer"
         aria-label="Fermer le panneau"
       >
-        {'>>'}
+        <ChevronsRight />
       </button>
       {children}
     </dialog>
