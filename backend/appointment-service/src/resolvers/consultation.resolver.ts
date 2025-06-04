@@ -1,10 +1,12 @@
-import { Arg, Query, Resolver } from 'type-graphql';
-import { Between } from 'typeorm';
-
+import { Arg, Query, Resolver, UseMiddleware } from 'type-graphql';
 import ConsultationEntity from '../entities/consultation.entity';
+import { Between } from 'typeorm';
+import { CacheMiddleware } from '../middlewares/cache.middleware';
+
 
 @Resolver(ConsultationEntity)
 class ConsultationResolver {
+  @UseMiddleware(CacheMiddleware(15 * 60))
   @Query(() => [ConsultationEntity])
   async getConsultationByDay(@Arg('date', () => Date) date: Date): Promise<ConsultationEntity[]> {
     const startOfDay = new Date(date);
