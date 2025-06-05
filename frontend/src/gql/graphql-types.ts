@@ -87,6 +87,7 @@ export type Query = {
   __typename?: 'Query';
   getByUserID: Array<RestEntity>;
   getConsultationByDay: Array<ConsultationEntity>;
+  getConsultationById: ConsultationEntity;
   getConsultationBySsnForAgent: Array<ConsultationEntity>;
   getRoles: Array<RoleEntity>;
   getServices: Array<ServiceEntity>;
@@ -101,6 +102,10 @@ export type QueryGetByUserIdArgs = {
 
 export type QueryGetConsultationByDayArgs = {
   date: Scalars['DateTimeISO']['input'];
+};
+
+export type QueryGetConsultationByIdArgs = {
+  id: Scalars['String']['input'];
 };
 
 export type QueryGetConsultationBySsnForAgentArgs = {
@@ -180,6 +185,36 @@ export type GetConsultationByDayQuery = {
       ssn: { __typename?: 'SsnEntity'; number: string };
     };
   }>;
+};
+
+export type GetConsultationByIdQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+export type GetConsultationByIdQuery = {
+  __typename?: 'Query';
+  getConsultationById: {
+    __typename?: 'ConsultationEntity';
+    id: string;
+    date_start: Date;
+    date_end: Date;
+    patient: {
+      __typename?: 'PatientEntity';
+      firstname: string;
+      lastname: string;
+      birthdate: Date;
+      gender: string;
+      email: string;
+      ssn: { __typename?: 'SsnEntity'; number: string };
+      city: { __typename?: 'CityEntity'; name: string; zip_code: string };
+    };
+    doctor: {
+      __typename?: 'UserEntity';
+      firstname: string;
+      lastname: string;
+      service: { __typename?: 'ServiceEntity'; name: string } | null;
+    };
+  };
 };
 
 export type GetConsultationBySsnForAgentQueryVariables = Exact<{
@@ -373,6 +408,101 @@ export type GetConsultationByDaySuspenseQueryHookResult = ReturnType<
 export type GetConsultationByDayQueryResult = Apollo.QueryResult<
   GetConsultationByDayQuery,
   GetConsultationByDayQueryVariables
+>;
+export const GetConsultationByIdDocument = gql`
+  query getConsultationById($id: String!) {
+    getConsultationById(id: $id) {
+      id
+      date_start
+      date_end
+      patient {
+        firstname
+        lastname
+        birthdate
+        gender
+        email
+        ssn {
+          number
+        }
+        city {
+          name
+          zip_code
+        }
+      }
+      doctor {
+        firstname
+        lastname
+        service {
+          name
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetConsultationByIdQuery__
+ *
+ * To run a query within a React component, call `useGetConsultationByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetConsultationByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetConsultationByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetConsultationByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetConsultationByIdQuery,
+    GetConsultationByIdQueryVariables
+  > &
+    ({ variables: GetConsultationByIdQueryVariables; skip?: boolean } | { skip: boolean })
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetConsultationByIdQuery, GetConsultationByIdQueryVariables>(
+    GetConsultationByIdDocument,
+    options
+  );
+}
+export function useGetConsultationByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetConsultationByIdQuery,
+    GetConsultationByIdQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetConsultationByIdQuery, GetConsultationByIdQueryVariables>(
+    GetConsultationByIdDocument,
+    options
+  );
+}
+export function useGetConsultationByIdSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetConsultationByIdQuery, GetConsultationByIdQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetConsultationByIdQuery, GetConsultationByIdQueryVariables>(
+    GetConsultationByIdDocument,
+    options
+  );
+}
+export type GetConsultationByIdQueryHookResult = ReturnType<typeof useGetConsultationByIdQuery>;
+export type GetConsultationByIdLazyQueryHookResult = ReturnType<
+  typeof useGetConsultationByIdLazyQuery
+>;
+export type GetConsultationByIdSuspenseQueryHookResult = ReturnType<
+  typeof useGetConsultationByIdSuspenseQuery
+>;
+export type GetConsultationByIdQueryResult = Apollo.QueryResult<
+  GetConsultationByIdQuery,
+  GetConsultationByIdQueryVariables
 >;
 export const GetConsultationBySsnForAgentDocument = gql`
   query getConsultationBySsnForAgent($ssn: String!) {
