@@ -121,16 +121,16 @@ WITH consultation_data AS (
         ROW_NUMBER() OVER (ORDER BY date_start) as consult_rn
     FROM (
         VALUES 
-        ('2024-01-15 09:00:00+01', '2024-01-15 09:30:00+01'),
-        ('2024-01-15 10:00:00+01', '2024-01-15 10:30:00+01'),
-        ('2024-01-16 14:00:00+01', '2024-01-16 14:45:00+01'),
-        ('2024-01-16 15:00:00+01', '2024-01-16 15:30:00+01'),
-        ('2024-01-17 08:30:00+01', '2024-01-17 09:00:00+01'),
-        ('2024-01-17 11:00:00+01', '2024-01-17 11:30:00+01'),
-        ('2024-01-18 13:30:00+01', '2024-01-18 14:15:00+01'),
-        ('2024-01-18 16:00:00+01', '2024-01-18 16:30:00+01'),
-        ('2024-01-19 09:30:00+01', '2024-01-19 10:00:00+01'),
-        ('2024-01-19 14:30:00+01', '2024-01-19 15:15:00+01')
+        (CURRENT_DATE + INTERVAL '0 days' + TIME '09:00:00', CURRENT_DATE + INTERVAL '0 days' + TIME '09:30:00'),
+        (CURRENT_DATE + INTERVAL '0 days' + TIME '10:00:00', CURRENT_DATE + INTERVAL '0 days' + TIME '10:30:00'),
+        (CURRENT_DATE + INTERVAL '0 days' + TIME '14:00:00', CURRENT_DATE + INTERVAL '0 days' + TIME '14:45:00'),
+        (CURRENT_DATE + INTERVAL '0 days' + TIME '15:00:00', CURRENT_DATE + INTERVAL '0 days' + TIME '15:30:00'),
+        (CURRENT_DATE + INTERVAL '1 days' + TIME '08:30:00', CURRENT_DATE + INTERVAL '1 days' + TIME '09:00:00'),
+        (CURRENT_DATE + INTERVAL '1 days' + TIME '11:00:00', CURRENT_DATE + INTERVAL '1 days' + TIME '11:30:00'),
+        (CURRENT_DATE + INTERVAL '2 days' + TIME '13:30:00', CURRENT_DATE + INTERVAL '2 days' + TIME '14:15:00'),
+        (CURRENT_DATE + INTERVAL '2 days' + TIME '16:00:00', CURRENT_DATE + INTERVAL '2 days' + TIME '16:30:00'),
+        (CURRENT_DATE + INTERVAL '3 days' + TIME '09:30:00', CURRENT_DATE + INTERVAL '3 days' + TIME '10:00:00'),
+        (CURRENT_DATE + INTERVAL '3 days' + TIME '14:30:00', CURRENT_DATE + INTERVAL '3 days' + TIME '15:15:00')
     ) AS c(date_start, date_end)
 ),
 patients_numbered AS (
