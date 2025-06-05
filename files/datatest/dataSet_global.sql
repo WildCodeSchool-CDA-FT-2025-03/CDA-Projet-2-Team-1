@@ -22,7 +22,7 @@ INSERT INTO service (name) VALUES
 ('Ophtalmologie'),
 ('Psychiatrie');
 
--- 3. INSERTION DES UTILISATEURS (reprenant ceux du dataset_authentification + quelques médecins supplémentaires)
+-- 3. INSERTION DES UTILISATEURS
 -- Ryan DECIAN (Admin)
 INSERT INTO "user" (firstname, lastname, genre, email, password, is_active, role_id, service_id)
 VALUES ('Ryan', 'DECIAN', 'M', 'ryan.decian.pro@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 1, 1);
@@ -48,7 +48,7 @@ VALUES
 ('Anne', 'Moreau', 'F', 'anne.moreau@hospital.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 2, 7),
 ('Laurent', 'Simon', 'M', 'laurent.simon@hospital.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 2, 9);
 
--- 4. INSERTION DES VILLES (10 cities comme demandé)
+-- 4. INSERTION DES VILLES
 INSERT INTO city (name, zip_code) VALUES
 ('Paris', '75001'),
 ('Lyon', '69001'),
@@ -61,7 +61,7 @@ INSERT INTO city (name, zip_code) VALUES
 ('Rennes', '35000'),
 ('Nantes', '44000');
 
--- 5. INSERTION DES NUMÉROS DE SÉCURITÉ SOCIALE (pour les patients)
+-- 5. INSERTION DES NUMÉROS DE SÉCURITÉ SOCIALE
 INSERT INTO ssn (number) VALUES
 ('123456789012345'),
 ('234567890123456'),
@@ -74,8 +74,7 @@ INSERT INTO ssn (number) VALUES
 ('901234567890123'),
 ('012345678901234');
 
--- 6. INSERTION DES PATIENTS (10 patients comme demandé)
--- Utilisation d'une approche plus simple avec des sous-requêtes
+-- 6. INSERTION DES PATIENTS
 WITH patient_data AS (
     SELECT 
         firstname, lastname, birthdate, gender, email,
@@ -113,8 +112,7 @@ FROM patient_data pd
 JOIN ssn_numbered sn ON sn.ssn_rn = pd.patient_rn
 JOIN city_numbered cn ON cn.city_rn = pd.patient_rn;
 
--- 7. INSERTION DES CONSULTATIONS (10 consultations comme demandé)
--- Utilisation d'une approche CTE pour éviter les erreurs de window functions
+-- 7. INSERTION DES CONSULTATIONS
 WITH consultation_data AS (
     SELECT 
         date_start, date_end,
@@ -149,18 +147,43 @@ FROM consultation_data cd
 JOIN patients_numbered pn ON pn.patient_rn = cd.consult_rn
 JOIN doctors_numbered dn ON dn.doctor_rn = ((cd.consult_rn - 1) % (SELECT COUNT(*) FROM "user" WHERE role_id = 2)) + 1;
 
--- 8. INSERTION DE QUELQUES PÉRIODES DE REPOS (optionnel, pour compléter les données)
+-- 8. INSERTION DE QUELQUES PÉRIODES DE REPOS
 WITH rest_data AS (
     SELECT 
         type, date_start, date_end,
         ROW_NUMBER() OVER (ORDER BY date_start) as rest_rn
     FROM (
         VALUES 
-        ('Congés', '2024-01-22 00:00:00+01', '2024-01-26 23:59:59+01'),
-        ('Formation', '2024-02-05 08:00:00+01', '2024-02-05 17:00:00+01'),
-        ('Maladie', '2024-02-10 00:00:00+01', '2024-02-12 23:59:59+01'),
-        ('Congés', '2024-03-01 00:00:00+01', '2024-03-07 23:59:59+01'),
-        ('Formation', '2024-03-15 09:00:00+01', '2024-03-15 16:00:00+01')
+        (
+    'Maladie',
+    date_trunc ('day', NOW ()),
+    date_trunc ('day', NOW () + INTERVAL '1 day')
+  ),
+  (
+    'Maladie',
+    date_trunc ('day', NOW () + INTERVAL '1 day'),
+    date_trunc ('day', NOW () + INTERVAL '2 day')
+  ),
+  (
+    'Maladie',
+    date_trunc ('day', NOW () + INTERVAL '2 day'),
+    date_trunc ('day', NOW () + INTERVAL '3 day')
+  ),
+  (
+    'Congé',
+    date_trunc ('day', NOW () + INTERVAL '4 day'),
+    date_trunc ('day', NOW () + INTERVAL '5 day')
+  ),
+  (
+    'Congé',
+    date_trunc ('day', NOW () + INTERVAL '5 day'),
+    date_trunc ('day', NOW () + INTERVAL '6 day')
+  ),
+  (
+    'Formation',
+    date_trunc ('day', NOW () + INTERVAL '7 day'),
+    date_trunc ('day', NOW () + INTERVAL '8 day')
+  )
     ) AS r(type, date_start, date_end)
 ),
 doctors_for_rest AS (
@@ -174,7 +197,3 @@ SELECT
     dfr.id as user_id
 FROM rest_data rd
 JOIN doctors_for_rest dfr ON dfr.doctor_rn = rd.rest_rn;
-
--- ========================================
--- FIN DU DATASET GLOBAL
--- ========================================
