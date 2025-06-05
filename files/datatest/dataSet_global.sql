@@ -42,11 +42,11 @@ VALUES ('Emma', 'Lefevre', 'F', 'emma.agent@example.com', '$argon2id$v=19$m=6553
 -- Médecins supplémentaires pour les consultations
 INSERT INTO "user" (firstname, lastname, genre, email, password, is_active, role_id, service_id)
 VALUES 
-('Dr. Jean', 'Dupont', 'M', 'jean.dupont@hospital.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 2, 1),
-('Dr. Marie', 'Dubois', 'F', 'marie.dubois@hospital.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 2, 5),
-('Dr. Pierre', 'Rousseau', 'M', 'pierre.rousseau@hospital.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 2, 6),
-('Dr. Anne', 'Moreau', 'F', 'anne.moreau@hospital.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 2, 7),
-('Dr. Laurent', 'Simon', 'M', 'laurent.simon@hospital.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 2, 9);
+('Jean', 'Dupont', 'M', 'jean.dupont@hospital.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 2, 1),
+('Marie', 'Dubois', 'F', 'marie.dubois@hospital.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 2, 5),
+('Pierre', 'Rousseau', 'M', 'pierre.rousseau@hospital.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 2, 6),
+('Anne', 'Moreau', 'F', 'anne.moreau@hospital.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 2, 7),
+('Laurent', 'Simon', 'M', 'laurent.simon@hospital.com', '$argon2id$v=19$m=65536,t=3,p=4$be3rg+9ItyN6mweKYXf0Zg$3tsq+63Nxsazz/liXvgWrDfP2eICsboTOnMyq6C85qg', true, 2, 9);
 
 -- 4. INSERTION DES VILLES (10 cities comme demandé)
 INSERT INTO city (name, zip_code) VALUES
