@@ -1,15 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
+import payloadType from '../../types/payloadTokenJWT.type';
 
 function validateRole(req: Request, res: Response, next: NextFunction) {
   try {
-    const Role: number = req.body.role_id;
+    const token: payloadType = req.body.payload;
 
-    if (!Role) {
-      res.status(401).json({ message: 'Non authentifié' });
-      return;
-    }
-
-    if (Role !== 1) {
+    if (token.role_id !== 1) {
       res.status(403).json({ message: 'Accès refusé : administrateur requis' });
       return;
     }

@@ -2,6 +2,7 @@
 import express, { Request, Response } from 'express';
 import router from './router/router';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const port = process.env.VITE_PORT_AUTH_SERVICE || '9500';
@@ -12,6 +13,9 @@ app.use(
     credentials: true,
   })
 );
+
+// Récuperation des Cookies
+app.use(cookieParser());
 
 app.use(express.json());
 app.use('/auth', router);
