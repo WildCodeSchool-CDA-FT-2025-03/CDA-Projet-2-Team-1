@@ -12,4 +12,4 @@ RUN npm install
 
 FROM builder AS dev
 
-ENTRYPOINT [ "npm", "run", "dev" ]
+COPY jest.config.ts jest.setup.ts ./
