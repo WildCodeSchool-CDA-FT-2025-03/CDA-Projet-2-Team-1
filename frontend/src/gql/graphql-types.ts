@@ -88,6 +88,8 @@ export type Query = {
   getByUserID: Array<RestEntity>;
   getConsultationByDay: Array<ConsultationEntity>;
   getConsultationBySsnForAgent: Array<ConsultationEntity>;
+  getRoles: Array<RoleEntity>;
+  getServices: Array<ServiceEntity>;
   getUsers: Array<UserEntity>;
   patient: Maybe<PatientEntity>;
   patients: Array<PatientEntity>;
@@ -117,6 +119,12 @@ export type RestEntity = {
   type: Scalars['String']['output'];
 };
 
+export type RoleEntity = {
+  __typename?: 'RoleEntity';
+  id: Scalars['Float']['output'];
+  name: Scalars['String']['output'];
+};
+
 export type ServiceEntity = {
   __typename?: 'ServiceEntity';
   id: Scalars['Float']['output'];
@@ -136,10 +144,15 @@ export type SsnInput = {
 
 export type UserEntity = {
   __typename?: 'UserEntity';
+  created_at: Scalars['DateTimeISO']['output'];
+  email: Scalars['String']['output'];
   firstname: Scalars['String']['output'];
+  genre: Scalars['String']['output'];
   id: Scalars['String']['output'];
+  is_active: Scalars['Boolean']['output'];
   lastname: Scalars['String']['output'];
-  service: ServiceEntity;
+  role: Maybe<RoleEntity>;
+  service: Maybe<ServiceEntity>;
 };
 
 export type GetConsultationByDayQueryVariables = Exact<{
@@ -157,7 +170,7 @@ export type GetConsultationByDayQuery = {
       __typename?: 'UserEntity';
       id: string;
       lastname: string;
-      service: { __typename?: 'ServiceEntity'; name: string };
+      service: { __typename?: 'ServiceEntity'; name: string } | null;
     };
     patient: {
       __typename?: 'PatientEntity';
@@ -182,7 +195,7 @@ export type GetConsultationBySsnForAgentQuery = {
     doctor: {
       __typename?: 'UserEntity';
       lastname: string;
-      service: { __typename?: 'ServiceEntity'; name: string };
+      service: { __typename?: 'ServiceEntity'; name: string } | null;
     };
   }>;
 };
@@ -256,6 +269,20 @@ export type CreateRestMutation = {
     date_start: Date;
     date_end: Date;
   };
+};
+
+export type GetRolesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetRolesQuery = {
+  __typename?: 'Query';
+  getRoles: Array<{ __typename?: 'RoleEntity'; id: number; name: string }>;
+};
+
+export type GetServicesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetServicesQuery = {
+  __typename?: 'Query';
+  getServices: Array<{ __typename?: 'ServiceEntity'; id: number; name: string }>;
 };
 
 export const GetConsultationByDayDocument = gql`
@@ -732,4 +759,111 @@ export type CreateRestMutationResult = Apollo.MutationResult<CreateRestMutation>
 export type CreateRestMutationOptions = Apollo.BaseMutationOptions<
   CreateRestMutation,
   CreateRestMutationVariables
+>;
+export const GetRolesDocument = gql`
+  query GetRoles {
+    getRoles {
+      id
+      name
+    }
+  }
+`;
+
+/**
+ * __useGetRolesQuery__
+ *
+ * To run a query within a React component, call `useGetRolesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRolesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRolesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetRolesQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetRolesQuery, GetRolesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetRolesQuery, GetRolesQueryVariables>(GetRolesDocument, options);
+}
+export function useGetRolesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetRolesQuery, GetRolesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetRolesQuery, GetRolesQueryVariables>(GetRolesDocument, options);
+}
+export function useGetRolesSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetRolesQuery, GetRolesQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetRolesQuery, GetRolesQueryVariables>(GetRolesDocument, options);
+}
+export type GetRolesQueryHookResult = ReturnType<typeof useGetRolesQuery>;
+export type GetRolesLazyQueryHookResult = ReturnType<typeof useGetRolesLazyQuery>;
+export type GetRolesSuspenseQueryHookResult = ReturnType<typeof useGetRolesSuspenseQuery>;
+export type GetRolesQueryResult = Apollo.QueryResult<GetRolesQuery, GetRolesQueryVariables>;
+export const GetServicesDocument = gql`
+  query GetServices {
+    getServices {
+      id
+      name
+    }
+  }
+`;
+
+/**
+ * __useGetServicesQuery__
+ *
+ * To run a query within a React component, call `useGetServicesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetServicesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetServicesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetServicesQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetServicesQuery, GetServicesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetServicesQuery, GetServicesQueryVariables>(GetServicesDocument, options);
+}
+export function useGetServicesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetServicesQuery, GetServicesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetServicesQuery, GetServicesQueryVariables>(
+    GetServicesDocument,
+    options
+  );
+}
+export function useGetServicesSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetServicesQuery, GetServicesQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetServicesQuery, GetServicesQueryVariables>(
+    GetServicesDocument,
+    options
+  );
+}
+export type GetServicesQueryHookResult = ReturnType<typeof useGetServicesQuery>;
+export type GetServicesLazyQueryHookResult = ReturnType<typeof useGetServicesLazyQuery>;
+export type GetServicesSuspenseQueryHookResult = ReturnType<typeof useGetServicesSuspenseQuery>;
+export type GetServicesQueryResult = Apollo.QueryResult<
+  GetServicesQuery,
+  GetServicesQueryVariables
 >;
