@@ -19,9 +19,12 @@ function verifyToken(req: Request, res: Response, next: NextFunction) {
       return;
     }
 
+    // Vérification du token avec la clé secrète
     const payload = jwt.verify(token, SECRET_KEY_TOKEN_SERVER) as payloadType;
 
+    // Créer une nouvelle propriété dans la requête pour stocker le payload
     req.body.payload = payload;
+
     next();
     return;
   } catch (error) {
