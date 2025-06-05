@@ -1,4 +1,3 @@
-import { Field, ObjectType } from 'type-graphql';
 import {
   BaseEntity,
   Column,
@@ -8,9 +7,11 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import RestEntity from './rest.entity';
+import { Field, ObjectType } from 'type-graphql';
+
 import ConsultationEntity from './consultation.entity';
-import ServiceEntity from './service.entity';
+import RestEntity from './rest.entity';
+import { Service } from './Service';
 
 @ObjectType()
 @Entity('user')
@@ -33,10 +34,26 @@ class UserEntity extends BaseEntity {
   @OneToMany(() => ConsultationEntity, (consultation) => consultation.doctor)
   consultation: ConsultationEntity[];
 
-  @Field(() => ServiceEntity, { nullable: false })
-  @ManyToOne(() => ServiceEntity, (service) => service.user, { nullable: false })
+  @Field(() => Service, { nullable: false })
+  @ManyToOne(() => Service, (service) => service.doctors, { nullable: false })
   @JoinColumn({ name: 'service_id' })
-  service: ServiceEntity;
+  service: Service;
+
+  @Field()
+  @Column({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'created_at',
+  })
+  created_at: Date;
+
+  @Field()
+  @Column({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'updated_at',
+  })
+  updated_at: Date;
 }
 
 export default UserEntity;

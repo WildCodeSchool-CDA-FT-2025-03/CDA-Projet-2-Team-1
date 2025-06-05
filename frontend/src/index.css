@@ -1,6 +1,30 @@
 @import 'tailwindcss';
+@import 'react-toastify/dist/ReactToastify.css';
 
-@theme {
+/* Variables CSS minimales pour react-toastify */
+:root {
   --color-turquoise-500: #0395d3;
   --color-turquoise-600: #027fb5;
+  --toastify-font-family: ui-sans-serif, system-ui, sans-serif;
+  --toastify-z-index: 9999;
+}
+
+/* Styles simples qui fonctionnent */
+.Toastify__toast-container {
+  width: auto !important;
+  max-width: 420px !important;
+}
+
+.Toastify__toast {
+  font-family: var(--toastify-font-family) !important;
+  border-radius: 8px !important;
+  min-height: 64px !important;
+}
+
+.Toastify__close-button {
+  opacity: 1 !important;
+}
+
+.Toastify__close-button:hover {
+  opacity: 0.7 !important;
 }

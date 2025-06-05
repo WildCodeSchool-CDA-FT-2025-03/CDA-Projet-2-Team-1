@@ -1,3 +1,4 @@
+import { Field, ObjectType } from 'type-graphql';
 import {
   BaseEntity,
   Column,
@@ -8,12 +9,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Field, ObjectType } from 'type-graphql';
-
-
 import CityEntity from './city.entity';
-import SsnEntity from './ssn.entity';
 import ConsultationEntity from './consultation.entity';
+import SsnEntity from './ssn.entity';
 
 @ObjectType()
 @Entity('patient')
@@ -55,6 +53,21 @@ class PatientEntity extends BaseEntity {
   @JoinColumn({ name: 'city_id' })
   city: CityEntity;
 
+  @Field()
+  @Column({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'created_at',
+  })
+  created_at: Date;
+
+  @Field()
+  @Column({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'updated_at',
+  })
+  updated_at: Date;
 }
 
 export default PatientEntity;

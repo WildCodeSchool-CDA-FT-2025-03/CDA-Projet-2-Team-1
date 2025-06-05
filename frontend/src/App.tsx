@@ -1,5 +1,6 @@
-import { Outlet } from 'react-router';
 import Header from './components/header/header';
+import { Outlet } from 'react-router';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -8,6 +9,20 @@ function App() {
       <div className="app">
         <Outlet />
       </div>
+
+      {/* Configuration simplifiée et fonctionnelle */}
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick={true}
+        pauseOnFocusLoss={true}
+        draggable={true}
+        pauseOnHover={true}
+        theme="light"
+        limit={3}
+      />
     </>
   );
 }

@@ -1,20 +1,24 @@
-import { useState } from 'react';
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { format, parse, startOfWeek, getDay } from 'date-fns';
-import { fr } from 'date-fns/locale';
-import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-//components
-import RestModal from './RestModal';
-//types
+
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import {
-  RestEntity,
-  useGetByUserIdQuery,
-  useCreateRestMutation,
   GetByUserIdDocument,
+  RestEntity,
+  useCreateRestMutation,
+  useGetByUserIdQuery,
 } from '@/gql/graphql-types';
+import { ToastContainer, toast } from 'react-toastify';
+import { format, getDay, parse, startOfWeek } from 'date-fns';
+
+import RestModal from './RestModal';
 import { RestProps } from '@/types/rest.types';
+import { fr } from 'date-fns/locale';
+import { useState } from 'react';
+
+//components
+
+//types
 
 // Configuration du localisateur
 const locales = {
@@ -121,7 +125,6 @@ function Rest({ user_id }: RestProps) {
         setShowModal(false);
         setSelectedDates(null);
       } catch (error) {
-        console.error(`Erreur lors de la création de l'événement ${type}:`, error);
         toast.error(`Erreur lors de l'enregistrement de l'événement ${type}`, {
           position: 'bottom-right',
           autoClose: 5000,

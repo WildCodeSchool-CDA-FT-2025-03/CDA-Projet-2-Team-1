@@ -1,14 +1,15 @@
-import { DataSource } from 'typeorm';
 import CityEntity from '../entities/city.entity';
+import ConsultationEntity from '../entities/consultation.entity';
+import { DataSource } from 'typeorm';
+import { Doctor } from '../entities/Doctor';
 import PatientEntity from '../entities/patient.entity';
 import RestEntity from '../entities/rest.entity';
+import { Service } from '../entities/Service';
 import SsnEntity from '../entities/ssn.entity';
 import UserEntity from '../entities/user.entity';
-import ConsultationEntity from '../entities/consultation.entity';
-import ServiceEntity from '../entities/service.entity';
 
 const port = process.env.DATABASE_PORT ? +process.env.DATABASE_PORT : 5432;
-const sync = process.env.DATABASE_SYNC === 'true' ? true : false;
+const sync = true; // Temporarily enable sync to create correct tables
 
 export const dataSource = new DataSource({
   type: 'postgres',
@@ -17,6 +18,15 @@ export const dataSource = new DataSource({
   username: process.env.DATABASE_USER || '',
   password: process.env.DATABASE_PASSWORD || '',
   port: port,
-  entities: [CityEntity, PatientEntity, RestEntity, UserEntity, SsnEntity, ConsultationEntity, ServiceEntity],
+  entities: [
+    CityEntity,
+    PatientEntity,
+    RestEntity,
+    UserEntity,
+    SsnEntity,
+    ConsultationEntity,
+    Service,
+    Doctor,
+  ],
   synchronize: sync,
 });

@@ -1,13 +1,14 @@
-import { Field, ObjectType } from 'type-graphql';
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Field, ObjectType } from 'type-graphql';
+
 import UserEntity from './user.entity';
 
 @ObjectType()
 @Entity('rest')
 class RestEntity extends BaseEntity {
   @Field()
-  @PrimaryGeneratedColumn('increment')
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Field()
   @Column({ type: 'varchar', nullable: false, length: 16 })
