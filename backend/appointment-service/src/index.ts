@@ -1,18 +1,12 @@
 import { ApolloServer } from '@apollo/server';
-import { buildSchema } from 'type-graphql';
 import { startStandaloneServer } from '@apollo/server/standalone';
 // resolvers
-import PatientResolver from './resolvers/patient.resolver';
-import RestResolver from './resolvers/rest.resolver';
-import RoleResolver from './resolvers/role.resolver';
-import ServiceResolver from './resolvers/service.resolver';
-import UserResolver from './resolvers/user.resolver';
 // services
 import { dataSource } from './services/client.service';
 import logger from './services/logger.service';
-import ConsultationResolver from './resolvers/consultation.resolver';
 import redisClient from './services/cache.service';
 import 'dotenv/config';
+import getSchema from './schemas/schemas';
 
 const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
 
@@ -27,17 +21,7 @@ const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
     logger.error(err);
   }
 
-  const schema = await buildSchema({
-    resolvers: [
-      ConsultationResolver,
-      PatientResolver,
-      RestResolver,
-      RoleResolver,
-      ServiceResolver,
-      UserResolver,
-    ],
-    validate: true, // Évite des erreurs de validation inutiles
-  });
+  const schema = await getSchema();
 
   const server = new ApolloServer({
     schema,
