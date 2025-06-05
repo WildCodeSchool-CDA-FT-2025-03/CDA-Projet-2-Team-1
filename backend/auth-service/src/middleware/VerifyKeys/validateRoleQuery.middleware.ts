@@ -1,17 +1,24 @@
 import { Request, Response, NextFunction } from 'express';
 
-const validateRole = (req: Request, res: Response, next: NextFunction) => {
-  const Role = req.body.role_id;
+function validateRole(req: Request, res: Response, next: NextFunction) {
+  try {
+    const Role: number = req.body.role_id;
 
-  if (!Role) {
-    return res.status(401).json({ message: 'Non authentifié' });
+    if (!Role) {
+      res.status(401).json({ message: 'Non authentifié' });
+      return;
+    }
+
+    if (Role !== 1) {
+      res.status(403).json({ message: 'Accès refusé : administrateur requis' });
+      return;
+    }
+
+    next(); // continuer si admin
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur interne du serveur' });
+    return;
   }
-
-  if (Role.role_id !== 1) {
-    return res.status(403).json({ message: 'Accès refusé : administrateur requis' });
-  }
-
-  next(); // continuer si admin
-};
+}
 
 export default validateRole;
