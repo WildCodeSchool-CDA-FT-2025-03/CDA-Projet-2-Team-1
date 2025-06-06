@@ -14,7 +14,7 @@ const patient = {
   lastname: 'Dupont',
   email: 'jean.dupont@example.com',
   birthdate: '1990-05-15T00:00:00.000Z',
-  gender: '',
+  gender: 'M',
   city: {
     name: 'Paris',
     zip_code: '75014',
