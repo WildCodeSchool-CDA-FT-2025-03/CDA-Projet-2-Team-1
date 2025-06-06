@@ -26,3 +26,12 @@ export const GET_ALL_SERVICES = gql`
     }
   }
 `;
+
+export const GET_SERVICES = gql`
+  query GetServices {
+    getServices {
+      id
+      name
+    }
+  }
+`;

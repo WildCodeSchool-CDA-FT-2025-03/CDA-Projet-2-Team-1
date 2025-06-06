@@ -1,10 +1,10 @@
 import { IsDateString, IsOptional, IsString, MaxLength } from 'class-validator';
-import { Arg, Field, ID, InputType, Mutation, Query, Resolver } from 'type-graphql';
+import { Arg, Field, ID, InputType, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
 import { Between } from 'typeorm';
 import ConsultationEntity from '../entities/consultation.entity';
 import PatientEntity from '../entities/patient.entity';
 import UserEntity from '../entities/user.entity';
-
+import { CacheMiddleware } from '../middlewares/cache.middleware';
 // Créer une classe d'erreur personnalisée pour éviter l'import de graphql
 class CustomGraphQLError extends Error {
   public extensions: { code: string };
@@ -49,6 +49,7 @@ class CreateConsultationInput {
 
 @Resolver(ConsultationEntity)
 class ConsultationResolver {
+  @UseMiddleware(CacheMiddleware(15 * 60))
   @Query(() => [ConsultationEntity])
   async getConsultationByDay(@Arg('date', () => Date) date: Date): Promise<ConsultationEntity[]> {
     const startOfDay = new Date(date);
@@ -162,6 +163,21 @@ class ConsultationResolver {
         endDate,
       })
       .getOne();
+  }
+
+  async getConsultationBySsnForAgent(
+    @Arg('ssn', () => String) ssn: string
+  ): Promise<ConsultationEntity[]> {
+    return ConsultationEntity.find({
+      where: {
+        patient: {
+          ssn: {
+            number: ssn,
+          },
+        },
+      },
+      relations: ['patient.ssn', 'doctor.service'],
+    });
   }
 }
 

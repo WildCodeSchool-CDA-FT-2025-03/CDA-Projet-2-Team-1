@@ -8,7 +8,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-
 import CityEntity from './city.entity';
 import ConsultationEntity from './consultation.entity';
 import SsnEntity from './ssn.entity';
@@ -33,7 +32,7 @@ class PatientEntity extends BaseEntity {
   birthdate: Date;
 
   @Field()
-  @Column({ type: 'varchar', nullable: false, length: 16 })
+  @Column({ type: 'varchar', nullable: false, length: 1 })
   gender: string;
 
   @Field()
@@ -41,7 +40,7 @@ class PatientEntity extends BaseEntity {
   email: string;
 
   @Field(() => SsnEntity, { nullable: false })
-  @ManyToOne(() => SsnEntity, (ssn) => ssn.patient, { nullable: false })
+  @ManyToOne(() => SsnEntity, (ssn) => ssn.patient, { nullable: false, cascade: true })
   @JoinColumn({ name: 'ssn_id' })
   ssn: SsnEntity;
 
@@ -49,7 +48,7 @@ class PatientEntity extends BaseEntity {
   consultation: ConsultationEntity[];
 
   @Field(() => CityEntity, { nullable: false })
-  @ManyToOne(() => CityEntity, (city) => city.patients, { nullable: false })
+  @ManyToOne(() => CityEntity, (city) => city.patients, { nullable: false, cascade: true })
   @JoinColumn({ name: 'city_id' })
   city: CityEntity;
 

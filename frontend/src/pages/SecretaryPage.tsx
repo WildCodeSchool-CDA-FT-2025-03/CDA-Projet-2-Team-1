@@ -2,9 +2,16 @@ import { AppointmentButton } from '@/components/consultation/AppointmentButton';
 import ConsultationList from '@/components/consultation/ConsultationList';
 import { ConsultationRecord } from '@/components/consultation/ConsultationRecord';
 import { PatientDialog } from '@/components/patients/PatientDialog';
+
 import { useGetPatientsBasicQuery } from '@/gql/graphql-types';
 import { type Patient } from '@/types/patient';
 import { useState } from 'react';
+
+import { dateToDay } from '@/utiles/date.utile';
+import { ButtonLink } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import { Outlet } from 'react-router';
+
 
 const SecretaryPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,8 +41,14 @@ const SecretaryPage = () => {
         onClose={() => setIsModalOpen(false)}
         patients={patients}
       />
-      <PatientDialog serverUrl={import.meta.env.VITE_APOLLO_SERVER} />
       <ConsultationList date={new Date()} />
+
+      <ButtonLink className="flex justify-center items-center gap-2" to="patient/creation">
+        <Plus className="inline" /> {`Création d'un nouveau patient`}
+      </ButtonLink>
+      <ConsultationList date={dateToDay(new Date())} />
+      <PatientDialog serverUrl={import.meta.env.VITE_APOLLO_SERVER} />
+      <Outlet />
     </>
   );
 };

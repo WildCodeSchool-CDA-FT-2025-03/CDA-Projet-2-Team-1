@@ -1,27 +1,40 @@
 import * as dotenv from 'dotenv';
-
+// resolvers
 import { ApolloServer } from '@apollo/server';
 import ConsultationResolver from './resolvers/consultation.resolver';
 import { DoctorResolver } from './resolvers/DoctorResolver';
 import PatientResolver from './resolvers/patient.resolver';
 import RestResolver from './resolvers/rest.resolver';
-import { ServiceResolver } from './resolvers/ServiceResolver';
+
+import RoleResolver from './resolvers/role.resolver';
+import ServiceResolver from './resolvers/service.resolver';
+
 import UserResolver from './resolvers/user.resolver';
 import { buildSchema } from 'type-graphql';
+// services
 import { dataSource } from './services/client.service';
 import logger from './services/logger.service';
+
 import { startStandaloneServer } from '@apollo/server/standalone';
 
-// resolvers
-
-// services
-
 dotenv.config();
+
+import ConsultationResolver from './resolvers/consultation.resolver';
+import redisClient from './services/cache.service';
+import 'dotenv/config';
 
 const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
 
 (async () => {
   await dataSource.initialize();
+
+  try {
+    await redisClient.connect();
+    logger.info(`Redis cache is ready`);
+  } catch (err) {
+    logger.error('Failed to init redis');
+    logger.error(err);
+  }
 
   const schema = await buildSchema({
     resolvers: [
@@ -31,6 +44,7 @@ const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
       ConsultationResolver,
       ServiceResolver,
       DoctorResolver,
+      RoleResolver,
     ],
     validate: true, // Évite des erreurs de validation inutiles
   });

@@ -76,7 +76,20 @@ export const CREATE_CONSULTATION = gql`
         firstname
         lastname
         service {
-          id
+          id}
+      }
+    }
+  }
+`;
+
+export const GET_CONSULTATION_BY_SSN_FOR_AGENT = gql`
+  query getConsultationBySsnForAgent($ssn: String!) {
+    getConsultationBySsnForAgent(ssn: $ssn) {
+      date_start
+      id
+      doctor {
+        lastname
+        service {
           name
         }
       }

@@ -1,7 +1,15 @@
-import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Field, InputType, ObjectType } from 'type-graphql';
+import { Matches } from 'class-validator';
 import PatientEntity from './patient.entity';
+
+@InputType()
+export class SsnInput {
+  @Field()
+  @Matches(/[0-9]{15}/)
+  number: string;
+}
 
 @ObjectType()
 @Entity('ssn')
