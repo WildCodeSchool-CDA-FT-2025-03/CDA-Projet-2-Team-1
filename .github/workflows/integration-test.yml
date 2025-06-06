@@ -20,4 +20,4 @@ jobs:
         uses: docker/setup-compose-action@v1
 
       - name: Run test
-        run: make test
+        run: make test-integration
