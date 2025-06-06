@@ -7,9 +7,6 @@
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",
-    "format:fix": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
