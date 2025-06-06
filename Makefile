@@ -38,5 +38,7 @@ dev-clean: dev-down dev-rm delete-images
 
 dev-prune: dev-clean delete-volumes
 
-test:
+test-integration:
 	$(docker-test) up --abort-on-container-exit --exit-code-from appointment-service
+
+test: test-integration

@@ -12,4 +12,4 @@ RUN npm install
 
 FROM builder AS dev
 
-COPY jest.config.ts jest.setup.ts ./
+COPY jest.integration.config.ts jest.integration.setup.ts ./

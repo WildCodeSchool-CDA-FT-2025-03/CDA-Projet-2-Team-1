@@ -5,7 +5,7 @@ services:
       context: ./backend/appointment-service
       target: dev
 
-    command: ['npm', 'run', 'test']
+    command: ['npm', 'run', 'test:integration']
 
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
