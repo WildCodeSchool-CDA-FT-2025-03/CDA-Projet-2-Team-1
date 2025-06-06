@@ -1,6 +1,8 @@
 services:
   ### Service graphql ###
   appointment-service:
+    container_name: appointment-service-test
+
     build:
       context: ./backend/appointment-service
       target: dev
@@ -29,6 +31,8 @@ services:
 
   ### Base de donnees postgres ###
   database:
+    container_name: database-test
+
     image: 'postgres:17.4-alpine'
 
     environment:
