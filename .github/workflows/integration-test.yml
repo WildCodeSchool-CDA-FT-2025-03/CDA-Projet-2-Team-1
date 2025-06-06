@@ -3,7 +3,7 @@ name: Test integration
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    branches: [dev, predeploy]
+    branches: [predeploy]
 
 jobs:
   test-integration:
