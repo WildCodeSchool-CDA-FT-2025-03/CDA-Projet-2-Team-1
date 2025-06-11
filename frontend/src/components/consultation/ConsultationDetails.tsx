@@ -4,6 +4,7 @@ import { useGetConsultationByIdQuery } from '@/gql/graphql-types';
 // Utils
 import { formatDate, formatTime, calcDurationInMinutes } from '@/utiles/date.utile';
 import { formatSSN } from '@/utiles/ssn.utility';
+import NoteSecretary from './NoteSecretary';
 
 function ConsultationDetails() {
   const { id } = useParams<{ id: string }>();
@@ -111,6 +112,7 @@ function ConsultationDetails() {
           )}
         </dl>
       </section>
+      <NoteSecretary />
     </section>
   );
 }
