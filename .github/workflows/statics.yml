@@ -1,0 +1,43 @@
+name: Statics tests
+
+on:
+  pull_request:
+    branches: [dev]
+
+jobs:
+  lint-and-format:
+    name: Lint and format
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      # Installation des dépendances - racine
+      - name: Install root dependencies
+        run: npm ci
+
+      # Installation des dépendances - frontend (pour les builds)
+      - name: Install frontend dependencies
+        run: cd frontend && npm ci
+
+      # Installation des dépendances - backend services (pour les builds)
+      - name: Install backend dependencies
+        run: |
+          cd backend/auth-service && npm ci
+          cd ../appointment-service && npm ci
+          cd ../email-service && npm ci
+          cd ../leave-service && npm ci
+
+      # Tests statiques centralisés depuis la racine
+      - name: ESLint check (All projects)
+        run: npm run lint
+
+      - name: Prettier check (All projects)
+        run: npm run format
