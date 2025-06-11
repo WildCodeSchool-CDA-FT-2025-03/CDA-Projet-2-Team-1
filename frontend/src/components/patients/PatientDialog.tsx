@@ -3,15 +3,13 @@ import {
   useGetPatientDetailsLazyQuery,
   useGetPatientsBasicQuery,
 } from '@/gql/graphql-types';
-import { type Patient, type PatientDialogProps } from '@/types/patient';
+import { type Patient } from '@/types/patient';
 import { useRef, useState } from 'react';
 import { ErrorDisplay } from './ErrorDisplay';
 import PatientDetail from './PatientDetail';
 import { PatientList } from './PatientList';
 
-export const PatientDialog = ({
-  serverUrl,
-}: Omit<PatientDialogProps, 'patients' | 'loading' | 'error'>) => {
+export const PatientDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -96,8 +94,8 @@ export const PatientDialog = ({
             </div>
 
             {basicLoading && <p>Chargement de la liste...</p>}
-            {basicError && <ErrorDisplay error={basicError} serverUrl={serverUrl} />}
-            {detailError && <ErrorDisplay error={detailError} serverUrl={serverUrl} />}
+            {basicError && <ErrorDisplay error={basicError} />}
+            {detailError && <ErrorDisplay error={detailError} />}
 
             {!basicLoading && !basicError && basicData && !selectedPatient && (
               <PatientList

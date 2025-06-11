@@ -12,7 +12,7 @@ const SecretaryPage = () => {
         <Plus className="inline" /> {`Création d'un nouveau patient`}
       </ButtonLink>
       <ConsultationList date={dateToDay(new Date())} />
-      <PatientDialog serverUrl={import.meta.env.VITE_APOLLO_SERVER} />
+      <PatientDialog />
       <Outlet />
     </>
   );
