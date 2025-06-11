@@ -64,15 +64,8 @@ services:
       context: ./frontend
       target: dev
 
-    environment:
-      VITE_HOST: frontend
-      VITE_DOMAIN_AUTH_SERVICE: ${VITE_DOMAIN_AUTH_SERVICE}
-
-    ports:
-      - ${VITE_FRONTEND_PORT}:${VITE_FRONTEND_PORT}
-
     volumes:
-      - ./frontend/src:/opt/app/src
+      - ./frontend/src:/app/src
 
   cache:
     image: redis
