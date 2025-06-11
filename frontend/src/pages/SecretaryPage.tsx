@@ -1,6 +1,6 @@
 import ConsultationList from '@/components/consultation/ConsultationList';
 import { PatientDialog } from '@/components/patients/PatientDialog';
-import { dateToDay } from '@/utiles/date.utile';
+import { dateToDay } from '@/utils/date.utility';
 import { ButtonLink } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { Outlet } from 'react-router';
