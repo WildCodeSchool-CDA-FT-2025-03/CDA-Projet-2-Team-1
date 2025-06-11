@@ -5,6 +5,8 @@ services:
       context: ./backend/appointment-service
       target: dev
 
+    command: ['npm', 'run', 'dev']
+
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_USER: ${DATABASE_USER}
