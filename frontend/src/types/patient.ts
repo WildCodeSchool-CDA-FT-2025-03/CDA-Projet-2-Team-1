@@ -24,7 +24,6 @@ export type PatientListProps = {
   patients: Patient[];
 };
 
-
 export type PatientDetailProps = {
   ssn: string;
   lastname: string;

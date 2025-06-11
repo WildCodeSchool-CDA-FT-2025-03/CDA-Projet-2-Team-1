@@ -1,6 +1,5 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
-
 // 🧠 Apollo Client
 export const apolloClient = new ApolloClient({
   uri: `/graphql`,
