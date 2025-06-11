@@ -5,29 +5,14 @@ const schema = Joi.object({
   email: Joi.string()
     .email()
     .pattern(/^[^@\s]+@hopital\.gouv\.fr$/)
+    .required(),
+  firstname: Joi.string().required(),
+  lastname: Joi.string().required(),
+  role_id: Joi.number().integer().min(1).max(4).required(),
+  gender: Joi.string()
     .required()
-    .messages({
-      'string.empty': 'Le champ email est requis.',
-      'string.email': 'Le champ email doit être une adresse email valide.',
-    }),
-  firstname: Joi.string()
-    .pattern(
-      /^[A-ZÉÈÀÂÊÎÔÛÙÇ][a-zéèàâêîôûùç]+(-[A-ZÉÈÀÂÊÎÔÛÙÇ][a-zéèàâêîôûùç]+)? [A-ZÉÈÀÂÊÎÔÛÙÇ][a-zéèàâêîôûùç]+(-[A-ZÉÈÀÂÊÎÔÛÙÇ][a-zéèàâêîôûùç]+)?$/
-    )
-    .required()
-    .messages({
-      'string.empty': 'Le champ prénom est requis.',
-      'string.pattern.base': 'Les Prénoms simples et composés doivent commencer par une majuscule',
-    }),
-  lastname: Joi.string()
-    .pattern(
-      /^[A-ZÉÈÀÂÊÎÔÛÙÇ][a-zéèàâêîôûùç]+(-[A-ZÉÈÀÂÊÎÔÛÙÇ][a-zéèàâêîôûùç]+)? [A-ZÉÈÀÂÊÎÔÛÙÇ][a-zéèàâêîôûùç]+(-[A-ZÉÈÀÂÊÎÔÛÙÇ][a-zéèàâêîôûùç]+)?$/
-    )
-    .required()
-    .messages({
-      'string.empty': 'Le champ prénom est requis.',
-      'string.pattern.base': 'Les Noms simples et composés doivent commencer par une majuscule',
-    }),
+    .pattern(/^[MF]$/),
+  service_id: Joi.number().integer().min(1).max(20).required(),
 });
 
 export default function validateFieldsQuery(req: Request, res: Response, next: NextFunction) {
