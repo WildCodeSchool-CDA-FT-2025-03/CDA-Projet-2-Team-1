@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
-import LogoCarePlanFull from '/logo-cp-full.svg';
 import LogoCarePlan from '/logo-cp.svg';
+import LogoCarePlanFull from '/logo-cp-full.svg';
 
 export default function Header() {
   return (
