@@ -8,14 +8,14 @@ const SECRET_KEY_TOKEN_SERVER: string | undefined = process.env.SECRET_KEY_TOKEN
 function verifyToken(req: Request, res: Response, next: NextFunction) {
   try {
     if (!SECRET_KEY_TOKEN_SERVER) {
-      res.status(500).json({ message: 'Clé secrète manquante' });
+      res.status(500);
       return;
     }
 
     // Vérification du token
     const token = req.cookies?.jwtTokenServerCarePlan;
     if (!token) {
-      res.status(401).json({ message: 'Token manquant' });
+      res.sendStatus(401);
       return;
     }
 
@@ -28,7 +28,7 @@ function verifyToken(req: Request, res: Response, next: NextFunction) {
     next();
     return;
   } catch (error) {
-    res.status(401).json({ message: 'Token invalide ou expiré' });
+    res.status(401);
     return;
   }
 }

@@ -12,7 +12,7 @@ const schema = Joi.object({
   gender: Joi.string()
     .required()
     .pattern(/^[MF]$/),
-  service_id: Joi.number().integer().min(1).max(20).required(),
+  service_id: Joi.number().integer().min(1).required(),
 });
 
 export default function validateFieldsQuery(req: Request, res: Response, next: NextFunction) {

@@ -10,6 +10,8 @@ function validateRole(req: Request, res: Response, next: NextFunction) {
       return;
     }
 
+    delete req.body.payload;
+
     next(); // continuer si admin
   } catch (error) {
     res.status(500).json({ message: 'Erreur interne du serveur' });
