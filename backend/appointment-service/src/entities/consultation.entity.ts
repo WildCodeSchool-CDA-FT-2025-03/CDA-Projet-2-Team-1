@@ -1,5 +1,14 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
+import NoteSecretaryEntity from './note-secretary.entity';
 import PatientEntity from './patient.entity';
 import UserEntity from './user.entity';
 
@@ -33,6 +42,14 @@ class ConsultationEntity extends BaseEntity {
   })
   @JoinColumn({ name: 'doctor_assigned_id' })
   doctor: UserEntity;
+
+  @Field(() => NoteSecretaryEntity)
+  @OneToOne(() => NoteSecretaryEntity, (note) => note.consultation, {
+    nullable: true,
+    cascade: true,
+  })
+  @JoinColumn({ name: 'note_secretary_id' })
+  note_secretary: NoteSecretaryEntity;
 }
 
 export default ConsultationEntity;
