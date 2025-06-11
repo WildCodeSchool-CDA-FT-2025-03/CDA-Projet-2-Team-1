@@ -13,9 +13,6 @@ services:
       DATABASE_SYNC: ${DATABASE_SYNC}
       REDIS_PORT: ${REDIS_PORT}
       REDIS_HOST: ${REDIS_HOST}
-      # API_PORT: ${API_PORT}
-    # ports:
-    #   - ${API_PORT}:${API_PORT}
     volumes:
       - ./backend/appointment-service/src:/app/src
     depends_on:
@@ -30,8 +27,6 @@ services:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
-    # ports:
-    #   - ${DATABASE_PORT}:5432
     healthcheck:
       test: pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}
       interval: 5s
