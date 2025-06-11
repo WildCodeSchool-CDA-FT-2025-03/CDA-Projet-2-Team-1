@@ -5,7 +5,6 @@ import {
 } from '@/gql/graphql-types';
 import { type Patient } from '@/types/patient';
 import { useRef, useState } from 'react';
-import { ErrorDisplay } from './ErrorDisplay';
 import PatientDetail from './PatientDetail';
 import { PatientList } from './PatientList';
 
@@ -94,8 +93,6 @@ export const PatientDialog = () => {
             </div>
 
             {basicLoading && <p>Chargement de la liste...</p>}
-            {basicError && <ErrorDisplay error={basicError} />}
-            {detailError && <ErrorDisplay error={detailError} />}
 
             {!basicLoading && !basicError && basicData && !selectedPatient && (
               <PatientList
@@ -105,7 +102,7 @@ export const PatientDialog = () => {
             )}
             {selectedPatient && (
               <>
-                {detailLoading ? (
+                {detailLoading || detailError ? (
                   <p>Chargement des détails...</p>
                 ) : (
                   detailData?.patient && (

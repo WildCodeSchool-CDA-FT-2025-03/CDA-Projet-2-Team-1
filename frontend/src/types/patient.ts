@@ -24,10 +24,6 @@ export type PatientListProps = {
   patients: Patient[];
 };
 
-export type ErrorDisplayProps = {
-  error: Error;
-
-};
 
 export type PatientDetailProps = {
   ssn: string;
