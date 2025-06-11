@@ -12,10 +12,12 @@ export const GET_NOTE_SECRETARY_BY_CONSULTATION_ID = gql`
 `;
 
 export const CREATE_NOTE_SECRETARY = gql`
-  mutation createNoteSecretary($noteSecretary: NoteSecretaryInput!) {
-    createNoteSecretary(noteSecretary: $noteSecretary) {
+  mutation createNoteSecretary($text: String!, $consultationId: String!) {
+    createNoteSecretary(text: $text, consultationId: $consultationId) {
       id
       text
+      created_at
+      updated_at
     }
   }
 `;
