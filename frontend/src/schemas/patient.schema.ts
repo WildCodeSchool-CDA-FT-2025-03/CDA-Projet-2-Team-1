@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+// Requête pour la liste basique des patients
 export const GET_PATIENTS_BASIC = gql`
   query GetPatientsBasic {
     patients {
@@ -13,23 +14,20 @@ export const GET_PATIENTS_BASIC = gql`
   }
 `;
 
+// Requête pour les détails complets d'un patient
 export const GET_PATIENT_DETAILS = gql`
-  query getPatientDetails($id: String!) {
+  query GetPatientDetails($id: String!) {
     patient(id: $id) {
       id
       firstname
       lastname
-      email
-      gender
       birthdate
-      created_at
-      updated_at
+      gender
+      email
       ssn {
-        id
         number
       }
       city {
-        id
         name
         zip_code
       }
@@ -38,7 +36,7 @@ export const GET_PATIENT_DETAILS = gql`
 `;
 
 export const ADD_PATIENT = gql`
-  mutation AddPatient($patient: PatientInput!) {
-    AddPatient(patient: $patient)
+  mutation AddNewPatient($patient: PatientInput!) {
+    addNewPatient(patient: $patient)
   }
 `;

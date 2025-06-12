@@ -8,7 +8,7 @@ import { type Patient } from '@/types/patient';
 import { useState } from 'react';
 
 import { ButtonLink } from '@/components/ui/button';
-import { dateToDay } from '@/utiles/date.utile';
+import { dateToDay } from '@/utils/date.utility';
 import { Plus } from 'lucide-react';
 import { Outlet } from 'react-router';
 

@@ -1,28 +1,28 @@
 import { gql } from '@apollo/client';
 
-export const GET_BY_USER_ID = gql`
-  query getByUserId($userId: String!) {
+export const GET_REST_BY_USER_ID = gql`
+  query GetByUserID($userId: String!) {
     getByUserID(userId: $userId) {
-      id
-      date_start
       date_end
+      date_start
+      id
       type
     }
   }
 `;
 
 export const CREATE_REST = gql`
-  mutation createRest(
+  mutation CreateRest(
     $userId: String!
+    $type: String!
     $dateStart: DateTimeISO!
     $dateEnd: DateTimeISO!
-    $type: String!
   ) {
-    createRest(userId: $userId, dateStart: $dateStart, dateEnd: $dateEnd, type: $type) {
+    createRest(userId: $userId, type: $type, dateStart: $dateStart, dateEnd: $dateEnd) {
       id
+      type
       date_start
       date_end
-      type
     }
   }
 `;

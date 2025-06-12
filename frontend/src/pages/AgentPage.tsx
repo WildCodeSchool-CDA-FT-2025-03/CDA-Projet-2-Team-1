@@ -1,12 +1,15 @@
-// utils
-import { formatSSN, unformatSSN } from '@/utiles/ssn.utility';
+import { formatSSN, unformatSSN } from '@/utils/ssn.utility';
 
-// components
 import ConsultationAgentDisplay from '@/components/agent/ConsultationAgentDisplay';
 import SsnSearchBar from '@/components/agent/SsnSearchBar';
-// types
 import { useGetConsultationBySsnForAgentLazyQuery } from '@/gql/graphql-types';
 import { useState } from 'react';
+
+// components
+
+// utils
+
+// types
 
 const AgentPage = () => {
   const [ssn, setSsn] = useState('');

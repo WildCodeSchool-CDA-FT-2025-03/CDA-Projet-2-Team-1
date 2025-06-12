@@ -6,8 +6,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+
 import { useGetConsultationByDayQuery } from '@/gql/graphql-types';
-import { dateToTime } from '@/utiles/date.utile';
+import { dateToTime } from '@/utils/date.utility';
 
 type ConsultationProps = {
   date: Date;
