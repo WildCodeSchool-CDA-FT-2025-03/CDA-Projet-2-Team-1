@@ -2,6 +2,8 @@ import express from 'express';
 
 const app = express();
 
+app.use('/reset', () => {});
+
 /**
  * Le server se lance sur le port 9501
  */
