@@ -1,4 +1,4 @@
-import { useGetServicesQuery } from '@/gql/graphql-types';
+import { useGetAllServicesQuery } from '@/gql/graphql-types';
 import Select from '../formUi/Select';
 
 type ServiceListProps = {
@@ -7,7 +7,7 @@ type ServiceListProps = {
 };
 
 export default function Servicelist({ value, handleChange }: ServiceListProps) {
-  const { data } = useGetServicesQuery();
+  const { data } = useGetAllServicesQuery();
 
   return (
     <div className="w-64">
@@ -15,7 +15,7 @@ export default function Servicelist({ value, handleChange }: ServiceListProps) {
         value={value}
         handleChange={handleChange}
         label="Choisissez un service"
-        list={data?.getServices || []}
+        list={data?.services || []}
         field="name"
       />
     </div>

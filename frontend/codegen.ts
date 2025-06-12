@@ -17,6 +17,11 @@ const config: CodegenConfig = {
         },
         strictScalars: true, // Assure que les types scalaires sont strictement respectés
         avoidOptionals: true, // Évite les types optionnels
+        // Ajout de configuration pour les nouveaux types
+        namingConvention: {
+          typeNames: 'change-case-all#pascalCase',
+          enumValues: 'change-case-all#upperCase',
+        },
       },
     },
   },

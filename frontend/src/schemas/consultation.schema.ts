@@ -1,23 +1,60 @@
 import { gql } from '@apollo/client';
 
-export const GET_CONSULTATION_BY_DATE = gql`
+export const GET_CONSULTATION_BY_DAY = gql`
   query getConsultationByDay($date: DateTimeISO!) {
     getConsultationByDay(date: $date) {
-      date_end
-      date_start
       id
+      date_start
+      date_end
       reason
       additional_notes
+      created_at
+      updated_at
       doctor {
         id
+        firstname
         lastname
+        email
+        specialization
         service {
+          id
           name
         }
       }
       patient {
-        firstname
         id
+        firstname
+        lastname
+        email
+        ssn {
+          number
+        }
+      }
+    }
+  }
+`;
+
+export const GET_CONSULTATION_BY_SSN_FOR_AGENT = gql`
+  query getConsultationBySsnForAgent($ssn: String!) {
+    getConsultationBySsnForAgent(ssn: $ssn) {
+      id
+      date_start
+      date_end
+      reason
+      additional_notes
+      doctor {
+        id
+        firstname
+        lastname
+        specialization
+        service {
+          id
+          name
+        }
+      }
+      patient {
+        id
+        firstname
         lastname
         ssn {
           number
@@ -38,15 +75,18 @@ export const GET_CONSULTATIONS_BY_DOCTOR_AND_DATE_RANGE = gql`
       startDate: $startDate
       endDate: $endDate
     ) {
-      date_end
-      date_start
       id
+      date_start
+      date_end
       reason
       additional_notes
+      created_at
+      updated_at
       patient {
         id
         firstname
         lastname
+        email
         ssn {
           number
         }
@@ -63,34 +103,25 @@ export const CREATE_CONSULTATION = gql`
       date_end
       reason
       additional_notes
+      created_at
+      updated_at
+      doctor {
+        id
+        firstname
+        lastname
+        specialization
+        service {
+          id
+          name
+        }
+      }
       patient {
         id
         firstname
         lastname
+        email
         ssn {
           number
-        }
-      }
-      doctor {
-        id
-        firstname
-        lastname
-        service {
-          id}
-      }
-    }
-  }
-`;
-
-export const GET_CONSULTATION_BY_SSN_FOR_AGENT = gql`
-  query getConsultationBySsnForAgent($ssn: String!) {
-    getConsultationBySsnForAgent(ssn: $ssn) {
-      date_start
-      id
-      doctor {
-        lastname
-        service {
-          name
         }
       }
     }

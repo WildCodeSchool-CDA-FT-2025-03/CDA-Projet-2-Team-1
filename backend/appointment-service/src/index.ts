@@ -1,30 +1,28 @@
+import 'dotenv/config';
+
 import * as dotenv from 'dotenv';
-// resolvers
+
 import { ApolloServer } from '@apollo/server';
+import { AvailabilityResolver } from './resolvers/availability.resolver';
 import ConsultationResolver from './resolvers/consultation.resolver';
-import { DoctorResolver } from './resolvers/DoctorResolver';
 import PatientResolver from './resolvers/patient.resolver';
 import RestResolver from './resolvers/rest.resolver';
-
 import RoleResolver from './resolvers/role.resolver';
-import ServiceResolver from './resolvers/service.resolver';
-
-import UserResolver from './resolvers/user.resolver';
+import { ServiceResolver } from './resolvers/service.resolver';
+import { UserResolver } from './resolvers/user.resolver';
 import { buildSchema } from 'type-graphql';
-// services
 import { dataSource } from './services/client.service';
 import logger from './services/logger.service';
-
+import redisClient from './services/cache.service';
 import { startStandaloneServer } from '@apollo/server/standalone';
+
+// resolvers
+
+// services
 
 dotenv.config();
 
-import ConsultationResolver from './resolvers/consultation.resolver';
-import redisClient from './services/cache.service';
-import 'dotenv/config';
-
 const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
-
 (async () => {
   await dataSource.initialize();
 
@@ -43,7 +41,7 @@ const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
       UserResolver,
       ConsultationResolver,
       ServiceResolver,
-      DoctorResolver,
+      AvailabilityResolver,
       RoleResolver,
     ],
     validate: true, // Évite des erreurs de validation inutiles

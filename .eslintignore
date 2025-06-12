@@ -1,0 +1,46 @@
+# Generated files - These files are auto-generated and should not be linted
+frontend/src/gql/graphql-types.ts
+**/__generated__/**
+**/generated/**
+
+# Invalid/non-code files
+backend/appointment-service/src/test/integration-test.ts
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+**/dist/
+**/build/
+**/coverage/
+
+# Cache files
+.eslintcache
+**/.eslintcache
+
+# Compiled files
+*.min.js
+*.d.ts
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test outputs
+test-results/
+playwright-report/
+**/test-results/
+**/playwright-report/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

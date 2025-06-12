@@ -1,5 +1,15 @@
-import { useGetRolesQuery } from '@/gql/graphql-types';
+import { gql, useQuery } from '@apollo/client';
+
 import Select from '../formUi/Select';
+
+const GET_ROLES = gql`
+  query getRoles {
+    getRoles {
+      id
+      name
+    }
+  }
+`;
 
 type RoleListProps = {
   value: string;
@@ -7,7 +17,7 @@ type RoleListProps = {
 };
 
 export default function Rolelist({ value, handleChange }: RoleListProps) {
-  const { data } = useGetRolesQuery();
+  const { data } = useQuery(GET_ROLES);
 
   return (
     <div className="w-64 ">

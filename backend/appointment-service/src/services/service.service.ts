@@ -1,28 +1,28 @@
 import { Repository } from 'typeorm';
-import { Service } from '../entities/Service';
+import ServiceEntity from '../entities/service.entity';
 
 export class ServiceService {
-  constructor(private serviceRepository: Repository<Service>) {}
+  constructor(private serviceRepository: Repository<ServiceEntity>) {}
 
-  async getAllServices(): Promise<Service[]> {
+  async getAllServices(): Promise<ServiceEntity[]> {
     return this.serviceRepository.find({
-      relations: ['doctors'],
+      relations: ['user'],
       order: { name: 'ASC' },
     });
   }
 
-  async getActiveServices(): Promise<Service[]> {
+  async getActiveServices(): Promise<ServiceEntity[]> {
     return this.serviceRepository.find({
       where: { isActive: true },
-      relations: ['doctors'],
+      relations: ['user'],
       order: { name: 'ASC' },
     });
   }
 
-  async getServiceById(id: string): Promise<Service | null> {
+  async getServiceById(id: number): Promise<ServiceEntity | null> {
     return this.serviceRepository.findOne({
       where: { id },
-      relations: ['doctors'],
+      relations: ['user'],
     });
   }
 
@@ -30,32 +30,32 @@ export class ServiceService {
     name: string;
     description?: string;
     isActive?: boolean;
-  }): Promise<Service> {
+  }): Promise<ServiceEntity> {
     const service = this.serviceRepository.create(serviceData);
     return this.serviceRepository.save(service);
   }
 
   async updateService(
-    id: string,
+    id: number,
     updateData: {
       name?: string;
       description?: string;
       isActive?: boolean;
     }
-  ): Promise<Service | null> {
+  ): Promise<ServiceEntity | null> {
     await this.serviceRepository.update(id, updateData);
     return this.getServiceById(id);
   }
 
-  async deleteService(id: string): Promise<boolean> {
+  async deleteService(id: number): Promise<boolean> {
     const result = await this.serviceRepository.delete(id);
     return (result.affected ?? 0) > 0;
   }
 
-  async getServicesWithDoctorCount(): Promise<Service[]> {
+  async getServicesWithUserCount(): Promise<ServiceEntity[]> {
     return this.serviceRepository
       .createQueryBuilder('service')
-      .leftJoinAndSelect('service.doctors', 'doctor', 'doctor.isActive = :isActive', {
+      .leftJoinAndSelect('service.user', 'user', 'user.is_active = :isActive', {
         isActive: true,
       })
       .where('service.isActive = :isActive', { isActive: true })

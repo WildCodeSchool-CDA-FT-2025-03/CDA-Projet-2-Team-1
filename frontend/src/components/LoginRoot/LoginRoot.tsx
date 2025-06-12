@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import axios from 'axios';
 // Components
 import { Button } from '@/components/ui/button';
+import IllustrationLogin from '/login.webp';
+// Assets
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import axios from 'axios';
+import LogoCarePlanFull from '/logo-cp-full.svg';
 // Contexts
 import { useAuth } from '@/context/Auth.context';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 // Utils
 import { validateFormLogin } from '@/utils/validateFormLogin';
-// Assets
-import IllustrationLogin from '/login.webp';
-import LogoCarePlanFull from '/logo-cp-full.svg';
 
 export default function LoginRoot() {
   const [email, setEmail] = useState('');

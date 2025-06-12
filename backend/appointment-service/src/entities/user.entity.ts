@@ -1,21 +1,21 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 
 import ConsultationEntity from './consultation.entity';
+import DoctorAvailabilityEntity from './doctor-availability.entity';
 import RestEntity from './rest.entity';
-import { Service } from './Service';
-import ServiceEntity from './service.entity';
 import RoleEntity from './role.entity';
-
+import ServiceEntity from './service.entity';
 
 @ObjectType()
 @Entity('user')
@@ -25,11 +25,11 @@ class UserEntity extends BaseEntity {
   id: string;
 
   @Field()
-  @Column({ type: 'varchar', length: 64, nullable: false })
+  @Column({ type: 'varchar', length: 100, nullable: false })
   firstname: string;
 
   @Field()
-  @Column({ type: 'varchar', length: 64, nullable: false })
+  @Column({ type: 'varchar', length: 100, nullable: false })
   lastname: string;
 
   @Field()
@@ -44,13 +44,26 @@ class UserEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 255, nullable: false })
   password: string;
 
-  @Field()
+  // Champs pour les docteurs
+  @Field({ nullable: true })
+  @Column({ type: 'varchar', length: 20, nullable: true })
+  phone?: string;
+
+  @Field({ nullable: true })
+  @Column({ type: 'varchar', length: 150, nullable: true })
+  specialization?: string;
+
+  @Field({ name: 'isActive' })
   @Column({ type: 'boolean', default: true })
   is_active: boolean;
 
-  @Field()
+  @Field({ name: 'createdAt' })
   @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;
+
+  @Field({ name: 'updatedAt' })
+  @UpdateDateColumn({ type: 'timestamp' })
+  updated_at: Date;
 
   @Field(() => ServiceEntity, { nullable: true })
   @ManyToOne(() => ServiceEntity, (service) => service.user, {
@@ -71,26 +84,9 @@ class UserEntity extends BaseEntity {
   @OneToMany(() => ConsultationEntity, (consultation) => consultation.doctor)
   consultation: ConsultationEntity[];
 
-  @Field(() => Service, { nullable: false })
-  @ManyToOne(() => Service, (service) => service.doctors, { nullable: false })
-  @JoinColumn({ name: 'service_id' })
-  service: Service;
-
-  @Field()
-  @Column({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-    name: 'created_at',
-  })
-  created_at: Date;
-
-  @Field()
-  @Column({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-    name: 'updated_at',
-  })
-  updated_at: Date;
+  @Field(() => [DoctorAvailabilityEntity])
+  @OneToMany(() => DoctorAvailabilityEntity, (availability) => availability.doctor)
+  availabilities: DoctorAvailabilityEntity[];
 }
 
 export default UserEntity;

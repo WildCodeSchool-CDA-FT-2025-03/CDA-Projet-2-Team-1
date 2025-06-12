@@ -5,11 +5,19 @@ export type ToastType = 'success' | 'error' | 'loading';
 
 export interface SimpleToastOptions {
   duration?: number;
+  position?:
+    | 'top-right'
+    | 'top-center'
+    | 'top-left'
+    | 'bottom-right'
+    | 'bottom-center'
+    | 'bottom-left';
 }
 
 // Styles simplifiés qui ne conflictent pas avec les CSS
 const styles = {
   success: {
+    position: 'bottom-right' as const,
     autoClose: 4000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -17,6 +25,7 @@ const styles = {
     draggable: true,
   },
   error: {
+    position: 'bottom-right' as const,
     autoClose: 6000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -24,7 +33,8 @@ const styles = {
     draggable: true,
   },
   loading: {
-    autoClose: false,
+    position: 'bottom-right' as const,
+    autoClose: false as const,
     hideProgressBar: false,
     closeOnClick: false,
     pauseOnHover: true,
@@ -38,6 +48,7 @@ export class ToastNotifications {
   static error(message: string, options?: SimpleToastOptions): Id {
     return toast.error(message, {
       ...styles.error,
+      position: options?.position || styles.error.position,
       autoClose: options?.duration || styles.error.autoClose,
     });
   }
@@ -46,13 +57,17 @@ export class ToastNotifications {
   static success(message: string, options?: SimpleToastOptions): Id {
     return toast.success(message, {
       ...styles.success,
+      position: options?.position || styles.success.position,
       autoClose: options?.duration || styles.success.autoClose,
     });
   }
 
   // Toast de chargement
-  static loading(message: string): Id {
-    return toast.loading(message, styles.loading);
+  static loading(message: string, options?: SimpleToastOptions): Id {
+    return toast.loading(message, {
+      ...styles.loading,
+      position: options?.position || styles.loading.position,
+    });
   }
 
   // Mettre à jour un toast - VERSION CORRIGÉE
@@ -61,6 +76,7 @@ export class ToastNotifications {
       render: message,
       type: 'success',
       isLoading: false,
+      position: options?.position || styles.success.position,
       autoClose: options?.duration || styles.success.autoClose,
       hideProgressBar: false,
       closeOnClick: true,
@@ -74,13 +90,15 @@ export class ToastNotifications {
   static crudError(
     operation: 'création' | 'modification' | 'suppression',
     entity: string,
-    error?: string
+    error?: string,
+    options?: SimpleToastOptions
   ): Id {
     const message = `Erreur lors de la ${operation} ${entity}`;
     const fullMessage = error ? `${message}\n${error}` : message;
 
     return toast.error(fullMessage, {
       ...styles.error,
+      position: options?.position || styles.error.position,
       autoClose: 8000,
     });
   }

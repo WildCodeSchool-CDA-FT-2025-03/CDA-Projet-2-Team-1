@@ -23,7 +23,7 @@ export const PatientList = ({ patients, onShowDetail }: PatientListWithDetailPro
           </span>
           <button
             type="button"
-            className="ml-4 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-2 focus:outline-blue-500 focus:outline-offset-2"
+            className="ml-4 px-3 py-1 bg-sky-500 text-white rounded hover:bg-sky-600 focus:outline-2 focus:outline-sky-500 focus:outline-offset-2 transition-colors duration-200"
             onClick={() => onShowDetail(patient)}
             aria-label={`Afficher plus de détails pour ${patient.firstname} ${patient.lastname}`}
           >

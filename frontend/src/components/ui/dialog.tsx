@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { X } from 'lucide-react';
 
 const Dialog = DialogPrimitive.Root;
 
@@ -28,18 +29,6 @@ const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => {
-  // Exclude conflicting props that interfere with Framer Motion
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {
-    onDrag,
-    onDragEnd,
-    onDragStart,
-    onAnimationStart,
-    onAnimationEnd,
-    onTransitionEnd,
-    ...motionProps
-  } = props;
-
   return (
     <DialogPortal>
       <DialogPrimitive.Overlay asChild>
@@ -67,9 +56,13 @@ const DialogContent = React.forwardRef<
             'z-50 h-full w-full max-w-lg border bg-white p-6 shadow-lg sm:rounded-l-lg',
             className
           )}
-          {...motionProps}
+          {...props}
         >
           {children}
+          <DialogPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </DialogPrimitive.Close>
         </motion.div>
       </DialogPrimitive.Content>
     </DialogPortal>

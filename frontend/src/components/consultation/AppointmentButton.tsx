@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
 
 interface AppointmentButtonProps {
   onClick: () => void;
@@ -6,10 +7,12 @@ interface AppointmentButtonProps {
 
 export function AppointmentButton({ onClick }: AppointmentButtonProps) {
   return (
-    <div className="p-4">
-      <Button onClick={onClick} className="bg-[#0395d3] hover:bg-[#0284bc] text-white">
-        Programer un rendez-vous
-      </Button>
-    </div>
+    <Button
+      onClick={onClick}
+      className="w-full h-12 bg-sky-500 hover:bg-sky-600 text-white font-medium rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center gap-2"
+    >
+      <Plus className="h-5 w-5" />
+      Ajouter un nouveau rendez-vous
+    </Button>
   );
 }

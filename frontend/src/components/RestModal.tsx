@@ -1,5 +1,7 @@
+import { RestEnum, RestModalProps } from '@/types/rest.types';
 import { useEffect, useRef, useState } from 'react';
-import { RestModalProps, RestEnum } from '@/types/rest.types';
+
+import { Button } from '@/components/ui/button';
 
 function RestModal({ isOpen, onClose, onSubmit, selectedDates }: RestModalProps) {
   const [selectedType, setSelectedType] = useState(RestEnum.REST);
@@ -96,21 +98,21 @@ function RestModal({ isOpen, onClose, onSubmit, selectedDates }: RestModalProps)
           </p>
         </div>
         <div className="flex justify-end gap-2">
-          <button
+          <Button
             type="button"
+            variant="outline"
             onClick={onClose}
-            className="px-8 py-2 text-gray-600 hover:text-gray-800 cursor-pointer"
             aria-label="Annuler la création de l'événement"
           >
             Annuler
-          </button>
-          <button
+          </Button>
+          <Button
             type="submit"
-            className="px-8 py-2 bg-turquoise-500 text-white rounded hover:bg-turquoise-600 cursor-pointer"
+            className="bg-turquoise-500 hover:bg-turquoise-600 text-white"
             aria-label="Valider et créer l'événement"
           >
             Valider
-          </button>
+          </Button>
         </div>
       </form>
     </dialog>

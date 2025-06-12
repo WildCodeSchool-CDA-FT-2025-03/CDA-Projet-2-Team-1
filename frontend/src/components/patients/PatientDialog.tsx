@@ -52,7 +52,7 @@ export const PatientDialog = ({
     <>
       <button
         ref={openButtonRef}
-        className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer text-base hover:opacity-90 focus:outline-2 focus:outline-blue-500 focus:outline-offset-2"
+        className="px-4 py-2 bg-sky-500 text-white rounded cursor-pointer text-base hover:bg-sky-600 focus:outline-2 focus:outline-sky-500 focus:outline-offset-2 transition-colors duration-200"
         onClick={() => setIsOpen(true)}
         aria-expanded={isOpen}
         aria-controls="patients-modal"

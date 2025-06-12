@@ -165,6 +165,7 @@ class ConsultationResolver {
       .getOne();
   }
 
+  @Query(() => [ConsultationEntity])
   async getConsultationBySsnForAgent(
     @Arg('ssn', () => String) ssn: string
   ): Promise<ConsultationEntity[]> {
