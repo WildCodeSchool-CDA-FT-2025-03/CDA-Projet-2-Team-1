@@ -3,29 +3,20 @@ import { gql } from '@apollo/client';
 export const GET_CONSULTATION_BY_DAY = gql`
   query getConsultationByDay($date: DateTimeISO!) {
     getConsultationByDay(date: $date) {
-      id
-      date_start
       date_end
-      reason
-      additional_notes
-      created_at
-      updated_at
+      date_start
+      id
       doctor {
         id
-        firstname
         lastname
-        email
-        specialization
         service {
-          id
           name
         }
       }
       patient {
-        id
         firstname
+        id
         lastname
-        email
         ssn {
           number
         }
@@ -37,27 +28,12 @@ export const GET_CONSULTATION_BY_DAY = gql`
 export const GET_CONSULTATION_BY_SSN_FOR_AGENT = gql`
   query getConsultationBySsnForAgent($ssn: String!) {
     getConsultationBySsnForAgent(ssn: $ssn) {
-      id
       date_start
-      date_end
-      reason
-      additional_notes
+      id
       doctor {
-        id
-        firstname
         lastname
-        specialization
         service {
-          id
           name
-        }
-      }
-      patient {
-        id
-        firstname
-        lastname
-        ssn {
-          number
         }
       }
     }

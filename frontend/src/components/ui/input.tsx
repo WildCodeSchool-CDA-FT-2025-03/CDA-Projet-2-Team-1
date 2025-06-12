@@ -1,5 +1,6 @@
+import { ComponentProps, forwardRef } from 'react';
+
 import { cn } from '@/lib/utils';
-import { ComponentProps } from 'react';
 
 function Input({ className, type, ...props }: ComponentProps<'input'>) {
   return (
@@ -21,4 +22,33 @@ function Input({ className, type, ...props }: ComponentProps<'input'>) {
   );
 }
 
-export { Input };
+Input.displayName = 'Input';
+
+interface InputLabelProps extends ComponentProps<'input'> {
+  label: string;
+  isError?: boolean;
+  msg?: string;
+}
+
+const InputLabel = forwardRef<HTMLInputElement, InputLabelProps>(
+  ({ label, isError, msg, className, id, ...props }, ref) => {
+    return (
+      <div className="mb-4">
+        <label htmlFor={id} className="block text-sm font-medium mb-1">
+          {label}
+        </label>
+        <Input
+          ref={ref}
+          id={id}
+          className={cn(isError && 'border-red-500 focus-visible:border-red-500', className)}
+          {...props}
+        />
+        {isError && msg && <p className="text-red-600 text-sm mt-1">{msg}</p>}
+      </div>
+    );
+  }
+);
+
+InputLabel.displayName = 'InputLabel';
+
+export { Input, InputLabel };

@@ -1,4 +1,3 @@
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import {
   Content,
   Group,
@@ -16,14 +15,17 @@ import {
   Value,
   Viewport,
 } from '@radix-ui/react-select';
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 
-import { ComponentProps } from 'react';
 import { cn } from '@/lib/utils';
+import { ComponentProps } from 'react';
 
 function Select({ ...props }: ComponentProps<typeof Root>) {
   return <Root data-slot="select" {...props} />;
 }
-
+function SelectStyle({ ...props }: ComponentProps<typeof Root>) {
+  return <Root data-slot="select" {...props} />;
+}
 function SelectGroup({ ...props }: ComponentProps<typeof Group>) {
   return <Group data-slot="select-group" {...props} />;
 }
@@ -166,6 +168,7 @@ export {
   SelectScrollDownButton,
   SelectScrollUpButton,
   SelectSeparator,
+  SelectStyle,
   SelectTrigger,
   SelectValue,
 };

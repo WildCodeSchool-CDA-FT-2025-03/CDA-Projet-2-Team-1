@@ -1,20 +1,13 @@
 import { gql } from '@apollo/client';
 
 export const GET_PATIENTS_BASIC = gql`
-  query getPatientsBasic {
+  query GetPatientsBasic {
     patients {
       id
       firstname
       lastname
-      email
-      gender
-      birthdate
       ssn {
         number
-      }
-      city {
-        name
-        zip_code
       }
     }
   }
@@ -44,8 +37,8 @@ export const GET_PATIENT_DETAILS = gql`
   }
 `;
 
-export const ADD_NEW_PATIENT = gql`
-  mutation addNewPatient($patient: PatientInput!) {
-    addNewPatient(patient: $patient)
+export const ADD_PATIENT = gql`
+  mutation AddPatient($patient: PatientInput!) {
+    AddPatient(patient: $patient)
   }
 `;
