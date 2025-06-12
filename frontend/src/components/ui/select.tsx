@@ -157,10 +157,6 @@ function SelectScrollDownButton({ className, ...props }: ComponentProps<typeof S
   );
 }
 
-// Style CSS class pour les éléments select de base
-export const SelectStyle =
-  'border-input bg-white flex h-9 w-full rounded-md border px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm';
-
 export {
   Select,
   SelectContent,
