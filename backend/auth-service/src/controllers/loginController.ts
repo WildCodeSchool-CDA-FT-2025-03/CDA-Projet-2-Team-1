@@ -8,10 +8,10 @@ const loginController = express.Router();
 import validateLoginQuery from '../middleware/VerifyKeys/validateLoginQuery.middleware';
 
 // Import des Repositories :
-import verifyEmailTrueRepository from '../repository/user.repository';
+import { verifyUserByEmail } from '../repository/user.repository';
 
 // Import des Types :
-import userTableType from '../types/userTable.type';
+import { type UserType } from '../types/userTable.type';
 
 // Import des utils
 import { verifyPasswordArgonUtils } from '../utils/Argon.utils';
@@ -28,7 +28,7 @@ loginController.post(
   async (req: Request, res: Response) => {
     try {
       /* Logique métier 1 : Vérification si l'email existe */
-      const dataUser: userTableType | null = await verifyEmailTrueRepository(req.body.email);
+      const dataUser: UserType | null = await verifyUserByEmail(req.body.email);
 
       if (dataUser === null) {
         res.status(401).json({ message: 'Email ou mot de passe incorrect' });
