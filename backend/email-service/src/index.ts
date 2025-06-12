@@ -1,5 +1,5 @@
 import express from 'express';
-import resetPassword from './controller/reset-password';
+import resetPassword from './controllers/reset-password';
 import 'dotenv/config';
 
 const app = express();
