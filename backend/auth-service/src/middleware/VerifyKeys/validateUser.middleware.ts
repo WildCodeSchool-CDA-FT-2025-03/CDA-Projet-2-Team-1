@@ -12,15 +12,15 @@ const schema = Joi.object({
   gender: Joi.string()
     .required()
     .pattern(/^[MF]$/),
-  service_id: Joi.number().integer().min(1).required(),
+  service_id: Joi.number().integer().min(1).max(30).required(),
+  password: Joi.string().required(),
 });
 
-export default function validateFieldsQuery(req: Request, res: Response, next: NextFunction) {
+export default function validateUser(req: Request, res: Response, next: NextFunction) {
   const { error } = schema.validate(req.body, { abortEarly: false });
 
   if (error) {
-    const erreurs = error.details.map((detail) => detail.message);
-    res.status(400).json({ message: 'Validation échouée', erreurs });
+    res.sendStatus(422);
     return;
   }
 
