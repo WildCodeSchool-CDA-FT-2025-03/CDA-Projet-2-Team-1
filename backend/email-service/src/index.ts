@@ -1,8 +1,9 @@
 import express from 'express';
+import resetPassword from './controller/reset-password';
 
 const app = express();
 
-app.use('/reset', () => {});
+app.use('/reset', resetPassword);
 
 /**
  * Le server se lance sur le port 9501
