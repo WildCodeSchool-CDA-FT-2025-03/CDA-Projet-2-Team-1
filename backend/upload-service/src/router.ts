@@ -2,9 +2,8 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get('/upload', (req, res) => {
-  console.info(req.body);
-  res.send('Hello World');
+router.get('/get', (req, res) => {
+  res.send('Hello World GET ROUTE');
 });
 
 export default router;
