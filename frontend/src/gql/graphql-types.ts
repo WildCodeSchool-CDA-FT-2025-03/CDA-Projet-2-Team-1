@@ -41,12 +41,14 @@ export type ConsultationEntity = {
   date_start: Scalars['DateTimeISO']['output'];
   doctor: UserEntity;
   id: Scalars['String']['output'];
+  note_secretary: NoteSecretaryEntity;
   patient: PatientEntity;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   addNewPatient: Scalars['String']['output'];
+  createNoteSecretary: NoteSecretaryEntity;
   createRest: RestEntity;
 };
 
@@ -54,11 +56,25 @@ export type MutationAddNewPatientArgs = {
   patient: PatientInput;
 };
 
+export type MutationCreateNoteSecretaryArgs = {
+  consultationId: Scalars['String']['input'];
+  text: Scalars['String']['input'];
+};
+
 export type MutationCreateRestArgs = {
   dateEnd: Scalars['DateTimeISO']['input'];
   dateStart: Scalars['DateTimeISO']['input'];
   type: Scalars['String']['input'];
   userId: Scalars['String']['input'];
+};
+
+export type NoteSecretaryEntity = {
+  __typename?: 'NoteSecretaryEntity';
+  consultation: ConsultationEntity;
+  created_at: Scalars['DateTimeISO']['output'];
+  id: Scalars['String']['output'];
+  text: Scalars['String']['output'];
+  updated_at: Scalars['DateTimeISO']['output'];
 };
 
 export type PatientEntity = {
@@ -89,6 +105,7 @@ export type Query = {
   getConsultationByDay: Array<ConsultationEntity>;
   getConsultationById: ConsultationEntity;
   getConsultationBySsnForAgent: Array<ConsultationEntity>;
+  getNoteSecretaryByConsultationId: Array<NoteSecretaryEntity>;
   getRoles: Array<RoleEntity>;
   getServices: Array<ServiceEntity>;
   getUsers: Array<UserEntity>;
@@ -110,6 +127,10 @@ export type QueryGetConsultationByIdArgs = {
 
 export type QueryGetConsultationBySsnForAgentArgs = {
   ssn: Scalars['String']['input'];
+};
+
+export type QueryGetNoteSecretaryByConsultationIdArgs = {
+  consultationId: Scalars['String']['input'];
 };
 
 export type QueryPatientArgs = {
@@ -233,6 +254,37 @@ export type GetConsultationBySsnForAgentQuery = {
       service: { __typename?: 'ServiceEntity'; name: string } | null;
     };
   }>;
+};
+
+export type GetNoteSecretaryByConsultationIdQueryVariables = Exact<{
+  consultationId: Scalars['String']['input'];
+}>;
+
+export type GetNoteSecretaryByConsultationIdQuery = {
+  __typename?: 'Query';
+  getNoteSecretaryByConsultationId: Array<{
+    __typename?: 'NoteSecretaryEntity';
+    id: string;
+    text: string;
+    created_at: Date;
+    updated_at: Date;
+  }>;
+};
+
+export type CreateNoteSecretaryMutationVariables = Exact<{
+  text: Scalars['String']['input'];
+  consultationId: Scalars['String']['input'];
+}>;
+
+export type CreateNoteSecretaryMutation = {
+  __typename?: 'Mutation';
+  createNoteSecretary: {
+    __typename?: 'NoteSecretaryEntity';
+    id: string;
+    text: string;
+    created_at: Date;
+    updated_at: Date;
+  };
 };
 
 export type GetPatientsBasicQueryVariables = Exact<{ [key: string]: never }>;
@@ -587,6 +639,142 @@ export type GetConsultationBySsnForAgentSuspenseQueryHookResult = ReturnType<
 export type GetConsultationBySsnForAgentQueryResult = Apollo.QueryResult<
   GetConsultationBySsnForAgentQuery,
   GetConsultationBySsnForAgentQueryVariables
+>;
+export const GetNoteSecretaryByConsultationIdDocument = gql`
+  query getNoteSecretaryByConsultationId($consultationId: String!) {
+    getNoteSecretaryByConsultationId(consultationId: $consultationId) {
+      id
+      text
+      created_at
+      updated_at
+    }
+  }
+`;
+
+/**
+ * __useGetNoteSecretaryByConsultationIdQuery__
+ *
+ * To run a query within a React component, call `useGetNoteSecretaryByConsultationIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNoteSecretaryByConsultationIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNoteSecretaryByConsultationIdQuery({
+ *   variables: {
+ *      consultationId: // value for 'consultationId'
+ *   },
+ * });
+ */
+export function useGetNoteSecretaryByConsultationIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetNoteSecretaryByConsultationIdQuery,
+    GetNoteSecretaryByConsultationIdQueryVariables
+  > &
+    (
+      | { variables: GetNoteSecretaryByConsultationIdQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetNoteSecretaryByConsultationIdQuery,
+    GetNoteSecretaryByConsultationIdQueryVariables
+  >(GetNoteSecretaryByConsultationIdDocument, options);
+}
+export function useGetNoteSecretaryByConsultationIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetNoteSecretaryByConsultationIdQuery,
+    GetNoteSecretaryByConsultationIdQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetNoteSecretaryByConsultationIdQuery,
+    GetNoteSecretaryByConsultationIdQueryVariables
+  >(GetNoteSecretaryByConsultationIdDocument, options);
+}
+export function useGetNoteSecretaryByConsultationIdSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetNoteSecretaryByConsultationIdQuery,
+        GetNoteSecretaryByConsultationIdQueryVariables
+      >
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetNoteSecretaryByConsultationIdQuery,
+    GetNoteSecretaryByConsultationIdQueryVariables
+  >(GetNoteSecretaryByConsultationIdDocument, options);
+}
+export type GetNoteSecretaryByConsultationIdQueryHookResult = ReturnType<
+  typeof useGetNoteSecretaryByConsultationIdQuery
+>;
+export type GetNoteSecretaryByConsultationIdLazyQueryHookResult = ReturnType<
+  typeof useGetNoteSecretaryByConsultationIdLazyQuery
+>;
+export type GetNoteSecretaryByConsultationIdSuspenseQueryHookResult = ReturnType<
+  typeof useGetNoteSecretaryByConsultationIdSuspenseQuery
+>;
+export type GetNoteSecretaryByConsultationIdQueryResult = Apollo.QueryResult<
+  GetNoteSecretaryByConsultationIdQuery,
+  GetNoteSecretaryByConsultationIdQueryVariables
+>;
+export const CreateNoteSecretaryDocument = gql`
+  mutation createNoteSecretary($text: String!, $consultationId: String!) {
+    createNoteSecretary(text: $text, consultationId: $consultationId) {
+      id
+      text
+      created_at
+      updated_at
+    }
+  }
+`;
+export type CreateNoteSecretaryMutationFn = Apollo.MutationFunction<
+  CreateNoteSecretaryMutation,
+  CreateNoteSecretaryMutationVariables
+>;
+
+/**
+ * __useCreateNoteSecretaryMutation__
+ *
+ * To run a mutation, you first call `useCreateNoteSecretaryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNoteSecretaryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createNoteSecretaryMutation, { data, loading, error }] = useCreateNoteSecretaryMutation({
+ *   variables: {
+ *      text: // value for 'text'
+ *      consultationId: // value for 'consultationId'
+ *   },
+ * });
+ */
+export function useCreateNoteSecretaryMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateNoteSecretaryMutation,
+    CreateNoteSecretaryMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateNoteSecretaryMutation, CreateNoteSecretaryMutationVariables>(
+    CreateNoteSecretaryDocument,
+    options
+  );
+}
+export type CreateNoteSecretaryMutationHookResult = ReturnType<
+  typeof useCreateNoteSecretaryMutation
+>;
+export type CreateNoteSecretaryMutationResult = Apollo.MutationResult<CreateNoteSecretaryMutation>;
+export type CreateNoteSecretaryMutationOptions = Apollo.BaseMutationOptions<
+  CreateNoteSecretaryMutation,
+  CreateNoteSecretaryMutationVariables
 >;
 export const GetPatientsBasicDocument = gql`
   query GetPatientsBasic {
