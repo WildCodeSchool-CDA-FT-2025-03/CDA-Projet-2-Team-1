@@ -20,11 +20,13 @@
   },
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.9",
+    "@types/winston": "^2.4.4",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "handlebars": "^4.7.8",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^7.0.3",
-    "pg": "^8.16.0"
+    "pg": "^8.16.0",
+    "winston": "^3.17.0"
   }
 }
