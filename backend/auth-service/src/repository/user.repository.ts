@@ -10,9 +10,9 @@ async function verifyUserByEmail(email: string): Promise<UserType | null> {
   );
   return dataUser.rows.length > 0 ? dataUser.rows[0] : null;
 }
-async function createUser(user: UserInput) {
-  const newUser: QueryResult<UserInput> = await usePoolConnection.query(
-    'INSERT INTO "user" (firstname,lastname,genre,email,role_id,service_id,password) VALUES  ($1,$2,$3,$4,$5,$6,$7);',
+async function createUser(user: UserInput): Promise<QueryResult> {
+  const newUser: QueryResult = await usePoolConnection.query(
+    'INSERT INTO "user" (firstname,lastname,genre,email,role_id,service_id,password) VALUES  ($1,$2,$3,$4,$5,$6,$7) RETURNING id;',
     [
       user.firstname,
       user.lastname,

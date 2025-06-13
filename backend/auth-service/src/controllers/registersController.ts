@@ -23,10 +23,11 @@ registersController.post(
       const hashPassword: string = await hashPasswordArgonUtil(req.body.password);
       req.body.password = hashPassword;
 
-      const newUser = await createUser(req.body);
-      res.status(200).json(newUser);
+      await createUser(req.body);
+      res.sendStatus(201);
     } catch (error) {
-      res.status(500).json({ message: 'Internal server error' });
+      console.error(error);
+      res.sendStatus(500);
     }
   }
 );
