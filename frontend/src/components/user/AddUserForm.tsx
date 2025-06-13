@@ -2,16 +2,31 @@ import { useState } from 'react';
 import Rolelist from '../role/RoleList';
 import Servicelist from '../service/ServiceList';
 import { InputLabel } from '../ui/input';
+import Select from '../formUi/Select';
+import axiosClient from '@/lib/axios-client';
 
 function AddUserForm() {
   const [selectedRole, setSelectedRole] = useState('');
   const [selectedService, setSelectedService] = useState('');
-  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
   const [firstname, setFirstname] = useState('');
   const [email, setEmail] = useState('');
-
-  const addUser = (e: { preventDefault: () => void }) => {
+  const [genre, setGenre] = useState('');
+  const addUser = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    try {
+      await axiosClient.post('/register', {
+        email,
+        firstname,
+        lastname,
+        genre,
+        role_id: selectedRole,
+        service_id: selectedService,
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -25,8 +40,8 @@ function AddUserForm() {
         label="Nom"
         type="text"
         name="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        value={lastname}
+        onChange={(e) => setLastname(e.target.value)}
         required
       />
 
@@ -39,6 +54,19 @@ function AddUserForm() {
         onChange={(e) => setFirstname(e.target.value)}
         required
       />
+
+      <div className="w-64 ">
+        <Select
+          value={genre}
+          handleChange={setGenre}
+          label="Choisissez un genre"
+          list={[
+            { name: 'M', id: 'M' },
+            { name: 'F', id: 'F' },
+          ]}
+          field="name"
+        />
+      </div>
 
       <InputLabel
         id="email"
