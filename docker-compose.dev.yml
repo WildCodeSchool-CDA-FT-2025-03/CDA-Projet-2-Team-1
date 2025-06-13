@@ -97,8 +97,6 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_SYNC: ${DATABASE_SYNC}
-      REDIS_PORT: ${REDIS_PORT}
-      REDIS_HOST: ${REDIS_HOST}
 
   gateway:
     image: nginx
