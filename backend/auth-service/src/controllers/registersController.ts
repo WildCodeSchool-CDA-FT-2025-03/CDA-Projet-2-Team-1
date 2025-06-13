@@ -2,8 +2,8 @@ import express, { Request, Response } from 'express';
 const registersController = express.Router();
 
 //import des middlewares
-import verifyToken from '../middleware/verifyToken.middleware';
-import validateRole from '../middleware/VerifyKeys/validateRoleQuery.middleware';
+//import verifyToken from '../middleware/verifyToken.middleware';
+//import validateRole from '../middleware/VerifyKeys/validateRoleQuery.middleware';
 import validateUser from '../middleware/VerifyKeys/validateUser.middleware';
 
 /* import des utils */
@@ -14,13 +14,13 @@ import { createUser } from '../repository/user.repository';
 
 registersController.post(
   '/',
-  verifyToken,
-  validateRole,
+  // verifyToken,
+  // validateRole,
   validateUser,
   async (req: Request, res: Response) => {
     try {
       /* Logique métier 1 : hashage du password*/
-      const hashPassword: string = await hashPasswordArgonUtil('ABC123pass');
+      const hashPassword: string = await hashPasswordArgonUtil('ABC123passwd&');
       req.body.password = hashPassword;
 
       await createUser(req.body);
