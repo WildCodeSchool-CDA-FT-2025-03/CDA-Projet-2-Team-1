@@ -31,12 +31,13 @@ async function createJwtTokenServerCarePlan(dataUser: userTableType): Promise<st
   return jwtTokenServerCarePlan;
 }
 
-function createJwtRestForEmailService(userId: string): string {
+function createJwtRestForEmailService(userId: string, email: string): string {
   if (!SECRET_KEY_TOKEN_SERVER) {
     throw new Error('SECRET_KEY_TOKEN_SERVER is not defined');
   }
   const payload: ResetForEmailServicePayload = {
     userId,
+    email,
     serviceOrigin: 'auth',
   };
 

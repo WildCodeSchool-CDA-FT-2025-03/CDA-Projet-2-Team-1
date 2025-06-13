@@ -11,9 +11,8 @@ async function resetPassword(req: Request, res: Response) {
     throw new HttpError(500, 'Missing secret email key');
   }
 
-  const payloadHost = res.locals.payload;
-
-  if (payloadHost.serviceOrigin !== 'auth') {
+  const payloadAuth = res.locals.payload;
+  if (payloadAuth.serviceOrigin !== 'auth') {
     throw new HttpError(401, 'Unauthorized, server origin');
   }
 
@@ -22,14 +21,14 @@ async function resetPassword(req: Request, res: Response) {
     const template = Handlebars.compile(view);
 
     const payload: ResetPasswordPayload = {
-      userId: payloadHost.userId,
+      userId: payloadAuth.userId,
     };
 
     const token = sign(payload, process.env.SECRET_KEY_TOKEN_EMAIL, { expiresIn: '1h' });
 
     const mailOptions = {
       from: process.env.SMTP_USER,
-      to: 'maximilien.philippe@protonmail.com',
+      to: payloadAuth.email,
       subject: 'Care Plan changer de mot de passe',
       html: template({ url: `http://localhost:7000/auth/reset/${token}` }),
     };

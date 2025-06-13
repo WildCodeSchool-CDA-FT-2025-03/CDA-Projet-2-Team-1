@@ -9,7 +9,7 @@ async function resetController(req: Request, res: Response) {
   if (!error) {
     try {
       const userId = await getIdByEmailRepository(req.body.email);
-      const token = createJwtRestForEmailService(userId);
+      const token = createJwtRestForEmailService(userId, req.body.email);
       await emailClient.get('/reset', {
         headers: {
           Authorization: `Bearer ${token}`,

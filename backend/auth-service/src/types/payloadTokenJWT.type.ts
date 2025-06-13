@@ -11,6 +11,7 @@ type payloadType = {
 
 type ResetForEmailServicePayload = {
   userId: string;
+  email: string;
   serviceOrigin: string;
 };
 
