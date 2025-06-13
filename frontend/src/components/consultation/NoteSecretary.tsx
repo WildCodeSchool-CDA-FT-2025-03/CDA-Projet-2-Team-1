@@ -7,7 +7,7 @@ import {
   CREATE_NOTE_SECRETARY,
 } from '@/schemas/note-secretary.schema';
 // utils
-import { formatDate, formatTime } from '@/utiles/date.utile';
+import { formatDate, formatTime } from '@/utils/date.utility';
 // styles
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
