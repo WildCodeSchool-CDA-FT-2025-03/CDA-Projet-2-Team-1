@@ -1,4 +1,4 @@
-import payloadType from '../types/payloadTokenJWT.type';
+import { payloadType, ResetForEmailServicePayload } from '../types/payloadTokenJWT.type';
 import { createDateNumberUtils } from './createDateUtils';
 import jwt from 'jsonwebtoken';
 import userTableType from '../types/userTable.type';
@@ -31,4 +31,18 @@ async function createJwtTokenServerCarePlan(dataUser: userTableType): Promise<st
   return jwtTokenServerCarePlan;
 }
 
-export { createJwtTokenServerCarePlan };
+function createJwtRestForEmailService(userId: string): string {
+  if (!SECRET_KEY_TOKEN_SERVER) {
+    throw new Error('SECRET_KEY_TOKEN_SERVER is not defined');
+  }
+  const payload: ResetForEmailServicePayload = {
+    userId,
+    serviceOrigin: 'auth',
+  };
+
+  const jwtTokenEmailService = jwt.sign(payload, SECRET_KEY_TOKEN_SERVER, { expiresIn: '1h' });
+
+  return jwtTokenEmailService;
+}
+
+export { createJwtTokenServerCarePlan, createJwtRestForEmailService };

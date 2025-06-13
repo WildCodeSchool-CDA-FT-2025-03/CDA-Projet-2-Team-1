@@ -11,4 +11,16 @@ async function verifyEmailRepository(email: string): Promise<userTableType | nul
   return dataUser.rows.length > 0 ? dataUser.rows[0] : null;
 }
 
+export async function getIdByEmailRepository(email: string): Promise<string> {
+  const dataUser: QueryResult<{ id: string }> = await usePoolConnection.query(
+    'SELECT id FROM "user" WHERE email= $1',
+    [email]
+  );
+  if (dataUser.rows.length > 0) {
+    return dataUser.rows[0].id;
+  } else {
+    throw new Error('Email not found');
+  }
+}
+
 export default verifyEmailRepository;
