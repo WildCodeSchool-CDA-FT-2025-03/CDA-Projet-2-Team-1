@@ -12,11 +12,11 @@ function initializePool() {
   if (!pool) {
     try {
       pool = new Pool({
-        host: process.env.DATABASE_HOST || 'localhost',
-        port: Number(process.env.DATABASE_PORT || '9500'),
-        user: process.env.DATABASE_USER || 'bob',
+        host: process.env.DATABASE_HOST,
+        port: 5432,
+        user: process.env.DATABASE_USER,
         password: process.env.DATABASE_PASSWORD,
-        database: process.env.DATABASE_NAME || 'care-plan',
+        database: process.env.DATABASE_NAME,
         max: 10, // Maximum 10 connexions simultanées
       });
 
