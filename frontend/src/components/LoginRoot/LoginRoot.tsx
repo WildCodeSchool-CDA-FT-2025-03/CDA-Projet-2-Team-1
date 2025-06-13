@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import axios from 'axios';
+import axiosClient from '../../lib/axios-client.ts';
 // Components
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -32,34 +32,18 @@ export default function LoginRoot() {
     }
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_DOMAIN_AUTH_SERVICE}/auth/login`,
-        { email, password },
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await axiosClient.post('/login', { email, password });
+      const { data } = response.data;
+      setUser(data);
 
-      const data = response.data;
-      const user = data.data;
-      setUser(user);
+      if (data.role_id === 1) return navigate('/admin');
+      if (data.role_id === 2) return navigate('/doctor');
+      if (data.role_id === 3) return navigate('/secretary');
+      if (data.role_id === 4) return navigate('/agent');
 
-      if (user.role_id === 1) return navigate('/admin');
-      if (user.role_id === 2) return navigate('/doctor');
-      if (user.role_id === 3) return navigate('/secretary');
-      if (user.role_id === 4) return navigate('/agent');
-
-      throw new Error(`Rôle utilisateur inconnu : ${user.role_id}`);
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        console.error('Erreur login:', err.response?.data?.message || err.message);
-        setError(err.response?.data?.message || 'Identifiants incorrects.');
-      } else {
-        setError('Erreur inconnue lors de la connexion.');
-      }
+      throw new Error(`Rôle utilisateur inconnu`);
+    } catch {
+      setError('Identifiants incorrects.');
     }
   }
 
