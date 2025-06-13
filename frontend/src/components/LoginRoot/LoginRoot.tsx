@@ -63,6 +63,19 @@ export default function LoginRoot() {
     }
   }
 
+  async function handleForgotPassword() {
+    await axios.post(
+      `/auth/reset`,
+      { email },
+      {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  }
+
   return (
     <section className="w-full min-h-screen flex flex-row" role="main">
       {/* Image latérale (décorative) */}
@@ -129,6 +142,17 @@ export default function LoginRoot() {
             </div>
           )}
         </form>
+        <div className="mt-4 w-full text-right">
+          <button
+            type="button"
+            className="forgot-password-link bg-transparent border-none p-0 cursor-pointer"
+            onClick={() => {
+              handleForgotPassword();
+            }}
+          >
+            Mot de passe perdu ?
+          </button>
+        </div>
       </section>
     </section>
   );
