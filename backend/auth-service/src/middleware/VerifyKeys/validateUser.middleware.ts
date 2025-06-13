@@ -9,7 +9,7 @@ const schema = Joi.object({
   firstname: Joi.string().required(),
   lastname: Joi.string().required(),
   role_id: Joi.number().integer().min(1).max(4).required(),
-  gender: Joi.string()
+  genre: Joi.string()
     .required()
     .pattern(/^[MF]$/),
   service_id: Joi.number().integer().min(1).max(30).required(),
