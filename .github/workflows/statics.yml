@@ -33,6 +33,7 @@ jobs:
           cd backend/auth-service && npm ci
           cd ../appointment-service && npm ci
           cd ../email-service && npm ci
+          cd ../upload-service && npm ci
 
       # Tests statiques centralisés depuis la racine
       - name: ESLint check (All projects)
