@@ -1,10 +1,11 @@
 import express from 'express';
 import resetPassword from './controllers/reset-password';
+import checkJWT from './middlewares/checkJWT.middleware';
 import 'dotenv/config';
 
 const app = express();
 
-app.use('/reset', resetPassword);
+app.use('/reset', checkJWT, resetPassword);
 
 /**
  * Le server se lance sur le port 9501

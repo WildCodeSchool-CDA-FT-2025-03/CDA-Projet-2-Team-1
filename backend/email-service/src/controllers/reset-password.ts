@@ -6,6 +6,12 @@ import getTemplate from '../utils/template.util';
 import { ResetPasswordPayload } from '../types/payload.type';
 
 async function resetPassword(req: Request, res: Response) {
+  const payload = res.locals.payload;
+
+  if (payload.serviceOrigin !== 'auth') {
+    throw new Error('Bad service origin');
+  }
+
   try {
     const view = getTemplate('reset.view.html');
     const template = Handlebars.compile(view);
