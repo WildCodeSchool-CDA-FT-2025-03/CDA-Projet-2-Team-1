@@ -13,7 +13,6 @@ const schema = Joi.object({
     .required()
     .pattern(/^[MF]$/),
   service_id: Joi.number().integer().min(1).max(30).required(),
-  password: Joi.string().required(),
 });
 
 export default function validateUser(req: Request, res: Response, next: NextFunction) {

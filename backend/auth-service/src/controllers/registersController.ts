@@ -8,9 +8,9 @@ import validateUser from '../middleware/VerifyKeys/validateUser.middleware';
 
 /* import des utils */
 import { hashPasswordArgonUtil } from '../utils/Argon.utils';
-import { createUser } from '../repository/user.repository';
 
-/* import des types */
+/* import des repository */
+import { createUser } from '../repository/user.repository';
 
 registersController.post(
   '/',
@@ -20,7 +20,7 @@ registersController.post(
   async (req: Request, res: Response) => {
     try {
       /* Logique métier 1 : hashage du password*/
-      const hashPassword: string = await hashPasswordArgonUtil(req.body.password);
+      const hashPassword: string = await hashPasswordArgonUtil('ABC123pass');
       req.body.password = hashPassword;
 
       await createUser(req.body);
