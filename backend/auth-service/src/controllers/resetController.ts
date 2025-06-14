@@ -17,11 +17,12 @@ async function resetController(req: Request, res: Response) {
         },
       });
     } catch (error) {
-      console.error(error);
+      res.sendStatus(204); //202 ?
+      return;
     }
   }
 
-  res.send(204); //202 ?
+  res.sendStatus(204); //202 ?
 }
 
 export default resetController;

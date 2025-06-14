@@ -4,12 +4,10 @@ import logger from '../services/logger.service';
 
 export default (err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof HttpError) {
-    res.status(err.code).json({
-      code: err.code,
-    });
+    res.sendStatus(err.code);
     logger.error(`${req.method} ${req.get('host') + req.originalUrl}: ${err.message}`);
   } else {
-    res.status(500).json({ error: 'Unknown error' });
+    res.sendStatus(500);
   }
 
   next();

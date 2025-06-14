@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { verify } from 'jsonwebtoken';
+import { verify, JwtPayload } from 'jsonwebtoken';
 import { HttpError } from '../types/error.type';
 
 export default function checkJWT(req: Request, res: Response, next: NextFunction) {
@@ -14,7 +14,9 @@ export default function checkJWT(req: Request, res: Response, next: NextFunction
   }
 
   try {
-    const payload = verify(token, process.env.SECRET_KEY_TOKEN_SERVER);
+    const payload = verify(token, process.env.SECRET_KEY_TOKEN_SERVER) as JwtPayload;
+    delete payload['iat'];
+    delete payload['exp'];
     res.locals = { payload };
   } catch (error) {
     throw new HttpError(401, 'Unauthorized, error verify');

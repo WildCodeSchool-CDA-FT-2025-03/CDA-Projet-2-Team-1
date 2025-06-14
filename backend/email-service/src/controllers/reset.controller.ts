@@ -5,6 +5,7 @@ import transporter from '../services/mailer.service';
 import getTemplate from '../utils/template.util';
 import { ResetPasswordPayload } from '../types/payload.type';
 import { HttpError } from '../types/error.type';
+import { resetPasswordSchema } from '../schemas/reset.schema';
 
 async function resetPassword(req: Request, res: Response) {
   if (!process.env.SECRET_KEY_TOKEN_EMAIL) {
@@ -12,20 +13,21 @@ async function resetPassword(req: Request, res: Response) {
   }
 
   const payloadAuth = res.locals.payload;
-  if (payloadAuth.serviceOrigin !== 'auth') {
-    throw new HttpError(401, 'Unauthorized, server origin');
+
+  const { error } = resetPasswordSchema.validate(payloadAuth);
+  if (error) {
+    throw new HttpError(400, error.message);
   }
 
   try {
     const view = getTemplate('reset.view.html');
     const template = Handlebars.compile(view);
 
-    const payload: ResetPasswordPayload = {
+    const payloadEmail: ResetPasswordPayload = {
       userId: payloadAuth.userId,
     };
 
-    const token = sign(payload, process.env.SECRET_KEY_TOKEN_EMAIL, { expiresIn: '1h' });
-
+    const token = sign(payloadEmail, process.env.SECRET_KEY_TOKEN_EMAIL, { expiresIn: '1h' });
     const mailOptions = {
       from: process.env.SMTP_USER,
       to: payloadAuth.email,
@@ -34,7 +36,7 @@ async function resetPassword(req: Request, res: Response) {
     };
 
     await transporter.sendMail(mailOptions);
-    res.status(200);
+    res.sendStatus(200);
   } catch (error) {
     throw new HttpError(401, `${error}`);
   }
