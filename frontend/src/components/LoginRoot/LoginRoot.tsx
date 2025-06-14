@@ -12,6 +12,8 @@ import { validateFormLogin } from '@/utils/validateFormLogin';
 // Assets
 import IllustrationLogin from '/login.webp';
 import LogoCarePlanFull from '/logo-cp-full.svg';
+import { toastError, toastSuccess } from '../ui/toast';
+import { ToastContainer } from 'react-toastify';
 
 export default function LoginRoot() {
   const [email, setEmail] = useState('');
@@ -64,6 +66,10 @@ export default function LoginRoot() {
   }
 
   async function handleForgotPassword() {
+    if (!email) {
+      toastError('Veuillez entrer votre adresse email.');
+      return;
+    }
     await axios.post(
       `/auth/reset`,
       { email },
@@ -74,6 +80,7 @@ export default function LoginRoot() {
         },
       }
     );
+    toastSuccess('Un email de réinitialisation a été envoyé à votre adresse email.');
   }
 
   return (
@@ -154,6 +161,7 @@ export default function LoginRoot() {
           </button>
         </div>
       </section>
+      <ToastContainer />
     </section>
   );
 }
