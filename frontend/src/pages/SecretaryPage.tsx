@@ -8,12 +8,10 @@ import { dateToDay } from '@/utils/date.utility';
 const SecretaryPage = () => {
   return (
     <>
-      <div className="flex gap-2 mb-4" role="region" aria-label="Actions secrétariat">
+      <section className="flex gap-2 mb-4" aria-label="Actions secrétariat">
         <ButtonLink
           className="flex justify-center items-center gap-2 w-1/2"
           to="appointment/creation"
-          aria-label="Ajouter un nouveau rendez-vous"
-          title="Ajouter un nouveau rendez-vous"
         >
           <Plus className="inline" aria-hidden="true" focusable="false" />{' '}
           {`Ajouter un nouveau rendez-vous`}
@@ -27,7 +25,7 @@ const SecretaryPage = () => {
           <Plus className="inline" aria-hidden="true" focusable="false" />{' '}
           {`Création d'un nouveau patient`}
         </ButtonLink>
-      </div>
+      </section>
       <ConsultationList date={dateToDay(new Date())} />
       <PatientDialog />
       <Outlet />
