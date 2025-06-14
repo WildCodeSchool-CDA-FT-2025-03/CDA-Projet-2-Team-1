@@ -8,6 +8,15 @@ import { Outlet } from 'react-router';
 const SecretaryPage = () => {
   return (
     <>
+      <ButtonLink
+        className="flex justify-center items-center gap-2 w-1/2"
+        to="appointment/creation"
+        aria-label="Ajouter un nouveau rendez-vous"
+        title="Ajouter un nouveau rendez-vous"
+      >
+        <Plus className="inline" aria-hidden="true" focusable="false" />{' '}
+        {`Ajouter un nouveau rendez-vous`}
+      </ButtonLink>
       <ButtonLink className="flex justify-center items-center gap-2" to="patient/creation">
         <Plus className="inline" /> {`Création d'un nouveau patient`}
       </ButtonLink>

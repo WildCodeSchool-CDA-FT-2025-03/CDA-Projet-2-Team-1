@@ -1,15 +1,18 @@
-import { createBrowserRouter } from 'react-router';
-import App from '../App';
-// Components
-import ConsultationDetails from '@/components/consultation/ConsultationDetails';
-import CreatePatient from '@/components/patients/CreatePatient';
-import Modal from '@/components/Modal';
-// Pages
 import AdminPage from '../pages/AdminPage';
 import AgentPage from '../pages/AgentPage';
+import App from '../App';
+import ConsultationDetails from '@/components/consultation/ConsultationDetails';
+import CreateAppointmentDialog from '@/components/consultation/CreateAppointmentDialog';
+import CreatePatient from '@/components/patients/CreatePatient';
 import DoctorPage from '../pages/DoctorPage';
 import LoginPage from '../pages/LoginPage';
+import Modal from '@/components/Modal';
 import SecretaryPage from '../pages/SecretaryPage';
+import { createBrowserRouter } from 'react-router';
+
+// Components
+
+// Pages
 
 const router = createBrowserRouter([
   {
@@ -29,6 +32,14 @@ const router = createBrowserRouter([
             element: (
               <Modal>
                 <CreatePatient />
+              </Modal>
+            ),
+          },
+          {
+            path: 'appointment/creation',
+            element: (
+              <Modal>
+                <CreateAppointmentDialog />
               </Modal>
             ),
           },
