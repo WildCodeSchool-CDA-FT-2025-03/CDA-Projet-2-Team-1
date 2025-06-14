@@ -3,6 +3,7 @@ import App from '../App';
 // Components
 import ConsultationDetails from '@/components/consultation/ConsultationDetails';
 import CreatePatient from '@/components/patients/CreatePatient';
+import CreateAppointmentDialog from '@/components/consultation/CreateAppointmentDialog';
 import Modal from '@/components/Modal';
 // Pages
 import AdminPage from '../pages/AdminPage';
@@ -29,6 +30,14 @@ const router = createBrowserRouter([
             element: (
               <Modal>
                 <CreatePatient />
+              </Modal>
+            ),
+          },
+          {
+            path: 'appointment/creation',
+            element: (
+              <Modal>
+                <CreateAppointmentDialog />
               </Modal>
             ),
           },
