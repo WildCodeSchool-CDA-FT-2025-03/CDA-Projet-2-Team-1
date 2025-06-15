@@ -151,7 +151,7 @@ export default function LoginRoot() {
         </form>
         <button
           type="button"
-          className="fmt-4 w-full text-right forgot-password-link bg-transparent border-none p-0 cursor-pointer"
+          className="w-full mt-4 p-2 text-sm text-right text-turquoise-500 hover:text-turquoise-600 bg-transparent border-none cursor-pointer"
           onClick={() => {
             handleForgotPassword();
           }}
