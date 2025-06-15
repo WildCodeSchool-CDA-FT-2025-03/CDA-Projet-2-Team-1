@@ -13,13 +13,6 @@ module.exports = {
       `prettier --write ${paths.join(' ')}`,
     ];
   },
-  'email/*/src/**/*.{js,jsx,ts,tsx}': (filenames) => {
-    const paths = filenames.map((filename) => `"${filename}"`);
-    return [
-      `eslint --fix --rule 'no-console: [error, { allow: ["warn", "error", "info"] }]' ${paths.join(' ')}`,
-      `prettier --write ${paths.join(' ')}`,
-    ];
-  },
   '*.{css,scss}': (filenames) => {
     const paths = filenames.map((filename) => `"${filename}"`);
     return [`prettier --write ${paths.join(' ')}`];
