@@ -149,17 +149,15 @@ export default function LoginRoot() {
             </div>
           )}
         </form>
-        <div className="mt-4 w-full text-right">
-          <button
-            type="button"
-            className="forgot-password-link bg-transparent border-none p-0 cursor-pointer"
-            onClick={() => {
-              handleForgotPassword();
-            }}
-          >
-            Mot de passe perdu ?
-          </button>
-        </div>
+        <button
+          type="button"
+          className="fmt-4 w-full text-right forgot-password-link bg-transparent border-none p-0 cursor-pointer"
+          onClick={() => {
+            handleForgotPassword();
+          }}
+        >
+          Mot de passe perdu ?
+        </button>
       </section>
       <ToastContainer />
     </section>
