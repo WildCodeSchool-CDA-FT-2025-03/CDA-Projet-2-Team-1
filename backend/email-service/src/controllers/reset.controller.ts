@@ -32,7 +32,7 @@ async function resetPassword(req: Request, res: Response) {
       from: process.env.SMTP_USER,
       to: payloadAuth.email,
       subject: 'Care Plan changer de mot de passe',
-      html: template({ url: `http://localhost:7000/auth/reset/${token}` }),
+      html: template({ url: `${payloadAuth.resetUrl}/${token}` }),
     };
 
     await transporter.sendMail(mailOptions);
