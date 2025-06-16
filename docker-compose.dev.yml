@@ -87,7 +87,7 @@ services:
       context: ./backend/email-service
     environment:
       SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
-      SECRET_KEY_TOKEN_EMAIL: ${SECRET_KEY_TOKEN_SERVER}
+      SECRET_KEY_TOKEN_EMAIL: ${SECRET_KEY_TOKEN_EMAIL}
       SMTP_USER: ${MAIL_SERVER_ADMIN}
       SMTP_PASSWORD: ${MAIL_PASSWORD}
 
