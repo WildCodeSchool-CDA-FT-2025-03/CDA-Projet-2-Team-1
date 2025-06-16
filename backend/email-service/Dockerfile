@@ -7,6 +7,8 @@ WORKDIR /app
 # Copie les fichiers de dépendances
 COPY package.json package-lock.json* tsconfig.json ./
 
+COPY jest.integration.config.ts jest.integration.setup.ts ./
+
 # Installation des dépendances
 RUN npm install
 
