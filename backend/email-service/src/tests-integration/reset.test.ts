@@ -21,4 +21,22 @@ describe('reset email', () => {
     });
     expect(result.status).toBe(200);
   });
+
+  it('Should return 400 Bad Request', async () => {
+    const payloadErr = {
+      ...payload,
+      email: 'invalid-email',
+    };
+    const token = sign(payloadErr, process.env.SECRET_KEY_TOKEN_SERVER!, {
+      expiresIn: '1h',
+    });
+    const result = await fetch('http://localhost:9501/reset', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    expect(result.status).toBe(400);
+  });
 });
