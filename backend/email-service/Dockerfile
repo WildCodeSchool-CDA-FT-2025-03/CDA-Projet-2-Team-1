@@ -5,9 +5,7 @@ FROM node:22.15-alpine3.20
 WORKDIR /app
 
 # Copie les fichiers de dépendances
-COPY package.json package-lock.json* tsconfig.json ./
-
-COPY jest.integration.config.ts jest.integration.setup.ts ./
+COPY package.json package-lock.json* tsconfig.json test.integration.ts ./
 
 # Installation des dépendances
 RUN npm install
