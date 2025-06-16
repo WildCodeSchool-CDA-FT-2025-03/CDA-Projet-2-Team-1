@@ -37,7 +37,6 @@ services:
     container_name: email-service-test
     build:
       context: ./backend/email-service
-    # command: ['npm', 'run', 'test:integration']
     environment:
       SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
       SECRET_KEY_TOKEN_EMAIL: ${SECRET_KEY_TOKEN_SERVER}
@@ -45,18 +44,3 @@ services:
       SMTP_PASSWORD: ${MAIL_PASSWORD}
     volumes:
       - ./backend/email-service/src:/app/src
-
-  # email-service-client:
-  #   container_name: email-service-client-test
-  #   build:
-  #     context: ./backend/email-service
-  #   command: ['npm', 'run', 'test:integration']
-  #   environment:
-  #     SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
-  #     SECRET_KEY_TOKEN_EMAIL: ${SECRET_KEY_TOKEN_SERVER}
-  #     SMTP_USER: ${MAIL_SERVER_ADMIN}
-  #     SMTP_PASSWORD: ${MAIL_PASSWORD}
-  #   volumes:
-  #     - ./backend/email-service/src:/app/src
-  #   depends_on:
-  #     - email-service
