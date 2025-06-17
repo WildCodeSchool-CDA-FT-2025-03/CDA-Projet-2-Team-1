@@ -41,9 +41,9 @@ export default function LoginRoot() {
       if (data.role_id === 3) return navigate('/secretary');
       if (data.role_id === 4) return navigate('/agent');
 
-      throw new Error(`Rôle utilisateur inconnu`);
+      throw new Error(`utilisateur inconnu`);
     } catch {
-      setError('Identifiants incorrects.');
+      setError('Identifiants ou mot de passe incorrects.');
     }
   }
 
