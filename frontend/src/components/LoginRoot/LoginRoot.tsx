@@ -32,7 +32,7 @@ export default function LoginRoot() {
     }
 
     try {
-      const response = await axiosClient.post('/login', { email, password });
+      const response = await axiosClient.post('auth/login', { email, password });
       const { data } = response.data;
       setUser(data);
 
