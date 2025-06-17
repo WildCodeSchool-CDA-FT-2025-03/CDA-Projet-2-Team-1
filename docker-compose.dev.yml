@@ -3,8 +3,7 @@ services:
   appointment-service:
     build:
       context: ./backend/appointment-service
-      target: dev
-
+    command: ['npm', 'run', 'dev']
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_USER: ${DATABASE_USER}
@@ -13,14 +12,8 @@ services:
       DATABASE_SYNC: ${DATABASE_SYNC}
       REDIS_PORT: ${REDIS_PORT}
       REDIS_HOST: ${REDIS_HOST}
-      API_PORT: ${API_PORT}
-
-    ports:
-      - ${API_PORT}:${API_PORT}
-
     volumes:
-      - ./backend/appointment-service/src:/opt/app/src
-
+      - ./backend/appointment-service/src:/app/src
     depends_on:
       database:
         condition: service_healthy
@@ -30,18 +23,12 @@ services:
   ### Base de donnees postgres ###
   database:
     image: 'postgres:17.4-alpine'
-
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
-
-    ports:
-      - ${DATABASE_PORT}:5432
-
     volumes:
       - care-plan-db:/var/lib/postgresql/data/
-
     healthcheck:
       test: pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}
       interval: 5s
@@ -63,24 +50,12 @@ services:
   frontend:
     build:
       context: ./frontend
-      target: dev
-
-    environment:
-      VITE_NODE_ENV: development
-      VITE_APOLLO_SERVER: ${VITE_APOLLO_SERVER}
-      VITE_HOST: frontend
-      VITE_DOMAIN_AUTH_SERVICE: ${VITE_DOMAIN_AUTH_SERVICE}
-
-    ports:
-      - ${VITE_FRONTEND_PORT}:${VITE_FRONTEND_PORT}
-
     volumes:
-      - ./frontend/src:/opt/app/src
+      - ./frontend/src:/app/src
+    restart: always
 
   cache:
     image: redis
-    ports:
-      - ${REDIS_PORT}:6379
     healthcheck:
       test: ['CMD', 'redis-cli', 'ping']
       interval: 2s
@@ -92,34 +67,30 @@ services:
     container_name: auth-service
     build:
       context: ./backend/auth-service
-      target: dev
-
     environment:
-      NODE_ENV: ${VITE_NODE_ENV}
-
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_PORT: ${DATABASE_PORT}
-
-      VITE_DOMAIN_AUTH_SERVICE: ${VITE_DOMAIN_AUTH_SERVICE}
-      VITE_DOMAIN_FRONTEND: ${VITE_DOMAIN_FRONTEND}
-
-      VITE_FRONTEND_PORT: ${FRONTEND_PORT}
-      VITE_PORT_AUTH_SERVICE: ${VITE_PORT_AUTH_SERVICE}
-
       SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
-
-    ports:
-      - ${VITE_PORT_AUTH_SERVICE}:${VITE_PORT_AUTH_SERVICE}
     restart: unless-stopped
     volumes:
       - ./backend/auth-service/src:/app/src
-
     depends_on:
       database:
         condition: service_healthy
+
+  gateway:
+    image: nginx
+    ports:
+      - 7700:80
+    volumes:
+      - ./files/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - appointment-service
+      - frontend
+      - auth-service
+    restart: always
 
 volumes:
   care-plan-db:
