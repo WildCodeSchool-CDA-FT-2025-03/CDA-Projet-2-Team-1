@@ -8,8 +8,8 @@ import Modal from '@/components/Modal';
 import AdminPage from '../pages/AdminPage';
 import AgentPage from '../pages/AgentPage';
 import DoctorPage from '../pages/DoctorPage';
-import LoginPage from '../pages/LoginPage';
 import HomePage from '../pages/HomePage';
+import LoginPage from '../pages/LoginPage';
 import SecretaryPage from '../pages/SecretaryPage';
 import RestPassword from '@/components/form/RestPassword';
 
