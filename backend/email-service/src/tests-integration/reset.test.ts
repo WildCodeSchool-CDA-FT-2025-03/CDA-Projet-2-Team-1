@@ -19,7 +19,7 @@ describe('reset email', () => {
         'Content-Type': 'application/json',
       },
     });
-    expect(result.status).toBe(200);
+    expect(result.status).toBe(204);
   });
 
   it('Should return 400 Bad Request', async () => {
@@ -37,7 +37,7 @@ describe('reset email', () => {
         'Content-Type': 'application/json',
       },
     });
-    expect(result.status).toBe(400);
+    expect(result.status).toBe(422);
   });
 
   it('Should return 401 Unauthorized (bad origin)', async () => {

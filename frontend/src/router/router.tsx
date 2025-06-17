@@ -14,6 +14,7 @@ import SecretaryPage from '../pages/SecretaryPage';
 import RestPassword from '@/components/form/RestPassword';
 
 const router = createBrowserRouter([
+  //TOFIX: rework LoginPage avec HomePage
   {
     path: '/',
     element: <LoginPage />,

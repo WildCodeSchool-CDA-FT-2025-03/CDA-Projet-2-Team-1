@@ -13,6 +13,7 @@ function RestPassword() {
 
   const onSubmit: SubmitHandler<RestPasswordForm> = async (input: RestPasswordForm) => {
     try {
+      // TOFIX: utiliser le service client quand il sera dans dev
       await axios.post(
         `/auth/reset`,
         { email: input.email },
