@@ -20,7 +20,8 @@ registersController.post(
   async (req: Request, res: Response) => {
     try {
       /* Logique métier 1 : hashage du password*/
-      const hashPassword: string = await hashPasswordArgonUtil('ABC123passwd&');
+      const defaultPassword = process.env.DEFAULT_PASSWORD!;
+      const hashPassword: string = await hashPasswordArgonUtil(defaultPassword);
       req.body.password = hashPassword;
 
       await createUser(req.body);
