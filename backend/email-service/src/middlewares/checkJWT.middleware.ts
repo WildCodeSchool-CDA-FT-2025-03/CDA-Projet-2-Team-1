@@ -7,7 +7,7 @@ export default function checkJWT(req: Request, res: Response, next: NextFunction
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!process.env.SECRET_KEY_TOKEN_SERVER) {
-    throw new HttpError(500, 'Missing secret serverkey');
+    throw new HttpError(401, 'Missing secret serverkey');
   }
   if (!token) {
     throw new HttpError(401, 'Unauthorized, token missing');
@@ -15,8 +15,8 @@ export default function checkJWT(req: Request, res: Response, next: NextFunction
 
   try {
     const payload = verify(token, process.env.SECRET_KEY_TOKEN_SERVER) as JwtPayload;
-    delete payload['iat'];
-    delete payload['exp'];
+    delete payload.iat;
+    delete payload.exp;
     res.locals = { payload };
   } catch (error) {
     throw new HttpError(401, 'Unauthorized, error verify');
