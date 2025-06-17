@@ -1,6 +1,7 @@
 import { DataSource } from 'typeorm';
 import CityEntity from '../entities/city.entity';
 import ConsultationEntity from '../entities/consultation.entity';
+import FileEntity from '../entities/file.entity';
 import NoteSecretaryEntity from '../entities/note-secretary.entity';
 import PatientEntity from '../entities/patient.entity';
 import RestEntity from '../entities/rest.entity';
@@ -22,6 +23,7 @@ export const dataSource = new DataSource({
   entities: [
     CityEntity,
     ConsultationEntity,
+    FileEntity,
     NoteSecretaryEntity,
     PatientEntity,
     RestEntity,
