@@ -16,7 +16,7 @@ function AddUserForm() {
     e.preventDefault();
 
     try {
-      await axiosClient.post('/register', {
+      await axiosClient.post('/auth/register', {
         email,
         firstname,
         lastname,
