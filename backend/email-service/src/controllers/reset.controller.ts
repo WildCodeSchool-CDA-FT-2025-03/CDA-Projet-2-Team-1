@@ -16,7 +16,7 @@ async function resetPassword(req: Request, res: Response) {
 
   const { error } = resetPasswordSchema.validate(payloadAuth);
   if (error) {
-    throw new HttpError(400, error.message);
+    throw new HttpError(422, error.message);
   }
 
   try {
@@ -32,13 +32,13 @@ async function resetPassword(req: Request, res: Response) {
       from: process.env.SMTP_USER,
       to: payloadAuth.email,
       subject: 'Care Plan changer de mot de passe',
-      html: template({ url: `${payloadAuth.resetUrl}/${token}` }),
+      html: template({ url: `${payloadAuth.resetUrl}?token=${token}` }),
     };
 
     await transporter.sendMail(mailOptions);
-    res.sendStatus(200);
+    res.sendStatus(204);
   } catch (error) {
-    throw new HttpError(401, `${error}`);
+    throw new HttpError(400, `${error}`);
   }
 }
 
