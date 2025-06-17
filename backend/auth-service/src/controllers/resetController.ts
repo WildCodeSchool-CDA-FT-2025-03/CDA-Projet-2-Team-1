@@ -12,19 +12,19 @@ async function resetController(req: Request, res: Response) {
       const resetUrl = `${origin}/auth/reset`;
       const userId = await getIdByEmailRepository(req.body.email);
       const token = createJwtRestForEmailService(userId, req.body.email, resetUrl);
-      await emailClient.get('/reset', {
+      await emailClient.post('/reset', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
     } catch (error) {
-      res.sendStatus(204); //202 ?
+      res.sendStatus(202);
       return;
     }
   }
 
-  res.sendStatus(204); //202 ?
+  res.sendStatus(202);
 }
 
 export default resetController;
