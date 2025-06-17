@@ -25,14 +25,5 @@ async function createUser(user: UserInput): Promise<QueryResult> {
   );
   return newUser;
 }
-/**
- * firstname
- * lastname
- * email
- * password
- * gender
- * role_id
- * service_id
- */
 
 export { verifyUserByEmail, createUser };
