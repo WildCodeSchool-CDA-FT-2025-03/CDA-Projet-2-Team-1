@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: `/auth`,
+  baseURL: `/`,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
