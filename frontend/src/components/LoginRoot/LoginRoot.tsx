@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import axios from 'axios';
 // Components
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,6 @@ import { validateFormLogin } from '@/utils/validateFormLogin';
 // Assets
 import IllustrationLogin from '/login.webp';
 import LogoCarePlanFull from '/logo-cp-full.svg';
-import { toastError, toastSuccess } from '../ui/toast';
 import { ToastContainer } from 'react-toastify';
 
 export default function LoginRoot() {
@@ -63,24 +62,6 @@ export default function LoginRoot() {
         setError('Erreur inconnue lors de la connexion.');
       }
     }
-  }
-
-  async function handleForgotPassword() {
-    if (!email) {
-      toastError('Veuillez entrer votre adresse email.');
-      return;
-    }
-    await axios.post(
-      `/auth/reset`,
-      { email },
-      {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    toastSuccess('Un email de réinitialisation a été envoyé à votre adresse email.');
   }
 
   return (
@@ -149,15 +130,12 @@ export default function LoginRoot() {
             </div>
           )}
         </form>
-        <button
-          type="button"
-          className="w-full mt-4 p-2 text-sm text-right text-turquoise-500 hover:text-turquoise-600 bg-transparent border-none cursor-pointer"
-          onClick={() => {
-            handleForgotPassword();
-          }}
+        <Link
+          to="/password/reset"
+          className="w-full max-w-sm text-sm text-right text-turquoise-500 hover:text-turquoise-600 bg-transparent border-none cursor-pointer"
         >
           Mot de passe perdu ?
-        </button>
+        </Link>
       </section>
       <ToastContainer />
     </section>

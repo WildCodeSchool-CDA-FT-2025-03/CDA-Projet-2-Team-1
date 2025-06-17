@@ -9,12 +9,24 @@ import AdminPage from '../pages/AdminPage';
 import AgentPage from '../pages/AgentPage';
 import DoctorPage from '../pages/DoctorPage';
 import LoginPage from '../pages/LoginPage';
+import HomePage from '../pages/HomePage';
 import SecretaryPage from '../pages/SecretaryPage';
+import RestPassword from '@/components/form/RestPassword';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <LoginPage />,
+  },
+  {
+    path: '/password',
+    element: <HomePage />,
+    children: [
+      {
+        path: 'reset',
+        element: <RestPassword />,
+      },
+    ],
   },
   {
     path: '/',
