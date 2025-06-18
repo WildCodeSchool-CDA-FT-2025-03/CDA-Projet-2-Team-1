@@ -20,7 +20,7 @@ async function resetPassword(req: Request, res: Response) {
   }
 
   try {
-    const emailTemplate = getEmailTemplate('reset.view.html');
+    const emailTemplate = getEmailTemplate('reset.view.hbs');
 
     const payloadEmail: ResetPasswordPayload = {
       userId: payloadAuth.userId,

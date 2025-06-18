@@ -13,7 +13,7 @@ function getTemplate(name: string): string {
   return content.toString('utf-8');
 }
 
-const emailTemplate = Handlebars.compile(getTemplate('template.view.html'));
+const emailTemplate = Handlebars.compile(getTemplate('template.view.hbs'));
 
 function getEmailTemplate(name: string) {
   Handlebars.registerPartial('body', getTemplate(name));
