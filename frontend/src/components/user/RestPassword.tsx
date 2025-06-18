@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
 import { InputLabel } from '../ui/input';
-import { Button } from '../ui/button';
+import { Button, ButtonLink } from '../ui/button';
 import { toastError, toastSuccess } from '../ui/toast';
 
 type RestPasswordForm = {
@@ -45,7 +45,12 @@ function RestPassword() {
           required: { value: true, message: "L'adresse mail est requis." },
         })}
       />
-      <Button type="submit">Envoyer email</Button>
+      <div className="flex gap-4 w-full">
+        <ButtonLink to="/" className="bg-transparent text-main text-right" aria-label="Annuler">
+          Annuler
+        </ButtonLink>
+        <Button type="submit">Envoyer email</Button>
+      </div>
     </form>
   );
 }
