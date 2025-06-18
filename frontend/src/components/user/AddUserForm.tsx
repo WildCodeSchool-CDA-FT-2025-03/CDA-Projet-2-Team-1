@@ -43,7 +43,6 @@ function AddUserForm() {
     <form onSubmit={addUser} className="m-4 flex flex-col gap-4">
       <Rolelist value={selectedRole} handleChange={setSelectedRole} />
       <Servicelist value={selectedService} handleChange={setSelectedService} />
-
       <InputLabel
         id="name"
         label="Nom"
@@ -53,7 +52,6 @@ function AddUserForm() {
         onChange={(e) => setLastname(e.target.value)}
         required
       />
-
       <InputLabel
         id="Prénom"
         label="Prénom"
@@ -63,7 +61,6 @@ function AddUserForm() {
         onChange={(e) => setFirstname(e.target.value)}
         required
       />
-
       <div className="w-64 ">
         <Select
           value={genre}
@@ -76,7 +73,6 @@ function AddUserForm() {
           field="name"
         />
       </div>
-
       <InputLabel
         id="email"
         label="email"
@@ -88,7 +84,6 @@ function AddUserForm() {
         pattern="[^@\s]+@hopital\.gouv\.fr$"
         title="email en @hopital.gouv.fr seulement"
       />
-
       <Button type="submit">Ajouter</Button>
       <ToastContainer />
     </form>
