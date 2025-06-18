@@ -7,6 +7,6 @@ import errorMiddleware from '../middlewares/errors.middleware';
 const router = express.Router();
 
 /* Liste des routes ! */
-router.get('/reset', checkJWT, checkPayloadOrigin('auth'), resetPassword, errorMiddleware);
+router.post('/reset', checkJWT, checkPayloadOrigin('auth'), resetPassword, errorMiddleware);
 
 export default router;
