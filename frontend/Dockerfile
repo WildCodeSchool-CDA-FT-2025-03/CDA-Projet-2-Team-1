@@ -6,7 +6,6 @@ WORKDIR /app
 # Copie les fichiers de dépendances
 COPY *.json *.ts *.js index.html ./
 COPY public/ public/
-COPY src/ src/
 
 # Installation des dépendances
 RUN npm install

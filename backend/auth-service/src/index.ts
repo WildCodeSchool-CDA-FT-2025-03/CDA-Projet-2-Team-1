@@ -5,11 +5,9 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 const app = express();
-const port = process.env.VITE_PORT_AUTH_SERVICE || '9500';
 
 app.use(
   cors({
-    origin: process.env.VITE_DOMAIN_FRONTEND,
     credentials: true,
   })
 );
@@ -40,6 +38,6 @@ app.use(async (req: Request, res: Response) => {
 /**
  * Le server se lance sur le port 9500
  */
-app.listen(port, () => {
-  console.info(`Server lancé sur ${process.env.VITE_DOMAIN_AUTH_SERVICE}`);
+app.listen(9500, () => {
+  console.info(`Server lancé sur http://localhost:7000/auth`);
 });

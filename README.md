@@ -101,7 +101,6 @@ care-plan/
 │   ├── auth-service/
 │   ├── appointment-service/
 │   ├── email-service/
-│   ├── leave-service/
 │   ├── Dockerfile
 ├── docker-compose.yml    # Orchestration
 └── README.md

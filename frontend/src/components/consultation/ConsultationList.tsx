@@ -1,3 +1,4 @@
+// Components
 import {
   Table,
   TableBody,
@@ -6,8 +7,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+// Utils
+import { dateToTime } from '@/utils/date.utility';
+// Types
 import { useGetConsultationByDayQuery } from '@/gql/graphql-types';
-import { dateToTime } from '@/utiles/date.utile';
+// Styles
+import { ButtonLink } from '../ui/button';
+import { Eye } from 'lucide-react';
 
 type ConsultationProps = {
   date: Date;
@@ -29,6 +35,7 @@ export default function ConsultationList({ date }: ConsultationProps) {
               <TableHead className="text-right font-bold">Nom</TableHead>
               <TableHead className="text-right font-bold">Prénom</TableHead>
               <TableHead className="text-right font-bold">Médecin</TableHead>
+              <TableHead className="text-right font-bold">Actions</TableHead>
             </TableRow>
           </TableHeader>
         </Table>
@@ -42,6 +49,15 @@ export default function ConsultationList({ date }: ConsultationProps) {
                 <TableCell className="text-right">{el.patient.firstname}</TableCell>
                 <TableCell className="text-right">{el.patient.lastname}</TableCell>
                 <TableCell className="text-right font-bold">Dr. {el.doctor.lastname}</TableCell>
+                <TableCell className="text-right">
+                  <ButtonLink
+                    to={`consultation/${el.id}`}
+                    className="p-2 flex flex-row items-center justify-center gap-2 text-sm font-semibold"
+                  >
+                    <Eye className="w-4 h-4" />
+                    Voir
+                  </ButtonLink>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

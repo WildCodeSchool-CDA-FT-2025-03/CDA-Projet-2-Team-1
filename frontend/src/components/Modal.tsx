@@ -4,14 +4,19 @@ import { useNavigate } from 'react-router';
 
 type PropsModal = {
   children: ReactNode;
+  onClose?: () => void; // Fonction de fermeture optionnelle
 };
 
-function Modal({ children }: PropsModal) {
+function Modal({ children, onClose }: PropsModal) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const navigate = useNavigate();
 
   const close = () => {
-    navigate('..');
+    if (onClose) {
+      onClose(); // Utilise la fonction personnalisée si fournie
+    } else {
+      navigate('..'); // Utilise le router par défaut
+    }
   };
 
   //useEffect pour gérer l'ouverture/fermeture et les événements de la modale

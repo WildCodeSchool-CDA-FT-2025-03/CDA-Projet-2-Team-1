@@ -1,13 +1,16 @@
 import { createBrowserRouter } from 'react-router';
-
 import App from '../App';
+// Components
+import ConsultationDetails from '@/components/consultation/ConsultationDetails';
+import CreatePatient from '@/components/patients/CreatePatient';
+import CreateAppointmentDialog from '@/components/consultation/CreateAppointmentDialog';
+import Modal from '@/components/Modal';
+// Pages
 import AdminPage from '../pages/AdminPage';
 import AgentPage from '../pages/AgentPage';
 import DoctorPage from '../pages/DoctorPage';
+import LoginPage from '../pages/LoginPage';
 import SecretaryPage from '../pages/SecretaryPage';
-import CreatePatient from '@/components/patients/CreatePatient';
-import Modal from '@/components/Modal';
-import LoginPage from '@/pages/LoginPage';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +30,22 @@ const router = createBrowserRouter([
             element: (
               <Modal>
                 <CreatePatient />
+              </Modal>
+            ),
+          },
+          {
+            path: 'appointment/creation',
+            element: (
+              <Modal>
+                <CreateAppointmentDialog />
+              </Modal>
+            ),
+          },
+          {
+            path: 'consultation/:id',
+            element: (
+              <Modal>
+                <ConsultationDetails />
               </Modal>
             ),
           },

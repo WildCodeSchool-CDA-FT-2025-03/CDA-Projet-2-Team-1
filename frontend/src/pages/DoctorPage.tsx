@@ -1,13 +1,12 @@
-import Rest from '@/components/Rest';
+import Rest from '@/components/rest/Rest';
 
 const doctorId = 'b1aef857-4ca5-4da1-bb55-4eb9a05da185'; // À remplacer par l'ID du médecin connecté
 
 const DoctorPage = () => {
   return (
-    <div>
-      <h1>Bienvenue Docteur House</h1>
+    <section>
       <Rest user_id={doctorId} />
-    </div>
+    </section>
   );
 };
 export default DoctorPage;

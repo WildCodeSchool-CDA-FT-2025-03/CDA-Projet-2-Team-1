@@ -15,13 +15,6 @@ services:
       - '3002:3000'
     restart: unless-stopped
 
-  leave-service:
-    build: ./backend/leave-service
-    container_name: leave-service
-    ports:
-      - '3003:3000'
-    restart: unless-stopped
-
   email-service:
     build: ./backend/email-service
     container_name: email-service

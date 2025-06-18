@@ -37,6 +37,20 @@ class ConsultationResolver {
       relations: ['patient.ssn', 'doctor.service'],
     });
   }
+
+  @Query(() => ConsultationEntity)
+  async getConsultationById(@Arg('id', () => String) id: string): Promise<ConsultationEntity> {
+    const consultation = await ConsultationEntity.findOne({
+      where: { id },
+      relations: ['patient.city', 'patient.ssn', 'doctor.service'],
+    });
+
+    if (!consultation) {
+      throw new Error('Consultation not found');
+    }
+
+    return consultation;
+  }
 }
 
 export default ConsultationResolver;

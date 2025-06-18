@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 // Contexts
 import { useAuth } from '@/context/Auth.context';
 // Utils
-import { validateFormLogin } from '@/utils/validateFormLogin';
+import { validateFormLogin } from '@/utils/validateFormLogin.utility';
 // Assets
 import IllustrationLogin from '/login.webp';
 import LogoCarePlanFull from '/logo-cp-full.svg';

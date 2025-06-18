@@ -24,15 +24,6 @@ export type PatientListProps = {
   patients: Patient[];
 };
 
-export type ErrorDisplayProps = {
-  error: Error;
-  serverUrl: string;
-};
-
-export type PatientDialogProps = {
-  serverUrl: string;
-};
-
 export type PatientDetailProps = {
   ssn: string;
   lastname: string;
