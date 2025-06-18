@@ -7,9 +7,9 @@ import { HttpError } from '../types/error.type';
 import { resetPasswordSchema } from '../schemas/reset.schema';
 import logger from '../services/logger.service';
 
-async function resetPassword(req: Request, res: Response) {
+async function resetPassword(_req: Request, res: Response) {
   if (!process.env.SECRET_KEY_TOKEN_EMAIL) {
-    throw new HttpError(500, 'Missing secret email key');
+    throw new HttpError(401, 'Missing secret email key');
   }
 
   const payloadAuth = res.locals.payload;
