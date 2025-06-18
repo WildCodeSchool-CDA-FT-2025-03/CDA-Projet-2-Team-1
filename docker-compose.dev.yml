@@ -73,6 +73,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
       SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
+      DEFAULT_PASSWORD: ${DEFAULT_PASSWORD}
     restart: unless-stopped
     volumes:
       - ./backend/auth-service/src:/app/src
