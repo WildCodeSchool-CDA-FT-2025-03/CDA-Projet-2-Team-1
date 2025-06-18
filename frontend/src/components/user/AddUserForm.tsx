@@ -4,7 +4,9 @@ import Servicelist from '../service/ServiceList';
 import { InputLabel } from '../ui/input';
 import Select from '../formUi/Select';
 import axiosClient from '@/lib/axios-client';
-
+import { toastSuccess, toastError } from '../ui/toast';
+import { ToastContainer } from 'react-toastify';
+import { Button } from '../ui/button';
 function AddUserForm() {
   const [selectedRole, setSelectedRole] = useState('');
   const [selectedService, setSelectedService] = useState('');
@@ -24,8 +26,16 @@ function AddUserForm() {
         role_id: selectedRole,
         service_id: selectedService,
       });
+      setLastname('');
+      setFirstname('');
+      setEmail('');
+      setGenre('');
+      setSelectedRole('');
+      setSelectedService('');
+      toastSuccess(`Utilisateur ajouté avec succès`);
     } catch (err) {
       console.error(err);
+      toastError(`Erreur lors de l'ajout de l'utilisateur`);
     }
   };
 
@@ -35,7 +45,6 @@ function AddUserForm() {
       <Servicelist value={selectedService} handleChange={setSelectedService} />
 
       <InputLabel
-        className="pt-"
         id="name"
         label="Nom"
         type="text"
@@ -61,8 +70,8 @@ function AddUserForm() {
           handleChange={setGenre}
           label="Choisissez un genre"
           list={[
-            { name: 'M', id: 'M' },
-            { name: 'F', id: 'F' },
+            { name: 'Homme', id: 'M' },
+            { name: 'Femme', id: 'F' },
           ]}
           field="name"
         />
@@ -80,7 +89,8 @@ function AddUserForm() {
         title="email en @hopital.gouv.fr seulement"
       />
 
-      <button type="submit">Ajouter</button>
+      <Button type="submit">Ajouter</Button>
+      <ToastContainer />
     </form>
   );
 }
