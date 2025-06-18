@@ -1,15 +1,12 @@
 import express from 'express';
-import resetPassword from './controllers/reset.controller';
-import checkJWT from './middlewares/checkJWT.middleware';
-import checkPayloadOrigin from './middlewares/checkPayloadOrigin.middleware';
-import errorMiddleware from './middlewares/errors.middleware';
 import logger from './services/logger.service';
+import router from './router/router';
 
 import 'dotenv/config';
 
 const app = express();
 
-app.get('/reset', checkJWT, checkPayloadOrigin('auth'), resetPassword, errorMiddleware);
+app.use('/', router);
 
 /**
  * Le server se lance sur le port 9501
