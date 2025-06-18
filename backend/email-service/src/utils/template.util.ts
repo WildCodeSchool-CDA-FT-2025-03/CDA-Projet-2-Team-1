@@ -16,7 +16,7 @@ function getTemplate(name: string): string {
 const emailTemplate = Handlebars.compile(getTemplate('template.view.hbs'));
 
 function getEmailTemplate(name: string) {
-  Handlebars.registerPartial('body', getTemplate(name));
+  Handlebars.registerPartial('content', getTemplate(name));
   return emailTemplate;
 }
 
