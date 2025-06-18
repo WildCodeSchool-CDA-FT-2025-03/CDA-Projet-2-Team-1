@@ -1,14 +1,15 @@
 import payloadType from '../types/payloadTokenJWT.type';
 import { createDateNumberUtils } from './createDateUtils';
 import jwt from 'jsonwebtoken';
-import userTableType from '../types/userTable.type';
+import { type UserType } from '../types/userTable.type';
+import { Request } from 'express';
 
 // Récupération de la clé secrète Server
 const SECRET_KEY_TOKEN_SERVER: string | undefined = process.env.SECRET_KEY_TOKEN_SERVER;
 
 //--------------------------------------------------------------------------------------
 
-async function createJwtTokenServerCarePlan(dataUser: userTableType): Promise<string> {
+async function createJwtTokenServerCarePlan(dataUser: UserType): Promise<string> {
   if (!SECRET_KEY_TOKEN_SERVER) {
     return 'Error';
   }
@@ -32,3 +33,24 @@ async function createJwtTokenServerCarePlan(dataUser: userTableType): Promise<st
 }
 
 export { createJwtTokenServerCarePlan };
+
+/*--------------------------------------------------------------------------------------*/
+async function verifyJwtTokenCarePlan(req: Request): Promise<payloadType | boolean> {
+  try {
+    if (!SECRET_KEY_TOKEN_SERVER) {
+      return false;
+    }
+
+    // Vérification du token
+    const token = req.cookies?.jwtTokenServerCarePlan;
+    if (!token) return false;
+
+    const payload = jwt.verify(token, SECRET_KEY_TOKEN_SERVER) as payloadType;
+
+    return payload;
+  } catch (error) {
+    return false;
+  }
+}
+
+export { verifyJwtTokenCarePlan };
