@@ -36,7 +36,7 @@ async function resetPassword(_req: Request, res: Response) {
     };
 
     await transporter.sendMail(mailOptions);
-    logger.info(`Email sent successfully to ${payloadAuth.email}`);
+    logger.info(`Rest password email sent successfully to ${payloadAuth.email}`);
     res.sendStatus(204);
   } catch (error) {
     throw new HttpError(400, `${error}`);
