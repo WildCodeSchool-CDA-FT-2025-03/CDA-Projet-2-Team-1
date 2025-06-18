@@ -38,7 +38,7 @@ const CreateAppointmentDialog = () => {
 
   return (
     <Card
-      className="w-full max-w-4xl mx-auto rounded-none !border-0"
+      className="w-full max-w-4xl mx-auto rounded-none shadow-none border-0"
       aria-labelledby="appointment-title"
     >
       <CardHeader>
