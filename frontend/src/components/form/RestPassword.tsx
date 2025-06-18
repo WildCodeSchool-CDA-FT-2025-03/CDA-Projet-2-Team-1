@@ -9,7 +9,7 @@ type RestPasswordForm = {
 };
 
 function RestPassword() {
-  const { register, handleSubmit } = useForm<RestPasswordForm>();
+  const { register, handleSubmit, reset } = useForm<RestPasswordForm>();
 
   const onSubmit: SubmitHandler<RestPasswordForm> = async (input: RestPasswordForm) => {
     try {
@@ -27,6 +27,8 @@ function RestPassword() {
       toastSuccess('Email de réinitialisation envoyé');
     } catch (_err) {
       toastError("Erreur durant l'envoie de l'email");
+    } finally {
+      reset();
     }
   };
 
