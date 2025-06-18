@@ -12,10 +12,9 @@ async function resetController(req: Request, res: Response) {
       const resetUrl = `${origin}/auth/reset`;
       const userId = await getIdByEmailRepository(req.body.email);
       const token = createJwtRestForEmailService(userId, req.body.email, resetUrl);
-      await emailClient.post('/reset', {
+      await emailClient.get('/reset', {
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
         },
       });
     } catch (error) {

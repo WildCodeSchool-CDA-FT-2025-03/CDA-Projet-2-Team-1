@@ -8,7 +8,7 @@ import 'dotenv/config';
 
 const app = express();
 
-app.use('/reset', checkJWT, checkPayloadOrigin('auth'), resetPassword, errorMiddleware);
+app.get('/reset', checkJWT, checkPayloadOrigin('auth'), resetPassword, errorMiddleware);
 
 /**
  * Le server se lance sur le port 9501

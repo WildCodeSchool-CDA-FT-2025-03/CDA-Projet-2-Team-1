@@ -13,7 +13,7 @@ describe('reset email', () => {
       expiresIn: '1h',
     });
     const result = await fetch('http://localhost:9501/reset', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ describe('reset email', () => {
       expiresIn: '1h',
     });
     const result = await fetch('http://localhost:9501/reset', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ describe('reset email', () => {
       expiresIn: '1h',
     });
     const result = await fetch('http://localhost:9501/reset', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ describe('reset email', () => {
 
   it('Should return 401 Unauthorized', async () => {
     const result = await fetch('http://localhost:9501/reset', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },

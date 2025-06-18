@@ -1,3 +1,4 @@
+import Handlebars from 'handlebars';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
@@ -12,4 +13,11 @@ function getTemplate(name: string): string {
   return content.toString('utf-8');
 }
 
-export default getTemplate;
+const emailTemplate = Handlebars.compile(getTemplate('template.view.html'));
+
+function getEmailTemplate(name: string) {
+  Handlebars.registerPartial('body', getTemplate(name));
+  return emailTemplate;
+}
+
+export default getEmailTemplate;
