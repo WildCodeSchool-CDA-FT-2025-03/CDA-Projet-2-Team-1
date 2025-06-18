@@ -4,6 +4,7 @@ import Servicelist from '../service/ServiceList';
 import { InputLabel } from '../ui/input';
 import Select from '../formUi/Select';
 import axiosClient from '@/lib/axios-client';
+import { Button } from '../ui/button';
 
 function AddUserForm() {
   const [selectedRole, setSelectedRole] = useState('');
@@ -80,7 +81,7 @@ function AddUserForm() {
         title="email en @hopital.gouv.fr seulement"
       />
 
-      <button type="submit">Ajouter</button>
+      <Button type="submit">Ajouter</Button>
     </form>
   );
 }
