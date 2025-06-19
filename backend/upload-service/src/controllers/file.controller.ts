@@ -1,0 +1,74 @@
+import { Request, Response } from 'express';
+
+export const uploadFile = async (req: Request, res: Response): Promise<Response | void> => {
+  const file = req.file as Express.Multer.File;
+  console.info(file);
+
+  if (!file) {
+    return res.status(422).json({ message: 'No file uploaded' });
+  }
+
+  const { consultationId, isConfidential } = req.body;
+
+  if (!consultationId) {
+    return res.status(400).json({ message: 'consultationId is required' });
+  }
+
+  const mutation = `
+    mutation UploadFile($consultationId: String!, $name: String!, $path: String!, $isConfidential: Boolean) {
+      uploadFile(consultationId: $consultationId, name: $name, path: $path, isConfidential: $isConfidential) {
+        id
+        name
+        path
+        created_at
+        is_confidential
+      }
+    }
+  `;
+
+  const fileUrl = `http://localhost:7000/upload/files/${file.filename}`;
+
+  const variables = {
+    consultationId,
+    name: file.originalname,
+    path: fileUrl,
+    isConfidential: isConfidential === 'true' || isConfidential === true,
+  };
+
+  try {
+    // Appel à l'API GraphQL du appointment-service
+    const response = await fetch(`${process.env.APPOINTMENT_SERVICE_URL}/graphql`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: mutation,
+        variables,
+      }),
+    });
+
+    const result = await response.json();
+
+    if (result.errors) {
+      console.error('GraphQL errors:', result.errors);
+      return res.status(500).json({
+        message: 'Error saving file to database',
+        errors: result.errors,
+      });
+    }
+
+    console.info('File saved to database:', result.data.uploadFile);
+
+    return res.status(200).json({
+      message: 'File uploaded successfully',
+      file: result.data.uploadFile,
+    });
+  } catch (error) {
+    console.error('Error calling GraphQL API:', error);
+    return res.status(500).json({
+      message: 'Error saving file to database',
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+};
