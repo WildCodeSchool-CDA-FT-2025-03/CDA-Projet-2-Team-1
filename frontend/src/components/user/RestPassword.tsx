@@ -46,8 +46,8 @@ function RestPassword() {
         })}
       />
       <div className="flex gap-4 w-full">
-        <ButtonLink to="/" className="bg-transparent text-main text-right" aria-label="Annuler">
-          Annuler
+        <ButtonLink to="/" className="bg-transparent text-main text-right" aria-label="Retour">
+          Retour
         </ButtonLink>
         <Button type="submit">Réinitialiser</Button>
       </div>
