@@ -35,6 +35,19 @@ export const GET_PATIENT_DETAILS = gql`
   }
 `;
 
+export const GET_PATIENT_BY_SSN = gql`
+  query PatientBySsn($ssn: String!) {
+    patientBySsn(ssn: $ssn) {
+      id
+      firstname
+      lastname
+      ssn {
+        number
+      }
+    }
+  }
+`;
+
 export const ADD_PATIENT = gql`
   mutation AddNewPatient($patient: PatientInput!) {
     addNewPatient(patient: $patient)
