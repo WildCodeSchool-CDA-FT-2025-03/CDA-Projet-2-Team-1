@@ -6,7 +6,7 @@ default-env-dev=./files/.env-dev-default
 docker-dev=docker compose --env-file $(default-env-dev) -f $(docker-compose-dev)
 docker-test=docker compose --env-file $(default-env-dev) -f $(docker-compose-test)
 
-services=appointment-service frontend auth-service
+services=appointment-service frontend auth-service email-service
 volumes=care-plan-db
 
 VOLUMES=$(volumes:%=$(project-name)_%)
@@ -39,6 +39,12 @@ dev-clean: dev-down dev-rm delete-images
 dev-prune: dev-clean delete-volumes
 
 test-integration:
-	$(docker-test) up --abort-on-container-exit --exit-code-from appointment-service
+	$(docker-test) up appointment-service --abort-on-container-exit --exit-code-from appointment-service
 
-test: test-integration
+test-email-integration:
+	$(docker-test) up -d email-service
+	sleep 1
+	docker exec -it email-service-test sh -c "npm run test:integration"
+	docker stop email-service-test
+
+test: test-integration test-email-integration

@@ -9,3 +9,9 @@ async function verifyPasswordArgonUtils(
 }
 
 export { verifyPasswordArgonUtils };
+
+async function hashPasswordArgonUtil(password: string): Promise<string> {
+  const hashpw: string = await argon2.hash(password);
+  return hashpw;
+}
+export { hashPasswordArgonUtil };

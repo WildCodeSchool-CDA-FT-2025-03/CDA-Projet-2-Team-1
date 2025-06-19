@@ -28,7 +28,7 @@ type InputLabelProps = React.ComponentProps<'input'> & {
 const InputLabel = React.forwardRef<HTMLInputElement, InputLabelProps>(
   ({ className, type, id, label, isError, msg, ...props }, ref) => {
     return (
-      <div className="mb-4">
+      <div className="w-full mb-4">
         <label htmlFor={id}>{label}</label>
         <Input id={id} type={type} className={className} ref={ref} {...props} />
         {isError && <p className="text-red-600">{msg}</p>}

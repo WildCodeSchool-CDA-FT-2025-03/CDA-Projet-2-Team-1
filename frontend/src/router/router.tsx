@@ -5,21 +5,29 @@ import ConsultationDetails from '@/components/consultation/ConsultationDetails';
 import CreateAppointmentDialog from '@/components/consultation/CreateAppointmentDialog';
 import CreatePatient from '@/components/patients/CreatePatient';
 import DoctorPage from '../pages/DoctorPage';
+import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
 import Modal from '@/components/Modal';
 import SecretaryPage from '../pages/SecretaryPage';
 import { createBrowserRouter } from 'react-router';
+import RestPassword from '@/components/user/RestPassword';
 
-// Pages
-
-// Components
-
-// Pages
 
 const router = createBrowserRouter([
+  //TOFIX: rework LoginPage avec HomePage
   {
     path: '/',
     element: <LoginPage />,
+  },
+  {
+    path: '/password',
+    element: <HomePage />,
+    children: [
+      {
+        path: 'reset',
+        element: <RestPassword />,
+      },
+    ],
   },
   {
     path: '/',
