@@ -19,6 +19,9 @@
     "eslint-plugin-react-refresh": "^0.4.20"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
     "husky": "^9.1.7",
     "prettier": "^3.5.3"
   },

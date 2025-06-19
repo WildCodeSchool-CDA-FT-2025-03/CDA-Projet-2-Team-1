@@ -54,6 +54,14 @@ class PatientResolver {
     });
   }
 
+  @Query(() => PatientEntity, { nullable: true })
+  async patientBySsn(@Arg('ssn') ssn: string): Promise<PatientEntity | null> {
+    return PatientEntity.findOne({
+      where: { ssn: { number: ssn } },
+      relations: ['ssn', 'city'],
+    });
+  }
+
   @Mutation(() => String)
   async addNewPatient(@Arg('patient') patientInput: PatientInput) {
     let city = await CityEntity.findOneBy({ name: patientInput.city.name });
