@@ -55,6 +55,7 @@ class ConsultationEntity extends BaseEntity {
 
   @Field(() => [FileEntity])
   @OneToMany(() => FileEntity, (file) => file.consultation, {
+    nullable: true,
     cascade: true,
   })
   files: FileEntity[];
