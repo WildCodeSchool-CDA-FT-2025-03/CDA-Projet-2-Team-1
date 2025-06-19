@@ -1,9 +1,11 @@
 import { useParams } from 'react-router';
+// components
+import NoteSecretary from './NoteSecretary';
 // Types
 import { useGetConsultationByIdQuery } from '@/gql/graphql-types';
 // Utils
-import { formatDate, formatTime, calcDurationInMinutes } from '@/utiles/date.utile';
-import { formatSSN } from '@/utiles/ssn.utility';
+import { formatDate, formatTime, calcDurationInMinutes } from '@/utils/date.utility';
+import { formatSSN } from '@/utils/ssn.utility';
 
 function ConsultationDetails() {
   const { id } = useParams<{ id: string }>();
@@ -111,6 +113,7 @@ function ConsultationDetails() {
           )}
         </dl>
       </section>
+      <NoteSecretary />
     </section>
   );
 }

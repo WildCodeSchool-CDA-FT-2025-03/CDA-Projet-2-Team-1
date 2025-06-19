@@ -1,7 +1,9 @@
+import { Request } from 'express';
 import { payloadType, ResetForEmailServicePayload } from '../types/payloadTokenJWT.type';
 import { createDateNumberUtils } from './createDateUtils';
 import jwt from 'jsonwebtoken';
 import userTableType from '../types/userTable.type';
+import { type UserType } from '../types/userTable.type';
 
 // Récupération de la clé secrète Server
 const SECRET_KEY_TOKEN_SERVER: string | undefined = process.env.SECRET_KEY_TOKEN_SERVER;
@@ -47,4 +49,22 @@ function createJwtRestForEmailService(userId: string, email: string, resetUrl: s
   return jwtTokenEmailService;
 }
 
-export { createJwtTokenServerCarePlan, createJwtRestForEmailService };
+async function verifyJwtTokenCarePlan(req: Request): Promise<payloadType | boolean> {
+  try {
+    if (!SECRET_KEY_TOKEN_SERVER) {
+      return false;
+    }
+
+    // Vérification du token
+    const token = req.cookies?.jwtTokenServerCarePlan;
+    if (!token) return false;
+
+    const payload = jwt.verify(token, SECRET_KEY_TOKEN_SERVER) as payloadType;
+
+    return payload;
+  } catch (error) {
+    return false;
+  }
+}
+
+export { createJwtTokenServerCarePlan, createJwtRestForEmailService, verifyJwtTokenCarePlan };

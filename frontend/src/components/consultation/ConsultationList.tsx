@@ -8,7 +8,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 // Utils
-import { dateToTime } from '@/utiles/date.utile';
+import { dateToTime } from '@/utils/date.utility';
 // Types
 import { useGetConsultationByDayQuery } from '@/gql/graphql-types';
 // Styles

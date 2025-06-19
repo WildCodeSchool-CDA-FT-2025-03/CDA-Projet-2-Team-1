@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router';
-import axios from 'axios';
+import axiosClient from '../../lib/axios-client.ts';
+
 // Components
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,7 +9,7 @@ import { Label } from '@/components/ui/label';
 // Contexts
 import { useAuth } from '@/context/Auth.context';
 // Utils
-import { validateFormLogin } from '@/utils/validateFormLogin';
+import { validateFormLogin } from '@/utils/validateFormLogin.utility';
 // Assets
 import IllustrationLogin from '/login.webp';
 import LogoCarePlanFull from '/logo-cp-full.svg';
@@ -33,34 +34,18 @@ export default function LoginRoot() {
     }
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_DOMAIN_AUTH_SERVICE}/auth/login`,
-        { email, password },
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await axiosClient.post('auth/login', { email, password });
+      const { data } = response.data;
+      setUser(data);
 
-      const data = response.data;
-      const user = data.data;
-      setUser(user);
+      if (data.role_id === 1) return navigate('/admin');
+      if (data.role_id === 2) return navigate('/doctor');
+      if (data.role_id === 3) return navigate('/secretary');
+      if (data.role_id === 4) return navigate('/agent');
 
-      if (user.role_id === 1) return navigate('/admin');
-      if (user.role_id === 2) return navigate('/doctor');
-      if (user.role_id === 3) return navigate('/secretary');
-      if (user.role_id === 4) return navigate('/agent');
-
-      throw new Error(`Rôle utilisateur inconnu : ${user.role_id}`);
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        console.error('Erreur login:', err.response?.data?.message || err.message);
-        setError(err.response?.data?.message || 'Identifiants incorrects.');
-      } else {
-        setError('Erreur inconnue lors de la connexion.');
-      }
+      throw new Error(`utilisateur inconnu`);
+    } catch {
+      setError('Identifiants ou mot de passe incorrects.');
     }
   }
 

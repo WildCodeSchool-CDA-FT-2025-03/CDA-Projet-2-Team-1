@@ -73,6 +73,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
       SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
+      DEFAULT_PASSWORD: ${DEFAULT_PASSWORD}
     restart: unless-stopped
     volumes:
       - ./backend/auth-service/src:/app/src
@@ -80,7 +81,7 @@ services:
       database:
         condition: service_healthy
 
-  ### Auth-Service ###
+  ### Email-Service ###
   email-service:
     container_name: email-service
     build:
@@ -97,6 +98,24 @@ services:
     depends_on:
       database:
         condition: service_healthy
+
+  ### Upload-Service ###
+  upload-service:
+    build:
+      context: ./backend/upload-service
+    restart: unless-stopped
+    volumes:
+      - ./backend/upload-service/src:/app/src
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      UPLOAD_SERVICE_PORT: ${UPLOAD_SERVICE_PORT}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_SYNC: ${DATABASE_SYNC}
 
   gateway:
     image: nginx
