@@ -40,9 +40,21 @@ export type ConsultationEntity = {
   date_end: Scalars['DateTimeISO']['output'];
   date_start: Scalars['DateTimeISO']['output'];
   doctor: UserEntity;
+  files: Array<FileEntity>;
   id: Scalars['String']['output'];
   note_secretary: NoteSecretaryEntity;
   patient: PatientEntity;
+};
+
+export type FileEntity = {
+  __typename?: 'FileEntity';
+  consultation: ConsultationEntity;
+  created_at: Scalars['DateTimeISO']['output'];
+  id: Scalars['String']['output'];
+  is_confidential: Scalars['Boolean']['output'];
+  is_deleted: Scalars['Boolean']['output'];
+  name: Scalars['String']['output'];
+  path: Scalars['String']['output'];
 };
 
 export type Mutation = {
@@ -105,6 +117,7 @@ export type Query = {
   getConsultationByDay: Array<ConsultationEntity>;
   getConsultationById: ConsultationEntity;
   getConsultationBySsnForAgent: Array<ConsultationEntity>;
+  getFilesByConsultationId: Array<FileEntity>;
   getNoteSecretaryByConsultationId: Array<NoteSecretaryEntity>;
   getRoles: Array<RoleEntity>;
   getServices: Array<ServiceEntity>;
@@ -127,6 +140,10 @@ export type QueryGetConsultationByIdArgs = {
 
 export type QueryGetConsultationBySsnForAgentArgs = {
   ssn: Scalars['String']['input'];
+};
+
+export type QueryGetFilesByConsultationIdArgs = {
+  consultationId: Scalars['String']['input'];
 };
 
 export type QueryGetNoteSecretaryByConsultationIdArgs = {
@@ -253,6 +270,21 @@ export type GetConsultationBySsnForAgentQuery = {
       lastname: string;
       service: { __typename?: 'ServiceEntity'; name: string } | null;
     };
+  }>;
+};
+
+export type GetFilesByConsultationIdQueryVariables = Exact<{
+  consultationId: Scalars['String']['input'];
+}>;
+
+export type GetFilesByConsultationIdQuery = {
+  __typename?: 'Query';
+  getFilesByConsultationId: Array<{
+    __typename?: 'FileEntity';
+    id: string;
+    name: string;
+    created_at: Date;
+    path: string;
   }>;
 };
 
@@ -639,6 +671,86 @@ export type GetConsultationBySsnForAgentSuspenseQueryHookResult = ReturnType<
 export type GetConsultationBySsnForAgentQueryResult = Apollo.QueryResult<
   GetConsultationBySsnForAgentQuery,
   GetConsultationBySsnForAgentQueryVariables
+>;
+export const GetFilesByConsultationIdDocument = gql`
+  query getFilesByConsultationId($consultationId: String!) {
+    getFilesByConsultationId(consultationId: $consultationId) {
+      id
+      name
+      created_at
+      path
+    }
+  }
+`;
+
+/**
+ * __useGetFilesByConsultationIdQuery__
+ *
+ * To run a query within a React component, call `useGetFilesByConsultationIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFilesByConsultationIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFilesByConsultationIdQuery({
+ *   variables: {
+ *      consultationId: // value for 'consultationId'
+ *   },
+ * });
+ */
+export function useGetFilesByConsultationIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetFilesByConsultationIdQuery,
+    GetFilesByConsultationIdQueryVariables
+  > &
+    ({ variables: GetFilesByConsultationIdQueryVariables; skip?: boolean } | { skip: boolean })
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetFilesByConsultationIdQuery, GetFilesByConsultationIdQueryVariables>(
+    GetFilesByConsultationIdDocument,
+    options
+  );
+}
+export function useGetFilesByConsultationIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetFilesByConsultationIdQuery,
+    GetFilesByConsultationIdQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetFilesByConsultationIdQuery, GetFilesByConsultationIdQueryVariables>(
+    GetFilesByConsultationIdDocument,
+    options
+  );
+}
+export function useGetFilesByConsultationIdSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetFilesByConsultationIdQuery,
+        GetFilesByConsultationIdQueryVariables
+      >
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetFilesByConsultationIdQuery,
+    GetFilesByConsultationIdQueryVariables
+  >(GetFilesByConsultationIdDocument, options);
+}
+export type GetFilesByConsultationIdQueryHookResult = ReturnType<
+  typeof useGetFilesByConsultationIdQuery
+>;
+export type GetFilesByConsultationIdLazyQueryHookResult = ReturnType<
+  typeof useGetFilesByConsultationIdLazyQuery
+>;
+export type GetFilesByConsultationIdSuspenseQueryHookResult = ReturnType<
+  typeof useGetFilesByConsultationIdSuspenseQuery
+>;
+export type GetFilesByConsultationIdQueryResult = Apollo.QueryResult<
+  GetFilesByConsultationIdQuery,
+  GetFilesByConsultationIdQueryVariables
 >;
 export const GetNoteSecretaryByConsultationIdDocument = gql`
   query getNoteSecretaryByConsultationId($consultationId: String!) {
