@@ -1,9 +1,10 @@
 import { useGetFilesByConsultationIdQuery } from '@/gql/graphql-types';
 import { useParams } from 'react-router';
+import UploadFile from './UploadFile';
 
 function FileList() {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useGetFilesByConsultationIdQuery({
+  const { data, loading, error, refetch } = useGetFilesByConsultationIdQuery({
     variables: { consultationId: id! },
     skip: !id,
   });
@@ -12,6 +13,11 @@ function FileList() {
   if (error) return <p>Error: {error.message}</p>;
 
   const existingFiles = data?.getFilesByConsultationId;
+
+  const handleUploadSuccess = () => {
+    // Rafraîchir la liste des fichiers après un upload réussi
+    refetch();
+  };
 
   return (
     <section aria-labelledby="file-list">
@@ -32,6 +38,7 @@ function FileList() {
       ) : (
         <p>Aucun document joint pour cette consultation</p>
       )}
+      <UploadFile consultationId={id!} onUploadSuccess={handleUploadSuccess} />
     </section>
   );
 }
