@@ -1,0 +1,118 @@
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Save } from 'lucide-react';
+
+interface UploadedFile {
+  id: string;
+  name: string;
+  path: string;
+  created_at: string;
+  is_confidential: boolean;
+}
+
+interface UploadFileProps {
+  consultationId: string;
+  onUploadSuccess?: (file: UploadedFile) => void;
+}
+
+function UploadFile({ consultationId, onUploadSuccess }: UploadFileProps) {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [uploadSuccess, setUploadSuccess] = useState<string | null>(null);
+  const isConfidential = false;
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setUploadError(null);
+      setUploadSuccess(null);
+    }
+  };
+
+  const handleUploadFile = async () => {
+    if (!selectedFile) {
+      setUploadError('Veuillez sélectionner un fichier');
+      return;
+    }
+
+    if (!consultationId) {
+      setUploadError('ID de consultation manquant');
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadError(null);
+    setUploadSuccess(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      formData.append('consultationId', consultationId);
+      formData.append('isConfidential', isConfidential ? 'true' : 'false');
+
+      const response = await fetch('http://localhost:7000/upload/post', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        // Si la réponse n'est pas ok, essayer de parser le JSON d'erreur
+        let errorMessage = `Erreur ${response.status}: ${response.statusText}`;
+        try {
+          const errorResult = await response.json();
+          errorMessage = errorResult.message || errorMessage;
+        } catch {
+          // Si ce n'est pas du JSON, garder le message par défaut
+        }
+        throw new Error(errorMessage);
+      }
+
+      const result = await response.json();
+
+      setUploadSuccess('Fichier ajouté');
+      setSelectedFile(null);
+
+      // Reset du formulaire
+      const fileInput = document.getElementById('file-input') as HTMLInputElement;
+      if (fileInput) fileInput.value = '';
+
+      // Callback de succès
+      if (onUploadSuccess) {
+        onUploadSuccess(result.file);
+      }
+    } catch (error) {
+      console.error('Erreur upload:', error);
+      setUploadError(error instanceof Error ? error.message : 'Erreur inconnue');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  return (
+    <>
+      <div className="flex items-center gap-2 mt-2">
+        <Input
+          id="file-input"
+          type="file"
+          onChange={handleFileChange}
+          className="block px-0 py-0 text-sm text-gray-500 file:mr-4 file:px-4 file:py-2.5 file:rounded-l-md file:border-0 file:text-sm file:cursor-pointer file:font-semibold file:text-justify file:bg-turquoise-500 file:text-white hover:file:bg-blue-100"
+          disabled={isUploading}
+        />
+        <Button
+          className="w-fit"
+          onClick={handleUploadFile}
+          disabled={!selectedFile || isUploading}
+        >
+          <Save className="h-6 w-6" />
+        </Button>
+      </div>
+      {uploadError && <p className="text-red-700 text-sm m-2">{uploadError}</p>}
+      {uploadSuccess && <p className="text-green-700 text-sm m-2">{uploadSuccess}</p>}
+    </>
+  );
+}
+
+export default UploadFile;
