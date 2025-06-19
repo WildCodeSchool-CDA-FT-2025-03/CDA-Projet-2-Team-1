@@ -62,6 +62,7 @@ export type Mutation = {
   addNewPatient: Scalars['String']['output'];
   createNoteSecretary: NoteSecretaryEntity;
   createRest: RestEntity;
+  uploadFile: FileEntity;
 };
 
 export type MutationAddNewPatientArgs = {
@@ -78,6 +79,13 @@ export type MutationCreateRestArgs = {
   dateStart: Scalars['DateTimeISO']['input'];
   type: Scalars['String']['input'];
   userId: Scalars['String']['input'];
+};
+
+export type MutationUploadFileArgs = {
+  consultationId: Scalars['String']['input'];
+  isConfidential?: Scalars['Boolean']['input'];
+  name: Scalars['String']['input'];
+  path: Scalars['String']['input'];
 };
 
 export type NoteSecretaryEntity = {
@@ -286,6 +294,18 @@ export type GetFilesByConsultationIdQuery = {
     created_at: Date;
     path: string;
   }>;
+};
+
+export type UploadFileMutationVariables = Exact<{
+  consultationId: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  path: Scalars['String']['input'];
+  isConfidential: InputMaybe<Scalars['Boolean']['input']>;
+}>;
+
+export type UploadFileMutation = {
+  __typename?: 'Mutation';
+  uploadFile: { __typename?: 'FileEntity'; id: string; name: string; path: string };
 };
 
 export type GetNoteSecretaryByConsultationIdQueryVariables = Exact<{
@@ -751,6 +771,65 @@ export type GetFilesByConsultationIdSuspenseQueryHookResult = ReturnType<
 export type GetFilesByConsultationIdQueryResult = Apollo.QueryResult<
   GetFilesByConsultationIdQuery,
   GetFilesByConsultationIdQueryVariables
+>;
+export const UploadFileDocument = gql`
+  mutation uploadFile(
+    $consultationId: String!
+    $name: String!
+    $path: String!
+    $isConfidential: Boolean
+  ) {
+    uploadFile(
+      consultationId: $consultationId
+      name: $name
+      path: $path
+      isConfidential: $isConfidential
+    ) {
+      id
+      name
+      path
+    }
+  }
+`;
+export type UploadFileMutationFn = Apollo.MutationFunction<
+  UploadFileMutation,
+  UploadFileMutationVariables
+>;
+
+/**
+ * __useUploadFileMutation__
+ *
+ * To run a mutation, you first call `useUploadFileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUploadFileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [uploadFileMutation, { data, loading, error }] = useUploadFileMutation({
+ *   variables: {
+ *      consultationId: // value for 'consultationId'
+ *      name: // value for 'name'
+ *      path: // value for 'path'
+ *      isConfidential: // value for 'isConfidential'
+ *   },
+ * });
+ */
+export function useUploadFileMutation(
+  baseOptions?: Apollo.MutationHookOptions<UploadFileMutation, UploadFileMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UploadFileMutation, UploadFileMutationVariables>(
+    UploadFileDocument,
+    options
+  );
+}
+export type UploadFileMutationHookResult = ReturnType<typeof useUploadFileMutation>;
+export type UploadFileMutationResult = Apollo.MutationResult<UploadFileMutation>;
+export type UploadFileMutationOptions = Apollo.BaseMutationOptions<
+  UploadFileMutation,
+  UploadFileMutationVariables
 >;
 export const GetNoteSecretaryByConsultationIdDocument = gql`
   query getNoteSecretaryByConsultationId($consultationId: String!) {

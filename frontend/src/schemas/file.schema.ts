@@ -10,3 +10,23 @@ export const GET_FILES_BY_CONSULTATION_ID = gql`
     }
   }
 `;
+
+export const UPLOAD_FILE = gql`
+  mutation uploadFile(
+    $consultationId: String!
+    $name: String!
+    $path: String!
+    $isConfidential: Boolean
+  ) {
+    uploadFile(
+      consultationId: $consultationId
+      name: $name
+      path: $path
+      isConfidential: $isConfidential
+    ) {
+      id
+      name
+      path
+    }
+  }
+`;
