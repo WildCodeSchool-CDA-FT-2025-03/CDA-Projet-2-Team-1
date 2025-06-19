@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import 'dotenv/config';
+import path from 'path';
 import router from './router';
 
 const app = express();
@@ -12,6 +13,9 @@ app.use(
 );
 
 app.use(express.json());
+
+// Servir les fichiers statiques
+app.use('/files', express.static(path.join(__dirname, '../uploads')));
 
 app.use('/upload', router);
 
