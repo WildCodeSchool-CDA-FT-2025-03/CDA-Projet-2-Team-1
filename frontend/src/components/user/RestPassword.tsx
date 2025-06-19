@@ -42,14 +42,20 @@ function RestPassword() {
         type="email"
         label="Adresse email de récupération"
         {...register('email', {
-          required: { value: true, message: "L'adresse mail est requis." },
+          required: { value: true, message: "L'adresse email est requis." },
         })}
       />
-      <div className="flex gap-4 w-full">
-        <ButtonLink to="/" className="bg-transparent text-main text-right" aria-label="Retour">
+      <div className="flex gap-4 w-full justify-end">
+        <ButtonLink
+          to="/"
+          className="w-fit bg-transparent text-main text-right"
+          aria-label="Retour"
+        >
           Retour
         </ButtonLink>
-        <Button type="submit">Réinitialiser</Button>
+        <Button className="w-1/2" type="submit">
+          Réinitialiser
+        </Button>
       </div>
     </form>
   );
