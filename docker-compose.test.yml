@@ -32,3 +32,15 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+
+  email-service:
+    container_name: email-service-test
+    build:
+      context: ./backend/email-service
+    environment:
+      SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
+      SECRET_KEY_TOKEN_EMAIL: ${SECRET_KEY_TOKEN_EMAIL}
+      SMTP_USER: ${MAIL_SERVER_ADMIN}
+      SMTP_PASSWORD: ${MAIL_PASSWORD}
+    volumes:
+      - ./backend/email-service/src:/app/src

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import axiosClient from '../../lib/axios-client.ts';
+
 // Components
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,6 +13,7 @@ import { validateFormLogin } from '@/utils/validateFormLogin.utility';
 // Assets
 import IllustrationLogin from '/login.webp';
 import LogoCarePlanFull from '/logo-cp-full.svg';
+import { ToastContainer } from 'react-toastify';
 
 export default function LoginRoot() {
   const [email, setEmail] = useState('');
@@ -113,7 +115,14 @@ export default function LoginRoot() {
             </div>
           )}
         </form>
+        <Link
+          to="/password/reset"
+          className="w-full max-w-sm text-sm text-right text-turquoise-500 hover:text-turquoise-600 bg-transparent border-none cursor-pointer"
+        >
+          Mot de passe perdu ?
+        </Link>
       </section>
+      <ToastContainer />
     </section>
   );
 }

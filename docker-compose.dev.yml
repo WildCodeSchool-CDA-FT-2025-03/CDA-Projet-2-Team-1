@@ -81,6 +81,24 @@ services:
       database:
         condition: service_healthy
 
+  ### Email-Service ###
+  email-service:
+    container_name: email-service
+    build:
+      context: ./backend/email-service
+    environment:
+      SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
+      SECRET_KEY_TOKEN_EMAIL: ${SECRET_KEY_TOKEN_EMAIL}
+      SMTP_USER: ${MAIL_SERVER_ADMIN}
+      SMTP_PASSWORD: ${MAIL_PASSWORD}
+
+    restart: unless-stopped
+    volumes:
+      - ./backend/email-service/src:/app/src
+    depends_on:
+      database:
+        condition: service_healthy
+
   ### Upload-Service ###
   upload-service:
     build:
