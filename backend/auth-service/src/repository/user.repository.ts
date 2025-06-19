@@ -2,9 +2,9 @@ import usePoolConnection from '../database/config';
 import { QueryResult } from 'pg';
 import { type UserType, type UserInput } from '../types/userTable.type';
 
-async function verifyEmailRepository(email: string): Promise<userTableType | null> {
+async function verifyEmailRepository(email: string): Promise<UserType | null> {
   // Vérification : l'email reçu existe t-il dans la DB ?
-  const dataUser: QueryResult<userTableType> = await usePoolConnection.query(
+  const dataUser: QueryResult<UserType> = await usePoolConnection.query(
     'SELECT * FROM "user" WHERE email= $1',
     [email]
   );
@@ -51,4 +51,3 @@ async function createUser(user: UserInput): Promise<QueryResult> {
 }
 
 export { verifyUserByEmail, createUser };
-
