@@ -1,5 +1,6 @@
 import { buildSchema } from 'type-graphql';
 import ConsultationResolver from '../resolvers/consultation.resolver';
+import FileResolver from '../resolvers/file.resolver';
 import NoteSecretaryResolver from '../resolvers/note-secretary.resolver';
 import PatientResolver from '../resolvers/patient.resolver';
 import RestResolver from '../resolvers/rest.resolver';
@@ -11,6 +12,7 @@ const getSchema = async () => {
   return await buildSchema({
     resolvers: [
       ConsultationResolver,
+      FileResolver,
       NoteSecretaryResolver,
       PatientResolver,
       RestResolver,
