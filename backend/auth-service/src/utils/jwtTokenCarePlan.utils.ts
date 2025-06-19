@@ -2,22 +2,21 @@ import { Request } from 'express';
 import { payloadType, ResetForEmailServicePayload } from '../types/payloadTokenJWT.type';
 import { createDateNumberUtils } from './createDateUtils';
 import jwt from 'jsonwebtoken';
-import userTableType from '../types/userTable.type';
-import { type UserType } from '../types/userTable.type';
+import { UserType } from '../types/userTable.type';
 
 // Récupération de la clé secrète Server
 const SECRET_KEY_TOKEN_SERVER: string | undefined = process.env.SECRET_KEY_TOKEN_SERVER;
 
 //--------------------------------------------------------------------------------------
 
-async function createJwtTokenServerCarePlan(dataUser: userTableType): Promise<string> {
+async function createJwtTokenServerCarePlan(dataUser: UserType): Promise<string> {
   if (!SECRET_KEY_TOKEN_SERVER) {
     return 'Error';
   }
 
   // Création des variables token
   const expiresIn: number = 60 * 60; // 1 heure
-  const dateNow: number = await createDateNumberUtils(); // Date actuelle en timestamp UNIX
+  const dateNow: number = createDateNumberUtils(); // Date actuelle en timestamp UNIX
 
   const payload_server: payloadType = {
     id: dataUser.id,
