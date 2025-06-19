@@ -49,7 +49,7 @@ function RestPassword() {
         <ButtonLink to="/" className="bg-transparent text-main text-right" aria-label="Annuler">
           Annuler
         </ButtonLink>
-        <Button type="submit">Envoyer email</Button>
+        <Button type="submit">Réinitialiser</Button>
       </div>
     </form>
   );
