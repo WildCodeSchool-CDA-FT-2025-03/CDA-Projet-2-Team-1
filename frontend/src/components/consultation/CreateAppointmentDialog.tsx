@@ -44,7 +44,7 @@ const CreateAppointmentDialog = () => {
       <CardHeader>
         <CardTitle id="appointment-title">Nouveau rendez-vous</CardTitle>
       </CardHeader>
-      <main>
+      <section>
         <CardContent>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -173,7 +173,7 @@ const CreateAppointmentDialog = () => {
             </fieldset>
           </form>
         </CardContent>
-      </main>
+      </section>
     </Card>
   );
 };
