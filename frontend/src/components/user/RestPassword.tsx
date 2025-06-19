@@ -35,12 +35,12 @@ function RestPassword() {
   return (
     <form
       className="w-full max-w-sm flex flex-col items-center gap-4"
-      aria-label="Formulaire de d'envoie d'un email de réinitialisation de mot de passe"
+      aria-label="Formulaire de réinitialisation de mot de passe"
       onSubmit={handleSubmit(onSubmit)}
     >
       <InputLabel
         type="email"
-        label="Adresse email de recupération"
+        label="Adresse email de récupération"
         {...register('email', {
           required: { value: true, message: "L'adresse mail est requis." },
         })}
