@@ -1,6 +1,7 @@
 import { useParams } from 'react-router';
 // components
 import NoteSecretary from './NoteSecretary';
+import FileList from './FileList';
 // Types
 import { useGetConsultationByIdQuery } from '@/gql/graphql-types';
 // Utils
@@ -113,6 +114,7 @@ function ConsultationDetails() {
           )}
         </dl>
       </section>
+      <FileList />
       <NoteSecretary />
     </section>
   );
