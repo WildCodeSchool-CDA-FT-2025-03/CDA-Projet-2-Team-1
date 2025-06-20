@@ -27,7 +27,7 @@ const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
   });
 
   const { url } = await startStandaloneServer(server, {
-    listen: { port: port },
+    listen: { port: port, host: '0.0.0.0' },
   });
 
   logger.info(`Server ready at: ${url}`);
