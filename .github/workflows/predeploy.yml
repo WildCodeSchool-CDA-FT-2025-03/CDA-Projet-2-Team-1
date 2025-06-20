@@ -1,0 +1,20 @@
+name: Deployment on test server
+
+on:
+  push:
+    branches: [predeploy]
+  workflow_dispatch:
+
+jobs:
+  predeploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute remote SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script_path: ./predeploy
