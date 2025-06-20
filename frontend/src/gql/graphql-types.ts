@@ -83,7 +83,7 @@ export type MutationCreateRestArgs = {
 
 export type MutationUploadFileArgs = {
   consultationId: Scalars['String']['input'];
-  isConfidential?: Scalars['Boolean']['input'];
+  isConfidential: InputMaybe<Scalars['Boolean']['input']>;
   name: Scalars['String']['input'];
   path: Scalars['String']['input'];
 };
