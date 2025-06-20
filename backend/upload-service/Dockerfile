@@ -10,6 +10,4 @@ COPY package.json package-lock.json* tsconfig.json ./
 # Installation des dépendances
 RUN npm install
 
-
-
 CMD [ "npm", "run", "dev" ]
