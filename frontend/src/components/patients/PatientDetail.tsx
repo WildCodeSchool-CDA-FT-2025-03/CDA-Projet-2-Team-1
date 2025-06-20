@@ -150,6 +150,14 @@ export const PatientDetail: React.FC<PatientDetailProps> = ({
           </li>
         </ul>
       </form>
+      <br />
+      <Button
+        onClick={() => onShowDetail(null)}
+        variant="ghost"
+        className="gap-2 pl-0 mb-6 cursor-pointer"
+      >
+        Modifier
+      </Button>
     </section>
   );
 };
