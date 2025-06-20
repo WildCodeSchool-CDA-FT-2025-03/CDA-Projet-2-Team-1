@@ -33,4 +33,8 @@ export const dataSource = new DataSource({
     UserEntity,
   ],
   synchronize: sync,
+  // Configuration pour forcer l'encodage UTF-8
+  extra: {
+    charset: 'utf8mb4',
+  },
 });
