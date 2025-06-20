@@ -1,13 +1,19 @@
 import multer from 'multer';
-import path from 'path';
+
+function ToPathFile(file: Express.Multer.File): string {
+  const newPathName = Buffer.from(`${Date.now()}-${file.originalname}`).toString('hex');
+  const extension = file.originalname.split('.').pop();
+
+  return `${newPathName}.${extension}`;
+}
 
 // Configuration du stockage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../../uploads'));
+    cb(null, 'uploads');
   },
   filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
+    cb(null, ToPathFile(file));
   },
 });
 

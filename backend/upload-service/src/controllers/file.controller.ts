@@ -31,13 +31,13 @@ export const uploadFile = async (req: Request, res: Response): Promise<Response 
   const variables = {
     consultationId,
     name: file.originalname,
-    path: fileUrl,
+    path: encodeURI(fileUrl.replace(/ /g, '-').toLowerCase()),
     isConfidential: isConfidential === 'true' || isConfidential === true,
   };
 
   try {
     // Appel à l'API GraphQL du appointment-service
-    const response = await fetch(`${process.env.APPOINTMENT_SERVICE_URL}/graphql`, {
+    const response = await fetch(`http://appointment-service:4000/graphql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

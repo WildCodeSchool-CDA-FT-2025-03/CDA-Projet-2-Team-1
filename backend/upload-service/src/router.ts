@@ -3,12 +3,11 @@ import express from 'express';
 import { uploadFile } from './controllers/file.controller';
 // middlewares
 import upload from './middlewares/multer.middleware';
+import path from 'path';
 
 const router = express.Router();
 
-router.get('/get', (req, res) => {
-  res.send('Hello World GET ROUTE');
-});
+router.use('/files', express.static(path.join(__dirname, '../uploads')));
 
 router.post('/post', upload.single('file'), (req, res) => {
   uploadFile(req, res).catch((err) => {

@@ -87,12 +87,12 @@ services:
     restart: unless-stopped
     volumes:
       - ./backend/upload-service/src:/app/src
+      - ./backend/upload-service/uploads:/app/uploads
     depends_on:
       database:
         condition: service_healthy
     environment:
       UPLOAD_SERVICE_PORT: ${UPLOAD_SERVICE_PORT}
-      APPOINTMENT_SERVICE_URL: 'http://gateway'
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
