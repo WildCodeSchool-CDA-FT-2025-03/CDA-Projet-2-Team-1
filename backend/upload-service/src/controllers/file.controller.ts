@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 
 export const uploadFile = async (req: Request, res: Response): Promise<Response | void> => {
   const file = req.file as Express.Multer.File;
-  console.info(file);
 
   if (!file) {
     return res.status(422).json({ message: 'No file uploaded' });
@@ -26,12 +25,12 @@ export const uploadFile = async (req: Request, res: Response): Promise<Response 
     }
   `;
 
-  const fileUrl = `http://localhost:7000/upload/files/${file.filename}`;
+  const fileUrl = `/upload/files/${file.filename}`;
 
   const variables = {
     consultationId,
     name: file.originalname,
-    path: encodeURI(fileUrl.replace(/ /g, '-').toLowerCase()),
+    path: fileUrl,
     isConfidential: isConfidential === 'true' || isConfidential === true,
   };
 
@@ -57,9 +56,6 @@ export const uploadFile = async (req: Request, res: Response): Promise<Response 
         errors: result.errors,
       });
     }
-
-    console.info('File saved to database:', result.data.uploadFile);
-
     return res.status(200).json({
       message: 'File uploaded successfully',
       file: result.data.uploadFile,
