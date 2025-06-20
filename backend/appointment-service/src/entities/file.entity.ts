@@ -1,5 +1,13 @@
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import ConsultationEntity from './consultation.entity';
 
 @ObjectType()
@@ -14,7 +22,7 @@ class FileEntity extends BaseEntity {
   name: string;
 
   @Field()
-  @Column({ type: 'timestamptz', nullable: false })
+  @CreateDateColumn({ type: 'timestamptz', nullable: false })
   created_at: Date;
 
   @Field()
