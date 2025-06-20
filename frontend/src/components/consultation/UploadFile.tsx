@@ -88,7 +88,7 @@ function UploadFile({ consultationId, onUploadSuccess }: UploadFileProps) {
           id="file-input"
           type="file"
           onChange={handleFileChange}
-          className="block px-0 py-0 text-sm text-gray-500 file:mr-4 file:px-4 file:py-2.5 file:rounded-l-md file:border-0 file:text-sm file:cursor-pointer file:font-semibold file:text-justify file:bg-turquoise-500 file:text-white hover:file:bg-blue-100"
+          className="block px-0 py-0 text-sm text-gray-500 file:mr-4 file:px-4 file:py-2.5 file:rounded-l-md file:border-0 file:text-sm file:cursor-pointer file:font-semibold file:text-justify file:bg-turquoise-600 file:text-white hover:file:opacity-90"
           disabled={isUploading}
         />
         <Button
