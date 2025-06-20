@@ -101,6 +101,7 @@ export type PatientInput = {
 
 export type Query = {
   __typename?: 'Query';
+  activeServices: Array<ServiceEntity>;
   getByUserID: Array<RestEntity>;
   getConsultationByDay: Array<ConsultationEntity>;
   getConsultationById: ConsultationEntity;
@@ -158,8 +159,12 @@ export type RoleEntity = {
 
 export type ServiceEntity = {
   __typename?: 'ServiceEntity';
+  createdAt: Maybe<Scalars['DateTimeISO']['output']>;
+  description: Maybe<Scalars['String']['output']>;
   id: Scalars['Float']['output'];
+  isActive: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
+  updatedAt: Maybe<Scalars['DateTimeISO']['output']>;
 };
 
 export type SsnEntity = {
@@ -390,6 +395,21 @@ export type GetServicesQueryVariables = Exact<{ [key: string]: never }>;
 export type GetServicesQuery = {
   __typename?: 'Query';
   getServices: Array<{ __typename?: 'ServiceEntity'; id: number; name: string }>;
+};
+
+export type GetActiveServicesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetActiveServicesQuery = {
+  __typename?: 'Query';
+  activeServices: Array<{
+    __typename?: 'ServiceEntity';
+    id: number;
+    name: string;
+    description: string | null;
+    isActive: boolean;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  }>;
 };
 
 export const GetConsultationByDayDocument = gql`
@@ -1271,4 +1291,71 @@ export type GetServicesSuspenseQueryHookResult = ReturnType<typeof useGetService
 export type GetServicesQueryResult = Apollo.QueryResult<
   GetServicesQuery,
   GetServicesQueryVariables
+>;
+export const GetActiveServicesDocument = gql`
+  query getActiveServices {
+    activeServices {
+      id
+      name
+      description
+      isActive
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+/**
+ * __useGetActiveServicesQuery__
+ *
+ * To run a query within a React component, call `useGetActiveServicesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetActiveServicesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetActiveServicesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetActiveServicesQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetActiveServicesQuery, GetActiveServicesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetActiveServicesQuery, GetActiveServicesQueryVariables>(
+    GetActiveServicesDocument,
+    options
+  );
+}
+export function useGetActiveServicesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetActiveServicesQuery, GetActiveServicesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetActiveServicesQuery, GetActiveServicesQueryVariables>(
+    GetActiveServicesDocument,
+    options
+  );
+}
+export function useGetActiveServicesSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetActiveServicesQuery, GetActiveServicesQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetActiveServicesQuery, GetActiveServicesQueryVariables>(
+    GetActiveServicesDocument,
+    options
+  );
+}
+export type GetActiveServicesQueryHookResult = ReturnType<typeof useGetActiveServicesQuery>;
+export type GetActiveServicesLazyQueryHookResult = ReturnType<typeof useGetActiveServicesLazyQuery>;
+export type GetActiveServicesSuspenseQueryHookResult = ReturnType<
+  typeof useGetActiveServicesSuspenseQuery
+>;
+export type GetActiveServicesQueryResult = Apollo.QueryResult<
+  GetActiveServicesQuery,
+  GetActiveServicesQueryVariables
 >;

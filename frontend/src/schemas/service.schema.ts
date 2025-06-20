@@ -8,3 +8,16 @@ export const GET_SERVICES = gql`
     }
   }
 `;
+
+export const GET_ACTIVE_SERVICES = gql`
+  query getActiveServices {
+    activeServices {
+      id
+      name
+      description
+      isActive
+      createdAt
+      updatedAt
+    }
+  }
+`;
