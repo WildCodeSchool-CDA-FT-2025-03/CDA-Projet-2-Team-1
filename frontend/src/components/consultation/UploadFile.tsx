@@ -43,7 +43,7 @@ function UploadFile({ consultationId, onUploadSuccess }: UploadFileProps) {
       formData.append('consultationId', consultationId);
       formData.append('isConfidential', isConfidential ? 'true' : 'false');
 
-      const response = await fetch('http://localhost:7000/upload/post', {
+      const response = await fetch('/upload/post', {
         method: 'POST',
         body: formData,
       });
