@@ -2,7 +2,7 @@ name: Deployment on test server
 
 on:
   push:
-    branches: [predeploy]
+    branches: [predeploy, PCP-257-config-deploiement-predploy]
   workflow_dispatch:
 
 jobs:
