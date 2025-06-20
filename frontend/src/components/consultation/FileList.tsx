@@ -28,11 +28,11 @@ function FileList() {
       {existingFiles && existingFiles.length > 0 ? (
         <ul>
           {data?.getFilesByConsultationId.map((file) => (
-            <li key={file.id}>
-              <a href={file.path} target="_blank" rel="noopener noreferrer">
+            <a key={file.id} href={file.path} target="_blank" rel="noopener noreferrer">
+              <li className="p-2 mb-2 border rounded-md border-turquoise-500 hover:bg-turquoise-600 hover:text-white hover:opacity-90 transition-all duration-200">
                 {file.name}
-              </a>
-            </li>
+              </li>
+            </a>
           ))}
         </ul>
       ) : (
