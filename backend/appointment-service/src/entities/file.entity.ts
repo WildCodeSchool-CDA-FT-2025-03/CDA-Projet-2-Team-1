@@ -51,8 +51,6 @@ class FileEntity extends BaseEntity {
 
   @Field()
   @Column({ type: 'varchar', nullable: false, length: 64 })
-  @IsNotEmpty()
-  @IsString()
   name: string;
 
   @Field()
@@ -61,18 +59,14 @@ class FileEntity extends BaseEntity {
 
   @Field()
   @Column({ type: 'varchar', nullable: false, length: 255 })
-  @IsNotEmpty()
-  @IsString()
   path: string;
 
   @Field()
   @Column({ type: 'boolean', nullable: false, default: false })
-  @IsBoolean()
   is_confidential: boolean;
 
   @Field()
   @Column({ type: 'boolean', nullable: false, default: false })
-  @IsBoolean()
   is_deleted: boolean;
 
   @Field(() => ConsultationEntity)
