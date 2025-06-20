@@ -1,12 +1,12 @@
-import { Resolver, Query, Arg, Mutation } from 'type-graphql';
+import { Resolver, Query, Args, Mutation } from 'type-graphql';
 import ConsultationEntity from '../entities/consultation.entity';
-import FileEntity from '../entities/file.entity';
+import FileEntity, { GetFilesByConsultationIdArgs, UploadFileArgs } from '../entities/file.entity';
 
 @Resolver(FileEntity)
 class FileResolver {
   @Query(() => [FileEntity])
   async getFilesByConsultationId(
-    @Arg('consultationId', () => String) consultationId: string
+    @Args() { consultationId }: GetFilesByConsultationIdArgs
   ): Promise<FileEntity[]> {
     const consultation = await ConsultationEntity.findOne({ where: { id: consultationId } });
     if (!consultation) {
@@ -17,10 +17,7 @@ class FileResolver {
 
   @Mutation(() => FileEntity)
   async uploadFile(
-    @Arg('consultationId', () => String) consultationId: string,
-    @Arg('name', () => String) name: string,
-    @Arg('path', () => String) path: string,
-    @Arg('isConfidential', () => Boolean, { defaultValue: false }) isConfidential: boolean = false
+    @Args() { consultationId, name, path, isConfidential }: UploadFileArgs
   ): Promise<FileEntity> {
     // Récupérer la consultation
     const consultation = await ConsultationEntity.findOne({ where: { id: consultationId } });
@@ -32,7 +29,7 @@ class FileResolver {
     const fileEntity = FileEntity.create({
       name,
       path,
-      is_confidential: isConfidential,
+      is_confidential: isConfidential || false,
       is_deleted: false,
       created_at: new Date(),
       consultation,
