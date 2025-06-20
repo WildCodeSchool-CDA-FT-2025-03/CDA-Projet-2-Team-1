@@ -40,3 +40,9 @@ export const ADD_PATIENT = gql`
     addNewPatient(patient: $patient)
   }
 `;
+
+export const UPDATE_PATIENT = gql`
+  mutation UpdatePatient($data: PatientInput!) {
+  updatePatient(data: $data) {
+  }
+}`;
