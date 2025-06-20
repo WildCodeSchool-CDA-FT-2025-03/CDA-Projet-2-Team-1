@@ -1,20 +1,10 @@
 import { useState } from 'react';
+// types
+import { UploadFileProps } from '@/types/file.type';
+// styles
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Save } from 'lucide-react';
-
-interface UploadedFile {
-  id: string;
-  name: string;
-  path: string;
-  created_at: string;
-  is_confidential: boolean;
-}
-
-interface UploadFileProps {
-  consultationId: string;
-  onUploadSuccess?: (file: UploadedFile) => void;
-}
 
 function UploadFile({ consultationId, onUploadSuccess }: UploadFileProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
