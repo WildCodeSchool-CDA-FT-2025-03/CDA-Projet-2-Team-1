@@ -8,11 +8,6 @@ class ServiceResolver {
   async getServices(): Promise<ServiceEntity[]> {
     return await ServiceEntity.find();
   }
-
-  @Query(() => [ServiceEntity])
-  async activeServices(): Promise<ServiceEntity[]> {
-    return await ServiceEntity.find({ where: { isActive: true } });
-  }
 }
 
 export default ServiceResolver;

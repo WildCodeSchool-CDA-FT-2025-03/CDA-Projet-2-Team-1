@@ -1,12 +1,4 @@
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 
 import UserEntity from './user.entity';
@@ -19,24 +11,8 @@ class ServiceEntity extends BaseEntity {
   id: number;
 
   @Field()
-  @Column({ type: 'varchar', length: 100, nullable: false })
+  @Column({ type: 'varchar', length: 64, nullable: false, unique: true })
   name: string;
-
-  @Field({ nullable: true })
-  @Column({ type: 'varchar', length: 500, nullable: true })
-  description?: string;
-
-  @Field({ name: 'isActive' })
-  @Column({ type: 'boolean', default: true })
-  isActive: boolean;
-
-  @Field({ name: 'createdAt' })
-  @CreateDateColumn({ type: 'timestamptz' })
-  created_at: Date;
-
-  @Field({ name: 'updatedAt' })
-  @UpdateDateColumn({ type: 'timestamptz' })
-  updated_at: Date;
 
   @Field(() => [UserEntity])
   @OneToMany(() => UserEntity, (user) => user.service)

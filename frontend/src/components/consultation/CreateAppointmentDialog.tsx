@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatSSN, unformatSSN } from '@/utils/ssn.utility';
 import {
-  useGetActiveServicesQuery,
   useGetPatientsBasicQuery,
+  useGetServicesQuery,
   usePatientBySsnQuery,
 } from '@/gql/graphql-types';
 
@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form';
 
 const CreateAppointmentDialog = () => {
   const form = useForm<AppointmentFormData>();
-  const { data: servicesData } = useGetActiveServicesQuery();
+  const { data: servicesData } = useGetServicesQuery();
 
   const ssn = form.watch('ssn');
 
@@ -197,7 +197,7 @@ const CreateAppointmentDialog = () => {
                   onChange={(e) => form.setValue('serviceId', e.target.value)}
                 >
                   <option value="">Sélectionner un service</option>
-                  {servicesData?.activeServices.map((service) => (
+                  {servicesData?.getServices.map((service) => (
                     <option key={service.id} value={service.id}>
                       {service.name}
                     </option>
