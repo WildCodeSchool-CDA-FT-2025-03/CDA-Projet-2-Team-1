@@ -18,4 +18,3 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script_path: ./predeploy
-#
