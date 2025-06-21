@@ -20,4 +20,4 @@ echo "Cleaning current images..."
 make clean
 
 echo "Starting app on development environment..."
-#make dev test
+#make dev
