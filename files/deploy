@@ -5,6 +5,7 @@ set -e
 : ${DIR_NAME:=./care-plan}
 : ${BRANCH:=predeploy}
 : ${CMD_RUN:=predeploy}
+: ${DOCKER_COMPOSE:=docker compose}
 
 if [[ ! -d $DIR_NAME ]]; then
    echo "Directory $DIR_NAME does not exist."
@@ -20,6 +21,7 @@ if [[ "$current" != "$BRANCH" ]]; then
    git switch origin/$BRANCH
 fi
 
+export DOCKER_COMPOSE
 git pull origin $BRANCH
 
 echo "Starting app on development environment..."
