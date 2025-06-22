@@ -119,7 +119,7 @@ export default function LoginRoot() {
           to="/password/reset"
           className="w-full max-w-sm text-sm text-right text-turquoise-500 hover:text-turquoise-600 bg-transparent border-none cursor-pointer"
         >
-          Mot de passe perdu ?
+          Mot de passe perdu ? ou pas
         </Link>
       </section>
       <ToastContainer />
