@@ -49,3 +49,5 @@ test-email-integration:
 	docker stop email-service-test
 
 test: test-integration test-email-integration
+
+predeploy: dev-stop dev-clean dev

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+: ${DIR_NAME:=./care-plan}
+: ${BRANCH:=PCP-257-config-deploiement-predploy}
+: ${CMD_RUN:=predeploy}
+
+if [[ ! -d $DIR_NAME ]]; then
+   echo "Directory $DIR_NAME does not exist."
+   exit 1
+fi
+
+cd $DIR_NAME
+
+current=$(git branch | grep "\*" | awk '{print $2}')
+
+if [[ "$current" != "$BRANCH" ]]; then
+   echo "Switching to branch $BRANCH..."
+   git switch origin/$BRANCH
+fi
+
+echo "Starting app on development environment..."
+make $CMD_RUN
