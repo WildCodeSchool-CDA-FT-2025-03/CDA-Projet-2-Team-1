@@ -50,4 +50,4 @@ test-email-integration:
 
 test: test-integration test-email-integration
 
-predeploy: dev-down dev-clean dev
+predeploy: dev-down dev-clean dev-bg
