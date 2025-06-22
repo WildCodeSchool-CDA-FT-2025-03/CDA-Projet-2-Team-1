@@ -1,4 +1,4 @@
-- id: update
+- id: predeploy
   execute-command: deploy
   command-working-directory: /opt
   pass-environment-to-command:
