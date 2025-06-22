@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+set -e
+
 : ${DIR_NAME:=./care-plan}
-: ${BRANCH:=PCP-257-config-deploiement-predploy}
+: ${BRANCH:=predeploy}
 : ${CMD_RUN:=predeploy}
 
 if [[ ! -d $DIR_NAME ]]; then

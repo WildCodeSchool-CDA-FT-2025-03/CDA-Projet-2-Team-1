@@ -1,21 +1,27 @@
 - id: update
-  execute-command: make predeploy
-  command-working-directory: /home/ubuntu/care-plan
+  execute-command: deploy
+  command-working-directory: /opt
   pass-environment-to-command:
     - source: 'string'
       name: 'DOCKER_COMPOSE'
       value: 'docker-compose'
+    - source: 'string'
+      name: 'BRANCH'
+      value: 'predeploy'
+    - source: 'string'
+      name: 'CMD_RUN'
+      value: 'predeploy'
   trigger-rule:
     and:
       - match:
           type: payload-hash-sha1
-          secret: '5*Jc%YK5!sn^S67N'
+          secret: 'password'
           parameter:
             source: header
             name: X-Hub-Signature
       - match:
           type: value
-          value: refs/heads/PCP-257-config-deploiement-predploy
+          value: refs/heads/predeploy
           parameter:
             source: payload
             name: ref
