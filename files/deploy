@@ -18,5 +18,7 @@ if [[ "$current" != "$BRANCH" ]]; then
    git switch origin/$BRANCH
 fi
 
+git pull origin $BRANCH
+
 echo "Starting app on development environment..."
 make $CMD_RUN
