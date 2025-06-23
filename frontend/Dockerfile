@@ -1,13 +1,12 @@
-FROM node:lts-alpine
-
-# Crée le répertoire de travail
+FROM node:lts-alpine AS dev
 WORKDIR /app
-
-# Copie les fichiers de dépendances
 COPY *.json *.ts *.js index.html ./
 COPY public/ public/
-
-# Installation des dépendances
 RUN npm install
+CMD ["npm", "run", "dev"]
 
-CMD [ "npm", "run", "dev" ]
+FROM node:lts-alpine AS preview
+WORKDIR /app
+COPY . .
+RUN npm install && npm run build
+CMD ["npm", "run", "preview"]
