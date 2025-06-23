@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev ./src/index.ts",
+    "build": "tsc --build",
     "test:integration": "jest --config ./jest.integration.config.ts"
   },
   "devDependencies": {

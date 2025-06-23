@@ -3,7 +3,7 @@ services:
   appointment-service:
     build:
       context: ./backend/appointment-service
-    command: ['npm', 'run', 'dev']
+      target: dev
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_USER: ${DATABASE_USER}
@@ -67,6 +67,7 @@ services:
     container_name: auth-service
     build:
       context: ./backend/auth-service
+      target: dev
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_USER: ${DATABASE_USER}
@@ -86,6 +87,7 @@ services:
     container_name: email-service
     build:
       context: ./backend/email-service
+      target: dev
     environment:
       SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
       SECRET_KEY_TOKEN_EMAIL: ${SECRET_KEY_TOKEN_EMAIL}
@@ -103,6 +105,7 @@ services:
   upload-service:
     build:
       context: ./backend/upload-service
+      target: dev
     restart: unless-stopped
     volumes:
       - ./backend/upload-service/src:/app/src

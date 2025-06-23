@@ -1,13 +1,19 @@
-# Étape 1 : build
-FROM node:22.15-alpine3.20
-
-# Crée le répertoire de travail
+FROM node:22.15-alpine3.20 AS dev
 WORKDIR /app
-
-# Copie les fichiers de dépendances
 COPY package.json package-lock.json* tsconfig.json ./
-
-# Installation des dépendances
 RUN npm install
-
 COPY jest.integration.config.ts jest.integration.setup.ts ./
+CMD ["npm", "run", "dev"]
+
+FROM node:22.15-alpine3.20 AS build
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm run build
+
+FROM node:22.15-alpine3.20 AS prod
+WORKDIR /app
+COPY --from=build /app/dist ./dist
+COPY package.json package-lock.json* ./
+RUN npm install --production
+CMD ["node", "dist/index.js"]
