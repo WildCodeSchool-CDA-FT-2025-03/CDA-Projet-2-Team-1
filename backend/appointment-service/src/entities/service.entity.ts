@@ -14,7 +14,6 @@ class ServiceEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 64, nullable: false, unique: true })
   name: string;
 
-  @Field(() => [UserEntity])
   @OneToMany(() => UserEntity, (user) => user.service)
   user: UserEntity[];
 }
