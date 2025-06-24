@@ -118,7 +118,7 @@ export const PatientDialog = ({
                         id: detailData.patient.id,
                         firstname: detailData.patient.firstname,
                         lastname: detailData.patient.lastname,
-                        birthdate: detailData.patient.birthdate.toISOString(), // ✅ conversion explicite
+                        birthdate: detailData.patient.birthdate.toISOString(),
                         gender: detailData.patient.gender,
                         email: detailData.patient.email,
                         ssn: { number: detailData.patient.ssn.number },
@@ -128,7 +128,7 @@ export const PatientDialog = ({
                         },
                       }}
                       onCancel={() => setIsEditing(false)}
-                      onSuccess={() => {
+                      onSave={() => {
                         setIsEditing(false);
                         setSelectedPatient(null); // ou tu peux garder le patient affiché après édition
                       }}

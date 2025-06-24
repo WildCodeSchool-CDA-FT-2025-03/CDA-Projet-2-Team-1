@@ -1,157 +1,206 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useUpdatePatientMutation } from '@/gql/graphql-types';
+import { Patient } from '@/types/patient';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft } from 'lucide-react';
-import { PatientEditFormProps } from '@/types/patient';
 
-const PatientEditForm: React.FC<PatientEditFormProps> = ({ patient, onCancel, onSuccess }) => {
-  const [firstname, setFirstname] = useState(patient.firstname);
-  const [lastname, setLastname] = useState(patient.lastname);
-  const [birthdate, setBirthdate] = useState(patient.birthdate.slice(0, 10)); // format YYYY-MM-DD
-  const [gender, setGender] = useState(patient.gender);
-  const [email, setEmail] = useState(patient.email);
-  const [zipCode, setZipCode] = useState(patient.city.zip_code);
-  const [city, setCity] = useState(patient.city.name);
+interface PatientEditFormProps {
+  patient: Patient;
+  onCancel: () => void;
+  onSave?: () => void;
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
+const PatientEditForm: React.FC<PatientEditFormProps> = ({ patient, onCancel, onSave }) => {
+  const [formData, setFormData] = useState({
+    ...patient,
+    birthdate: patient.birthdate.slice(0, 10), // Format YYYY-MM-DD pour input[type=date]
+  });
+
+  const [updatePatient, { loading, error }] = useUpdatePatientMutation();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    if (name.startsWith('city.')) {
+      const field = name.split('.')[1];
+      setFormData((prev) => ({
+        ...prev,
+        city: {
+          ...prev.city,
+          [field]: value,
+        },
+      }));
+    } else if (name.startsWith('ssn.')) {
+      setFormData((prev) => ({
+        ...prev,
+        ssn: {
+          number: value,
+        },
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Ici tu pourras appeler ta mutation GraphQL
-    // console.log('Formulaire soumis :', {
-    //   id: patient.id,
-    //   firstname,
-    //   lastname,
-    //   birthdate,
-    //   gender,
-    //   email,
-    //   zipCode,
-    //   city,
-    // });
+    try {
+      await updatePatient({
+        variables: {
+          data: {
+            id: formData.id,
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+            birthdate: formData.birthdate,
+            gender: formData.gender,
+            email: formData.email,
+            city: {
+              name: formData.city.name,
+              zip_code: formData.city.zip_code,
+            },
+            ssn: {
+              number: formData.ssn.number,
+            },
+          },
+        },
+      });
 
-    // Appel du callback de succès (tu pourras faire mieux après la mutation)
-    onSuccess();
+      if (onSave) onSave();
+    } catch (err) {
+      console.error('Erreur lors de la mise à jour du patient :', err);
+    }
   };
 
   return (
-    <section className="w-full p-6">
-      <Button onClick={onCancel} variant="ghost" className="gap-2 pl-0 mb-6 cursor-pointer">
-        <ChevronLeft className="h-4 w-4" />
-        Annuler la modification
-      </Button>
-      <h2 className="sr-only">Modifier le patient</h2>
+    <form onSubmit={handleSubmit} className="w-full p-6 space-y-4">
+      <h2 className="text-lg font-bold">Modifier le patient</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4" aria-live="polite">
-        <fieldset className="space-y-2">
-          <legend className="text-xs font-semibold text-gray-500 mb-2">
-            N° de sécurité sociale (non modifiable)
-          </legend>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="firstname" className="block text-xs font-semibold text-gray-500">
+            Prénom
+          </label>
           <input
-            type="text"
-            value={patient.ssn.number}
-            readOnly
-            className="w-full text-lg font-semibold tracking-widest rounded px-2 py-1 bg-gray-100"
+            id="firstname"
+            name="firstname"
+            value={formData.firstname}
+            onChange={handleChange}
+            className="w-full border rounded px-2 py-1"
           />
-        </fieldset>
-
-        <ul className="space-y-4">
-          <li className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="lastname" className="block text-xs font-semibold text-gray-500">
-                Nom
-              </label>
-              <input
-                id="lastname"
-                type="text"
-                value={lastname}
-                onChange={(e) => setLastname(e.target.value)}
-                className="w-full border px-2 py-1 rounded"
-              />
-            </div>
-            <div>
-              <label htmlFor="firstname" className="block text-xs font-semibold text-gray-500">
-                Prénom
-              </label>
-              <input
-                id="firstname"
-                type="text"
-                value={firstname}
-                onChange={(e) => setFirstname(e.target.value)}
-                className="w-full border px-2 py-1 rounded"
-              />
-            </div>
-          </li>
-          <li className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="birthdate" className="block text-xs font-semibold text-gray-500">
-                Date de naissance
-              </label>
-              <input
-                id="birthdate"
-                type="date"
-                value={birthdate}
-                onChange={(e) => setBirthdate(e.target.value)}
-                className="w-full border px-2 py-1 rounded"
-              />
-            </div>
-            <div>
-              <label htmlFor="gender" className="block text-xs font-semibold text-gray-500">
-                Genre
-              </label>
-              <input
-                id="gender"
-                type="text"
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-                className="w-full border px-2 py-1 rounded"
-              />
-            </div>
-          </li>
-          <li>
-            <label htmlFor="email" className="block text-xs font-semibold text-gray-500">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full border px-2 py-1 rounded"
-            />
-          </li>
-          <li className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="zipCode" className="block text-xs font-semibold text-gray-500">
-                Code postal
-              </label>
-              <input
-                id="zipCode"
-                type="text"
-                value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
-                className="w-full border px-2 py-1 rounded"
-              />
-            </div>
-            <div>
-              <label htmlFor="city" className="block text-xs font-semibold text-gray-500">
-                Ville
-              </label>
-              <input
-                id="city"
-                type="text"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                className="w-full border px-2 py-1 rounded"
-              />
-            </div>
-          </li>
-        </ul>
-
-        <div className="pt-6">
-          <Button type="submit" className="w-full">
-            Enregistrer les modifications
-          </Button>
         </div>
-      </form>
-    </section>
+
+        <div>
+          <label htmlFor="lastname" className="block text-xs font-semibold text-gray-500">
+            Nom
+          </label>
+          <input
+            id="lastname"
+            name="lastname"
+            value={formData.lastname}
+            onChange={handleChange}
+            className="w-full border rounded px-2 py-1"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="birthdate" className="block text-xs font-semibold text-gray-500">
+            Date de naissance
+          </label>
+          <input
+            id="birthdate"
+            name="birthdate"
+            type="date"
+            value={formData.birthdate}
+            onChange={handleChange}
+            className="w-full border rounded px-2 py-1"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="gender" className="block text-xs font-semibold text-gray-500">
+            Genre
+          </label>
+          <input
+            id="gender"
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            className="w-full border rounded px-2 py-1"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="email" className="block text-xs font-semibold text-gray-500">
+          Email
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full border rounded px-2 py-1"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="city.zip_code" className="block text-xs font-semibold text-gray-500">
+            Code postal
+          </label>
+          <input
+            id="city.zip_code"
+            name="city.zip_code"
+            value={formData.city.zip_code}
+            onChange={handleChange}
+            className="w-full border rounded px-2 py-1"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="city.name" className="block text-xs font-semibold text-gray-500">
+            Ville
+          </label>
+          <input
+            id="city.name"
+            name="city.name"
+            value={formData.city.name}
+            onChange={handleChange}
+            className="w-full border rounded px-2 py-1"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="ssn.number" className="block text-xs font-semibold text-gray-500">
+          Numéro de sécurité sociale
+        </label>
+        <input
+          id="ssn.number"
+          name="ssn.number"
+          value={formData.ssn.number}
+          onChange={handleChange}
+          className="w-full border rounded px-2 py-1"
+        />
+      </div>
+
+      {error && <p className="text-sm text-red-600">Une erreur est survenue : {error.message}</p>}
+
+      <div className="flex gap-4 pt-4">
+        <Button type="submit" disabled={loading}>
+          {loading ? 'Enregistrement...' : 'Enregistrer'}
+        </Button>
+        <Button type="button" variant="ghost" onClick={onCancel}>
+          Annuler
+        </Button>
+      </div>
+    </form>
   );
 };
 

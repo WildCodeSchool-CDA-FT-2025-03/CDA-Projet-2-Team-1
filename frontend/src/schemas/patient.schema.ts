@@ -43,6 +43,20 @@ export const ADD_PATIENT = gql`
 
 export const UPDATE_PATIENT = gql`
   mutation UpdatePatient($data: PatientInput!) {
-  updatePatient(data: $data) {
+    updatePatient(data: $data) {
+      id
+      firstname
+      lastname
+      birthdate
+      gender
+      email
+      ssn {
+        number
+      }
+      city {
+        name
+        zip_code
+      }
+    }
   }
-}`;
+`;
