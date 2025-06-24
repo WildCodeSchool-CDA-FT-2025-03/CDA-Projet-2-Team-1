@@ -1,20 +1,20 @@
 import * as React from 'react';
 
-import { buttonVariants } from '@/lib/button-variants';
 import { cn } from '@/lib/utils';
-import type { VariantProps } from 'class-variance-authority';
+import { Link, LinkProps } from 'react-router';
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
+const ButtonStyle =
+  'w-full px-4 py-2 bg-main text-white rounded cursor-pointer text-base hover:opacity-90 focus:outline-2 focus:outline-blue-500 focus:outline-offset-2';
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
-    return (
-      <button className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
-    );
-  },
-);
+const Button = ({ className, type, ...props }: React.ComponentProps<'button'>) => {
+  return <button type={type} className={cn(ButtonStyle, className)} {...props} />;
+};
 Button.displayName = 'Button';
 
-export { Button, buttonVariants };
+const ButtonLink = ({ className, ...props }: LinkProps) => {
+  return (
+    <Link className={cn(`inline-block text-center ${ButtonStyle}`, className)} {...props}></Link>
+  );
+};
+
+export { Button, ButtonLink };

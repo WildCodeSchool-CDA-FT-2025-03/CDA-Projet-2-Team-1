@@ -1,16 +1,28 @@
+import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { defineConfig } from 'vite';
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
+export default defineConfig(() => {
+  return {
+    plugins: [react(), tailwindcss()],
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+      },
     },
-  },
-  root: './',
-  publicDir: './public',
+    root: './', // (facultatif, c’est la valeur par défaut)
+    publicDir: './public', // (facultatif aussi)
+    server: {
+      host: true,
+      watch: {
+        usePolling: true,
+      },
+      port: 5173,
+    },
+    preview: {
+      host: true,
+      port: 5173,
+    },
+  };
 });

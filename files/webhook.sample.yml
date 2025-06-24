@@ -1,0 +1,30 @@
+- id: predeploy
+  execute-command: deploy
+  command-working-directory: /opt
+  pass-environment-to-command:
+    - source: 'string'
+      envname: 'DOCKER_COMPOSE'
+      name: 'docker-compose'
+    - source: 'string'
+      envname: 'DOCKER_ENV'
+      name: './files/.env-dev-default'
+    - source: 'string'
+      envname: 'BRANCH'
+      name: 'predeploy'
+    - source: 'string'
+      envname: 'CMD_RUN'
+      name: 'deploy'
+  trigger-rule:
+    and:
+      - match:
+          type: payload-hash-sha1
+          secret: 'password'
+          parameter:
+            source: header
+            name: X-Hub-Signature
+      - match:
+          type: value
+          value: refs/heads/predeploy
+          parameter:
+            source: payload
+            name: ref

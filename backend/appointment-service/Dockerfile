@@ -1,33 +1,19 @@
-# Étape 1 : build
-FROM node:18-alpine AS builder
-
-# Crée le répertoire de travail
+FROM node:22.15-alpine3.20 AS dev
 WORKDIR /app
-
-# Copie les fichiers de dépendances
 COPY package.json package-lock.json* tsconfig.json ./
-
-# Installation des dépendances
 RUN npm install
+COPY jest.integration.config.ts jest.integration.setup.ts ./
+CMD ["npm", "run", "dev"]
 
-# Copie du code source
-COPY ./src ./src
-
-# Compilation TypeScript
+FROM node:22.15-alpine3.20 AS build
+WORKDIR /app
+COPY . .
+RUN npm install
 RUN npm run build
 
-# Étape 2 : image de prod
-FROM node:18-alpine
-
-# Répertoire de travail
+FROM node:22.15-alpine3.20 AS prod
 WORKDIR /app
-
-# Copie les fichiers nécessaires
+COPY --from=build /app/dist ./dist
 COPY package.json package-lock.json* ./
-RUN npm install --only=production
-
-# Copie du code compilé depuis le builder
-COPY --from=builder /app/dist ./dist
-
-# Lancement de l'application
+RUN npm install --production
 CMD ["node", "dist/index.js"]

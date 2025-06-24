@@ -1,0 +1,139 @@
+services:
+  ### Service graphql ###
+  appointment-service:
+    build:
+      context: ./backend/appointment-service
+      target: dev
+    environment:
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_SYNC: ${DATABASE_SYNC}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_HOST: ${REDIS_HOST}
+    volumes:
+      - ./backend/appointment-service/src:/app/src
+    depends_on:
+      database:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+
+  ### Base de donnees postgres ###
+  database:
+    image: 'postgres:17.4-alpine'
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - care-plan-db:/var/lib/postgresql/data/
+    healthcheck:
+      test: pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  ### Adminer ###
+  adminer:
+    image: adminer
+    ports:
+      - ${ADMINER_PORT}:8080
+    environment:
+      ADMINER_DEFAULT_SERVER: database
+    depends_on:
+      database:
+        condition: service_healthy
+
+  ### Frontend ###
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+    volumes:
+      - ./frontend/src:/app/src
+    restart: always
+
+  cache:
+    image: redis
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 2s
+      timeout: 10s
+      retries: 5
+
+  ### Auth-Service ###
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ./backend/auth-service
+      target: dev
+    environment:
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
+      DEFAULT_PASSWORD: ${DEFAULT_PASSWORD}
+    restart: unless-stopped
+    volumes:
+      - ./backend/auth-service/src:/app/src
+    depends_on:
+      database:
+        condition: service_healthy
+
+  ### Email-Service ###
+  email-service:
+    container_name: email-service
+    build:
+      context: ./backend/email-service
+      target: dev
+    environment:
+      SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
+      SECRET_KEY_TOKEN_EMAIL: ${SECRET_KEY_TOKEN_EMAIL}
+      SMTP_USER: ${MAIL_SERVER_ADMIN}
+      SMTP_PASSWORD: ${MAIL_PASSWORD}
+
+    restart: unless-stopped
+    volumes:
+      - ./backend/email-service/src:/app/src
+    depends_on:
+      database:
+        condition: service_healthy
+
+  ### Upload-Service ###
+  upload-service:
+    build:
+      context: ./backend/upload-service
+      target: dev
+    restart: unless-stopped
+    volumes:
+      - ./backend/upload-service/src:/app/src
+      - care-plan-files:/app/uploads
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      UPLOAD_SERVICE_PORT: ${UPLOAD_SERVICE_PORT}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_SYNC: ${DATABASE_SYNC}
+
+  gateway:
+    image: nginx
+    ports:
+      - 7700:80
+    volumes:
+      - ./files/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - appointment-service
+      - frontend
+      - auth-service
+    restart: always
+
+volumes:
+  care-plan-db:
+  care-plan-files:

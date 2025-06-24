@@ -1,13 +1,11 @@
 import { Outlet } from 'react-router';
-import Header from './components/header/header';
+import Header from './components/Header';
 
 function App() {
   return (
     <>
       <Header />
-      <div className="app">
-        <Outlet />
-      </div>
+      <Outlet />
     </>
   );
 }

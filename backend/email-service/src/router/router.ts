@@ -1,15 +1,12 @@
-import express from "express";
-
-// Import des controllers
-import registerController from "../controllers/registerController";
-import loginController from "../controllers/loginController";
-import resetPasswordController from "../controllers/resetPasswordController";
+import express from 'express';
+import resetPassword from '../controllers/reset.controller';
+import checkJWT from '../middlewares/checkJWT.middleware';
+import checkPayloadOrigin from '../middlewares/checkPayloadOrigin.middleware';
+import errorMiddleware from '../middlewares/errors.middleware';
 
 const router = express.Router();
 
 /* Liste des routes ! */
-router.use("/register", registerController); // 1 route fonctionnelle
-router.use("/login", loginController); // 1 route fonctionnelle
-router.use("/reset-password", resetPasswordController); // 1 route fonctionnelle
+router.post('/reset', checkJWT, checkPayloadOrigin('auth'), resetPassword, errorMiddleware);
 
 export default router;

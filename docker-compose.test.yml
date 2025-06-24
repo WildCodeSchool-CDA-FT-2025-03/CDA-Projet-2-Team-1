@@ -1,0 +1,48 @@
+services:
+  ### Service graphql ###
+  appointment-service:
+    container_name: appointment-service-test
+    build:
+      context: ./backend/appointment-service
+      target: dev
+    command: ['npm', 'run', 'test:integration']
+    environment:
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_SYNC: ${DATABASE_SYNC}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_HOST: ${REDIS_HOST}
+    volumes:
+      - ./backend/appointment-service/src:/app/src
+    depends_on:
+      database:
+        condition: service_healthy
+
+  ### Base de donnees postgres ###
+  database:
+    container_name: database-test
+    image: 'postgres:17.4-alpine'
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    healthcheck:
+      test: pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  email-service:
+    container_name: email-service-test
+    build:
+      context: ./backend/email-service
+      target: dev
+    environment:
+      SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
+      SECRET_KEY_TOKEN_EMAIL: ${SECRET_KEY_TOKEN_EMAIL}
+      SMTP_USER: ${MAIL_SERVER_ADMIN}
+      SMTP_PASSWORD: ${MAIL_PASSWORD}
+    volumes:
+      - ./backend/email-service/src:/app/src
