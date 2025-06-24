@@ -6,6 +6,7 @@ const config: Config = {
   testMatch: ['<rootDir>/src/tests-integration/**/*.test.ts'],
   moduleFileExtensions: ['js', 'ts'],
   setupFilesAfterEnv: ['./jest.integration.setup.ts'],
+  maxWorkers: 1,
 };
 
 export default config;
