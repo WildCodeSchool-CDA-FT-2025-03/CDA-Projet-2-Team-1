@@ -1,19 +1,12 @@
-import cors from 'cors';
 import express from 'express';
 import 'dotenv/config';
 import router from './router';
 
 const app = express();
 
-app.use(
-  cors({
-    credentials: true,
-  })
-);
-
 app.use(express.json());
 
-app.use('/upload', router);
+app.use('/', router);
 
 /**
  * Gestion des routes innexistante

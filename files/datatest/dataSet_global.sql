@@ -147,7 +147,37 @@ FROM consultation_data cd
 JOIN patients_numbered pn ON pn.patient_rn = cd.consult_rn
 JOIN doctors_numbered dn ON dn.doctor_rn = ((cd.consult_rn - 1) % (SELECT COUNT(*) FROM "user" WHERE role_id = 2)) + 1;
 
--- 8. INSERTION DE QUELQUES PÉRIODES DE REPOS
+-- 8. INSERTION DES FICHIERS POUR CERTAINES CONSULTATIONS
+WITH file_data AS (
+    SELECT 
+        name, created_at, path, is_confidential, is_deleted,
+        ROW_NUMBER() OVER (ORDER BY created_at) as file_rn
+    FROM (
+        VALUES 
+        ('Rapport_Medical_001.pdf', CURRENT_TIMESTAMP - INTERVAL '2 hours', '/files/consultations/rapport_001.pdf', true, false),
+        ('Analyse_Sang_001.pdf', CURRENT_TIMESTAMP - INTERVAL '1 hour', '/files/consultations/analyse_001.pdf', true, false),
+        ('Radiographie_001.jpg', CURRENT_TIMESTAMP - INTERVAL '3 hours', '/files/consultations/radio_001.jpg', true, false),
+        ('Ordonnance_001.pdf', CURRENT_TIMESTAMP - INTERVAL '30 minutes', '/files/consultations/ordo_001.pdf', false, false),
+        ('Certificat_Medical_001.pdf', CURRENT_TIMESTAMP - INTERVAL '45 minutes', '/files/consultations/cert_001.pdf', false, false)
+    ) AS f(name, created_at, path, is_confidential, is_deleted)
+),
+consultations_for_files AS (
+    SELECT id, ROW_NUMBER() OVER (ORDER BY date_start) as consult_rn 
+    FROM consultation 
+    LIMIT 5
+)
+INSERT INTO file (name, created_at, path, is_confidential, is_deleted, consultation_id)
+SELECT 
+    fd.name,
+    fd.created_at::timestamptz,
+    fd.path,
+    fd.is_confidential,
+    fd.is_deleted,
+    cf.id as consultation_id
+FROM file_data fd
+JOIN consultations_for_files cf ON cf.consult_rn = fd.file_rn;
+
+-- 9. INSERTION DE QUELQUES PÉRIODES DE REPOS
 WITH rest_data AS (
     SELECT 
         type, date_start, date_end,

@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -11,6 +12,7 @@ import { Field, ObjectType } from 'type-graphql';
 import NoteSecretaryEntity from './note-secretary.entity';
 import PatientEntity from './patient.entity';
 import UserEntity from './user.entity';
+import FileEntity from './file.entity';
 
 @ObjectType()
 @Entity('consultation')
@@ -50,6 +52,13 @@ class ConsultationEntity extends BaseEntity {
   })
   @JoinColumn({ name: 'note_secretary_id' })
   note_secretary: NoteSecretaryEntity;
+
+  @Field(() => [FileEntity])
+  @OneToMany(() => FileEntity, (file) => file.consultation, {
+    nullable: true,
+    cascade: true,
+  })
+  files: FileEntity[];
 }
 
 export default ConsultationEntity;

@@ -106,6 +106,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./backend/upload-service/src:/app/src
+      - care-plan-files:/app/uploads
     depends_on:
       database:
         condition: service_healthy
@@ -131,3 +132,4 @@ services:
 
 volumes:
   care-plan-db:
+  care-plan-files:

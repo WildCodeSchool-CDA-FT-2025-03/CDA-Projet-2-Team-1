@@ -3,7 +3,7 @@ import 'vite';
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: '/graphql',
+  schema: 'http://localhost:7000/graphql',
   documents: ['src/schemas/**/*.ts'],
   generates: {
     './src/gql/graphql-types.ts': {
