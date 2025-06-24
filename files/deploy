@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -e
+
+: ${DIR_NAME:=./care-plan}
+: ${BRANCH:=predeploy}
+: ${CMD_RUN:=predeploy}
+: ${DOCKER_COMPOSE:=docker compose}
+: ${DOCKER_COMPOSE_FILE:=./docker-compose.predeploy.yml}
+: ${DOCKER_ENV:=""}
+
+if [[ ! -d $DIR_NAME ]]; then
+   echo "Directory $DIR_NAME does not exist."
+   exit 1
+fi
+
+cd $DIR_NAME
+
+current=$(git branch | grep "\*" | awk '{print $2}')
+
+if [[ "$current" != "$BRANCH" ]]; then
+   echo "Switching to branch $BRANCH..."
+   git switch origin $BRANCH
+fi
+
+git pull origin $BRANCH
+
+echo "Starting app on development environment..."
+export DOCKER_COMPOSE DOCKER_COMPOSE_FILE DOCKER_ENV
+make $CMD_RUN

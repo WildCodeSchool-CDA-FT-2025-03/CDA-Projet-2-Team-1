@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import payloadType from '../../types/payloadTokenJWT.type';
+import { payloadType } from '../../types/payloadTokenJWT.type';
 
 function validateRole(req: Request, res: Response, next: NextFunction) {
   try {

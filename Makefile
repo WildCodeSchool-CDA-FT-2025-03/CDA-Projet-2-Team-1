@@ -1,10 +1,10 @@
 project-name=cda-projet-2-team-1
+DOCKER_COMPOSE ?=docker compose
+DOCKER_COMPOSE_FILE ?=./docker-compose.dev.yml
+DOCKER_ENV ?=./files/.env-dev-default
 
-docker-compose-dev=./docker-compose.dev.yml
-docker-compose-test=./docker-compose.test.yml
-default-env-dev=./files/.env-dev-default
-docker-dev=docker compose --env-file $(default-env-dev) -f $(docker-compose-dev)
-docker-test=docker compose --env-file $(default-env-dev) -f $(docker-compose-test)
+docker-cmd=$(DOCKER_COMPOSE) --env-file $(DOCKER_ENV) -f $(DOCKER_COMPOSE_FILE)
+docker-test=$(DOCKER_COMPOSE) --env-file $(DOCKER_ENV) -f ./docker-compose.test.yml
 
 services=appointment-service frontend auth-service upload-service
 volumes=care-plan-db care-plan-files
@@ -12,20 +12,20 @@ volumes=care-plan-db care-plan-files
 VOLUMES=$(volumes:%=$(project-name)_%)
 IMAGES=$(services:%=$(project-name)-%)
 
-dev: dev-build
-	$(docker-dev) up
+run: build
+	$(docker-cmd) up
 
-dev-bg: dev-build
-	$(docker-dev) up -d
+run-bg: build
+	$(docker-cmd) up -d
 
-dev-build:
-	$(docker-dev) build
+build:
+	$(docker-cmd) build
 
-dev-rm:
-	$(docker-dev) rm
+rm:
+	$(docker-cmd) rm
 
-dev-down:
-	$(docker-dev) down
+down:
+	$(docker-cmd) down
 	sleep 1
 
 delete-volumes:
@@ -34,9 +34,9 @@ delete-volumes:
 delete-images:
 	docker rmi -f $(IMAGES)
 
-dev-clean: dev-down dev-rm delete-images
+clean: down rm delete-images
 
-dev-prune: dev-clean delete-volumes
+prune: clean delete-volumes
 
 test-integration:
 	$(docker-test) up appointment-service --abort-on-container-exit --exit-code-from appointment-service
@@ -48,3 +48,5 @@ test-email-integration:
 	docker stop email-service-test
 
 test: test-integration test-email-integration
+
+deploy: clean run
