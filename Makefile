@@ -4,6 +4,7 @@ DOCKER_COMPOSE_FILE ?=./docker-compose.dev.yml
 DOCKER_ENV ?=./files/.env-dev-default
 
 docker-cmd=$(DOCKER_COMPOSE) --env-file $(DOCKER_ENV) -f $(DOCKER_COMPOSE_FILE)
+docker-test=$(DOCKER_COMPOSE) --env-file $(DOCKER_ENV) -f ./docker-compose.test.yml
 
 services=appointment-service frontend auth-service email-service
 volumes=care-plan-db

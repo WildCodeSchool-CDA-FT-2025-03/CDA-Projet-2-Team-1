@@ -4,6 +4,7 @@ services:
     container_name: appointment-service-test
     build:
       context: ./backend/appointment-service
+      target: dev
     command: ['npm', 'run', 'test:integration']
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
@@ -37,6 +38,7 @@ services:
     container_name: email-service-test
     build:
       context: ./backend/email-service
+      target: dev
     environment:
       SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
       SECRET_KEY_TOKEN_EMAIL: ${SECRET_KEY_TOKEN_EMAIL}
