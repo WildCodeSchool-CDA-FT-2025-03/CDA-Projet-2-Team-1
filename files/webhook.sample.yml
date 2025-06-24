@@ -3,17 +3,17 @@
   command-working-directory: /opt
   pass-environment-to-command:
     - source: 'string'
-      name: 'DOCKER_COMPOSE'
-      value: 'docker-compose'
+      envname: 'DOCKER_COMPOSE'
+      name: 'docker-compose'
     - source: 'string'
-      name: 'DOCKER_ENV'
-      value: './files/.env-dev-default'
+      envname: 'DOCKER_ENV'
+      name: './files/.env-dev-default'
     - source: 'string'
-      name: 'BRANCH'
-      value: 'predeploy'
+      envname: 'BRANCH'
+      name: 'predeploy'
     - source: 'string'
-      name: 'CMD_RUN'
-      value: 'run'
+      envname: 'CMD_RUN'
+      name: 'run'
   trigger-rule:
     and:
       - match:
