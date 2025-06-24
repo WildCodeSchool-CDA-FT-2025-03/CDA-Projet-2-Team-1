@@ -160,6 +160,7 @@ export type ServiceEntity = {
   __typename?: 'ServiceEntity';
   id: Scalars['Float']['output'];
   name: Scalars['String']['output'];
+  user: Array<UserEntity>;
 };
 
 export type SsnEntity = {

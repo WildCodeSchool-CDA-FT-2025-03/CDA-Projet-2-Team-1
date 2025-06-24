@@ -1,6 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatSSN, unformatSSN } from '@/utils/ssn.utility';
-import { useGetPatientsBasicQuery, usePatientBySsnQuery } from '@/gql/graphql-types';
+import {
+  useGetPatientsBasicQuery,
+  useGetServicesQuery,
+  usePatientBySsnQuery,
+} from '@/gql/graphql-types';
 
 import { ButtonLink } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,6 +15,7 @@ import { useForm } from 'react-hook-form';
 
 const CreateAppointmentDialog = () => {
   const form = useForm<AppointmentFormData>();
+  const { data: servicesData } = useGetServicesQuery();
 
   const ssn = form.watch('ssn');
 
@@ -32,6 +37,7 @@ const CreateAppointmentDialog = () => {
     ssn: string;
     lastname: string;
     firstname: string;
+    serviceId?: string;
   };
 
   const onSubmit = (formData: AppointmentFormData) => {
@@ -180,6 +186,23 @@ const CreateAppointmentDialog = () => {
                   <Plus className="inline" aria-hidden="true" focusable="false" />{' '}
                   {`Création d'un nouveau patient`}
                 </ButtonLink>
+              </div>
+              {/* Ajout du select service */}
+              <div>
+                <Label htmlFor="serviceId">Service *</Label>
+                <select
+                  id="serviceId"
+                  className="w-full border rounded px-3 py-2 mt-1"
+                  value={form.watch('serviceId') || ''}
+                  onChange={(e) => form.setValue('serviceId', e.target.value)}
+                >
+                  <option value="">Sélectionner un service</option>
+                  {servicesData?.getServices.map((service) => (
+                    <option key={service.id} value={service.id}>
+                      {service.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </fieldset>
           </form>

@@ -1,4 +1,5 @@
 import { Query, Resolver } from 'type-graphql';
+
 import ServiceEntity from '../entities/service.entity';
 
 @Resolver(ServiceEntity)

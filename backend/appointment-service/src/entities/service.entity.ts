@@ -1,5 +1,6 @@
-import { Field, ObjectType } from 'type-graphql';
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Field, ObjectType } from 'type-graphql';
+
 import UserEntity from './user.entity';
 
 @ObjectType()
@@ -10,7 +11,7 @@ class ServiceEntity extends BaseEntity {
   id: number;
 
   @Field()
-  @Column({ type: 'varchar', nullable: false, length: 64, unique: true })
+  @Column({ type: 'varchar', length: 64, nullable: false, unique: true })
   name: string;
 
   @OneToMany(() => UserEntity, (user) => user.service)
