@@ -1,28 +1,42 @@
+import { Outlet } from 'react-router';
+// Components
 import { ButtonLink } from '@/components/ui/button';
 import ConsultationList from '@/components/consultation/ConsultationList';
-import { Outlet } from 'react-router';
 import { PatientDialog } from '@/components/patients/PatientDialog';
-import { Plus } from 'lucide-react';
+// Utils
 import { dateToDay } from '@/utils/date.utility';
+// Styles
+import { Plus } from 'lucide-react';
 
 const SecretaryPage = () => {
   return (
     <>
-      <section className="flex gap-2 mb-4" aria-label="Actions secrétariat">
-        <ButtonLink
-          className="flex justify-center items-center gap-2 w-1/2"
-          to="appointment/creation"
-        >
-          <Plus className="inline" aria-hidden="true" focusable="false" />{' '}
-          {`Ajouter un nouveau rendez-vous`}
-        </ButtonLink>
-        <ButtonLink className="flex justify-center items-center gap-2 w-1/2" to="patient/creation">
-          <Plus className="inline" aria-hidden="true" focusable="false" />{' '}
-          {`Création d'un nouveau patient`}
-        </ButtonLink>
+      <section className="flex flex-col gap-6" aria-label="Actions secrétariat">
+        <div className="flex flex-row gap-6">
+          <ButtonLink
+            className="flex justify-center items-center gap-2 w-1/2"
+            to="appointment/creation"
+          >
+            <Plus className="inline" aria-hidden="true" focusable="false" />{' '}
+            {`Ajouter un nouveau rendez-vous`}
+          </ButtonLink>
+          <ButtonLink
+            className="flex justify-center items-center gap-2 w-1/2"
+            to="patient/creation"
+          >
+            <Plus className="inline" aria-hidden="true" focusable="false" />{' '}
+            {`Création d'un nouveau patient`}
+          </ButtonLink>
+        </div>
+        <PatientDialog />
       </section>
-      <ConsultationList date={dateToDay(new Date())} />
-      <PatientDialog />
+      <div className="flex flex-row gap-6 h-[90%]">
+        {/* Section à mettre dans le composant calendrier */}
+        <section className="w-1/2 flex flex-col justify-center items-center rounded-md border border-turquoise-600 bg-white">
+          Calendrier ici
+        </section>
+        <ConsultationList date={dateToDay(new Date())} />
+      </div>
       <Outlet />
     </>
   );
