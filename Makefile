@@ -47,3 +47,5 @@ test-email-integration:
 	docker stop email-service-test
 
 test: test-integration test-email-integration
+
+deploy: down clean run
