@@ -37,7 +37,7 @@ const AgentPage = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <section className="m-4 h-[calc(100vh-10rem)] flex flex-col">
+    <section className="h-[calc(100vh-10rem)] flex flex-col">
       <SsnSearchBar handleSubmit={handleSubmit} handleSSNChange={handleSSNChange} ssn={ssn} />
       {data && <ConsultationAgentDisplay data={data} />}
     </section>
