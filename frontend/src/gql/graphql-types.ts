@@ -131,6 +131,7 @@ export type Query = {
   getServices: Array<ServiceEntity>;
   getUsers: Array<UserEntity>;
   patient: Maybe<PatientEntity>;
+  patientBySsn: Maybe<PatientEntity>;
   patients: Array<PatientEntity>;
 };
 
@@ -160,6 +161,10 @@ export type QueryGetNoteSecretaryByConsultationIdArgs = {
 
 export type QueryPatientArgs = {
   id: Scalars['String']['input'];
+};
+
+export type QueryPatientBySsnArgs = {
+  ssn: Scalars['String']['input'];
 };
 
 export type RestEntity = {
@@ -368,6 +373,21 @@ export type GetPatientDetailsQuery = {
     email: string;
     ssn: { __typename?: 'SsnEntity'; number: string };
     city: { __typename?: 'CityEntity'; name: string; zip_code: string };
+  } | null;
+};
+
+export type PatientBySsnQueryVariables = Exact<{
+  ssn: Scalars['String']['input'];
+}>;
+
+export type PatientBySsnQuery = {
+  __typename?: 'Query';
+  patientBySsn: {
+    __typename?: 'PatientEntity';
+    id: string;
+    firstname: string;
+    lastname: string;
+    ssn: { __typename?: 'SsnEntity'; number: string };
   } | null;
 };
 
@@ -1109,6 +1129,73 @@ export type GetPatientDetailsSuspenseQueryHookResult = ReturnType<
 export type GetPatientDetailsQueryResult = Apollo.QueryResult<
   GetPatientDetailsQuery,
   GetPatientDetailsQueryVariables
+>;
+export const PatientBySsnDocument = gql`
+  query PatientBySsn($ssn: String!) {
+    patientBySsn(ssn: $ssn) {
+      id
+      firstname
+      lastname
+      ssn {
+        number
+      }
+    }
+  }
+`;
+
+/**
+ * __usePatientBySsnQuery__
+ *
+ * To run a query within a React component, call `usePatientBySsnQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePatientBySsnQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePatientBySsnQuery({
+ *   variables: {
+ *      ssn: // value for 'ssn'
+ *   },
+ * });
+ */
+export function usePatientBySsnQuery(
+  baseOptions: Apollo.QueryHookOptions<PatientBySsnQuery, PatientBySsnQueryVariables> &
+    ({ variables: PatientBySsnQueryVariables; skip?: boolean } | { skip: boolean })
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<PatientBySsnQuery, PatientBySsnQueryVariables>(
+    PatientBySsnDocument,
+    options
+  );
+}
+export function usePatientBySsnLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<PatientBySsnQuery, PatientBySsnQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<PatientBySsnQuery, PatientBySsnQueryVariables>(
+    PatientBySsnDocument,
+    options
+  );
+}
+export function usePatientBySsnSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<PatientBySsnQuery, PatientBySsnQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<PatientBySsnQuery, PatientBySsnQueryVariables>(
+    PatientBySsnDocument,
+    options
+  );
+}
+export type PatientBySsnQueryHookResult = ReturnType<typeof usePatientBySsnQuery>;
+export type PatientBySsnLazyQueryHookResult = ReturnType<typeof usePatientBySsnLazyQuery>;
+export type PatientBySsnSuspenseQueryHookResult = ReturnType<typeof usePatientBySsnSuspenseQuery>;
+export type PatientBySsnQueryResult = Apollo.QueryResult<
+  PatientBySsnQuery,
+  PatientBySsnQueryVariables
 >;
 export const AddNewPatientDocument = gql`
   mutation AddNewPatient($patient: PatientInput!) {

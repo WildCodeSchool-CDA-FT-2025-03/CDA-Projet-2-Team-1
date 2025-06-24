@@ -1,9 +1,14 @@
 import { RoleEntity, ServiceEntity } from '@/gql/graphql-types';
 
+type Genre = {
+  id: string;
+  name: string;
+};
+
 type SelectProps = {
   value: string;
   handleChange: (value: string) => void;
-  list: RoleEntity[] | ServiceEntity[];
+  list: RoleEntity[] | ServiceEntity[] | Genre[];
   field: 'name';
   label: string;
 };

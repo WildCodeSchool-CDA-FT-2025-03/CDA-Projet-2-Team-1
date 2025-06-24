@@ -9,4 +9,11 @@ type payloadType = {
   iat: number; // Date de création du token
 };
 
-export default payloadType;
+type ResetForEmailServicePayload = {
+  userId: string;
+  email: string;
+  resetUrl: string;
+  serviceOrigin: string;
+};
+
+export { payloadType, ResetForEmailServicePayload };

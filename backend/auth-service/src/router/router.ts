@@ -2,10 +2,14 @@ import express from 'express';
 
 // Import des controllers
 import loginController from '../controllers/loginController';
+import resetController from '../controllers/resetController';
+import registersController from '../controllers/registersController';
 
 const router = express.Router();
 
 /* Liste des routes ! */
 router.use('/login', loginController); // 1 route fonctionnelle
+router.use('/reset', resetController);
+router.use('/register', registersController);
 
 export default router;

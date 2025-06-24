@@ -8,15 +8,14 @@ const loginController = express.Router();
 import validateLoginQuery from '../middleware/VerifyKeys/validateLoginQuery.middleware';
 
 // Import des Repositories :
-import verifyEmailTrueRepository from '../repository/user.repository';
+import { verifyUserByEmail } from '../repository/user.repository';
 
 // Import des Types :
-import userTableType from '../types/userTable.type';
+import { type UserType } from '../types/userTable.type';
 
 // Import des utils
 import { verifyPasswordArgonUtils } from '../utils/Argon.utils';
 import { createJwtTokenServerCarePlan } from '../utils/jwtTokenCarePlan.utils';
-import { createDateNumberUtils } from '../utils/createDateUtils';
 
 // URI : /auth/login
 loginController.post(
@@ -28,7 +27,7 @@ loginController.post(
   async (req: Request, res: Response) => {
     try {
       /* Logique métier 1 : Vérification si l'email existe */
-      const dataUser: userTableType | null = await verifyEmailTrueRepository(req.body.email);
+      const dataUser: UserType | null = await verifyUserByEmail(req.body.email);
 
       if (dataUser === null) {
         res.status(401).json({ message: 'Email ou mot de passe incorrect' });
@@ -65,10 +64,6 @@ loginController.post(
         return;
       }
 
-      /* Logique métier 5 : Création d'une variable d'expiratation */
-      const dateNow: number = await createDateNumberUtils(); // Date actuelle en timestamp UNIX
-      const exp = dateNow + 60 * 60 * 1000; // ajoute 1h en ms
-
       /* Logique métier 6 : Réponse au client */
       res
         .status(200)
@@ -82,8 +77,6 @@ loginController.post(
           data: {
             role_id: dataUser.role_id,
             service_id: dataUser.service_id,
-            created_at: dataUser.created_at,
-            exp: exp,
           },
         });
       return;

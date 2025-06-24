@@ -16,12 +16,7 @@ const SecretaryPage = () => {
           <Plus className="inline" aria-hidden="true" focusable="false" />{' '}
           {`Ajouter un nouveau rendez-vous`}
         </ButtonLink>
-        <ButtonLink
-          className="flex justify-center items-center gap-2 w-1/2"
-          to="patient/creation"
-          aria-label="Créer un nouveau patient"
-          title="Créer un nouveau patient"
-        >
+        <ButtonLink className="flex justify-center items-center gap-2 w-1/2" to="patient/creation">
           <Plus className="inline" aria-hidden="true" focusable="false" />{' '}
           {`Création d'un nouveau patient`}
         </ButtonLink>
