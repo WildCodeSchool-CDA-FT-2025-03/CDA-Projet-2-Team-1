@@ -48,4 +48,4 @@ test-email-integration:
 
 test: test-integration test-email-integration
 
-deploy: down clean run
+deploy: clean run
