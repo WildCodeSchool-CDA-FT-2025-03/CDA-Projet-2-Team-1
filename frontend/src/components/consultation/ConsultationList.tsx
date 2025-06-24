@@ -27,7 +27,6 @@ export default function ConsultationList({ date }: ConsultationProps) {
       <div className="p-4 pb-2 flex-shrink-0">
         <h2 className="text-2xl font-semibold">Liste des patients par horaires</h2>
       </div>
-
       {/* Header de la table - fixe */}
       <div className="flex-shrink-0">
         <Table className="table-auto w-full">
@@ -42,7 +41,6 @@ export default function ConsultationList({ date }: ConsultationProps) {
           </TableHeader>
         </Table>
       </div>
-
       {/* Contenu scrollable de la table */}
       <div className="overflow-y-auto h-full">
         <Table className="table-auto w-full">
