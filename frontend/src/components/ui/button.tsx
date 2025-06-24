@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { Link, LinkProps } from 'react-router'; // ⚠️ ajusté si tu utilises react-router-dom
+import { Link, LinkProps } from 'react-router';
 
 // Définition des variantes (design system)
 const buttonVariants = cva(
@@ -50,5 +50,4 @@ const ButtonLink = React.forwardRef<
 });
 ButtonLink.displayName = 'ButtonLink';
 
-// ✅ On garde exactement les mêmes exports qu'avant
 export { Button, ButtonLink };
