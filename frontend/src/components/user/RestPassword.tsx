@@ -35,7 +35,7 @@ function RestPassword() {
   return (
     <form
       className="w-full max-w-sm flex flex-col items-center gap-4"
-      aria-label="Formulaire de réinitialisation de mot de passe"
+      aria-label="Formulaire de réinitialisation de mot de passe 2"
       onSubmit={handleSubmit(onSubmit)}
     >
       <InputLabel
