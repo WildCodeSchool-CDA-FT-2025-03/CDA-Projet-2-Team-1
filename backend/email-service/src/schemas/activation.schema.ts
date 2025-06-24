@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-export const resetPasswordSchema = Joi.object({
+export const activationAccountSchema = Joi.object({
   userId: Joi.string().uuid().required(),
   email: Joi.string().email().required(),
   activationUrl: Joi.string().required(),
