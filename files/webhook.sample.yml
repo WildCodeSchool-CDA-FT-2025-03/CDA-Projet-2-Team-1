@@ -13,7 +13,7 @@
       name: 'predeploy'
     - source: 'string'
       envname: 'CMD_RUN'
-      name: 'run'
+      name: 'deploy'
   trigger-rule:
     and:
       - match:
