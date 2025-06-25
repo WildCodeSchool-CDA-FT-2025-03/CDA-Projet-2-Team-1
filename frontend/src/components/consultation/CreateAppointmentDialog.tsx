@@ -208,6 +208,7 @@ const CreateAppointmentDialog = () => {
                     id="serviceId"
                     className="w-full border rounded px-3 py-2 mt-1"
                     value={form.watch('serviceId') || ''}
+                    required
                     onChange={(e) => {
                       form.setValue('serviceId', e.target.value);
                       form.setValue('doctorId', ''); // reset doctor quand service change
