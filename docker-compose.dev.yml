@@ -50,6 +50,7 @@ services:
   frontend:
     build:
       context: ./frontend
+      target: dev
     volumes:
       - ./frontend/src:/app/src
     restart: always

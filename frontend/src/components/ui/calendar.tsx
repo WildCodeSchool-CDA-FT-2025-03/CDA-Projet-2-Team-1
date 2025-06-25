@@ -1,46 +1,44 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { DayPicker } from 'react-day-picker';
-import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+// import { buttonVariants } from '@/components/ui/button';
+// import { cn } from '@/lib/utils';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
-function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
+// const defaultClassNames = getDefaultClassNames();
+
+function Calendar({ /*className, classNames,*/ showOutsideDays = true, ...props }: CalendarProps) {
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn('h-full flex flex-col', className)}
+      // className={cn('h-full flex flex-col', className)}
       classNames={{
-        months: 'h-full flex flex-col',
-        month: 'h-full flex flex-col',
-        caption: 'flex justify-center pt-1 pb-4 relative items-center',
-        caption_label: 'text-sm font-medium text-gray-900',
-        nav: 'space-x-1 flex items-center',
-        nav_button: cn(
-          buttonVariants({ variant: 'outline' }),
-          'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100'
-        ),
-        nav_button_previous: 'absolute left-1',
-        nav_button_next: 'absolute right-1',
-        table: 'w-full flex-1 border-collapse space-y-1',
-        head_row: 'flex w-full justify-between',
-        head_cell: 'text-gray-900 rounded-md w-9 font-normal text-[0.8rem]',
-        row: 'flex w-full mt-2 justify-between',
-        cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
-        day: cn(
-          buttonVariants({ variant: 'ghost' }),
-          'h-9 w-9 p-0 font-normal aria-selected:opacity-100 hover:bg-[#0395d3] hover:text-white'
-        ),
-        day_range_end: 'day-range-end',
+        root: 'w-full h-full flex flex-col',
+        months: 'flex-1 flex flex-col',
+        month: 'flex-1 flex flex-col space-y-4',
+        caption: 'flex justify-between items-center mb-4 px-4',
+        caption_label: 'text-xl font-semibold text-gray-800',
+        nav: 'flex gap-2',
+        nav_button:
+          'w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 hover:bg-gray-100 transition-colors',
+        nav_button_previous: '',
+        nav_button_next: '',
+        table: 'w-full h-full border-collapse',
+        head: '',
+        head_row: 'grid grid-cols-7 w-full',
+        head_cell: 'text-center py-3 text-sm font-medium text-gray-600 uppercase tracking-wide',
+        tbody: 'flex-1',
+        row: 'grid grid-cols-7 w-full',
+        cell: 'p-1',
+        day: 'text-center aspect-square size-[50px] mtext-sm font-medium rounded-lg border border-transparent hover:bg-blue-50 hover:border-blue-200 transition-all duration-200 cursor-pointer',
+        day_today: 'bg-main border-blue-300 text-blue-800 font-semibold',
         day_selected:
-          'bg-[#0395d3] text-white hover:bg-[#0395d3] hover:text-white focus:bg-[#0395d3] focus:text-white',
-        day_today: 'bg-[#0395d3] text-white font-bold',
-        day_outside:
-          'day-outside text-gray-500 opacity-50 aria-selected:bg-accent/50 aria-selected:text-gray-500 aria-selected:opacity-30',
-        day_disabled: 'text-gray-500 opacity-50',
-        day_range_middle: 'aria-selected:bg-[#0395d3] aria-selected:text-white',
+          'bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700',
+        day_outside: 'text-gray-400 hover:bg-gray-50',
+        day_disabled:
+          'text-gray-300 cursor-not-allowed hover:bg-transparent hover:border-transparent',
         day_hidden: 'invisible',
-        ...classNames,
+        // ...classNames,
       }}
       components={{
         IconLeft: () => <ChevronLeft className="h-4 w-4" />,
