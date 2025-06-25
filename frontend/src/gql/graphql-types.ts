@@ -121,6 +121,7 @@ export type PatientInput = {
 
 export type Query = {
   __typename?: 'Query';
+  doctorsByService: Array<UserEntity>;
   getByUserID: Array<RestEntity>;
   getConsultationByDay: Array<ConsultationEntity>;
   getConsultationById: ConsultationEntity;
@@ -133,6 +134,10 @@ export type Query = {
   patient: Maybe<PatientEntity>;
   patientBySsn: Maybe<PatientEntity>;
   patients: Array<PatientEntity>;
+};
+
+export type QueryDoctorsByServiceArgs = {
+  serviceId: Scalars['Int']['input'];
 };
 
 export type QueryGetByUserIdArgs = {
@@ -185,7 +190,6 @@ export type ServiceEntity = {
   __typename?: 'ServiceEntity';
   id: Scalars['Float']['output'];
   name: Scalars['String']['output'];
-  user: Array<UserEntity>;
 };
 
 export type SsnEntity = {
@@ -443,6 +447,22 @@ export type GetServicesQueryVariables = Exact<{ [key: string]: never }>;
 export type GetServicesQuery = {
   __typename?: 'Query';
   getServices: Array<{ __typename?: 'ServiceEntity'; id: number; name: string }>;
+};
+
+export type GetDoctorsByServiceQueryVariables = Exact<{
+  serviceId: Scalars['Int']['input'];
+}>;
+
+export type GetDoctorsByServiceQuery = {
+  __typename?: 'Query';
+  doctorsByService: Array<{
+    __typename?: 'UserEntity';
+    id: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    service: { __typename?: 'ServiceEntity'; id: number; name: string } | null;
+  }>;
 };
 
 export const GetConsultationByDayDocument = gql`
@@ -1463,4 +1483,83 @@ export type GetServicesSuspenseQueryHookResult = ReturnType<typeof useGetService
 export type GetServicesQueryResult = Apollo.QueryResult<
   GetServicesQuery,
   GetServicesQueryVariables
+>;
+export const GetDoctorsByServiceDocument = gql`
+  query GetDoctorsByService($serviceId: Int!) {
+    doctorsByService(serviceId: $serviceId) {
+      id
+      firstname
+      lastname
+      email
+      service {
+        id
+        name
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetDoctorsByServiceQuery__
+ *
+ * To run a query within a React component, call `useGetDoctorsByServiceQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDoctorsByServiceQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDoctorsByServiceQuery({
+ *   variables: {
+ *      serviceId: // value for 'serviceId'
+ *   },
+ * });
+ */
+export function useGetDoctorsByServiceQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetDoctorsByServiceQuery,
+    GetDoctorsByServiceQueryVariables
+  > &
+    ({ variables: GetDoctorsByServiceQueryVariables; skip?: boolean } | { skip: boolean })
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetDoctorsByServiceQuery, GetDoctorsByServiceQueryVariables>(
+    GetDoctorsByServiceDocument,
+    options
+  );
+}
+export function useGetDoctorsByServiceLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetDoctorsByServiceQuery,
+    GetDoctorsByServiceQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetDoctorsByServiceQuery, GetDoctorsByServiceQueryVariables>(
+    GetDoctorsByServiceDocument,
+    options
+  );
+}
+export function useGetDoctorsByServiceSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetDoctorsByServiceQuery, GetDoctorsByServiceQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetDoctorsByServiceQuery, GetDoctorsByServiceQueryVariables>(
+    GetDoctorsByServiceDocument,
+    options
+  );
+}
+export type GetDoctorsByServiceQueryHookResult = ReturnType<typeof useGetDoctorsByServiceQuery>;
+export type GetDoctorsByServiceLazyQueryHookResult = ReturnType<
+  typeof useGetDoctorsByServiceLazyQuery
+>;
+export type GetDoctorsByServiceSuspenseQueryHookResult = ReturnType<
+  typeof useGetDoctorsByServiceSuspenseQuery
+>;
+export type GetDoctorsByServiceQueryResult = Apollo.QueryResult<
+  GetDoctorsByServiceQuery,
+  GetDoctorsByServiceQueryVariables
 >;

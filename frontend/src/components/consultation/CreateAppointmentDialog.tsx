@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatSSN, unformatSSN } from '@/utils/ssn.utility';
 import {
+  useGetDoctorsByServiceQuery,
   useGetPatientsBasicQuery,
   useGetServicesQuery,
   usePatientBySsnQuery,
@@ -26,6 +27,16 @@ const CreateAppointmentDialog = () => {
 
   const { data: patientsData, loading: loadingPatients } = useGetPatientsBasicQuery();
 
+  const serviceId = form.watch('serviceId');
+  const {
+    data: doctorsData,
+    loading: loadingDoctors,
+    error: errorDoctors,
+  } = useGetDoctorsByServiceQuery({
+    variables: { serviceId: Number(serviceId) },
+    skip: !serviceId,
+  });
+
   useEffect(() => {
     if (data?.patientBySsn) {
       form.setValue('lastname', data.patientBySsn.lastname);
@@ -38,6 +49,7 @@ const CreateAppointmentDialog = () => {
     lastname: string;
     firstname: string;
     serviceId?: string;
+    doctorId?: string;
   };
 
   const onSubmit = (formData: AppointmentFormData) => {
@@ -187,22 +199,54 @@ const CreateAppointmentDialog = () => {
                   {`Création d'un nouveau patient`}
                 </ButtonLink>
               </div>
-              {/* Ajout du select service */}
-              <div>
-                <Label htmlFor="serviceId">Service *</Label>
-                <select
-                  id="serviceId"
-                  className="w-full border rounded px-3 py-2 mt-1"
-                  value={form.watch('serviceId') || ''}
-                  onChange={(e) => form.setValue('serviceId', e.target.value)}
-                >
-                  <option value="">Sélectionner un service</option>
-                  {servicesData?.getServices.map((service) => (
-                    <option key={service.id} value={service.id}>
-                      {service.name}
+              {/* Champs Service et Médecin côte à côte */}
+              <div className="flex flex-col md:flex-row gap-4">
+                {/* Select Service */}
+                <div className="flex-1">
+                  <Label htmlFor="serviceId">Service *</Label>
+                  <select
+                    id="serviceId"
+                    className="w-full border rounded px-3 py-2 mt-1"
+                    value={form.watch('serviceId') || ''}
+                    required
+                    onChange={(e) => {
+                      form.setValue('serviceId', e.target.value);
+                      form.setValue('doctorId', ''); // reset doctor quand service change
+                    }}
+                  >
+                    <option value="">Sélectionner un service</option>
+                    {servicesData?.getServices.map((service) => (
+                      <option key={service.id} value={service.id}>
+                        {service.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {/* Select Médecin */}
+                <div className="flex-1">
+                  <Label htmlFor="doctorId">Médecin *</Label>
+                  <select
+                    id="doctorId"
+                    className="w-full border rounded px-3 py-2 mt-1"
+                    value={form.watch('doctorId') || ''}
+                    onChange={(e) => form.setValue('doctorId', e.target.value)}
+                    required
+                    disabled={!serviceId || loadingDoctors}
+                  >
+                    <option value="">
+                      {loadingDoctors
+                        ? 'Chargement...'
+                        : errorDoctors
+                          ? 'Erreur lors du chargement'
+                          : 'Sélectionner un médecin'}
                     </option>
-                  ))}
-                </select>
+                    {doctorsData?.doctorsByService.map((doctor) => (
+                      <option key={doctor.id} value={doctor.id}>
+                        {doctor.firstname} {doctor.lastname}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </fieldset>
           </form>
