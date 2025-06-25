@@ -13,6 +13,7 @@ export const PatientDetail: React.FC<PatientDetailProps> = ({
   zipCode,
   city,
   onShowDetail,
+  onStartEdit,
 }) => {
   // Formatage de la date ISO string en JJ/MM/AAAA
   const formatDate = (isoString: string): string => {
@@ -150,6 +151,10 @@ export const PatientDetail: React.FC<PatientDetailProps> = ({
           </li>
         </ul>
       </form>
+      <br />
+      <Button onClick={onStartEdit} variant="ghost" className="gap-2 pl-0 mb-6 cursor-pointer">
+        Modifier
+      </Button>
     </section>
   );
 };

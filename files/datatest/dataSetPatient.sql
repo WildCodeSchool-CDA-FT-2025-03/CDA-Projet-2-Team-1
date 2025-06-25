@@ -73,7 +73,7 @@ INSERT INTO "city" ("id", "name", "zip_code") VALUES
 ('c07ac819-54e9-407a-a07f-50c772bfa7cf',	'Dordogne',	'24000'),
 ('de8923c3-0339-4b1d-b751-898797a325ad',	'Doubs',	'25000'),
 ('cae4e410-9d42-494f-8bf3-662254b50bd2',	'Drôme',	'26000'),
-('5472c943-44cc-43a7-978e-ace6f490262f',	'Haute-Marne',	'92140'),
+('5472c943-44cc-43a7-978e-ace6f490262f',	'Haute-Marne',	'52000'),
 ('8c9c7961-9068-4261-8a9f-40aceeb3728a',	'Mayenne',	'53100'),
 ('fe889159-7ae8-4f76-878c-20892c53f234',	'Meurthe-et-Moselle',	'54000'),
 ('6d3ecf49-dc8f-44ca-a782-23d228514020',	'Meuse',	'55000'),
