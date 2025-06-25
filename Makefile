@@ -3,7 +3,7 @@ project-name=cda-projet-2-team-1
 docker-compose-dev=./docker-compose.dev.yml
 docker-compose-test=./docker-compose.test.yml
 default-env-dev=./files/.env-dev-default
-docker-dev=docker-compose --env-file $(default-env-dev) -f $(docker-compose-dev)
+docker-dev=docker compose --env-file $(default-env-dev) -f $(docker-compose-dev)
 docker-test=docker compose --env-file $(default-env-dev) -f $(docker-compose-test)
 
 services=appointment-service frontend auth-service
