@@ -5,13 +5,21 @@ import { ButtonLink } from '@/components/ui/button';
 import ConsultationList from '@/components/consultation/ConsultationList';
 import { PatientDialog } from '@/components/patients/PatientDialog';
 // Utils
-import { dateToDay } from '@/utils/date.utility';
 // Styles
 import { Plus } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 
 const SecretaryPage = () => {
   const [date, setDate] = useState(new Date());
+
+  const setDateFromCalendar = (d: Date) => {
+    if (d) {
+      d.setHours(5);
+      setDate(d);
+    } else {
+      setDate(new Date());
+    }
+  };
   return (
     <>
       <section className="flex flex-col gap-6" aria-label="Actions secrétariat">
@@ -36,9 +44,10 @@ const SecretaryPage = () => {
       <div className="flex flex-row gap-6 h-[90%]">
         {/* Section à mettre dans le composant calendrier */}
         <section className="w-1/2 flex flex-col justify-center items-center rounded-md border border-turquoise-600 bg-white">
-          <Calendar mode="single" selected={date} onSelect={setDate} />
+          <Calendar mode="single" selected={date} onSelect={setDateFromCalendar} />
         </section>
-        <ConsultationList date={dateToDay(new Date())} />
+        <ConsultationList date={date} />
+        {/* <ConsultationList date={dateToDay(date)} /> */}
       </div>
       <Outlet />
     </>
