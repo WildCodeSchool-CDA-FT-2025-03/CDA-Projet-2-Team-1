@@ -12,7 +12,6 @@ import SecretaryPage from '../pages/SecretaryPage';
 import { createBrowserRouter } from 'react-router';
 import RestPassword from '@/components/user/RestPassword';
 
-
 const router = createBrowserRouter([
   //TOFIX: rework LoginPage avec HomePage
   {

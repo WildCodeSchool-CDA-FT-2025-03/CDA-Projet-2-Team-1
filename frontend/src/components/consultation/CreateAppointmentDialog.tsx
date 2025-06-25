@@ -2,8 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatSSN, unformatSSN } from '@/utils/ssn.utility';
 import { useGetPatientsBasicQuery, usePatientBySsnQuery } from '@/gql/graphql-types';
 
+import { ButtonLink } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Plus } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -61,7 +63,7 @@ const CreateAppointmentDialog = () => {
                 <Input
                   id="ssn"
                   maxLength={21}
-                  className={form.formState.errors.ssn ? 'border-red-500' : ''}
+                  className={`${form.formState.errors.ssn ? 'border-red-500' : ''} mb-[1em]`}
                   placeholder="N° de sécu"
                   aria-required="true"
                   aria-invalid={!!form.formState.errors.ssn}
@@ -137,7 +139,7 @@ const CreateAppointmentDialog = () => {
                   </Label>
                   <Input
                     id="lastname"
-                    className={form.formState.errors.lastname ? 'border-red-500' : ''}
+                    className={`${form.formState.errors.lastname ? 'border-red-500' : ''} mb-[1em]`}
                     placeholder="Nom"
                     readOnly={!!data?.patientBySsn}
                     aria-required="true"
@@ -156,7 +158,7 @@ const CreateAppointmentDialog = () => {
                   </Label>
                   <Input
                     id="firstname"
-                    className={form.formState.errors.firstname ? 'border-red-500' : ''}
+                    className={`${form.formState.errors.lastname ? 'border-red-500' : ''} mb-[1em]`}
                     placeholder="Prénom"
                     readOnly={!!data?.patientBySsn}
                     aria-required="true"
@@ -169,6 +171,15 @@ const CreateAppointmentDialog = () => {
                     </p>
                   )}
                 </div>
+              </div>
+              <div>
+                <ButtonLink
+                  className="flex justify-center items-center gap-2 w-full"
+                  to="/secretary/patient/creation"
+                >
+                  <Plus className="inline" aria-hidden="true" focusable="false" />{' '}
+                  {`Création d'un nouveau patient`}
+                </ButtonLink>
               </div>
             </fieldset>
           </form>
