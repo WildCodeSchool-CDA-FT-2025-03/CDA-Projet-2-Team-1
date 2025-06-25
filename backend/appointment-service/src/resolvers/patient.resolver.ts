@@ -8,9 +8,8 @@ import Gender from '../types/gender';
 
 @InputType()
 class PatientInput {
-  @Field()
-  @IsNotEmpty()
-  id: string;
+  @Field({ nullable: true })
+  id?: string;
 
   @Field()
   @IsNotEmpty()
