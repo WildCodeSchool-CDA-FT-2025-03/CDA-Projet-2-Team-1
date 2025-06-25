@@ -19,7 +19,7 @@ export const PatientDialog = ({
   const openButtonRef = useRef<HTMLButtonElement>(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Requête pour la liste basique des patients
+  // Requête pour la liste basique des patients.
   const {
     data: basicData,
     loading: basicLoading,
