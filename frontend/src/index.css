@@ -1,9 +1,14 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-turquoise-50: #fafdff;
+  --color-turquoise-50: #f0f8ff;
   --color-turquoise-500: #0395d3;
-  --color-turquoise-600: #027fb5;
+  --color-turquoise-600: #0379ae;
 
   --color-main: var(--color-turquoise-600);
+}
+
+#root {
+  min-height: 100vh;
+  background-color: var(--color-turquoise-50);
 }

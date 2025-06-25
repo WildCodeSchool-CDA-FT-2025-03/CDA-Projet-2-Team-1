@@ -5,7 +5,9 @@ function App() {
   return (
     <>
       <Header />
-      <Outlet />
+      <main className="h-[calc(100vh-10rem)] flex flex-col gap-8 p-4 md:p-8 lg:p-12 xl:p-16">
+        <Outlet />
+      </main>
     </>
   );
 }

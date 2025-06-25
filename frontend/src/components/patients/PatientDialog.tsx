@@ -1,12 +1,15 @@
+import { useRef, useState } from 'react';
+// Components
+import { Button } from '../ui/button';
+import PatientDetail from './PatientDetail';
+import { PatientList } from './PatientList';
+// Types
 import {
   GetPatientsBasicQuery,
   useGetPatientDetailsLazyQuery,
   useGetPatientsBasicQuery,
 } from '@/gql/graphql-types';
 import { type Patient } from '@/types/patient';
-import { useRef, useState } from 'react';
-import PatientDetail from './PatientDetail';
-import { PatientList } from './PatientList';
 
 export const PatientDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,16 +50,15 @@ export const PatientDialog = () => {
 
   return (
     <>
-      <button
+      <Button
         ref={openButtonRef}
-        className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer text-base hover:opacity-90 focus:outline-2 focus:outline-blue-500 focus:outline-offset-2"
         onClick={() => setIsOpen(true)}
         aria-expanded={isOpen}
         aria-controls="patients-modal"
         aria-haspopup="dialog"
       >
         Voir les patients
-      </button>
+      </Button>
       {isOpen && (
         <>
           <div
