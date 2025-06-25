@@ -118,7 +118,7 @@ export const PatientDialog = ({
                         id: detailData.patient.id,
                         firstname: detailData.patient.firstname,
                         lastname: detailData.patient.lastname,
-                        birthdate: detailData.patient.birthdate.toISOString(),
+                        birthdate: new Date(detailData.patient.birthdate).toISOString(),
                         gender: detailData.patient.gender,
                         email: detailData.patient.email,
                         ssn: { number: detailData.patient.ssn.number },

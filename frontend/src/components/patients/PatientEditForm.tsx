@@ -12,7 +12,7 @@ interface PatientEditFormProps {
 const PatientEditForm: React.FC<PatientEditFormProps> = ({ patient, onCancel, onSave }) => {
   const [formData, setFormData] = useState({
     ...patient,
-    birthdate: patient.birthdate.slice(0, 10), // Format YYYY-MM-DD pour input[type=date]
+    birthdate: patient.birthdate.slice(0, 10), // Format YYYY-MM-DD
   });
 
   const [updatePatient, { loading, error }] = useUpdatePatientMutation();
@@ -21,7 +21,7 @@ const PatientEditForm: React.FC<PatientEditFormProps> = ({ patient, onCancel, on
     const { name, value } = e.target;
 
     if (name.startsWith('city.')) {
-      const field = name.split('.')[1];
+      const field = name.split('.')[1] as keyof typeof formData.city;
       setFormData((prev) => ({
         ...prev,
         city: {
@@ -30,10 +30,12 @@ const PatientEditForm: React.FC<PatientEditFormProps> = ({ patient, onCancel, on
         },
       }));
     } else if (name.startsWith('ssn.')) {
+      const field = name.split('.')[1] as keyof typeof formData.ssn;
       setFormData((prev) => ({
         ...prev,
         ssn: {
-          number: value,
+          ...prev.ssn,
+          [field]: value,
         },
       }));
     } else {
