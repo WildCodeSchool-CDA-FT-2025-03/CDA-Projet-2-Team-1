@@ -1,36 +1,38 @@
 import { Request, Response } from 'express';
-
+import { sign } from 'jsonwebtoken';
 import transporter from '../services/mailer.service';
 import getEmailTemplate from '../utils/template.util';
 import { HttpError } from '../types/error.type';
 import logger from '../services/logger.service';
+import { activationAccountSchema } from '../schemas/activation.schema';
+import { ActivationAccountPayload } from '../types/activation.type';
 
 async function accountActivation(_req: Request, res: Response) {
   if (!process.env.SECRET_KEY_TOKEN_EMAIL) {
     throw new HttpError(401, 'Missing secret email key');
   }
 
-  /*const payloadAuth = res.locals.payload;
+  const payloadAuth = res.locals.payload;
 
-  const { error } = resetPasswordSchema.validate(payloadAuth);
+  const { error } = activationAccountSchema.validate(payloadAuth);
   if (error) {
     throw new HttpError(422, error.message);
-  }*/
+  }
 
   try {
-    const emailTemplate = getEmailTemplate('reset.view.hbs');
+    const emailTemplate = getEmailTemplate('activation.view.hbs');
 
-    /*const payloadEmail: ResetPasswordPayload = {
-      userId: '1'
-    };*/
+    const payloadEmail: ActivationAccountPayload = {
+      userId: payloadAuth.userId,
+    };
 
-    /*const token = sign(payloadEmail, process.env.SECRET_KEY_TOKEN_EMAIL, { expiresIn: '1h' });*/
+    const token = sign(payloadEmail, process.env.SECRET_KEY_TOKEN_EMAIL, { expiresIn: '1h' });
 
     const mailOptions = {
       from: process.env.SMTP_USER,
-      to: 'fsebal91@gmail.com',
+      to: payloadAuth.email,
       subject: 'activez votre compte carepan',
-      html: emailTemplate({ url: `` }),
+      html: emailTemplate({ url: `${payloadAuth.activationUrl}?token=${token}` }),
     };
 
     await transporter.sendMail(mailOptions);

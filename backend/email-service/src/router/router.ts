@@ -9,5 +9,5 @@ const router = express.Router();
 
 /* Liste des routes ! */
 router.post('/reset', checkJWT, checkPayloadOrigin('auth'), resetPassword, errorMiddleware);
-router.post('/activation', accountActivation, errorMiddleware);
+router.post('/activation', checkJWT, accountActivation, errorMiddleware);
 export default router;
