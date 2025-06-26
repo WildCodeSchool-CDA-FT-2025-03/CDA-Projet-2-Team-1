@@ -16,7 +16,7 @@ export default function Header() {
         />
       </Link>
       <ButtonLink
-        className="flex flex-row items-center justify-center gap-2 border border-gray-500 bg-white text-black"
+        className="flex flex-row items-center justify-center gap-2 border border-gray-500 bg-white text-black hover:bg-gray-200"
         to="/"
       >
         Déconnexion

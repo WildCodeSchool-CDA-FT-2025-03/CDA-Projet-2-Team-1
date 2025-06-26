@@ -8,7 +8,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 // Utils
-import { dateToTime } from '@/utils/date.utility';
+import { formatTime } from '@/utils/date.utility';
 // Types
 import { useGetConsultationByDayQuery } from '@/gql/graphql-types';
 // Styles
@@ -47,7 +47,7 @@ export default function ConsultationList({ date }: ConsultationProps) {
           <TableBody>
             {req.data?.getConsultationByDay.map((el) => (
               <TableRow className="border-none" key={el.id}>
-                <TableCell>{dateToTime(new Date(el.date_start))}</TableCell>
+                <TableCell>{formatTime(new Date(el.date_start))}</TableCell>
                 <TableCell>{el.patient.firstname}</TableCell>
                 <TableCell>{el.patient.lastname}</TableCell>
                 <TableCell className="font-bold">Dr. {el.doctor.lastname}</TableCell>
