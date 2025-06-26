@@ -16,11 +16,6 @@ export const PatientDetail: React.FC<PatientDetailProps> = ({
   onShowDetail,
   onStartEdit,
 }) => {
-  // Formatage de la date ISO string en JJ/MM/AAAA
-  // const formatDate = (isoString: string): string => {
-  //   return new Date(isoString).toLocaleDateString('fr-FR');
-  // };
-
   return (
     <section
       aria-labelledby="patient-details-title"
