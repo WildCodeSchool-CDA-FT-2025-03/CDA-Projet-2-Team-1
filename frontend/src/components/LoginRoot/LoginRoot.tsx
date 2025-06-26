@@ -82,7 +82,7 @@ export default function LoginRoot() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="px-4 py-2 border border-turquoise-500 rounded-sm"
+              className="px-4 py-2 border border-turquoise-500 rounded-sm bg-white"
             />
           </div>
           <div className="w-full max-w-sm">
@@ -96,7 +96,7 @@ export default function LoginRoot() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="px-4 py-2 border border-turquoise-500 rounded-sm"
+              className="px-4 py-2 border border-turquoise-500 rounded-sm bg-white"
             />
           </div>
           <Button
