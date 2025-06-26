@@ -19,6 +19,7 @@ class ConsultationResolver {
         date_start: Between(startOfDay, endOfDay),
       },
       relations: ['patient.ssn', 'doctor.service'],
+      order: { date_start: 'ASC' },
     });
   }
 
