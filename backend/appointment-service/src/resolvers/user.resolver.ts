@@ -13,7 +13,7 @@ export class UserResolver {
     return UserEntity.find({
       where: {
         service: { id: serviceId },
-        role: { id: 3 }, // ou 'Médecin' selon ta base
+        role: { id: 2 }, // ou 'Médecin' selon ta base
         is_active: true,
       },
       relations: ['service', 'role'],
