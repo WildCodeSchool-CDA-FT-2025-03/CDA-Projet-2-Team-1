@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router';
 import { useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 // Components
 import { ButtonLink } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -53,6 +54,7 @@ const SecretaryPage = () => {
         <ConsultationList date={date} />
       </div>
       <Outlet />
+      <ToastContainer />
     </>
   );
 };
