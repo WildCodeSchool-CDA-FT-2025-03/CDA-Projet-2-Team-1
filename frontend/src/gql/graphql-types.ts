@@ -46,6 +46,12 @@ export type ConsultationEntity = {
   patient: PatientEntity;
 };
 
+export type ConsultationReasonSchema = {
+  __typename?: 'ConsultationReasonSchema';
+  id: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+};
+
 export type FileEntity = {
   __typename?: 'FileEntity';
   consultation: ConsultationEntity;
@@ -126,6 +132,7 @@ export type Query = {
   getConsultationByDay: Array<ConsultationEntity>;
   getConsultationById: ConsultationEntity;
   getConsultationBySsnForAgent: Array<ConsultationEntity>;
+  getConsultationReasons: Array<ConsultationReasonSchema>;
   getFilesByConsultationId: Array<FileEntity>;
   getNoteSecretaryByConsultationId: Array<NoteSecretaryEntity>;
   getRoles: Array<RoleEntity>;
@@ -214,6 +221,17 @@ export type UserEntity = {
   lastname: Scalars['String']['output'];
   role: Maybe<RoleEntity>;
   service: Maybe<ServiceEntity>;
+};
+
+export type GetConsultationReasonsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetConsultationReasonsQuery = {
+  __typename?: 'Query';
+  getConsultationReasons: Array<{
+    __typename?: 'ConsultationReasonSchema';
+    id: number;
+    name: string;
+  }>;
 };
 
 export type GetConsultationByDayQueryVariables = Exact<{
@@ -465,6 +483,82 @@ export type GetDoctorsByServiceQuery = {
   }>;
 };
 
+export const GetConsultationReasonsDocument = gql`
+  query getConsultationReasons {
+    getConsultationReasons {
+      id
+      name
+    }
+  }
+`;
+
+/**
+ * __useGetConsultationReasonsQuery__
+ *
+ * To run a query within a React component, call `useGetConsultationReasonsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetConsultationReasonsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetConsultationReasonsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetConsultationReasonsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetConsultationReasonsQuery,
+    GetConsultationReasonsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetConsultationReasonsQuery, GetConsultationReasonsQueryVariables>(
+    GetConsultationReasonsDocument,
+    options
+  );
+}
+export function useGetConsultationReasonsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetConsultationReasonsQuery,
+    GetConsultationReasonsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetConsultationReasonsQuery, GetConsultationReasonsQueryVariables>(
+    GetConsultationReasonsDocument,
+    options
+  );
+}
+export function useGetConsultationReasonsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetConsultationReasonsQuery,
+        GetConsultationReasonsQueryVariables
+      >
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetConsultationReasonsQuery, GetConsultationReasonsQueryVariables>(
+    GetConsultationReasonsDocument,
+    options
+  );
+}
+export type GetConsultationReasonsQueryHookResult = ReturnType<
+  typeof useGetConsultationReasonsQuery
+>;
+export type GetConsultationReasonsLazyQueryHookResult = ReturnType<
+  typeof useGetConsultationReasonsLazyQuery
+>;
+export type GetConsultationReasonsSuspenseQueryHookResult = ReturnType<
+  typeof useGetConsultationReasonsSuspenseQuery
+>;
+export type GetConsultationReasonsQueryResult = Apollo.QueryResult<
+  GetConsultationReasonsQuery,
+  GetConsultationReasonsQueryVariables
+>;
 export const GetConsultationByDayDocument = gql`
   query getConsultationByDay($date: DateTimeISO!) {
     getConsultationByDay(date: $date) {
