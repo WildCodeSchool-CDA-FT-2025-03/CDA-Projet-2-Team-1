@@ -23,33 +23,35 @@ export default function ConsultationList({ date }: ConsultationProps) {
   const req = useGetConsultationByDayQuery({ variables: { date: date } });
 
   return (
-    <section className="border-1 rounded-[6px] border-turquoise-600 w-1/2">
-      <div className="p-4 pb-2">
+    <section className="w-1/2 border rounded-md border-turquoise-600 bg-white flex flex-col h-full">
+      <div className="p-4 pb-2 flex-shrink-0">
         <h2 className="text-2xl font-semibold">Liste des patients par horaires</h2>
       </div>
-      <div className="border-b border-gray-300">
+      {/* Header de la table - fixe */}
+      <div className="flex-shrink-0">
         <Table className="table-auto w-full">
           <TableHeader>
-            <TableRow className="border-gray-300">
-              <TableHead className="w-[100px] font-bold">Heure</TableHead>
-              <TableHead className="text-right font-bold">Nom</TableHead>
-              <TableHead className="text-right font-bold">Prénom</TableHead>
-              <TableHead className="text-right font-bold">Médecin</TableHead>
-              <TableHead className="text-right font-bold">Actions</TableHead>
+            <TableRow className="border-gray-200">
+              <TableHead className="font-bold">Heure</TableHead>
+              <TableHead className="font-bold">Nom</TableHead>
+              <TableHead className="font-bold">Prénom</TableHead>
+              <TableHead className="font-bold">Médecin</TableHead>
+              <TableHead className="font-bold">Actions</TableHead>
             </TableRow>
           </TableHeader>
         </Table>
       </div>
-      <div className="overflow-y-scroll max-h-[200px]">
+      {/* Contenu scrollable de la table */}
+      <div className="overflow-y-auto h-full">
         <Table className="table-auto w-full">
           <TableBody>
             {req.data?.getConsultationByDay.map((el) => (
               <TableRow className="border-none" key={el.id}>
-                <TableCell className="w-[100px]">{dateToTime(new Date(el.date_start))}</TableCell>
-                <TableCell className="text-right">{el.patient.firstname}</TableCell>
-                <TableCell className="text-right">{el.patient.lastname}</TableCell>
-                <TableCell className="text-right font-bold">Dr. {el.doctor.lastname}</TableCell>
-                <TableCell className="text-right">
+                <TableCell>{dateToTime(new Date(el.date_start))}</TableCell>
+                <TableCell>{el.patient.firstname}</TableCell>
+                <TableCell>{el.patient.lastname}</TableCell>
+                <TableCell className="font-bold">Dr. {el.doctor.lastname}</TableCell>
+                <TableCell>
                   <ButtonLink
                     to={`consultation/${el.id}`}
                     className="p-2 flex flex-row items-center justify-center gap-2 text-sm font-semibold"

@@ -9,10 +9,12 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
+
+import { ConsultationReason } from './consultation-reason.entity';
+import FileEntity from './file.entity';
 import NoteSecretaryEntity from './note-secretary.entity';
 import PatientEntity from './patient.entity';
 import UserEntity from './user.entity';
-import FileEntity from './file.entity';
 
 @ObjectType()
 @Entity('consultation')
@@ -52,6 +54,10 @@ class ConsultationEntity extends BaseEntity {
   })
   @JoinColumn({ name: 'note_secretary_id' })
   note_secretary: NoteSecretaryEntity;
+
+  @ManyToOne(() => ConsultationReason, (reason) => reason.consultations)
+  @JoinColumn({ name: 'reason_consultation_id' })
+  reasonConsultation: ConsultationReason;
 
   @Field(() => [FileEntity])
   @OneToMany(() => FileEntity, (file) => file.consultation, {

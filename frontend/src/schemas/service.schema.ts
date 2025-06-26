@@ -8,3 +8,18 @@ export const GET_SERVICES = gql`
     }
   }
 `;
+
+export const GET_DOCTORS_BY_SERVICE = gql`
+  query GetDoctorsByService($serviceId: Int!) {
+    doctorsByService(serviceId: $serviceId) {
+      id
+      firstname
+      lastname
+      email
+      service {
+        id
+        name
+      }
+    }
+  }
+`;

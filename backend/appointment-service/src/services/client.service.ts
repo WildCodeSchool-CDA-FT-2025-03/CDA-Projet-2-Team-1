@@ -1,6 +1,7 @@
-import { DataSource } from 'typeorm';
 import CityEntity from '../entities/city.entity';
 import ConsultationEntity from '../entities/consultation.entity';
+import { ConsultationReason } from '../entities/consultation-reason.entity';
+import { DataSource } from 'typeorm';
 import FileEntity from '../entities/file.entity';
 import NoteSecretaryEntity from '../entities/note-secretary.entity';
 import PatientEntity from '../entities/patient.entity';
@@ -31,6 +32,7 @@ export const dataSource = new DataSource({
     ServiceEntity,
     SsnEntity,
     UserEntity,
+    ConsultationReason,
   ],
   synchronize: sync,
   // Configuration pour forcer l'encodage UTF-8

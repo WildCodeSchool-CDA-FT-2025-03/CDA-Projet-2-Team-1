@@ -8,6 +8,9 @@ import Gender from '../types/gender';
 
 @InputType()
 class PatientInput {
+  @Field({ nullable: true })
+  id?: string;
+
   @Field()
   @IsNotEmpty()
   firstname: string;
@@ -88,6 +91,57 @@ class PatientResolver {
 
     const newPatient = await patient.save();
     return newPatient.id;
+  }
+
+  @Mutation(() => PatientEntity)
+  async updatePatient(@Arg('data') data: PatientInput): Promise<PatientEntity> {
+    const patient = await PatientEntity.findOne({
+      where: { id: data.id },
+      relations: ['ssn', 'city'],
+    });
+
+    if (!patient) {
+      throw new Error('Patient inexistant');
+    }
+
+    // Recherche ou création de la ville
+    let city = await CityEntity.findOneBy({ name: data.city.name });
+    if (!city) {
+      city = new CityEntity();
+      city.name = data.city.name;
+      city.zip_code = data.city.zip_code;
+      await city.save();
+    }
+
+    // Recherche ou création du SSN
+    let ssn = await SsnEntity.findOneBy({ number: data.ssn.number });
+    if (!ssn) {
+      ssn = new SsnEntity();
+      ssn.number = data.ssn.number;
+      await ssn.save();
+    }
+
+    // On crée un clone à partir du patient existant
+    const updatePatient = {
+      ...patient, // On garde les champs existants
+      ...data, // On écrase uniquement les champs envoyés dans la requête
+      city,
+      ssn,
+    };
+
+    // Mise à jour du patient
+    const updatedPatient = await PatientEntity.save({
+      id: updatePatient.id, // obligatoire pour que ce soit un UPDATE
+      firstname: updatePatient.firstname,
+      lastname: updatePatient.lastname,
+      birthdate: new Date(updatePatient.birthdate),
+      gender: updatePatient.gender,
+      email: updatePatient.email,
+      city: updatePatient.city,
+      ssn: updatePatient.ssn,
+    });
+
+    return updatedPatient;
   }
 }
 

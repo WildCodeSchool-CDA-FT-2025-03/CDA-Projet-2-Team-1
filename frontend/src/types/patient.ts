@@ -34,4 +34,11 @@ export type PatientDetailProps = {
   zipCode: string;
   city: string;
   onShowDetail: (patient: null) => void;
+  onStartEdit: () => void;
+};
+
+export type PatientEditFormProps = {
+  patient: Patient;
+  onCancel: () => void;
+  onSuccess: () => void;
 };

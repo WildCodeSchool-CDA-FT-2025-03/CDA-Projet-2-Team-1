@@ -1,3 +1,6 @@
+// Components
+import { Button } from '../ui/button';
+// Types
 import {
   GetPatientsBasicQuery,
   useGetPatientDetailsLazyQuery,
@@ -7,12 +10,14 @@ import { type Patient } from '@/types/patient';
 import { useRef, useState } from 'react';
 import PatientDetail from './PatientDetail';
 import { PatientList } from './PatientList';
+import PatientEditForm from './PatientEditForm';
 
 export const PatientDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   // Requête pour la liste basique des patients
   const {
@@ -47,16 +52,15 @@ export const PatientDialog = () => {
 
   return (
     <>
-      <button
+      <Button
         ref={openButtonRef}
-        className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer text-base hover:opacity-90 focus:outline-2 focus:outline-blue-500 focus:outline-offset-2"
         onClick={() => setIsOpen(true)}
         aria-expanded={isOpen}
         aria-controls="patients-modal"
         aria-haspopup="dialog"
       >
         Voir les patients
-      </button>
+      </Button>
       {isOpen && (
         <>
           <div
@@ -104,21 +108,43 @@ export const PatientDialog = () => {
               <>
                 {detailLoading || detailError ? (
                   <p>Chargement des détails...</p>
-                ) : (
-                  detailData?.patient && (
+                ) : detailData?.patient ? (
+                  isEditing ? (
+                    <PatientEditForm
+                      patient={{
+                        id: detailData.patient.id,
+                        firstname: detailData.patient.firstname,
+                        lastname: detailData.patient.lastname,
+                        birthdate: new Date(detailData.patient.birthdate).toISOString(),
+                        gender: detailData.patient.gender,
+                        email: detailData.patient.email,
+                        ssn: { number: detailData.patient.ssn.number },
+                        city: {
+                          name: detailData.patient.city.name,
+                          zip_code: detailData.patient.city.zip_code,
+                        },
+                      }}
+                      onCancel={() => setIsEditing(false)}
+                      onSave={() => {
+                        setIsEditing(false);
+                        setSelectedPatient(null); // ou tu peux garder le patient affiché après édition
+                      }}
+                    />
+                  ) : (
                     <PatientDetail
                       ssn={detailData.patient.ssn.number}
                       lastname={detailData.patient.lastname}
                       firstname={detailData.patient.firstname}
-                      birthdate={detailData.patient.birthdate as unknown as string}
+                      birthdate={detailData.patient.birthdate.toString()}
                       gender={detailData.patient.gender}
                       email={detailData.patient.email}
                       zipCode={detailData.patient.city.zip_code}
                       city={detailData.patient.city.name}
                       onShowDetail={() => setSelectedPatient(null)}
+                      onStartEdit={() => setIsEditing(true)}
                     />
                   )
-                )}
+                ) : null}
               </>
             )}
           </div>

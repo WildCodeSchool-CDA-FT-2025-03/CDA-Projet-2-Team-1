@@ -1,5 +1,4 @@
 import { AddNewPatientMutationVariables, useAddNewPatientMutation } from '@/gql/graphql-types';
-import { ToastContainer } from 'react-toastify';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { InputLabel } from '../ui/input';
 import { Button } from '../ui/button';
@@ -135,7 +134,6 @@ const CreatePatient = () => {
         />
         <Button type="submit">Enregistrer le nouveau patient</Button>
       </form>
-      <ToastContainer />
     </section>
   );
 };

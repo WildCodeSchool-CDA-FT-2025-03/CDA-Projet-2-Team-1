@@ -1,6 +1,8 @@
 import { Link } from 'react-router';
 import LogoCarePlan from '/logo-cp.svg';
 import LogoCarePlanFull from '/logo-cp-full.svg';
+import { ButtonLink } from './ui/button';
+import { LogOutIcon } from 'lucide-react';
 
 export default function Header() {
   return (
@@ -13,6 +15,13 @@ export default function Header() {
           className="hidden md:block h-20"
         />
       </Link>
+      <ButtonLink
+        className="flex flex-row items-center justify-center gap-2 border border-gray-500 bg-white text-black"
+        to="/"
+      >
+        Déconnexion
+        <LogOutIcon className="w-5 h-5" />
+      </ButtonLink>
     </header>
   );
 }
