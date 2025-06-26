@@ -52,6 +52,7 @@ const CreateAppointmentDialog = () => {
     serviceId?: string;
     doctorId?: string;
     reasonConsultationId?: string;
+    duration?: string;
   };
 
   const onSubmit = (formData: AppointmentFormData) => {
@@ -252,25 +253,44 @@ const CreateAppointmentDialog = () => {
                     </select>
                   </div>
                 </div>
-                <div className="flex-1">
-                  <Label htmlFor="reasonConsultationId">Motif de consultation *</Label>
-                  <select
-                    id="reasonConsultationId"
-                    className="w-full border rounded px-3 py-2 mt-1"
-                    value={form.watch('reasonConsultationId') || ''}
-                    onChange={(e) => form.setValue('reasonConsultationId', e.target.value)}
-                    required
-                    disabled={loadingReasons}
-                  >
-                    <option value="">
-                      {loadingReasons ? 'Chargement...' : 'Sélectionner un motif'}
-                    </option>
-                    {reasonsData?.getConsultationReasons.map((reason) => (
-                      <option key={reason.id} value={reason.id}>
-                        {reason.name}
+                <div className="flex flex-col md:flex-row gap-4">
+                  <div className="flex-1 mt-4">
+                    <Label htmlFor="reasonConsultationId">Motif de consultation *</Label>
+                    <select
+                      id="reasonConsultationId"
+                      className="w-full border rounded px-3 py-2 mt-1"
+                      value={form.watch('reasonConsultationId') || ''}
+                      onChange={(e) => form.setValue('reasonConsultationId', e.target.value)}
+                      required
+                      disabled={loadingReasons}
+                    >
+                      <option value="">
+                        {loadingReasons ? 'Chargement...' : 'Sélectionner un motif'}
                       </option>
-                    ))}
-                  </select>
+                      {reasonsData?.getConsultationReasons.map((reason) => (
+                        <option key={reason.id} value={reason.id}>
+                          {reason.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  {/* Champ Durée de consultation */}
+                  <div className="flex-1 mt-4">
+                    <Label htmlFor="duration">Durée de consultation *</Label>
+                    <select
+                      id="duration"
+                      className="w-full border rounded px-3 py-2 mt-1"
+                      value={form.watch('duration') || ''}
+                      onChange={(e) => form.setValue('duration', e.target.value)}
+                      required
+                    >
+                      <option value="">Sélectionner une durée</option>
+                      <option value="15">15 minutes</option>
+                      <option value="30">30 minutes</option>
+                      <option value="45">45 minutes</option>
+                      <option value="60">60 minutes</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </fieldset>
