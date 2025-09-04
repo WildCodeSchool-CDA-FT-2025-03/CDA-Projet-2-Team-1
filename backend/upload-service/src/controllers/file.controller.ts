@@ -1,6 +1,10 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { AuthenticatedRequest } from '../middlewares/authRole.middleware';
 
-export const uploadFile = async (req: Request, res: Response): Promise<Response | void> => {
+export const uploadFile = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<Response | void> => {
   const file = req.file as Express.Multer.File;
 
   if (!file) {
@@ -35,7 +39,6 @@ export const uploadFile = async (req: Request, res: Response): Promise<Response 
   };
 
   try {
-    // Appel à l'API GraphQL du appointment-service
     const response = await fetch(`http://appointment-service:4000/graphql`, {
       method: 'POST',
       headers: {

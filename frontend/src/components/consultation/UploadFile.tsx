@@ -6,6 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Save } from 'lucide-react';
 
+const safeJsonParse = async (response: Response): Promise<{ message?: string } | null> => {
+  try {
+    return await response.json();
+  } catch {
+    return null;
+  }
+};
+
 function UploadFile({ consultationId, onUploadSuccess }: UploadFileProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -46,16 +54,15 @@ function UploadFile({ consultationId, onUploadSuccess }: UploadFileProps) {
       const response = await fetch('/upload/post', {
         method: 'POST',
         body: formData,
+        credentials: 'include',
       });
 
       if (!response.ok) {
-        // Si la réponse n'est pas ok, essayer de parser le JSON d'erreur
+        // Si la réponse n'est pas ok, essayer de récupérer le message d'erreur
         let errorMessage = `Erreur ${response.status}: ${response.statusText}`;
-        try {
-          const errorResult = await response.json();
-          errorMessage = errorResult.message || errorMessage;
-        } catch {
-          // Si ce n'est pas du JSON, garder le message par défaut
+        const errorResult = await safeJsonParse(response);
+        if (errorResult?.message) {
+          errorMessage = errorResult.message;
         }
         throw new Error(errorMessage);
       }
@@ -99,7 +106,11 @@ function UploadFile({ consultationId, onUploadSuccess }: UploadFileProps) {
           <Save className="h-6 w-6" />
         </Button>
       </div>
-      {uploadError && <p className="text-red-700 text-sm m-2">{uploadError}</p>}
+      {uploadError && (
+        <p className="text-red-700 text-sm m-2">
+          Une erreur est survenue. Contactez le service informatique.
+        </p>
+      )}
       {uploadSuccess && <p className="text-green-700 text-sm m-2">{uploadSuccess}</p>}
     </>
   );
