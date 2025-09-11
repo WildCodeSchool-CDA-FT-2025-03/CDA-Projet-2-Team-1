@@ -12,6 +12,7 @@ services:
       DATABASE_SYNC: ${DATABASE_SYNC}
       REDIS_PORT: ${REDIS_PORT}
       REDIS_HOST: ${REDIS_HOST}
+      SECRET_KEY_TOKEN_SERVER: ${SECRET_KEY_TOKEN_SERVER}
     volumes:
       - ./backend/appointment-service/src:/app/src
     depends_on:
