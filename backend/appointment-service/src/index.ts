@@ -1,11 +1,14 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import 'dotenv/config';
 // services
 import { dataSource } from './services/client.service';
 import logger from './services/logger.service';
 import redisClient from './services/cache.service';
-import 'dotenv/config';
+// schemas
 import getSchema from './schemas/schemas';
+// types
+import { Context } from './types/context.type';
 
 const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
 
@@ -22,12 +25,17 @@ const port = process.env.API_PORT ? +process.env.API_PORT : 4000;
 
   const schema = await getSchema();
 
-  const server = new ApolloServer({
+  const server = new ApolloServer<Context>({
     schema,
   });
 
   const { url } = await startStandaloneServer(server, {
     listen: { port: port },
+    context: async ({ req }): Promise<Context> => {
+      return {
+        authorization: req.headers.authorization,
+      };
+    },
   });
 
   logger.info(`Server ready at: ${url}`);

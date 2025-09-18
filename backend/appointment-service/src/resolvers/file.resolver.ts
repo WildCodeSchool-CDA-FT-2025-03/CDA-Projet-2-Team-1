@@ -1,6 +1,7 @@
-import { Resolver, Query, Args, Mutation } from 'type-graphql';
+import { Resolver, Query, Args, Mutation, UseMiddleware } from 'type-graphql';
 import ConsultationEntity from '../entities/consultation.entity';
 import FileEntity, { GetFilesByConsultationIdArgs, UploadFileArgs } from '../entities/file.entity';
+import { AuthMiddleware, AuthRoleMiddleware } from '../middlewares/auth.middleware';
 
 @Resolver(FileEntity)
 class FileResolver {
@@ -8,19 +9,26 @@ class FileResolver {
   async getFilesByConsultationId(
     @Args() { consultationId }: GetFilesByConsultationIdArgs
   ): Promise<FileEntity[]> {
-    const consultation = await ConsultationEntity.findOne({ where: { id: consultationId } });
+    const consultation = await ConsultationEntity.findOne({
+      where: { id: consultationId },
+    });
+
     if (!consultation) {
       throw new Error('Consultation not found');
     }
+
     return FileEntity.find({ where: { consultation } });
   }
 
+  @UseMiddleware(AuthMiddleware, AuthRoleMiddleware([2, 3]))
   @Mutation(() => FileEntity)
   async uploadFile(
     @Args() { consultationId, name, path, isConfidential }: UploadFileArgs
   ): Promise<FileEntity> {
-    // Récupérer la consultation
-    const consultation = await ConsultationEntity.findOne({ where: { id: consultationId } });
+    const consultation = await ConsultationEntity.findOne({
+      where: { id: consultationId },
+    });
+
     if (!consultation) {
       throw new Error('Consultation not found');
     }
