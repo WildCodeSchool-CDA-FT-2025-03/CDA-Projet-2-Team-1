@@ -1,6 +1,10 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { AuthenticatedRequest } from '../middlewares/authRole.middleware';
 
-export const uploadFile = async (req: Request, res: Response): Promise<Response | void> => {
+export const uploadFile = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<Response | void> => {
   const file = req.file as Express.Multer.File;
 
   if (!file) {
@@ -35,11 +39,18 @@ export const uploadFile = async (req: Request, res: Response): Promise<Response 
   };
 
   try {
-    // Appel à l'API GraphQL du appointment-service
+    // Récupérer le token depuis la requête authentifiée
+    const userToken = req.cookies?.jwtTokenServerCarePlan;
+
+    if (!userToken) {
+      return res.status(401).json({ message: 'Token manquant' });
+    }
+
     const response = await fetch(`http://appointment-service:4000/graphql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`, // ✅ Transmission du token
       },
       body: JSON.stringify({
         query: mutation,
@@ -48,9 +59,7 @@ export const uploadFile = async (req: Request, res: Response): Promise<Response 
     });
 
     const result = await response.json();
-
     if (result.errors) {
-      console.error('GraphQL errors:', result.errors);
       return res.status(500).json({
         message: 'Error saving file to database',
         errors: result.errors,
@@ -61,7 +70,6 @@ export const uploadFile = async (req: Request, res: Response): Promise<Response 
       file: result.data.uploadFile,
     });
   } catch (error) {
-    console.error('Error calling GraphQL API:', error);
     return res.status(500).json({
       message: 'Error saving file to database',
       error: error instanceof Error ? error.message : 'Unknown error',

@@ -6,7 +6,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["jest"],
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
     "esModuleInterop": true
   }
 }
