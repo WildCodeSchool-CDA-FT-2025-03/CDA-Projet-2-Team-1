@@ -18,6 +18,11 @@ dist-ssr
 *.local
 .env
 
+# Tests
+tests/unit/coverage/
+tests/e2e/results/
+tests/e2e/reports/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

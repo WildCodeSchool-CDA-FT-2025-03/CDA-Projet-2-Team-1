@@ -91,6 +91,9 @@ function UploadFile({ consultationId, onUploadSuccess }: UploadFileProps) {
   return (
     <>
       <div className="flex items-center gap-2 mt-2">
+        <label htmlFor="file-input" className="sr-only">
+          Ajouter un fichier
+        </label>
         <Input
           id="file-input"
           type="file"
